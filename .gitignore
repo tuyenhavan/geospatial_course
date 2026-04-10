@@ -1,5 +1,4 @@
 /notebooks/
-/data
 /outputs
 *.ipynb_checkpoints
 *.pyc
