@@ -25,63 +25,63 @@ project:
     - title: Phần 1 - Cơ bản Python
       children:
         - file: book/01_python_basics/01_installation_setup.md
-          title: Cài đặt và thiết lập môi trường
+          title: Bài 1: Cài đặt và thiết lập môi trường
         - file: book/01_python_basics/02_python_fundamentals.md
-          title: Kiến thức cơ bản Python
+          title: Bài 2: Kiến thức cơ bản Python
         - file: book/01_python_basics/03_data_structures.md
-          title: Cấu trúc dữ liệu
+          title: Bài 3: Cấu trúc dữ liệu
         - file: book/01_python_basics/04_control_structures.md
-          title: Cấu trúc điều khiển
+          title: Bài 4: Cấu trúc điều khiển
         - file: book/01_python_basics/05_functions_class.md
-          title: Hàm và lớp
+          title: Bài 5: Hàm và lớp
         - file: book/01_python_basics/06_working_with_files.md
-          title: Làm việc với tệp tin
+          title: Bài 6: Làm việc với tệp tin
         - file: book/01_python_basics/07_numpy_fundamentals.md
-          title: Cơ bản NumPy
+          title: Bài 7: Cơ bản NumPy
         - file: book/01_python_basics/08_pandas_fundamentals.md
-          title: Cơ bản Pandas
+          title: Bài 8: Cơ bản Pandas
         - file: book/01_python_basics/09_basic_visualization.md
-          title: Trực quan hóa cơ bản
+          title: Bài 9: Trực quan hóa cơ bản
         - file: book/01_python_basics/10_python_packaging.md
-          title: Đóng gói Python
+          title: Bài 10: Đóng gói Python
     - title: Phần 2 - Xử lý dữ liệu không gian địa lý
       children:
         - file: book/02_geospatial/11_shapely.md
-          title: Shapely - Hình học không gian
+          title: Bài 11: Shapely - Hình học không gian
         - file: book/02_geospatial/12_pyproj.md
-          title: PyProj - Phép chiếu tọa độ
+          title: Bài 12: PyProj - Phép chiếu tọa độ
         - file: book/02_geospatial/13_fiona.md
-          title: Fiona - Đọc và ghi dữ liệu vector
+          title: Bài 13: Fiona - Đọc và ghi dữ liệu vector
         - file: book/02_geospatial/14_gdal.md
-          title: GDAL - Thư viện dữ liệu không gian
+          title: Bài 14: GDAL - Thư viện dữ liệu không gian
         - file: book/02_geospatial/15_geopandas.md
-          title: GeoPandas - Phân tích dữ liệu không gian
+          title: Bài 15: GeoPandas - Phân tích dữ liệu không gian
         - file: book/02_geospatial/16_rasterio.md
-          title: Rasterio - Dữ liệu raster
+          title: Bài 16: Rasterio - Dữ liệu raster
         - file: book/02_geospatial/17_xarray.md
-          title: Xarray - Mảng đa chiều
+          title: Bài 17: Xarray - Mảng đa chiều
         - file: book/02_geospatial/18_rioxarray.md
-          title: Rioxarray - Raster với Xarray
+          title: Bài 18: Rioxarray - Raster với Xarray
         - file: book/02_geospatial/19_zarr_dask.md
-          title: Zarr và Dask - Xử lý dữ liệu lớn
+          title: Bài 19: Zarr và Dask - Xử lý dữ liệu lớn
         - file: book/02_geospatial/20_geovisualization.md
-          title: Trực quan hóa không gian địa lý
+          title: Bài 20: Trực quan hóa không gian địa lý
     - title: Phần 3 - Điện toán đám mây địa không gian
       children:
         - file: book/03_geocloud/20_GEE_access_and_data.md
-          title: GEE - Truy cập và dữ liệu
+          title: Bài 21: GEE - Truy cập và dữ liệu
         - file: book/03_geocloud/21_GEE_basic_operations.md
-          title: GEE - Các thao tác cơ bản
+          title: Bài 22: GEE - Các thao tác cơ bản
         - file: book/03_geocloud/22_GEE_cloud_masking.md
-          title: GEE - Lọc mây
+          title: Bài 23: GEE - Lọc mây
         - file: book/03_geocloud/23_GEE_vegetation_indices.md
-          title: GEE - Chỉ số thực vật
+          title: Bài 24: GEE - Chỉ số thực vật
         - file: book/03_geocloud/24_GEE_composite_aggregation.md
-          title: GEE - Tổng hợp ảnh tổ hợp
+          title: Bài 25: GEE - Tổng hợp ảnh tổ hợp
         - file: book/03_geocloud/25_GEE_raster_value_extraction.md
-          title: GEE - Trích xuất giá trị raster
+          title: Bài 26: GEE - Trích xuất giá trị raster
         - file: book/03_geocloud/30_CDSE_access_data.md
-          title: CDSE - Truy cập dữ liệu
+          title: Bài 27: CDSE - Truy cập dữ liệu
 site:
   options:
     logo: images/logo.png
