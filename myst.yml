@@ -24,7 +24,6 @@ project:
     - file: intro.md
     - title: Phần 1 - Cơ bản Python
       children:
-        title: Bài 1: Cài đặt và thiết lập môi trường
         - file: book/01_python_basics/01_installation_setup.md
           title: Bài 1 - Cài đặt và thiết lập môi trường
         - file: book/01_python_basics/02_python_fundamentals.md
