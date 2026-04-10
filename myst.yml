@@ -1,8 +1,8 @@
 version: 1
 project:
   title: Tuyen Ha Van
-  authors:
-    - name: Tuyen Ha Van
+  # authors:
+  #   - name: Tuyen Ha Van
   copyright: '2026'
   exclude:
     - _build
@@ -84,9 +84,9 @@ project:
           title: CDSE - Truy cập dữ liệu
 site:
   options:
-    logo: logo.png
-    logo_dark: logo.png
-    favicon: fav.ico
+    logo: images/logo.png
+    logo_dark: images/logo.png
+    favicon: images/fav.ico
     folders: true
     style: custom.css
     # analytics_google: G-XXX
