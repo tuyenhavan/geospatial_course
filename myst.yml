@@ -1,0 +1,95 @@
+version: 1
+project:
+  title: Tuyen Ha Van
+  authors:
+    - name: Tuyen Ha Van
+  copyright: '2026'
+  exclude:
+    - _build
+    - Thumbs.db
+    - .DS_Store
+    - '**.ipynb_checkpoints'
+  # github: opengeos/myst-website-template
+  github: https://github.com/geospatialvietnam/geospatial_course
+  thebe:
+    binder:
+      # repo: opengeos/myst-website-template
+      repo: https://github.com/geospatialvietnam/geospatial_course
+      provider: github
+      url: https://mybinder.org
+      ref: main
+  bibliography:
+    - book/references.bib
+  toc:
+    - file: intro.md
+    - title: Phần 1 - Cơ bản Python
+      children:
+        - file: book/01_python_basics/01_installation_setup.md
+          title: Cài đặt và thiết lập môi trường
+        - file: book/01_python_basics/02_python_fundamentals.md
+          title: Kiến thức cơ bản Python
+        - file: book/01_python_basics/03_data_structures.md
+          title: Cấu trúc dữ liệu
+        - file: book/01_python_basics/04_control_structures.md
+          title: Cấu trúc điều khiển
+        - file: book/01_python_basics/05_functions_class.md
+          title: Hàm và lớp
+        - file: book/01_python_basics/06_working_with_files.md
+          title: Làm việc với tệp tin
+        - file: book/01_python_basics/07_numpy_fundamentals.md
+          title: Cơ bản NumPy
+        - file: book/01_python_basics/08_pandas_fundamentals.md
+          title: Cơ bản Pandas
+        - file: book/01_python_basics/09_basic_visualization.md
+          title: Trực quan hóa cơ bản
+        - file: book/01_python_basics/10_python_packaging.md
+          title: Đóng gói Python
+    - title: Phần 2 - Xử lý dữ liệu không gian địa lý
+      children:
+        - file: book/02_geospatial/11_shapely.md
+          title: Shapely - Hình học không gian
+        - file: book/02_geospatial/12_pyproj.md
+          title: PyProj - Phép chiếu tọa độ
+        - file: book/02_geospatial/13_fiona.md
+          title: Fiona - Đọc và ghi dữ liệu vector
+        - file: book/02_geospatial/14_gdal.md
+          title: GDAL - Thư viện dữ liệu không gian
+        - file: book/02_geospatial/15_geopandas.md
+          title: GeoPandas - Phân tích dữ liệu không gian
+        - file: book/02_geospatial/16_rasterio.md
+          title: Rasterio - Dữ liệu raster
+        - file: book/02_geospatial/17_xarray.md
+          title: Xarray - Mảng đa chiều
+        - file: book/02_geospatial/18_rioxarray.md
+          title: Rioxarray - Raster với Xarray
+        - file: book/02_geospatial/19_zarr_dask.md
+          title: Zarr và Dask - Xử lý dữ liệu lớn
+        - file: book/02_geospatial/20_geovisualization.md
+          title: Trực quan hóa không gian địa lý
+    - title: Phần 3 - Điện toán đám mây địa không gian
+      children:
+        - file: book/03_geocloud/20_GEE_access_and_data.md
+          title: GEE - Truy cập và dữ liệu
+        - file: book/03_geocloud/21_GEE_basic_operations.md
+          title: GEE - Các thao tác cơ bản
+        - file: book/03_geocloud/22_GEE_cloud_masking.md
+          title: GEE - Lọc mây
+        - file: book/03_geocloud/23_GEE_vegetation_indices.md
+          title: GEE - Chỉ số thực vật
+        - file: book/03_geocloud/24_GEE_composite_aggregation.md
+          title: GEE - Tổng hợp ảnh tổ hợp
+        - file: book/03_geocloud/25_GEE_raster_value_extraction.md
+          title: GEE - Trích xuất giá trị raster
+        - file: book/03_geocloud/30_CDSE_access_data.md
+          title: CDSE - Truy cập dữ liệu
+site:
+  options:
+    logo: logo.png
+    logo_dark: logo.png
+    favicon: fav.ico
+    folders: true
+    style: custom.css
+    # analytics_google: G-XXX
+  template: book-theme
+  parts:
+    primary_sidebar_footer: ''
