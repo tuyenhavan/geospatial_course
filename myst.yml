@@ -22,7 +22,6 @@ project:
     - book/references.bib
   toc:
     - file: intro.md
-    - file: book/01_python_basics/00_index.md
     - title: Phần 1 - Cơ bản Python
       children:
         - file: book/01_python_basics/01_installation_setup.md
