@@ -12,7 +12,7 @@ Khóa học này được thiết kế dành cho những ai muốn xây dựng k
 
 Xây dựng nền tảng vững chắc về lập trình Python trước khi đi vào các công cụ địa không gian.
 
-| Notebook | Nội dung |
+| Bài số | Nội dung |
 |----------|----------|
 | 01 | Cài đặt & Thiết lập môi trường |
 | 02 | Các khái niệm cơ bản Python |
@@ -31,7 +31,7 @@ Xây dựng nền tảng vững chắc về lập trình Python trước khi đi
 
 Các thư viện địa không gian cốt lõi để xử lý dữ liệu vector và raster trên máy cục bộ.
 
-| Notebook | Nội dung |
+| Bài số | Nội dung |
 |----------|----------|
 | 11 | Shapely — Đối tượng hình học và các phép toán không gian |
 | 12 | Pyproj — Hệ tọa độ và phép chiếu bản đồ |
@@ -50,7 +50,7 @@ Các thư viện địa không gian cốt lõi để xử lý dữ liệu vector
 
 Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các nền tảng đám mây.
 
-| Notebook | Nội dung |
+| Bài số | Nội dung |
 |----------|----------|
 | 20 | Google Earth Engine — Truy cập và khám phá dữ liệu |
 | 21 | Google Earth Engine — Các thao tác cơ bản |
