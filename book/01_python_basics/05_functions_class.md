@@ -33,6 +33,10 @@ greet()
 ```python
 # Hàm với tham số (parameters)
 def greet_person(name):
+    """Hàm chào hỏi một người cụ thể
+    Args:
+        name (str): Tên của người cần chào hỏi
+    """
     print(f"Xin chào {name}! Chào mừng bạn đến với Python GIS")
 
 greet_person("Minh")
@@ -127,7 +131,7 @@ print(f"Nghiệm của phương trình là: {result}")
 
 ### 5.2.3. Hàm với tham số mặc định và kết hợp
 
-Functions có thể có default values và được gọi với keyword arguments.
+Functions có thể có tham số mặc định (default parameters).
 
 - **Hàm với tham số mặc định**
 
@@ -275,7 +279,7 @@ print(sorted_by_population)
 large_cities = list(filter(lambda city: city['population'] > 5000000, cities_data))
 ```
 
-### 5.2.6. list comprehension
+### 5.2.6. List comprehension
 
 
 ```python
@@ -287,17 +291,17 @@ print(squared_list)  # Output: [1, 4, 9, 16, 25]
 
 ```python
 # list comprehension với điều kiện
-even_squared = [x**2 for x in mlist if x % 2 == 0]
+even_squared = [x**2 for x in mlist if x % 2 == 0] # Chỉ bình phương các số chẵn
 print(even_squared)  # Output: [4, 16]
 # list comprehension với nhiều vòng lặp
 matrix = [[1, 2], [3, 4], [5, 6]]
-flattened = [num for row in matrix for num in row]
+flattened = [num for row in matrix for num in row] # Làm phẳng ma trận
 print(flattened)  # Output: [1, 2, 3, 4, 5, 6]
 ```
 
 ## 5.3. Classes Cơ Bản
 
-Classes cho phép tạo objects với attributes và methods riêng.
+Class được sử dụng khi bạn muốn tổ chức, quản lý và tái sử dụng logic xoay quanh một đối tượng thay vì viết các hàm rời rạc. Mỗi đối tượng (object) được tạo từ class sẽ bao gồm thuộc tính (attributes) để lưu trữ dữ liệu và phương thức (methods) để thực hiện các thao tác liên quan đến dữ liệu đó.
 
 ### 5.3.1. Tạo class với phương thức (method) và thuộc tính (attributes) cơ bản
 
@@ -323,11 +327,6 @@ print(f"Chu vi hình vuông: {square.perimeter()} m")
 print(square.show_info())
 ```
 
-    Diện tích hình vuông: 16 m2
-    Chu vi hình vuông: 16 m
-    Hình vuông có cạnh dài 4 m, diện tích 16 m2, chu vi 16 m
-    
-
 
 ```python
 # Ví dụ tính diện tích hình vuông từ 1 danh sách cạnh
@@ -335,31 +334,6 @@ side_lengths = [2, 3, 4, 5]
 areas = [Square(side).area() for side in side_lengths]
 print(areas)
 ```
-
-    [4, 9, 16, 25]
-    
-
-
-```python
-class Location:
-    def __init__(self, name, latitude, longitude):
-        self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
-    
-    def show_location(self):
-        return f"{self.name}: ({self.latitude}, {self.longitude})"
-    def coordinates(self):
-        return self.latitude, self.longitude
-    
-location = Location("Hà Nội", 21.0285, 105.8542)
-print(location.show_location())  # Output: Hà Nội: (21.0285, 105.8542)
-print(location.coordinates())  # Output: (21.0285, 105.8542)
-```
-
-    Hà Nội: (21.0285, 105.8542)
-    (21.0285, 105.8542)
-    
 
 ## 5.3.2. Tạo class với phương thức nâng cao
 
@@ -385,11 +359,6 @@ print(location)  # Output: Hà Nội: (21.0285, 105.8542)
 print(location.coordinate_point())  # Output: (21.0285, 105.8542)
 print(location())  # Output: Hà Nội: (21.0285, 105.8542)
 ```
-
-    Hà Nội: (21.0285, 105.8542)
-    (21.0285, 105.8542)
-    Hà Nội: (21.0285, 105.8542)
-    
 
 
 ```python
@@ -420,143 +389,9 @@ midpoint = location1 + location2
 print(midpoint)  # Output: Midpoint of Hà Nội and TP.HCM: (
 ```
 
-    Midpoint of Hà Nội and TP.HCM: (15.9258, 106.24195)
-    
-
-
-```python
-
-```
-
-
-```python
-class GeoLocation:
-    """Class nâng cao cho địa điểm với properties và methods đặc biệt"""
-    
-    # Class variable
-    earth_radius_km = 6371
-    
-    def __init__(self, name, latitude, longitude, elevation=0):
-        self._name = name
-        self._latitude = latitude
-        self._longitude = longitude
-        self._elevation = elevation
-    
-    # Property getter và setter
-    @property
-    def name(self):
-        return self._name
-    
-    @name.setter
-    def name(self, value):
-        if isinstance(value, str) and value.strip():
-            self._name = value.strip()
-        else:
-            raise ValueError("Tên phải là string không rỗng")
-    
-    @property
-    def latitude(self):
-        return self._latitude
-    
-    @latitude.setter
-    def latitude(self, value):
-        if -90 <= value <= 90:
-            self._latitude = value
-        else:
-            raise ValueError("Latitude phải trong khoảng -90 đến 90")
-    
-    @property
-    def longitude(self):
-        return self._longitude
-    
-    @longitude.setter
-    def longitude(self, value):
-        if -180 <= value <= 180:
-            self._longitude = value
-        else:
-            raise ValueError("Longitude phải trong khoảng -180 đến 180")
-    
-    @property
-    def coordinates(self):
-        """Property chỉ đọc trả về tuple tọa độ"""
-        return (self._latitude, self._longitude)
-    
-    # Instance method
-    def distance_to(self, other):
-        """Tính khoảng cách đến địa điểm khác"""
-        return self.haversine_distance(
-            self._latitude, self._longitude,
-            other._latitude, other._longitude
-        )
-    
-    # Static method
-    @staticmethod
-    def haversine_distance(lat1, lon1, lat2, lon2):
-        """Static method tính khoảng cách Haversine"""
-        import math 
-        lat1_rad = math.radians(lat1)
-        lon1_rad = math.radians(lon1)
-        lat2_rad = math.radians(lat2)
-        lon2_rad = math.radians(lon2)
-        
-        dlat = lat2_rad - lat1_rad
-        dlon = lon2_rad - lon1_rad
-        
-        a = (math.sin(dlat/2)**2 + 
-             math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(dlon/2)**2)
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-        
-        return GeoLocation.earth_radius_km * c
-    
-    # Class method
-    @classmethod
-    def from_string(cls, location_string):
-        """Class method tạo object từ string format 'name,lat,lon,elevation'"""
-        parts = location_string.split(',')
-        if len(parts) == 4:
-            name = parts[0].strip()
-            lat = float(parts[1].strip())
-            lon = float(parts[2].strip())
-            elev = float(parts[3].strip())
-            return cls(name, lat, lon, elev)
-        else:
-            raise ValueError("Format phải là 'name,lat,lon,elevation'")
-    
-    def __str__(self):
-        """String representation của object"""
-        return f"{self._name} ({self._latitude}, {self._longitude})"
-    
-    def __repr__(self):
-        """Developer-friendly representation"""
-        return f"GeoLocation('{self._name}', {self._latitude}, {self._longitude}, {self._elevation})"
-
-# Sử dụng class nâng cao
-loc1 = GeoLocation("Hà Nội", 21.0285, 105.8542, 12)
-print(f"Location: {loc1}")
-print(f"Coordinates: {loc1.coordinates}")
-
-# Sử dụng class method
-loc2 = GeoLocation.from_string("TP.HCM,10.8231,106.6297,19")
-print(f"From string: {loc2}")
-
-# Sử dụng properties với validation
-try:
-    loc1.latitude = 95  # Sẽ raise error
-except ValueError as e:
-    print(f"Error: {e}")
-
-# Sử dụng static method
-distance = GeoLocation.haversine_distance(21.0285, 105.8542, 10.8231, 106.6297)
-print(f"Distance (static method): {distance:.2f} km")
-
-# Distance giữa objects
-distance_obj = loc1.distance_to(loc2)
-print(f"Distance (instance method): {distance_obj:.2f} km")
-```
-
 ### 5.3.3 Inheritance (Kế Thừa)
 
-Classes có thể inherit từ classes khác để tái sử dụng và mở rộng functionality.
+Classes có thể kế thừa từ classes khác để tái sử dụng và mở rộng functionality.
 
 
 ```python

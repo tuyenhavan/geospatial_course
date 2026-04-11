@@ -12,7 +12,6 @@ Pandas là thư viện chính cho việc thao tác và phân tích dữ liệu t
 
 ```python
 import pandas as pd
-print('Phiên bản Pandas:', pd.__version__)
 ```
 
 ## 8.2. Giới thiệu về Pandas
@@ -43,7 +42,6 @@ cities = [
     {'City': 'Cần Thơ', 'Population': 1235000, 'Latitude': 10.0452, 'Longitude': 105.7469}
 ]
 df = pd.DataFrame(cities)
-df
 ```
 
 
@@ -54,8 +52,7 @@ data = [
     ['TP.HCM', 9420000, 10.8231, 106.6297],
     ['Đà Nẵng', 1134000, 16.0544, 108.2022]
 ]
-df = pd.DataFrame(data, columns=['City', 'Population', 'Latitude', 'Longitude'])
-df
+df = pd.DataFrame(data, columns=['City', 'Population', 'Latitude', 'Longitude']) # Thêm cột tương ứng
 ```
 
 ## 8.3. Đọc và ghi CSV hoặc excel Files
@@ -67,9 +64,9 @@ CSV và excel là định dạng phổ biến nhất cho dữ liệu dạng bả
 
 ```python
 # Ghi DataFrame ra CSV
-df.to_csv('cities.csv', index=False)
+df.to_csv(r'G:\My Drive\python\geocourse\data\outputs\cities.csv', index=False)
 # Đọc DataFrame từ CSV
-df_read = pd.read_csv('cities.csv')
+df_read = pd.read_csv(r'G:\My Drive\python\geocourse\data\outputs\cities.csv')
 ```
 
 ### 8.3.2. Đọc và ghi ra file excel
@@ -77,12 +74,12 @@ df_read = pd.read_csv('cities.csv')
 
 ```python
 # Đọc DataFrame từ Excel
-df_excel = pd.read_excel('cities.xlsx')  # Giả sử bạn có file cities.xlsx
+df_excel = pd.read_excel(r'G:\My Drive\python\geocourse\data\outputs\cities.xlsx')  # Giả sử bạn có file cities.xlsx
 # Ghi DataFrame ra Excel
-df.to_excel('cities_output.xlsx', index=False)
+df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\cities_output.xlsx', index=False)
 ```
 
-### 8.3.3. Đọc dữ liệu online
+### 8.3.3. Đọc dữ liệu từ url
 
 
 ```python
@@ -90,9 +87,9 @@ df.to_excel('cities_output.xlsx', index=False)
 url = 'https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv'
 df = pd.read_csv(url)
 # Lưu DataFrame ra file CSV
-df.to_csv('iris_data.csv', index=False)
+df.to_csv(r'G:\My Drive\python\geocourse\data\outputs\iris_data.csv', index=False)
 # Lưu DataFrame ra file Excel
-df.to_excel('iris_data.xlsx', index=False)
+df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\iris_data.xlsx', index=False)
 ```
 
 ## 8.4. Lọc và sắp xếp
