@@ -22,8 +22,10 @@ project:
     - book/references.bib
   toc:
     - file: intro.md
+    - file: book/01_python_basics/00_index.md
+      title: Phần 1 - Cơ bản Python
     - title: Phần 1 - Cơ bản Python
-      entries:
+      children:
         - file: book/01_python_basics/01_installation_setup.md
           title: Bài 1 - Cài đặt và thiết lập môi trường
         - file: book/01_python_basics/02_python_fundamentals.md
@@ -45,7 +47,7 @@ project:
         - file: book/01_python_basics/10_python_packaging.md
           title: Bài 10 - Đóng gói Python
     - title: Phần 2 - Xử lý dữ liệu không gian địa lý
-      entries:
+      children:
         - file: book/02_geospatial/11_shapely.md
           title: Bài 11 - Shapely - Hình học không gian
         - file: book/02_geospatial/12_pyproj.md
@@ -67,7 +69,7 @@ project:
         - file: book/02_geospatial/20_geovisualization.md
           title: Bài 20 - Trực quan hóa không gian địa lý
     - title: Phần 3 - Điện toán đám mây địa không gian
-      entries:
+      children:
         - file: book/03_geocloud/20_GEE_access_and_data.md
           title: Bài 21 - Truy cập và dữ liệu (GEE)
         - file: book/03_geocloud/21_GEE_basic_operations.md
