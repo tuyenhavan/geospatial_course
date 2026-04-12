@@ -23,9 +23,9 @@ project:
   toc:
     - file: intro.md
     - title: Phần 1 - Python cơ bản
-      children:
+      children:  
+        - file: book/01_python_basics/01_installation_setup.md
           title: Bài 1 - Cài đặt và thiết lập môi trường Python
-          - file: book/01_python_basics/01_installation_setup.md
         - file: book/01_python_basics/02_python_fundamentals.md
           title: Bài 2 - Kiến thức cơ bản Python
         - file: book/01_python_basics/03_data_structures.md
@@ -69,25 +69,25 @@ project:
     - title: Phần 3 - Điện toán đám mây địa không gian
       children:
         - file: book/03_geocloud/20_GEE_access_and_data.md
-          title: Bài 20 - Truy cập và dữ liệu (GEE)
+          title: Bài 20 - Truy cập và dữ liệu (Google Earth Engine)
         - file: book/03_geocloud/21_GEE_basic_operations.md
-          title: Bài 21 - Các thao tác cơ bản (GEE)
+          title: Bài 21 - Các thao tác cơ bản (Google Earth Engine)
         - file: book/03_geocloud/22_GEE_cloud_masking.md
-          title: Bài 22 - Lọc mây (GEE)
+          title: Bài 22 - Lọc mây (Google Earth Engine)
         - file: book/03_geocloud/23_GEE_vegetation_indices.md
-          title: Bài 23 - Chỉ số thực vật (GEE)
+          title: Bài 23 - Chỉ số thực vật (Google Earth Engine)
         - file: book/03_geocloud/24_GEE_composite_aggregation.md
-          title: Bài 24 - Tổng hợp ảnh theo giai đoạn (GEE)
+          title: Bài 24 - Tổng hợp ảnh theo giai đoạn (Google Earth Engine)
         - file: book/03_geocloud/25_GEE_raster_value_extraction.md
-          title: Bài 25 - Trích xuất giá trị raster theo địa điểm (GEE)
+          title: Bài 25 - Trích xuất giá trị raster theo địa điểm (Google Earth Engine)
         - file: book/03_geocloud/26_GEE_data_export.md
-          title: Bài 26 - Xuất dữ liệu (GEE)
+          title: Bài 26 - Xuất dữ liệu (Google Earth Engine)
         - file: book/03_geocloud/27_MPC_access_data.md
-          title: Bài 27 - Truy cập dữ liệu từ Planetary Computer (MPC)
+          title: Bài 27 - Truy cập dữ liệu (Microsoft Planetary Computer)
         - file: book/03_geocloud/28_MPC_data_processing.md
-          title: Bài 28 - Xử lý dữ liệu từ Planetary Computer (MPC)
+          title: Bài 28 - Xử lý dữ liệu (Microsoft Planetary Computer)
         - file: book/03_geocloud/29_MPC_bigdata_handling.md
-          title: Bài 29 - Xử lý dữ liệu lớn từ Planetary Computer (MPC)
+          title: Bài 29 - Xử lý dữ liệu lớn (Microsoft Planetary Computer)
         - file: book/03_geocloud/30_CDSE_access_data.md
           title: Bài 30 - Truy cập dữ liệu Copernicus (CDSE)
     - title: Phần 4 - Ứng dụng và dự án
