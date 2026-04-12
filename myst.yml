@@ -43,7 +43,7 @@ project:
         - file: book/01_python_basics/09_basic_visualization.md
           title: Bài 9 - Trực quan hóa cơ bản
         - file: book/01_python_basics/10_python_packaging.md
-          title: Bài 10 - Đóng gói Python
+          title: Bài 10 - Phát triển và đóng gói Python
     - title: Phần 2 - Xử lý dữ liệu không gian địa lý
       children:
         - file: book/02_geospatial/11_shapely.md
@@ -69,19 +69,39 @@ project:
     - title: Phần 3 - Điện toán đám mây địa không gian
       children:
         - file: book/03_geocloud/20_GEE_access_and_data.md
-          title: Bài 21 - Truy cập và dữ liệu (GEE)
+          title: Bài 20 - Truy cập và dữ liệu (GEE)
         - file: book/03_geocloud/21_GEE_basic_operations.md
-          title: Bài 22 - Các thao tác cơ bản (GEE)
+          title: Bài 21 - Các thao tác cơ bản (GEE)
         - file: book/03_geocloud/22_GEE_cloud_masking.md
-          title: Bài 23 - Lọc mây (GEE)
+          title: Bài 22 - Lọc mây (GEE)
         - file: book/03_geocloud/23_GEE_vegetation_indices.md
-          title: Bài 24 - Chỉ số thực vật (GEE)
+          title: Bài 23 - Chỉ số thực vật (GEE)
         - file: book/03_geocloud/24_GEE_composite_aggregation.md
-          title: Bài 25 - Tổng hợp ảnh tổ hợp (GEE)
+          title: Bài 24 - Tổng hợp ảnh theo giai đoạn (GEE)
         - file: book/03_geocloud/25_GEE_raster_value_extraction.md
-          title: Bài 26 - Trích xuất giá trị raster (GEE)
+          title: Bài 25 - Trích xuất giá trị raster theo địa điểm (GEE)
+        - file: book/03_geocloud/26_GEE_data_export.md
+          title: Bài 26 - Xuất dữ liệu (GEE)
+        - file: book/03_geocloud/27_MPC_access_data.md
+          title: Bài 27 - Truy cập dữ liệu từ Planetary Computer (MPC)
+        - file: book/03_geocloud/28_MPC_data_processing.md
+          title: Bài 28 - Xử lý dữ liệu từ Planetary Computer (MPC)
+        - file: book/03_geocloud/29_MPC_bigdata_handling.md
+          title: Bài 29 - Xử lý dữ liệu lớn từ Planetary Computer (MPC)
         - file: book/03_geocloud/30_CDSE_access_data.md
-          title: Bài 27 - Truy cập dữ liệu Copernicus (CDSE)
+          title: Bài 30 - Truy cập dữ liệu Copernicus (CDSE)
+    - title: Phần 4 - Ứng dụng và dự án
+      children:
+        - file: book/04_applications/31_landcover_classification.md
+          title: Bài 31 - Phân loại lớp phủ đất sử dụng học máy
+        - file: book/04_applications/32_drought_detection.md
+          title: Bài 32 - Phát hiện hạn hán sử dụng dữ liệu MODIS và ERA-5 Land
+        - file: book/04_applications/33_flood_mapping.md
+          title: Bài 33 - Lập bản đồ lũ lụt sử dụng dữ liệu Sentinel-1 và Sentinel-2
+        - file: book/04_applications/34_tree_canopy_deep_learning.md
+          title: Bài 34 - Ước tính chiều cao thực vật sử dụng học sâu (deep learning) và Sentinel-2
+        - file: book/04_applications/35_water_segmentation.md
+          title: Bài 35 - Phân vùng mặt nước sử dụng học sâu (deep learning) và Sentinel-2
 site:
   options:
     logo: images/logo.png
