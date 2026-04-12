@@ -46,7 +46,7 @@ Các thư viện địa không gian cốt lõi để xử lý dữ liệu vector
 
 ---
 
-### Phần 3 — Nền tảng Địa không gian Đám mây
+### Phần 3 - Nền tảng Địa không gian Đám mây
 
 Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các nền tảng đám mây.
 
@@ -66,17 +66,17 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 
 ---
 
-### Phần 4 — Ứng dụng
+### Phần 4 - Ứng dụng
 
 Ứng dụng các kỹ thuật phân tích và học máy vào dữ liệu không gian và viễn thám *(sắp ra mắt)*.
 
 | Bài số | Nội dung |
 |----------|----------|
-| 31 | Phân loại lớp phủ mặt đất (Land Cover Classification) — Random Forest & SVM trên ảnh vệ tinh |
-| 32 | Phát hiện hạn hán (Drought Detection) — Phân tích chỉ số hạn hán với dữ liệu MODIS và ERA5 |
-| 33 | Giám sát ngập lụt (Flood Mapping) — Kết hợp SAR và ảnh quang học |
-| 34 | Ước tính chiều cao tán cây (Vegetation Canopy Height) — Xử lý ảnh Sentinel-2 kết hợp mô hình hồi quy học sâu (Deep learning)|
-| 35 | Phân vùng mặt nước (Water Body Segmentation) — Deep Learning với dữ liệu viễn thám đa phổ |
+| 31 | Phân loại lớp phủ mặt đất (Land Cover Classification) - Random Forest & SVM trên ảnh vệ tinh |
+| 32 | Phát hiện hạn hán (Drought Detection) - Phân tích chỉ số hạn hán với dữ liệu MODIS và ERA5 |
+| 33 | Giám sát ngập lụt (Flood Mapping) - Kết hợp SAR và ảnh quang học |
+| 34 | Ước tính chiều cao tán cây (Vegetation Canopy Height) - Xử lý ảnh Sentinel-2 kết hợp mô hình hồi quy học sâu (Deep learning)|
+| 35 | Phân vùng mặt nước (Water Body Segmentation) - Deep Learning với dữ liệu viễn thám đa phổ |
 
 
 ## Dữ liệu
