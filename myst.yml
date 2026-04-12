@@ -22,10 +22,10 @@ project:
     - book/references.bib
   toc:
     - file: intro.md
-    - title: Phần 1 - Cơ bản Python
+    - title: Phần 1 - Python cơ bản
       children:
-          title: Bài 1 - Cài đặt và thiết lập môi trường
-            - file: book/01_python_basics/01_installation_setup.md
+          title: Bài 1 - Cài đặt và thiết lập môi trường Python
+          - file: book/01_python_basics/01_installation_setup.md
         - file: book/01_python_basics/02_python_fundamentals.md
           title: Bài 2 - Kiến thức cơ bản Python
         - file: book/01_python_basics/03_data_structures.md
