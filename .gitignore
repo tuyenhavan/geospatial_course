@@ -7,3 +7,4 @@ __pycache__/
 *.log
 /data/vector/
 /ppts
+/notebook2markdown.ipynb
