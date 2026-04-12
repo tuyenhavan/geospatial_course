@@ -8,41 +8,41 @@ Khóa học này được thiết kế dành cho những ai muốn xây dựng k
 
 ## Cấu trúc khóa học
 
-### Phần 1 — Nền tảng Python cơ bản
+### Phần 1 - Nền tảng Python cơ bản
 
 Xây dựng nền tảng vững chắc về lập trình Python trước khi đi vào các công cụ địa không gian.
 
 | Notebook | Nội dung |
 |----------|----------|
-| 01 | Cài đặt & Thiết lập môi trường |
+| 01 | Cài đặt và Thiết lập môi trường |
 | 02 | Các khái niệm cơ bản Python |
 | 03 | Cấu trúc dữ liệu |
-| 04 | Cấu trúc điều khiển |
-| 05 | Hàm & Lớp (Functions & Classes) |
+| 04 | Cấu trúc điều khiển và vòng lặp |
+| 05 | Hàm & Lớp (function & class) |
 | 06 | Làm việc với tệp tin |
 | 07 | NumPy cơ bản |
 | 08 | Pandas cơ bản |
 | 09 | Trực quan hóa dữ liệu cơ bản |
-| 10 | Đóng gói Python (Python Packaging) |
+| 10 | Phát triển và Đóng gói Python (Python Packaging) |
 
 ---
 
-### Phần 2 — Python Địa không gian
+### Phần 2 - Python Địa không gian
 
 Các thư viện địa không gian cốt lõi để xử lý dữ liệu vector và raster trên máy cục bộ.
 
 | Notebook | Nội dung |
 |----------|----------|
-| 11 | Shapely — Đối tượng hình học và các phép toán không gian |
-| 12 | Pyproj — Hệ tọa độ và phép chiếu bản đồ |
-| 13 | Fiona — Đọc và ghi dữ liệu vector |
-| 14 | GDAL — Xử lý dữ liệu raster và vector |
-| 15 | GeoPandas — Spatial DataFrame và phân tích vector |
-| 16 | Rasterio — Đọc/ghi và xử lý dữ liệu raster |
-| 17 | Xarray — Mảng nhiều chiều có nhãn |
-| 18 | Rioxarray — Tích hợp Rasterio với Xarray |
-| 19 | Zarr & Dask — Lưu trữ mảng quy mô lớn và tính toán song song |
-| 20 | Geovisualization — Trực quan hóa dữ liệu địa không gian |
+| 11 | Shapely - Đối tượng hình học và các phép toán không gian |
+| 12 | Pyproj - Hệ tọa độ và phép chiếu bản đồ |
+| 13 | Fiona - Đọc và ghi dữ liệu vector |
+| 14 | GDAL - Xử lý dữ liệu raster và vector |
+| 15 | GeoPandas - Spatial DataFrame và phân tích vector |
+| 16 | Rasterio - Đọc/ghi và xử lý dữ liệu raster |
+| 17 | Xarray - Mảng nhiều chiều có nhãn |
+| 18 | Rioxarray - Tích hợp Rasterio với Xarray |
+| 19 | Zarr & Dask - Lưu trữ mảng quy mô lớn và tính toán song song |
+| 20 | Matplotlib - Trực quan hóa dữ liệu địa không gian |
 
 ---
 
@@ -52,17 +52,17 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 
 | Notebook | Nội dung |
 |----------|----------|
-| 20 | Google Earth Engine — Truy cập và khám phá dữ liệu |
-| 21 | Google Earth Engine — Các thao tác cơ bản |
-| 22 | Google Earth Engine — Loại bỏ mây (Cloud masking) |
-| 23 | Google Earth Engine — Tính toán các chỉ số thực vật |
-| 24 | Google Earth Engine — Ảnh tổng hợp (Composites) |
-| 25 | Google Earth Engine — Trích xuất giá trị raster |
-| 26 | Google Earth Engine — Xuất dữ liệu |
-| 27 | Microsoft Planetary Computer — Truy cập dữ liệu |
-| 28 | Microsoft Planetary Computer — Xử lý dữ liệu |
-| 29 | Microsoft Planetary Computer — Xử lý dữ liệu lớn |
-| 30 | Copernicus Data Space Ecosystem — Truy cập dữ liệu |
+| 20 | Truy cập và khám phá dữ liệu (Google Earth Engine) |
+| 21 | Các thao tác cơ bản (Google Earth Engine) |
+| 22 | Loại bỏ mây (Google Earth Engine) |
+| 23 | Tính toán các chỉ số thực vật (Google Earth Engine) |
+| 24 | Tổng hợp ảnh theo giai đoạn (Google Earth Engine) |
+| 25 | Trích xuất giá trị raster theo vị trí (Google Earth Engine) |
+| 26 | Xuất dữ liệu (Google Earth Engine) |
+| 27 | Truy cập dữ liệu (Microsoft Planetary Computer) |
+| 28 | Xử lý dữ liệu (Microsoft Planetary Computer) |
+| 29 | Xử lý dữ liệu lớn (Microsoft Planetary Computer) |
+| 30 | Truy cập dữ liệu Copernicus (CDSE)|
 
 ---
 
