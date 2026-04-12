@@ -24,8 +24,8 @@ project:
     - file: intro.md
     - title: Phần 1 - Cơ bản Python
       children:
-        - file: book/01_python_basics/01_installation_setup.md
           title: Bài 1 - Cài đặt và thiết lập môi trường
+            - file: book/01_python_basics/01_installation_setup.md
         - file: book/01_python_basics/02_python_fundamentals.md
           title: Bài 2 - Kiến thức cơ bản Python
         - file: book/01_python_basics/03_data_structures.md
@@ -97,7 +97,7 @@ project:
         - file: book/04_applications/32_drought_detection.md
           title: Bài 32 - Phát hiện hạn hán sử dụng dữ liệu MODIS và ERA-5 Land
         - file: book/04_applications/33_flood_mapping.md
-          title: Bài 33 - Lập bản đồ lũ lụt sử dụng dữ liệu Sentinel-1 và Sentinel-2
+          title: Bài 33 - Lập bản đồ biến động nước bề mặt sử dụng dữ liệu Sentinel-1 và Sentinel-2
         - file: book/04_applications/34_tree_canopy_deep_learning.md
           title: Bài 34 - Ước tính chiều cao thực vật sử dụng học sâu (deep learning) và Sentinel-2
         - file: book/04_applications/35_water_segmentation.md
