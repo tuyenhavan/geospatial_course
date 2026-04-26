@@ -85,9 +85,9 @@ Các tập dữ liệu mẫu sử dụng trong khóa học (bao gồm ranh giớ
 
 ## Giấy phép
 
-Dự án này là mã nguồn mở, được phép sử dụng miễn phí cho mục đích học tập và nghiên cứu cá nhân. Mọi hình thức sử dụng cho giảng dạy, đào tạo hoặc mục đích thương mại cần có sự đồng ý trước bằng văn bản của tác giả.
+Dự án này là mã nguồn mở, được phép sử dụng miễn phí cho mục đích học tập và nghiên cứu cá nhân. Mọi hình thức sử dụng cho giảng dạy, đào tạo hoặc mục đích thương mại cần có sự đồng ý của tác giả.
 
 ## Kết nối
 
-Trong quá trình học, nếu bạn có bất kỳ câu hỏi nào, hãy tham gia và trao đổi trên nhóm Facebook chính thức của khóa học: [Geospatial Vietnam](https://www.facebook.com/groups/4141192679432266). Đây là nơi bạn có thể đặt câu hỏi, thảo luận và đóng góp giúp cải thiện khóa học.
+Trong quá trình học, nếu bạn có bất kỳ câu hỏi nào, hãy tham gia và trao đổi trên nhóm Facebook chính thức của khóa học: [Geospatial Vietnam](https://www.facebook.com/groups/4141192679432266). Đây là nơi bạn có thể đặt câu hỏi, thảo luận, và đóng góp giúp cải thiện khóa học.
 
