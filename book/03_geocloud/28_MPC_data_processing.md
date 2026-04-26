@@ -1,3 +1,3 @@
-# Bài 28: Thao tác và xử lý dữ liệu từ Microsft Planetary Computer
+# Bài 28: Thao tác và xử lý dữ liệu (MPC)
 
-
+- **Comming soon**

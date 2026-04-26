@@ -1,4 +1,4 @@
-# Bài 5: GeoPandas - Phân tích Dữ liệu Địa không gian với GeoPandas
+# Bài 5: Phân tích Dữ liệu vector với GeoPandas
 
 GeoPandas là thư viện mạnh mẽ nhất cho phân tích dữ liệu địa không gian trong Python, kết hợp sức mạnh của pandas và Shapely để mang đến trải nghiệm xử lý dữ liệu GIS hoàn hảo.
 

@@ -1,6 +1,6 @@
-# Bài 10: Các thao tác hình học với Shapely
+# Bài 10: Cơ bản về Shapely
 
-Chào mừng bạn đến với bài học đầu tiên về phân tích dữ liệu địa không gian với Python! Trong bài học này, chúng ta sẽ khám phá Shapely - thư viện nền tảng để thao tác và phân tích các đối tượng hình học phẳng trong Python.
+Chào mừng bạn đến với bài học đầu tiên về phân tích dữ liệu địa không gian với Python! Trong bài học này, chúng ta sẽ khám phá Shapely - một thư viện nền tảng để thao tác và phân tích các đối tượng hình học phẳng trong Python.
 
 Shapely dựa trên thư viện GEOS được sử dụng rộng rãi (công cụ hình học của PostGIS) và cung cấp giao diện Python đơn giản, trực quan để làm việc với các hình dạng hình học 2D.
 

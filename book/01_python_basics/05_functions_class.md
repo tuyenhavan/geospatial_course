@@ -1,6 +1,6 @@
-# Bài 5: Hàm và lớp (Functions và Classes)
+# Bài 5: Hàm và lớp
 
-Functions và Classes là hai khái niệm cốt lõi của lập trình Python, giúp tổ chức code một cách có cấu trúc và tái sử dụng. Trong phân tích không gian địa lý, chúng giúp xây dựng các công cụ và workflows có thể tái sử dụng.
+`Hàm` (function) và `lớp` (class) là hai khái niệm cốt lõi của lập trình Python, giúp tổ chức code một cách có cấu trúc và tái sử dụng. Trong phân tích không gian địa lý, chúng giúp xây dựng các công cụ và workflows có thể tái sử dụng.
 
 ## 5.1. Mục tiêu học tập
 - Định nghĩa và sử dụng functions với parameters và return values
@@ -15,7 +15,7 @@ Functions là blocks của code có thể tái sử dụng để thực hiện m
 
 ### 5.2.1. Functions có và không có tham số (parameters)
 
-- **Không có tham số**
+- **Hàm không có tham số**
 
 
 ```python
@@ -27,7 +27,10 @@ def greet():
 greet()
 ```
 
-- **Có tham số**
+    Xin chào! Chào mừng đến với khóa học Python GIS
+    
+
+- **Hàm có tham số**
 
 
 ```python
@@ -42,6 +45,9 @@ def greet_person(name):
 greet_person("Minh")
 ```
 
+    Xin chào Minh! Chào mừng bạn đến với Python GIS
+    
+
 ### 5.2.2. Hàm với giá trị trả về
 
 Functions có thể trả về giá trị để sử dụng trong code khác.
@@ -50,12 +56,12 @@ Functions có thể trả về giá trị để sử dụng trong code khác.
 
 
 ```python
-# Hàm tính diện tích hình chữ nhật
+# Hàm tính diện tích hình chữ nhật. Chữ mô tả trong hàm đặt trong 3 dấu nháy kép (""" """)
+# được gọi là docstring, giúp giải thích mục đích và cách sử dụng của hàm.
 
 def calculate_rectangle_area(length, width):
     """
     Tính diện tích hình chữ nhật
-
     Diện tích hình chữ nhật được tính bằng công thức: chiều dài * chiều rộng
 
     Args:
@@ -70,6 +76,9 @@ def calculate_rectangle_area(length, width):
 area = calculate_rectangle_area(5, 3)
 print(f"Diện tích hình chữ nhật là: {area} m2")
 ```
+
+    Diện tích hình chữ nhật là: 15 m2
+    
 
 - **Hàm trả về với nhiều giá trị**
 
@@ -95,6 +104,9 @@ def calculate_areas(length, width):
 area, perimeter = calculate_areas(5, 3)
 print(f"Diện tích: {area} m2, Chu vi: {perimeter} m")
 ```
+
+    Diện tích: 15 m2, Chu vi: 16 m
+    
 
 
 ```python
@@ -129,9 +141,12 @@ result = solve_quadratic(1, -3, 2)
 print(f"Nghiệm của phương trình là: {result}")
 ```
 
-### 5.2.3. Hàm với tham số mặc định và kết hợp
+    Nghiệm của phương trình là: (2.0, 1.0)
+    
 
-Functions có thể có tham số mặc định (default parameters).
+### 5.2.3. Hàm với tham số mặc định hoặc kết hợp
+
+Hàm có thể có một hoặc nhiều tham số mặc định (default parameters).
 
 - **Hàm với tham số mặc định**
 
@@ -160,6 +175,10 @@ area, perimeter = calculate_areas(5, 4)
 print(f"Diện tích: {area} m2, Chu vi: {perimeter} m")
 ```
 
+    Diện tích: 10 m2, Chu vi: 14 m
+    Diện tích: 20 m2, Chu vi: 18 m
+    
+
 ### 5.2.4. Hàm với variable Arguments (*args và **kwargs)
 
 Hàm có thể nhận số lượng arguments linh hoạt.
@@ -169,34 +188,21 @@ Hàm có thể nhận số lượng arguments linh hoạt.
 
 ```python
 # Function với *args (variable positional arguments). Bản chất của *args là một tuple.
-def calculate_center(*coordinates):
+def display_number(*args):
     """
-    Tính tọa độ trung tâm của nhiều điểm.
+    Hiển thị các số được truyền vào dưới dạng một chuỗi
+
+    Args:
+        *args: Một số lượng không giới hạn các đối số vị trí (positional arguments)
     """
-    if not coordinates:
-        return 0, 0
-    
-    total_lat = sum(coord[0] for coord in coordinates)
-    total_lon = sum(coord[1] for coord in coordinates)
-    count = len(coordinates)
-    
-    center_lat = total_lat / count
-    center_lon = total_lon / count
-    
-    return center_lat, center_lon
-
-# Sử dụng với số lượng coordinates khác nhau
-vietnam_cities = [
-    (21.0285, 105.8542),  # Hà Nội
-    (10.8231, 106.6297),  # TP.HCM
-    (16.0544, 108.2022),  # Đà Nẵng
-    (20.8449, 106.6881),  # Hải Phòng
-    (10.0452, 105.7469)   # Cần Thơ
-]
-
-center = calculate_center(*vietnam_cities)
-print(f"Tọa độ trung tâm Việt Nam: {center[0]:.4f}, {center[1]:.4f}")
+    numbers_str = ", ".join(str(num) for num in args)
+    print(f"Các số đã nhập: {numbers_str}")
+# Ví dụ sử dụng hàm với *args
+display_number(1, 2, 3, 4, 5)
 ```
+
+    Các số đã nhập: 1, 2, 3, 4, 5
+    
 
 - **Hàm với keyword arguments `(**kwargs)`**
 
@@ -221,6 +227,13 @@ hanoi_info = create_location_info(
     type="Thủ đô"
 )
 print(hanoi_info)
+```
+
+    {'name': 'Hà Nội', 'latitude': 21.0285, 'longitude': 105.8542, 'population': 8053663, 'country': 'Việt Nam', 'type': 'Thủ đô'}
+    
+
+
+```python
 # Hoặc có thể sử dụng dictionary để truyền vào **kwargs
 hanoi_info = create_location_info(**{
     "name": "Hà Nội",
@@ -233,6 +246,9 @@ hanoi_info = create_location_info(**{
 print(hanoi_info)
 ```
 
+    {'name': 'Hà Nội', 'latitude': 21.0285, 'longitude': 105.8542, 'population': 8053663, 'country': 'Việt Nam', 'type': 'Thủ đô'}
+    
+
 ### 5.2.5. Hàm Lambda
 Hàm lambda là anonymous functions ngắn gọn cho các tác vụ đơn giản.
 
@@ -242,19 +258,13 @@ Hàm lambda là anonymous functions ngắn gọn cho các tác vụ đơn giản
 ```python
 # Tạo danh sách 
 numbers = [1, 2, 3, 4, 5]
-# Bình phương các số trong danh sách khi chưa sử dụng lambda
-def square(x):
-    return x ** 2
-square_numbers = list(map(square, numbers))
-print(square_numbers)  # Output: [1, 4, 9, 16, 25]
-```
-
-
-```python
 # Sử dụng hàm lambda để thay thế
 square_numbers_lambda = list(map(lambda x: x ** 2, numbers))
-print(square_numbers_lambda)  # Output: [1, 4, 9, 16, 25]
+print(f"Square numbers: {square_numbers_lambda}")  # Output: [1, 4, 9, 16, 25]
 ```
+
+    Square numbers: [1, 4, 9, 16, 25]
+    
 
 - **Hàm lambda với built-in functions**
 
@@ -270,8 +280,11 @@ cities_data = [
 
 # Sắp xếp theo dân số sử dụng lambda
 sorted_by_population = sorted(cities_data, key=lambda city: city['population'], reverse=True)
-print(sorted_by_population)
+print(f"Cities sorted by population: {sorted_by_population}")
 ```
+
+    Cities sorted by population: [{'name': 'TP.HCM', 'population': 9420000}, {'name': 'Hà Nội', 'population': 8053663}, {'name': 'Hải Phòng', 'population': 2028220}, {'name': 'Đà Nẵng', 'population': 1134000}]
+    
 
 
 ```python
@@ -281,6 +294,8 @@ large_cities = list(filter(lambda city: city['population'] > 5000000, cities_dat
 
 ### 5.2.6. List comprehension
 
+- **Bình phương với `list comprehension`**
+
 
 ```python
 mlist = [1, 2, 3, 4, 5]
@@ -288,20 +303,29 @@ squared_list = [x**2 for x in mlist]
 print(squared_list)  # Output: [1, 4, 9, 16, 25]
 ```
 
+    [1, 4, 9, 16, 25]
+    
+
+- **`list comprehension` với điều kiện**
+
 
 ```python
 # list comprehension với điều kiện
 even_squared = [x**2 for x in mlist if x % 2 == 0] # Chỉ bình phương các số chẵn
-print(even_squared)  # Output: [4, 16]
+print(f"Số chẵn bình phương: {even_squared}")  # Output: [4, 16]
 # list comprehension với nhiều vòng lặp
 matrix = [[1, 2], [3, 4], [5, 6]]
 flattened = [num for row in matrix for num in row] # Làm phẳng ma trận
-print(flattened)  # Output: [1, 2, 3, 4, 5, 6]
+print(f"Ma trận làm phẳng: {flattened}")  # Output: [1, 2, 3, 4, 5, 6]
 ```
+
+    Số chẵn bình phương: [4, 16]
+    Ma trận làm phẳng: [1, 2, 3, 4, 5, 6]
+    
 
 ## 5.3. Classes Cơ Bản
 
-Class được sử dụng khi bạn muốn tổ chức, quản lý và tái sử dụng logic xoay quanh một đối tượng thay vì viết các hàm rời rạc. Mỗi đối tượng (object) được tạo từ class sẽ bao gồm thuộc tính (attributes) để lưu trữ dữ liệu và phương thức (methods) để thực hiện các thao tác liên quan đến dữ liệu đó.
+Class là một khuân mẫu, được sử dụng khi bạn muốn tổ chức, quản lý và tái sử dụng logic xoay quanh một đối tượng thay vì viết các hàm rời rạc. Mỗi đối tượng (object) được tạo từ class sẽ bao gồm thuộc tính (attributes) để lưu trữ dữ liệu và phương thức (methods) để thực hiện các thao tác liên quan đến dữ liệu đó.
 
 ### 5.3.1. Tạo class với phương thức (method) và thuộc tính (attributes) cơ bản
 
@@ -327,13 +351,21 @@ print(f"Chu vi hình vuông: {square.perimeter()} m")
 print(square.show_info())
 ```
 
+    Diện tích hình vuông: 16 m2
+    Chu vi hình vuông: 16 m
+    Hình vuông có cạnh dài 4 m, diện tích 16 m2, chu vi 16 m
+    
+
 
 ```python
 # Ví dụ tính diện tích hình vuông từ 1 danh sách cạnh
 side_lengths = [2, 3, 4, 5]
 areas = [Square(side).area() for side in side_lengths]
-print(areas)
+print(f"Diện tích các hình vuông: {areas} m2")
 ```
+
+    Diện tích các hình vuông: [4, 9, 16, 25] m2
+    
 
 ## 5.3.2. Tạo class với phương thức nâng cao
 
@@ -359,6 +391,11 @@ print(location)  # Output: Hà Nội: (21.0285, 105.8542)
 print(location.coordinate_point())  # Output: (21.0285, 105.8542)
 print(location())  # Output: Hà Nội: (21.0285, 105.8542)
 ```
+
+    Hà Nội: (21.0285, 105.8542)
+    (21.0285, 105.8542)
+    Hà Nội: (21.0285, 105.8542)
+    
 
 
 ```python
@@ -388,6 +425,9 @@ location2 = Location("TP.HCM", 10.8231, 106.6297)
 midpoint = location1 + location2
 print(midpoint)  # Output: Midpoint of Hà Nội and TP.HCM: (
 ```
+
+    Midpoint of Hà Nội and TP.HCM: (15.9258, 106.24195)
+    
 
 ### 5.3.3 Inheritance (Kế Thừa)
 
@@ -470,6 +510,24 @@ print(f"hanoi là instance của City: {isinstance(hanoi, City)}")
 print(f"hanoi là instance của Location: {isinstance(hanoi, Location)}")
 print(f"City là subclass của Location: {issubclass(City, Location)}")
 ```
+
+    === THÔNG TIN THÀNH PHỐ ===
+    Hà Nội: (21.0285, 105.8542)
+    Dân số: 8,053,663
+    Quốc gia: Việt Nam
+    Phân loại: Siêu đô thị
+    
+    === THÔNG TIN ĐỊA ĐIỂM TỰ NHIÊN ===
+    Vịnh Hạ Long: (20.9101, 107.1839)
+    Loại: Vịnh biển
+    Được bảo vệ: Có
+    Tình trạng bảo tồn: Vùng bảo tồn
+    
+    Kiểm tra inheritance:
+    hanoi là instance của City: True
+    hanoi là instance của Location: True
+    City là subclass của Location: True
+    
 
 ## Tóm tắt
 

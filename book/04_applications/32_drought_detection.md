@@ -1,3 +1,3 @@
-# Bài 32: Sử dụng ảnh MODIS và ERA5-5 theo dõi hạn hán
+# Bài 32: Sử dụng ảnh MODIS và ERA5-land theo dõi hạn hán
 
-
+- **Comming soon**

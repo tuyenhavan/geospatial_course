@@ -9,10 +9,10 @@ Trực quan hóa là chìa khóa để hiểu và truyền đạt dữ liệu. T
 
 
 ```python
-import matplotlib.pyplot as plt
-import numpy as np
-import matplotlib.cm as cm
-import matplotlib.colors as colors
+import matplotlib.pyplot as plt # Thư viện để vẽ đồ thị
+import numpy as np # Thư viện để làm việc với mảng và tính toán số học
+import matplotlib.cm as cm # Thư viện để sử dụng các colormap
+import matplotlib.colors as colors # Thư viện để chuẩn hóa màu sắc
 ```
 
 ## 9.2. Giới thiệu về Matplotlib
@@ -373,7 +373,7 @@ heat = top_states_data.pivot_table(index='state', columns='year', values='cases'
 vmin, vmax =  np.nanpercentile(heat.values, [1, 98])
 # heat = np.clip(heat.values, vmin, vmax)
 # Tạo figure và axes cho biểu đồ heatmap
-fig, ax = plt.subplots(figsize=(10, 5))
+fig, ax = plt.subplots(figsize=(12, 5.5))
 # Vẽ biểu đồ heatmap với colormap và giới hạn giá trị
 cax = ax.imshow(heat, aspect='auto', cmap='viridis',vmin=vmin, vmax=vmax)
 # set xtick labels with 10 equal intervals

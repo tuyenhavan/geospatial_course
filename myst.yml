@@ -33,13 +33,13 @@ project:
         - file: book/01_python_basics/04_control_structures.md
           title: Bài 4 -  Cấu trúc điều khiển
         - file: book/01_python_basics/05_functions_class.md
-          title: Bài 5 - Hàm và lớp
+          title: Bài 5 - Hàm và lớp (function and class)
         - file: book/01_python_basics/06_working_with_files.md
           title: Bài 6 - Làm việc với tệp tin
         - file: book/01_python_basics/07_numpy_fundamentals.md
-          title: Bài 7 - Cơ bản NumPy
+          title: Bài 7 - NumPy cơ bản
         - file: book/01_python_basics/08_pandas_fundamentals.md
-          title: Bài 8 - Cơ bản Pandas
+          title: Bài 8 - Pandas cơ bản
         - file: book/01_python_basics/09_basic_visualization.md
           title: Bài 9 - Trực quan hóa cơ bản
         - file: book/01_python_basics/10_python_packaging.md
@@ -69,31 +69,31 @@ project:
     - title: Phần 3 - Điện toán đám mây địa không gian
       children:
         - file: book/03_geocloud/20_GEE_access_and_data.md
-          title: Bài 20 - Truy cập và dữ liệu (Google Earth Engine)
+          title: Bài 20 - Truy cập và dữ liệu (GEE)
         - file: book/03_geocloud/21_GEE_basic_operations.md
-          title: Bài 21 - Các thao tác cơ bản (Google Earth Engine)
+          title: Bài 21 - Các thao tác cơ bản (GEE)
         - file: book/03_geocloud/22_GEE_cloud_masking.md
-          title: Bài 22 - Lọc mây (Google Earth Engine)
+          title: Bài 22 - Lọc mây (GEE)
         - file: book/03_geocloud/23_GEE_vegetation_indices.md
-          title: Bài 23 - Chỉ số thực vật (Google Earth Engine)
+          title: Bài 23 - Chỉ số thực vật (GEE)
         - file: book/03_geocloud/24_GEE_composite_aggregation.md
-          title: Bài 24 - Tổng hợp ảnh theo giai đoạn (Google Earth Engine)
+          title: Bài 24 - Tổng hợp ảnh theo giai đoạn (GEE)
         - file: book/03_geocloud/25_GEE_raster_value_extraction.md
-          title: Bài 25 - Trích xuất giá trị raster theo địa điểm (Google Earth Engine)
+          title: Bài 25 - Trích xuất giá trị raster theo địa điểm (GEE)
         - file: book/03_geocloud/26_GEE_data_export.md
-          title: Bài 26 - Xuất dữ liệu (Google Earth Engine)
+          title: Bài 26 - Xuất dữ liệu (GEE)
         - file: book/03_geocloud/27_MPC_access_data.md
-          title: Bài 27 - Truy cập dữ liệu (Microsoft Planetary Computer)
+          title: Bài 27 - Truy cập dữ liệu (MPC)
         - file: book/03_geocloud/28_MPC_data_processing.md
-          title: Bài 28 - Xử lý dữ liệu (Microsoft Planetary Computer)
+          title: Bài 28 - Xử lý dữ liệu (MPC)
         - file: book/03_geocloud/29_MPC_bigdata_handling.md
-          title: Bài 29 - Xử lý dữ liệu lớn (Microsoft Planetary Computer)
+          title: Bài 29 - Xử lý dữ liệu lớn (MPC)
         - file: book/03_geocloud/30_CDSE_access_data.md
           title: Bài 30 - Truy cập dữ liệu Copernicus (CDSE)
     - title: Phần 4 - Ứng dụng và dự án
       children:
         - file: book/04_applications/31_landcover_classification.md
-          title: Bài 31 - Phân loại lớp phủ đất sử dụng học máy
+          title: Bài 31 - Phân loại lớp phủ đất sử dụng học máy (machine learning) và Sentinel-2
         - file: book/04_applications/32_drought_detection.md
           title: Bài 32 - Phát hiện hạn hán sử dụng dữ liệu MODIS và ERA-5 Land
         - file: book/04_applications/33_flood_mapping.md

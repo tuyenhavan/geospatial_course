@@ -1,6 +1,6 @@
-# Bài 4: GDAL - Thư viện Trừu tượng Dữ liệu Địa không gian
+# Bài 4: Thảo tác dữ liệu với GDAL
 
-Chào mừng bạn đến với bài học thứ tư trong chuỗi bài hướng dẫn phân tích dữ liệu không gian địa lý với Python! Trong bài học này, chúng ta sẽ khám phá GDAL (Geospatial Data Abstraction Library) - "trái tim" của hầu hết các ứng dụng GIS trên thế giới.
+Trong bài học này, chúng ta sẽ khám phá thư viện GDAL (Geospatial Data Abstraction Library) - "trái tim" của hầu hết các ứng dụng GIS trên thế giới.
 
 GDAL là thư viện mã nguồn mở mạnh mẽ nhất trong hệ sinh thái GIS, cung cấp nền tảng để đọc, ghi, chuyển đổi và xử lý dữ liệu địa không gian. Với hỗ trợ hơn 200 định dạng dữ liệu khác nhau, GDAL là xương sống cho các thư viện như GeoPandas, Rasterio, Fiona và hầu hết các phần mềm GIS chuyên nghiệp.
 

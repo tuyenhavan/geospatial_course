@@ -1,4 +1,4 @@
-# Bài 3: Fiona - Đọc và ghi dữ liệu vector không gian địa lý
+# Bài 3: Đọc và ghi dữ liệu vector (Fiona)
 
 Fiona cung cấp giao diện Python đơn giản, đáng tin cậy và hiệu quả để làm việc với các tệp dữ liệu không gian địa lý. Được xây dựng trên nền tảng OGR (một phần của GDAL), Fiona tập trung hoàn toàn vào việc xử lý dữ liệu vector và là thư viện I/O nền tảng cho GeoPandas.
 

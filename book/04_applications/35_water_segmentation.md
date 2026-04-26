@@ -1,3 +1,3 @@
-# Bài 35: Phân loại vùng nước (Water segmentation) sử dụng học sâu (Deep learning) và ảnh Sentinel-2
+# Bài 35: Phân vùng mặt nước (Water segmentation) sử dụng học sâu và ảnh Sentinel-2
 
-
+- **Comming soon**

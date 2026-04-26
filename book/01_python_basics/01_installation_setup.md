@@ -1,4 +1,4 @@
-# Bài 1: Cài đặt và Thiết lập Môi trường Python cho Phân tích dữ liệu không gian
+# Bài 1: Cài đặt và Thiết lập Môi trường Python
 
 Trong bài học đầu tiên này, chúng ta sẽ cài đặt các công cụ cần thiết cho việc sử dụng python trong lĩnh vực địa không gian.
 

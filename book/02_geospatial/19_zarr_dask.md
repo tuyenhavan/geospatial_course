@@ -1,4 +1,4 @@
-# Bài 18: Zarr + Dask - Xử lý dữ liệu lớn
+# Bài 18: Xử lý dữ liệu lớn (Dask and Zarr)
 
 Zarr và Dask tạo thành bộ công cụ mạnh mẽ cho xử lý big data địa không gian hiện đại - từ terabyte satellite data đến dữ liệu toàn cầu (global-scale).
 

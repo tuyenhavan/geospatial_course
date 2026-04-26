@@ -1,4 +1,4 @@
-# Bài 17: RioXArray - Geospatial Extensions cho XArray
+# Bài 17: Mở rộng dữ liệu raster với Rioxarray
 
 RioXArray là thư viện kết hợp sức mạnh của XArray và Rasterio, mang geospatial superpowers đến cho multi-dimensional arrays.
 

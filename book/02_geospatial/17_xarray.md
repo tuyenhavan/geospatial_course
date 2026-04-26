@@ -1,4 +1,4 @@
-# Bài 16: XArray - Mảng N-Chiều cho Dữ liệu Địa không gian
+# Bài 16: Mảng N-Chiều cho Dữ liệu raster với xarray
 
 XArray là thư viện Python mạnh mẽ cho việc xử lý dữ liệu mảng N-chiều có nhãn, đặc biệt thiết yếu cho climate science và geospatial analysis.
 

@@ -4,7 +4,7 @@ Chuỗi bài hướng dẫn toàn diện về lập trình Python ứng dụng t
 
 ## Giới thiệu
 
-Khóa học này được thiết kế dành cho những ai muốn xây dựng kỹ năng thực hành trong lập trình địa không gian với Python — từ người mới bắt đầu cho đến người dùng trung cấp muốn mở rộng kiến thức về xử lý dữ liệu không gian, trực quan hóa và điện toán đám mây. Các bài hướng dẫn được trình bày dưới dạng Jupyter Notebook, cho phép thực hành trực tiếp song song với các giải thích lý thuyết.
+Khóa học này được thiết kế dành cho những ai muốn xây dựng kỹ năng lập trình cho phân tích dữ liệu địa không gian với Python - từ người mới bắt đầu cho đến người dùng trung cấp muốn mở rộng kiến thức về xử lý dữ liệu không gian, trực quan hóa và điện toán đám mây. Các bài hướng dẫn được trình bày dưới dạng Jupyter Notebook, cho phép người học thực hành trực tiếp song song với các giải thích lý thuyết.
 
 ## Cấu trúc khóa học
 
@@ -12,10 +12,10 @@ Khóa học này được thiết kế dành cho những ai muốn xây dựng k
 
 Xây dựng nền tảng vững chắc về lập trình Python trước khi đi vào các công cụ địa không gian.
 
-| Notebook | Nội dung |
+| Bài số | Nội dung |
 |----------|----------|
-| 01 | Cài đặt và Thiết lập môi trường |
-| 02 | Các khái niệm cơ bản Python |
+| 01 | Cài đặt và Thiết lập môi trường Python |
+| 02 | Các kiểu dữ liệu cơ bản Python |
 | 03 | Cấu trúc dữ liệu |
 | 04 | Cấu trúc điều khiển và vòng lặp |
 | 05 | Hàm & Lớp (function & class) |
@@ -23,22 +23,22 @@ Xây dựng nền tảng vững chắc về lập trình Python trước khi đi
 | 07 | NumPy cơ bản |
 | 08 | Pandas cơ bản |
 | 09 | Trực quan hóa dữ liệu cơ bản |
-| 10 | Phát triển và Đóng gói Python (Python Packaging) |
+| 10 | Phát triển và Đóng gói Python (Python packaging) |
 
 ---
 
 ### Phần 2 - Python Địa không gian
 
-Các thư viện địa không gian cốt lõi để xử lý dữ liệu vector và raster trên máy cục bộ.
+Các thư viện địa không gian cốt lõi để xử lý dữ liệu địa không gian.
 
-| Notebook | Nội dung |
+| Bài số | Nội dung |
 |----------|----------|
 | 11 | Shapely - Đối tượng hình học và các phép toán không gian |
 | 12 | Pyproj - Hệ tọa độ và phép chiếu bản đồ |
 | 13 | Fiona - Đọc và ghi dữ liệu vector |
 | 14 | GDAL - Xử lý dữ liệu raster và vector |
-| 15 | GeoPandas - Spatial DataFrame và phân tích vector |
-| 16 | Rasterio - Đọc/ghi và xử lý dữ liệu raster |
+| 15 | GeoPandas - Xử lý dữ liệu vector với GeoPandas |
+| 16 | Rasterio - Đọc, xử lý, và ghi dữ liệu raster |
 | 17 | Xarray - Mảng nhiều chiều có nhãn |
 | 18 | Rioxarray - Tích hợp Rasterio với Xarray |
 | 19 | Zarr & Dask - Lưu trữ mảng quy mô lớn và tính toán song song |
@@ -50,7 +50,7 @@ Các thư viện địa không gian cốt lõi để xử lý dữ liệu vector
 
 Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các nền tảng đám mây.
 
-| Notebook | Nội dung |
+| Bài số | Nội dung |
 |----------|----------|
 | 20 | Truy cập và khám phá dữ liệu (Google Earth Engine) |
 | 21 | Các thao tác cơ bản (Google Earth Engine) |
@@ -62,7 +62,7 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 | 27 | Truy cập dữ liệu (Microsoft Planetary Computer) |
 | 28 | Xử lý dữ liệu (Microsoft Planetary Computer) |
 | 29 | Xử lý dữ liệu lớn (Microsoft Planetary Computer) |
-| 30 | Truy cập dữ liệu Copernicus (CDSE)|
+| 30 | Truy cập và xử lý dữ liệu Copernicus (CDSE)|
 
 ---
 

@@ -1,5 +1,4 @@
-# Bài 15: Rasterio - Xử lý Dữ liệu Raster và Ảnh Vệ tinh
-
+# Bài 15: Xử lý Dữ liệu Raster và Ảnh Vệ tinh với Rasterio
 Rasterio là thư viện Python chuyên nghiệp cho việc đọc, ghi và xử lý dữ liệu raster địa lý - từ ảnh vệ tinh đến mô hình độ cao số.
 
 ## 15.1. Mục tiêu học tập

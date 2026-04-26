@@ -1,4 +1,4 @@
-# Bài 2: PyProj - Hệ tọa độ tham chiếu và phép chiếu bản đồ
+# Bài 2: Hệ tọa độ tham chiếu và phép chiếu bản đồ (Pyproj)
 
 PyProj là giao diện Python cho thư viện PROJ (được sử dụng bởi hầu hết các phần mềm GIS chuyên nghiệp) để thực hiện các phép chiếu bản đồ và biến đổi tọa độ với độ chính xác cao. Đây là công cụ không thể thiếu khi làm việc với dữ liệu không gian địa lý từ nhiều nguồn khác nhau, và là nền tảng cho các thư viện khác như GeoPandas, Rasterio, Fiona.
 
