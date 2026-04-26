@@ -10,11 +10,11 @@ project:
     - .DS_Store
     - '**.ipynb_checkpoints'
   # github: opengeos/myst-website-template
-  github: https://github.com/geospatialvietnam/geospatial_course
+  github: https://github.com/tuyenhavan/geospatial_course
   thebe:
     binder:
       # repo: opengeos/myst-website-template
-      repo: https://github.com/geospatialvietnam/geospatial_course
+      repo: https://github.com/tuyenhavan/geospatial_course
       provider: github
       url: https://mybinder.org
       ref: main
