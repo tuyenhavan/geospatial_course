@@ -85,7 +85,7 @@ Các tập dữ liệu mẫu sử dụng trong khóa học được lưu trong t
 
 ## Giấy phép
 
-Dự án này là mã nguồn mở và được sử dụng tự do cho mục đích học tập.
+Dự án này là mã nguồn mở, được phép sử dụng miễn phí cho mục đích học tập và nghiên cứu cá nhân. Mọi hình thức sử dụng cho giảng dạy, đào tạo hoặc mục đích thương mại cần có sự đồng ý của tác giả. 
 
 ## Kết nối
 
