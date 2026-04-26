@@ -89,4 +89,4 @@ Dự án này là mã nguồn mở và được sử dụng tự do cho mục đ
 
 ## Kết nối
 
-Trong quá trình học và có bất câu hỏi nào, bạn có thể kết nối và đặt câu hỏi trên nhóm Facebook chính thức của khóa học [Geospatial Vietnam] (https://www.facebook.com/groups/4141192679432266).
+Trong quá trình học, nếu bạn có bất kỳ câu hỏi nào, hãy tham gia và trao đổi trên nhóm Facebook chính thức của khóa học: [Geospatial Vietnam](https://www.facebook.com/groups/4141192679432266). Đây là nơi bạn có thể đặt câu hỏi, thảo luận và đóng góp giúp cải thiện khóa học.
