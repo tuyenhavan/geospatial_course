@@ -80,7 +80,7 @@ build-backend = "poetry.core.masonry.api"
 - **`[tool.poetry]`**: Metadata của gói (tên, phiên bản, mô tả, tác giả...)
 - **`[tool.poetry.dependencies]`**: Các thư viện cần thiết để **chạy** gói
 
-## 10.5. Quản lý Dependencies với Poetry
+## 10.3. Quản lý Dependencies với Poetry
 
 Poetry giải quyết một vấn đề lớn của Python: **xung đột dependency**. Nó tự động tính toán tổ hợp phiên bản tương thích cho tất cả các thư viện.
 
@@ -121,7 +121,7 @@ for action, command in dependency_commands.items():
     
     
 
-### 10.5.1. File `poetry.lock`
+### 10.3.1. File `poetry.lock`
 
 Sau khi chạy `poetry install` hoặc `poetry add`, Poetry tạo ra file `poetry.lock` — lưu **chính xác phiên bản** của mọi thư viện (kể cả phụ thuộc của phụ thuộc).
 
@@ -137,11 +137,11 @@ geomath/
 - ✅ Dùng `poetry install` để cài từ lock file, không dùng `pip install` trực tiếp
 - ✅ Dùng `poetry update` khi muốn nâng cấp lên phiên bản mới hơn
 
-## 10.6. Cấu trúc Mã nguồn và Viết Code
+## 10.4. Cấu trúc Mã nguồn và Viết Code
 
 Hãy xây dựng thực tế gói `geomath` với một số chức năng hữu ích.
 
-### 10.6.1. Cấu trúc thư mục mở rộng
+### 10.4.1. Cấu trúc thư mục mở rộng
 
 Trong ví dụ này, thư mục bao gồm các tệp được tạo tự động theo cấu trúc của `poetry`, cùng với các tệp do người dùng bổ sung như `coordinates.py`, `distance.py`, `utils.py`, v.v. Những tệp do người dùng tạo này được gọi là các module, tức là các đơn vị mã nguồn đảm nhiệm một chức năng cụ thể. Trong vị dụ này, mình tạo ra 3 files trong geomath, bạn có thể tạo ra nhiều files khác theo mục đích của bạn. Hiện tại, `tests` folder có thể bỏ qua.
 
@@ -278,7 +278,7 @@ from .utils import *
 '''
 ```
 
-### 10.6.2. Cài đặt gói trên máy và kiểm tra 
+### 10.4.2. Cài đặt gói trên máy và kiểm tra 
 
 Dưới đây là cách cài đặt gói `geomath` vào máy và kiểm tra chạy thử xem có lỗi gì không.
 
@@ -302,7 +302,7 @@ hcmc  = Point.from_lon_lat(106.6602, 10.7769)
 print(distance.haversine_distance(hanoi, hcmc))  # 1143254.24 (meters)
 ```
 
-## 10.7. Quản lý Phiên bản (Semantic Versioning)
+## 10.5. Quản lý Phiên bản (Semantic Versioning)
 
 Semantic Versioning (SemVer) là tiêu chuẩn đặt tên phiên bản: `MAJOR.MINOR.PATCH`
 
@@ -360,7 +360,7 @@ for action, command in version_commands.items():
     
     
 
-### 10.7.1. Git Tagging theo phiên bản
+### 10.5.1. Git Tagging theo phiên bản
 
 ```bash
 # Sau khi bump version và commit, tạo git tag tương ứng
@@ -381,11 +381,11 @@ git push origin main --tags
 | `chore:` | Tác vụ bảo trì | Không tăng |
 | `test:` | Thêm/sửa tests | Không tăng |
 
-## 10.8. Xuất bản lên GitHub
+## 10.6. Xuất bản lên GitHub
 
 GitHub là nơi lưu trữ mã nguồn và quản lý dự án. Dưới đây là quy trình đầy đủ từ đầu.
 
-### 10.8.1. Chuẩn bị `.gitignore`
+### 10.6.1. Chuẩn bị `.gitignore`
 
 
 ```python
@@ -459,7 +459,7 @@ MIT
 """
 ```
 
-### 10.8.2. Đẩy code lên GitHub
+### 10.6.2. Đẩy code lên GitHub
 
 ```bash
 # 1. Khởi tạo Git repository (chạy một lần duy nhất)

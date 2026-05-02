@@ -1,16 +1,14 @@
-# Bài 2: Hệ tọa độ tham chiếu và phép chiếu bản đồ (Pyproj)
+# Bài 12: Hệ tọa độ tham chiếu và phép chiếu bản đồ (Pyproj)
 
 PyProj là giao diện Python cho thư viện PROJ (được sử dụng bởi hầu hết các phần mềm GIS chuyên nghiệp) để thực hiện các phép chiếu bản đồ và biến đổi tọa độ với độ chính xác cao. Đây là công cụ không thể thiếu khi làm việc với dữ liệu không gian địa lý từ nhiều nguồn khác nhau, và là nền tảng cho các thư viện khác như GeoPandas, Rasterio, Fiona.
 
-## Mục tiêu học tập
+## 12.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - Hiểu rõ về hệ tọa độ tham chiếu (CRS) và các loại phép chiếu bản đồ
 - Thực hiện biến đổi tọa độ chính xác giữa các CRS khác nhau
 - Làm việc với các hệ tọa độ phổ biến tại Việt Nam (VN-2000, UTM, WGS84)
-- Thực hiện các tính toán geodesic (khoảng cách và góc trên mặt cầu)
 - Xử lý các vấn đề về datum và ellipsoid
 - Áp dụng PyProj trong quy trình xử lý dữ liệu không gian thực tế
-- Tối ưu hóa hiệu suất khi xử lý large datasets
 
 - **Import các thư viện cần thiết**
 
@@ -30,9 +28,17 @@ print(f"📦 PyProj version: {pyproj.__version__}")
 print(f"📦 PROJ version: {pyproj.proj_version_str}")
 ```
 
-## 1. Hiểu về hệ tọa độ tham chiếu - CRS
+    📦 PyProj version: 3.7.2
+    📦 PROJ version: 9.5.1
+    
 
-Giới thiệu về khái niệm CRS và làm việc với các hệ tọa độ khác nhau, đặc biệt tại Việt Nam.
+## 12.2. Hiểu về hệ tọa độ tham chiếu - CRS
+
+Giới thiệu về khái niệm CRS và làm việc với các hệ tọa độ khác nhau. Sau đây là các cách phổ biến tạo hệ tọa độ trong `pyproj`.
+
+- **Hệ tọa độ địa lý**
+
+Hệ tọa độ địa lý (Geographic Coordinate System) là hệ tọa độ dùng kinh độ và vĩ độ (lat/lon) để xác định vị trí trên bề mặt Trái Đất, thường dựa trên mô hình ellipsoid như WGS84 và sử dụng đơn vị độ (degrees).
 
 
 ```python
@@ -42,7 +48,17 @@ print(f"WGS84: {wgs84.name}")
 print(f"Loại: {wgs84.type_name}")
 print(f"Ellipsoid: {wgs84.ellipsoid.name}")
 print(f"Datum: {wgs84.datum.name}")
+print(f"Mã EPSG: {wgs84.to_epsg()}")
 ```
+
+    WGS84: WGS 84
+    Loại: Geographic 2D CRS
+    Ellipsoid: WGS 84
+    Datum: World Geodetic System 1984 ensemble
+    Mã EPSG: 4326
+    
+
+- **Hệ tọa độ VN-2000**
 
 
 ```python
@@ -52,6 +68,16 @@ print(f"\nVN-2000: {vn2000.name}")
 print(f"Loại: {vn2000.type_name}")
 print(f"Ellipsoid: {vn2000.ellipsoid.name}")
 ```
+
+    
+    VN-2000: VN-2000
+    Loại: Geographic 2D CRS
+    Ellipsoid: WGS 84
+    
+
+- **Hệ tọa độ UTM**
+
+Hệ tọa độ UTM (Universal Transverse Mercator) là hệ tọa độ chiếu phẳng trong Đại số tuyến tính và GIS, dùng phép chiếu Mercator ngang để chia Trái Đất thành 60 múi (zone), mỗi múi rộng 6° kinh độ, giúp biểu diễn vị trí bằng tọa độ x, y (mét) với độ chính xác cao cho từng khu vực nhỏ.
 
 
 ```python
@@ -66,21 +92,40 @@ utm49n = CRS.from_epsg(32649)  # EPSG:32649
 print(f"\nUTM 49N: {utm49n.name}")
 ```
 
+    
+    UTM 48N: WGS 84 / UTM zone 48N
+    Loại: Projected CRS
+    Đơn vị: metre
+    
+    UTM 49N: WGS 84 / UTM zone 49N
+    
+
+- **Tạo CRS từ Proj string**
+
 
 ```python
-# 5. Tạo CRS từ PROJ string
+# Tạo CRS từ PROJ string
 vietnam_custom = CRS.from_proj4("+proj=utm +zone=48 +datum=WGS84 +units=m +no_defs")
-print(f"\nCRS tùy chỉnh: {vietnam_custom.name}")
-print(f"WGS84 WKT:\n{wgs84.to_wkt()[:200]}...")
+print(f"\nCRS tùy chỉnh: {vietnam_custom.name}") # Không có tên chính thức nên sẽ trả về Unknown. Bạn có thể in ra chuỗi PROJ để xác nhận.
 print(f"\nVN-2000 PROJ4: {vn2000.to_proj4()}")
 ```
 
+    
+    CRS tùy chỉnh: unknown
+    
+    VN-2000 PROJ4: +proj=longlat +ellps=WGS84 +no_defs +type=crs
+    
+
 
 ```python
-# Các phương thức tạo crs sử dụng pyproj 
-crs = CRS.from_epsg(4326) # Hệ tọa độ địa lý, sử dụng phổ biến
+# Tạo CRS từ chuỗi PROJ4, hệ tọa độ địa lý WGS84 nếu như bạn không có EPSG code cụ thể nào:
 crs = CRS.from_proj4("+proj=longlat +datum=WGS84 +no_defs") # Tạo từ chuỗi PROJ4
-crs = CRS.from_wkt('GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]]') # Tạo từ WKT
+```
+
+- **Tạo CRS từ mã `EPSG` và `dictionary`**
+
+
+```python
 crs = CRS.from_user_input("EPSG:4326") # Tạo từ đầu vào người dùng
 crs = CRS.from_dict({
     "proj": "utm",
@@ -88,18 +133,9 @@ crs = CRS.from_dict({
     "datum": "WGS84",
     "units": "m"
 }) # Tạo từ dictionary
-# Hiển thị các thông tin thuộc tính của crs 
-print(f"CRS Name: {crs.name}")
-print(f"CRS Type: {crs.type_name}")
-print(f"CRS Area of Use: {crs.area_of_use}")
-print(f"CRS Datum: {crs.datum.name}")
-print(f"CRS Ellipsoid: {crs.ellipsoid.name}")
-print(f"CRS Axis Info: {crs.axis_info}")
-print(f"CRS to_proj4: {crs.to_proj4()}")
-print(f"CRS to epsg code: {crs.to_epsg()}")
 ```
 
-## 2. Biến đổi tọa độ
+## 12.3. Biến đổi tọa độ
 
 Chuyển đổi tọa độ giữa các CRS khác nhau sử dụng đối tượng Transformer.
 
@@ -126,67 +162,16 @@ for city, (lat, lon) in cities_wgs84.items():
     print(f"{city:10}: ({lat:7.4f}°, {lon:8.4f}°) → ({x:9.0f}m, {y:10.0f}m)")
 ```
 
+    🗺️ CHUYỂN ĐỔI WGS84 → UTM 48N:
+    Hà Nội    : (21.0285°, 105.8542°) → (   588762m,    2325539m)
+    TP.HCM    : (10.8231°, 106.6297°) → (   678162m,    1196896m)
+    Đà Nẵng   : (16.0471°, 108.2068°) → (   843173m,    1776802m)
+    Cần Thơ   : (10.0452°, 105.7469°) → (   581848m,    1110503m)
+    Hải Phòng : (20.8449°, 106.6881°) → (   675642m,    2305903m)
+    Huế       : (16.4637°, 107.5909°) → (   776636m,    1822002m)
+    
 
-```python
-# Tạo lưới tọa độ bao phủ Việt Nam
-lat_range = np.linspace(8.5, 23.5, 5)  # Từ Nam đến Bắc
-lon_range = np.linspace(102, 110, 5)    # Từ Tây sang Đông
-lon_grid, lat_grid = np.meshgrid(lon_range, lat_range)
-
-# Flatten để biến đổi batch
-lons_flat = lon_grid.flatten()
-lats_flat = lat_grid.flatten()
-
-# Biến đổi tất cả các điểm cùng lúc từ WGS84 to UTM 48N
-transformer_to_utm48 = Transformer.from_crs("EPSG:4326", "EPSG:32648", always_xy=True)
-xs, ys = transformer_to_utm48.transform(lons_flat, lats_flat)
-# Tạo DataFrame để dễ xem
-grid_data = pd.DataFrame({
-    'Longitude': lons_flat,
-    'Latitude': lats_flat,
-    'UTM_X': xs,
-    'UTM_Y': ys
-})
-```
-
-
-```python
-# Trực quan hóa biến đổi tọa độ
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-
-# Biểu đồ 1: Tọa độ WGS84 (địa lý)
-for city, (lat, lon) in cities_wgs84.items():
-    ax1.scatter(lon, lat, s=100, alpha=0.7)
-    ax1.annotate(city, (lon, lat), xytext=(5, 5), textcoords='offset points', fontsize=10)
-
-ax1.scatter(lon_grid, lat_grid, c='lightblue', s=20, alpha=0.5, label='Lưới tọa độ')
-ax1.set_xlabel('Kinh độ (°)')
-ax1.set_ylabel('Vĩ độ (°)')
-ax1.set_title('Tọa độ WGS84 (Địa lý)')
-ax1.grid(True, alpha=0.3)
-ax1.legend()
-
-# Biểu đồ 2: Tọa độ UTM 48N (chiếu)
-for city, (x, y) in cities_utm48.items():
-    ax2.scatter(x/1000, y/1000, s=100, alpha=0.7)  # Chia 1000 để hiển thị km
-    ax2.annotate(city, (x/1000, y/1000), xytext=(5, 5), textcoords='offset points', fontsize=12)
-
-# Reshape lại để vẽ lưới
-xs_grid = xs.reshape(lat_grid.shape)
-ys_grid = ys.reshape(lat_grid.shape)
-ax2.scatter(xs_grid/1000, ys_grid/1000, c='lightblue', s=20, alpha=0.5, label='Lưới tọa độ')
-
-ax2.set_xlabel('UTM X (km)')
-ax2.set_ylabel('UTM Y (km)')
-ax2.set_title('Tọa độ UTM 48N (Chiếu)')
-ax2.grid(True, alpha=0.3)
-ax2.legend()
-
-plt.tight_layout()
-plt.show()
-```
-
-## 3. Tính toán geodesic
+## 12.4. Tính toán geodesic
 
 Thực hiện tính toán khoảng cách và diện tích chính xác trên bề mặt Trái đất.
 
@@ -218,145 +203,19 @@ print(f"\n🏃 Gần nhất: {closest_city[0]} ({closest_city[1]['distance_km']:
 print(f"🚗 Xa nhất: {farthest_city[0]} ({farthest_city[1]['distance_km']:.1f} km)")
 ```
 
-
-```python
-# Tạo ma trận khoảng cách giữa tất cả các thành phố
-print("=== MA TRẬN KHOẢNG CÁCH GIỮA TẤT CẢ THÀNH PHỐ ===")
-
-city_names = list(cities_wgs84.keys())
-n_cities = len(city_names)
-
-# Tạo ma trận rỗng
-distance_matrix = np.zeros((n_cities, n_cities))
-
-# Tính toán khoảng cách cho từng cặp thành phố
-for i, city1 in enumerate(city_names):
-    for j, city2 in enumerate(city_names):
-        if i != j:
-            coords1 = cities_wgs84[city1]
-            coords2 = cities_wgs84[city2]
-            _, _, distance = geod.inv(coords1[1], coords1[0], coords2[1], coords2[0])
-            distance_matrix[i, j] = distance / 1000  # Chuyển sang km
-
-# Tạo DataFrame để hiển thị đẹp
-df_distances = pd.DataFrame(distance_matrix, 
-                          index=city_names, 
-                          columns=city_names)
-
-print("📊 MA TRẬN KHOẢNG CÁCH (km):")
-print(df_distances.round(1))
-
-# Tìm cặp thành phố gần nhất và xa nhất (không tính chéo)
-mask = np.triu(np.ones_like(distance_matrix, dtype=bool), k=1)
-masked_distances = np.where(mask, distance_matrix, np.inf)
-
-min_idx = np.unravel_index(np.argmin(masked_distances), masked_distances.shape)
-max_idx = np.unravel_index(np.argmax(np.where(mask, distance_matrix, 0)), distance_matrix.shape)
-
-print(f"\n🔍 PHÂN TÍCH MA TRẬN:")
-print(f"Cặp gần nhất: {city_names[min_idx[0]]} - {city_names[min_idx[1]]} ({distance_matrix[min_idx]:.1f} km)")
-print(f"Cặp xa nhất: {city_names[max_idx[0]]} - {city_names[max_idx[1]]} ({distance_matrix[max_idx]:.1f} km)")
-print(f"Khoảng cách trung bình: {distance_matrix[distance_matrix > 0].mean():.1f} km")
-```
-
-
-```python
-# Tính toán đường đi (great circle) và diện tích
-print("=== TÍNH TOÁN ĐƯỜNG ĐI VÀ DIỆN TÍCH ===")
-
-# 1. Tạo đường đi từ Hà Nội đến TP.HCM
-hanoi_coords = cities_wgs84['Hà Nội']
-hcm_coords = cities_wgs84['TP.HCM']
-
-# Tính toán intermediate points dọc theo đường đi
-npoints = 20  # Số điểm trung gian
-line_geod = geod.npts(hanoi_coords[1], hanoi_coords[0], 
-                      hcm_coords[1], hcm_coords[0], 
-                      npoints)
-
-# Thêm điểm đầu và cuối
-full_line = [(hanoi_coords[1], hanoi_coords[0])] + line_geod + [(hcm_coords[1], hcm_coords[0])]
-line_lons, line_lats = zip(*full_line)
-
-print(f"🛣️ Đường đi Hà Nội → TP.HCM:")
-print(f"Số điểm trung gian: {len(line_geod)}")
-print(f"Khoảng cách trực tuyến: {distances_from_hanoi['TP.HCM']['distance_km']:.1f} km")
-
-# 2. Tính diện tích đa giác tạo bởi các thành phố miền Bắc
-northern_cities = ['Hà Nội', 'Hải Phòng']
-if len(northern_cities) >= 3:
-    # Cần ít nhất 3 điểm để tạo đa giác
-    pass
-else:
-    # Tạo tam giác với Hà Nội, Hải Phòng và một điểm ảo
-    print("📐 Tính diện tích khu vực miền Bắc (tam giác ước tính):")
+      → TP.HCM    :  1132.4 km (hướng:  175.7°)
+      → Đà Nẵng   :   604.7 km (hướng:  155.4°)
+      → Cần Thơ   :  1215.4 km (hướng: -179.4°)
+      → Hải Phòng :    89.1 km (hướng:  103.0°)
+      → Huế       :   537.4 km (hướng:  159.8°)
     
-    # Tạo điểm thứ 3 để tạo thành tam giác
-    # Sử dụng Huế làm điểm thứ 3 để tạo tam giác lớn
-    triangle_cities = ['Hà Nội', 'Hải Phòng', 'Huế']
-    triangle_coords = []
+    🏃 Gần nhất: Hải Phòng (89.1 km)
+    🚗 Xa nhất: Cần Thơ (1215.4 km)
     
-    for city in triangle_cities:
-        coords = cities_wgs84[city]
-        triangle_coords.extend([coords[1], coords[0]])  # lon, lat, lon, lat, ...
-    
-    # Tính diện tích bằng polygon_area_perimeter
-    area, perimeter = geod.polygon_area_perimeter(triangle_coords[::2], triangle_coords[1::2])
-    
-    print(f"Diện tích tam giác {'-'.join(triangle_cities)}: {abs(area)/1e6:.0f} km²")
-    print(f"Chu vi: {perimeter/1000:.0f} km")
-```
 
+## 12.5. Làm việc với các phép chiếu khác nhau
 
-```python
-# Trực quan hóa tính toán geodesic
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-
-# Biểu đồ 1: Đường đi geodesic Hà Nội - TP.HCM
-ax1.plot(line_lons, line_lats, 'b-', linewidth=2, alpha=0.7, label='Đường đi geodesic')
-ax1.scatter([hanoi_coords[1]], [hanoi_coords[0]], c='red', s=100, label='Hà Nội', zorder=5)
-ax1.scatter([hcm_coords[1]], [hcm_coords[0]], c='blue', s=100, label='TP.HCM', zorder=5)
-
-# Vẽ tất cả thành phố
-for city, (lat, lon) in cities_wgs84.items():
-    if city not in ['Hà Nội', 'TP.HCM']:
-        ax1.scatter(lon, lat, c='gray', s=50, alpha=0.7)
-        ax1.annotate(city, (lon, lat), xytext=(3, 3), textcoords='offset points', fontsize=8)
-
-ax1.annotate('Hà Nội', hanoi_coords[::-1], xytext=(5, 5), textcoords='offset points', fontsize=10)
-ax1.annotate('TP.HCM', hcm_coords[::-1], xytext=(5, 5), textcoords='offset points', fontsize=10)
-ax1.set_xlabel('Kinh độ (°)')
-ax1.set_ylabel('Vĩ độ (°)')
-ax1.set_title('Đường đi geodesic Hà Nội - TP.HCM')
-ax1.grid(True, alpha=0.3)
-ax1.legend()
-
-# Biểu đồ 2: Heat map ma trận khoảng cách
-im = ax2.imshow(distance_matrix, cmap='YlOrRd', aspect='auto')
-ax2.set_xticks(range(n_cities))
-ax2.set_yticks(range(n_cities))
-ax2.set_xticklabels(city_names, rotation=45, ha='right')
-ax2.set_yticklabels(city_names)
-ax2.set_title('Ma trận khoảng cách (km)')
-
-# Thêm text hiển thị số liệu
-for i in range(n_cities):
-    for j in range(n_cities):
-        if i != j:
-            text = ax2.text(j, i, f'{distance_matrix[i, j]:.0f}',
-                           ha="center", va="center", color="white" if distance_matrix[i, j] > 500 else "black",
-                           fontsize=8)
-
-plt.colorbar(im, ax=ax2, label='Khoảng cách (km)')
-plt.tight_layout()
-plt.show()
-
-print("📊 Trực quan hóa tính toán geodesic hoàn thành!")
-```
-
-## 4. Làm việc với các phép chiếu khác nhau
-
-Hiểu và áp dụng các phép chiếu bản đồ khác nhau phù hợp với Việt Nam.
+Hiểu và áp dụng các phép chiếu bản đồ khác nhau.
 
 
 ```python
@@ -438,6 +297,27 @@ for city in test_cities:
         print(f"  {proj_name:12}: {area_proj/1e6:8.1f} km² (biến dạng: {distortion:+5.1f}%)")
 ```
 
+    UTM Zone 48N: +proj=utm +zone=48 +datum=WGS84 +type=crs
+    Mercator: +proj=merc +datum=WGS84 +type=crs
+    Lambert Conformal Conic: +proj=lcc +lat_1=16 +lat_2=20 +lat_0=18 +lon_0=106 +datum=WGS84 +type=crs
+    Albers Equal Area: +proj=aea +lat_1=10 +lat_2=22 +lat_0=16 +lon_0=106 +datum=WGS84 +type=crs
+    Sinusoidal: +proj=sinu +lon_0=106 +datum=WGS84 +type=crs
+    
+    === SO SÁNH BIẾN DẠNG TẠI CÁC THÀNH PHỐ ===
+    
+    🏙️ Hà Nội (21.03°, 105.85°):
+      UTM 48N     :  11502.2 km² (biến dạng:  -0.1%)
+      Mercator    :  13198.9 km² (biến dạng: +14.7%)
+      Lambert CC  :  11527.4 km² (biến dạng:  +0.2%)
+      Albers EA   :  11509.0 km² (biến dạng:  -0.0%)
+    
+    🏙️ TP.HCM (10.82°, 106.63°):
+      UTM 48N     :  12095.8 km² (biến dạng:  -0.0%)
+      Mercator    :  12535.1 km² (biến dạng:  +3.6%)
+      Lambert CC  :  12269.3 km² (biến dạng:  +1.4%)
+      Albers EA   :  12095.6 km² (biến dạng:  -0.0%)
+    
+
 
 ```python
 # Trực quan hóa các phép chiếu
@@ -496,203 +376,15 @@ plt.tight_layout()
 plt.show()
 ```
 
-### Lựa chọn phép chiếu phù hợp cho Việt Nam
-
-**UTM (Universal Transverse Mercator)**: 
-- ✅ **Tốt nhất cho đo đạc và bản đồ địa hình**
-- ✅ Biến dạng tối thiểu trong phạm vi múi chiếu
-- ✅ Được sử dụng rộng rãi trong GIS Việt Nam
-
-**Mercator**:
-- ✅ Tốt cho navigation và bản đồ web
-- ❌ Biến dạng diện tích lớn ở vĩ độ cao
-
-**Lambert Conformal Conic**:
-- ✅ Tốt cho bản đồ quốc gia (kéo dài theo đông-tây)
-- ✅ Bảo toàn góc và hình dạng tương đối tốt
-
-**Albers Equal Area**:
-- ✅ Bảo toàn diện tích chính xác
-- ✅ Tốt cho phân tích thống kê không gian
-
-## 5. Ứng dụng thực tế
-
-Áp dụng PyProj trong các tình huống thực tế tại Việt Nam.
-
-
-```python
-# Kịch bản: Tính toán tuyến đường bộ tối ưu
-# Giả sử cần xây dựng đường cao tốc nối các thành phố
-
-# 1. Phân tích khoảng cách và thời gian di chuyển
-speed_kmh = 80  # Tốc độ trung bình trên cao tốc (km/h)
-
-print("🛣️ PHÂN TÍCH TUYẾN ĐƯỜNG CAO TỐC:")
-print(f"Tốc độ trung bình: {speed_kmh} km/h")
-print("-" * 50)
-
-# Tính thời gian di chuyển giữa các thành phố
-travel_times = {}
-for city1 in city_names:
-    travel_times[city1] = {}
-    for city2 in city_names:
-        if city1 != city2:
-            distance_km = df_distances.loc[city1, city2]
-            time_hours = distance_km / speed_kmh
-            travel_times[city1][city2] = time_hours
-            print(f"{city1} → {city2}: {distance_km:6.1f}km ({time_hours:.1f}h)")
-
-# 2. Tính toán vùng phủ sóng dịch vụ
-print(f"\n📍 VÙNG PHỦ SÓNG DỊCH VỤ (bán kính 100km):")
-
-service_radius_km = 100
-coverage_analysis = {}
-
-for city, (lat, lon) in cities_wgs84.items():
-    # Tìm các thành phố khác trong bán kính phục vụ
-    nearby_cities = []
-    for other_city, other_coords in cities_wgs84.items():
-        if city != other_city:
-            distance = df_distances.loc[city, other_city]
-            if distance <= service_radius_km:
-                nearby_cities.append((other_city, distance))
-    
-    coverage_analysis[city] = nearby_cities
-    print(f"{city}: {len(nearby_cities)} thành phố trong bán kính {service_radius_km}km")
-    for nearby, dist in nearby_cities:
-        print(f"  - {nearby}: {dist:.1f}km")
-
-# 3. Tính toán trung tâm hình học của các thành phố
-all_lats = [coords[0] for coords in cities_wgs84.values()]
-all_lons = [coords[1] for coords in cities_wgs84.values()]
-
-geographic_center = (np.mean(all_lats), np.mean(all_lons))
-print(f"\n🎯 TRUNG TÂM HÌNH HỌC: ({geographic_center[0]:.4f}°, {geographic_center[1]:.4f}°)")
-
-# Tìm thành phố gần trung tâm nhất
-center_distances = {}
-for city, (lat, lon) in cities_wgs84.items():
-    _, _, distance = geod.inv(geographic_center[1], geographic_center[0], lon, lat)
-    center_distances[city] = distance / 1000
-
-closest_to_center = min(center_distances.items(), key=lambda x: x[1])
-print(f"Thành phố gần trung tâm nhất: {closest_to_center[0]} ({closest_to_center[1]:.1f}km)")
-```
-
-
-```python
-# Ứng dụng trong nông nghiệp: Tính toán diện tích canh tác
-print("=== ỨNG DỤNG NÔNG NGHIỆP: TÍNH DIỆN TÍCH CANH TÁC ===")
-
-# Mô phỏng các khu vực canh tác (polygon) 
-crop_areas = {
-    'Đồng bằng sông Hồng': [
-        (105.5, 20.5), (106.5, 20.5), (106.5, 21.5), 
-        (106.0, 22.0), (105.5, 21.5), (105.5, 20.5)
-    ],
-    'Đồng bằng sông Cửu Long': [
-        (105.0, 9.5), (106.5, 9.5), (107.0, 10.5),
-        (106.0, 11.0), (105.0, 10.5), (105.0, 9.5)
-    ]
-}
-
-total_area = 0
-for region_name, coords in crop_areas.items():
-    # Tách lon và lat
-    lons = [coord[0] for coord in coords]
-    lats = [coord[1] for coord in coords]
-    
-    # Tính diện tích bằng geodesic
-    area, perimeter = geod.polygon_area_perimeter(lons, lats)
-    area_km2 = abs(area) / 1e6  # Chuyển sang km²
-    perimeter_km = perimeter / 1000
-    
-    print(f"🌾 {region_name}:")
-    print(f"   Diện tích: {area_km2:,.0f} km²")
-    print(f"   Chu vi: {perimeter_km:,.0f} km")
-    
-    total_area += area_km2
-
-print(f"\n📊 TỔNG DIỆN TÍCH CANH TÁC: {total_area:,.0f} km²")
-
-# So sánh với diện tích thực tế Việt Nam
-vietnam_total_area = 331690  # km²
-crop_percentage = (total_area / vietnam_total_area) * 100
-print(f"Tỷ lệ so với diện tích Việt Nam: {crop_percentage:.1f}%")
-```
-
-
-```python
-# Trực quan hóa ứng dụng thực tế
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-
-# Biểu đồ 1: Mạng lưới giao thông và vùng phủ sóng
-for city, (lat, lon) in cities_wgs84.items():
-    ax1.scatter(lon, lat, s=100, alpha=0.7, zorder=5)
-    ax1.annotate(city, (lon, lat), xytext=(3, 3), textcoords='offset points', fontsize=9)
-    
-    # Vẽ vùng phủ sóng (đơn giản hóa thành hình tròn)
-    circle = plt.Circle((lon, lat), service_radius_km/111, # Chuyển đổi gần đúng km sang độ
-                       fill=False, alpha=0.3, linestyle='--')
-    ax1.add_patch(circle)
-
-# Vẽ trung tâm hình học
-ax1.scatter(geographic_center[1], geographic_center[0], 
-           c='red', s=200, marker='*', label='Trung tâm hình học', zorder=6)
-
-# Vẽ các tuyến đường chính (ví dụ)
-major_routes = [
-    ['Hà Nội', 'Hải Phòng'],
-    ['Hà Nội', 'Huế'],
-    ['Huế', 'Đà Nẵng'],
-    ['Đà Nẵng', 'TP.HCM'],
-    ['TP.HCM', 'Cần Thơ']
-]
-
-for route in major_routes:
-    city1, city2 = route
-    lat1, lon1 = cities_wgs84[city1]
-    lat2, lon2 = cities_wgs84[city2]
-    ax1.plot([lon1, lon2], [lat1, lat2], 'b-', alpha=0.6, linewidth=1.5)
-
-ax1.set_xlabel('Kinh độ (°)')
-ax1.set_ylabel('Vĩ độ (°)')
-ax1.set_title('Mạng lưới giao thông và vùng phủ sóng')
-ax1.grid(True, alpha=0.3)
-ax1.legend()
-
-# Biểu đồ 2: Khu vực canh tác
-colors = ['lightgreen', 'lightcoral']
-for i, (region_name, coords) in enumerate(crop_areas.items()):
-    lons = [coord[0] for coord in coords]
-    lats = [coord[1] for coord in coords]
-    ax2.fill(lons, lats, alpha=0.6, color=colors[i], label=region_name)
-    ax2.plot(lons, lats, 'k-', linewidth=1)
-
-# Vẽ các thành phố lên bản đồ nông nghiệp
-for city, (lat, lon) in cities_wgs84.items():
-    ax2.scatter(lon, lat, s=80, c='black', alpha=0.8, zorder=5)
-    ax2.annotate(city, (lon, lat), xytext=(2, 2), textcoords='offset points', fontsize=8)
-
-ax2.set_xlabel('Kinh độ (°)')
-ax2.set_ylabel('Vĩ độ (°)')
-ax2.set_title('Khu vực canh tác chính')
-ax2.grid(True, alpha=0.3)
-ax2.legend()
-
-plt.tight_layout()
-plt.show()
-```
-
 
     
-![png](output_25_0.png)
+![png](output_21_0.png)
     
 
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 2 và học được PyProj - thư viện chuyên nghiệp cho coordinate systems và map projections.
+Bạn đã hoàn thành Bài 12 và học được PyProj - thư viện chuyên nghiệp cho coordinate systems và map projections.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ **Coordinate Reference Systems**: WGS84, VN-2000, UTM và cách lựa chọn CRS phù hợp

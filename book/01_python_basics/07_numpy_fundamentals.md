@@ -214,9 +214,9 @@ print('Mảng ban đầu:\n', array)
 ```
 
     Mảng ban đầu:
-     [[  9  -1  -8]
-     [  3   8   9]
-     [-10   8   8]]
+     [[-6  3  3]
+     [ 5 -5  2]
+     [ 6 -8  9]]
     
 
 - **Chuyển đổi kiểu dữ liệu cho mảng**
@@ -230,13 +230,13 @@ print('Mảng sau khi đổi kiểu dữ liệu sang float:\n', array_float)
 ```
 
     Mảng sau khi tạo mới với kiểu dữ liệu: int32 
-     [[  7  -1  -6]
-     [  1   7   1]
-     [-10  -8   5]]
+     [[ 3  4 -6]
+     [ 8  0  6]
+     [-4  2 -1]]
     Mảng sau khi đổi kiểu dữ liệu sang float:
-     [[  7.  -1.  -6.]
-     [  1.   7.   1.]
-     [-10.  -8.   5.]]
+     [[ 3.  4. -6.]
+     [ 8.  0.  6.]
+     [-4.  2. -1.]]
     
 
 - **Kiểm tra thuộc tính liên quan đến mảng**
@@ -322,9 +322,11 @@ print('Mảng sau khi thay thế cột 2:\n', arr2d)
      [ 7  8  9]]
     
 
-## 4. Các phép toán Array
+## 7.4. Các phép toán Array
 
 NumPy hỗ trợ các phép toán theo từng phần tử nhanh chóng và broadcasting.
+
+- **Phép toán cơ bản**
 
 
 ```python
@@ -368,9 +370,79 @@ std = np.std(array, axis=1)   # Độ lệch chuẩn theo trục 1
 median = np.nanmedian(array, axis=2) # Trung vị theo trục 2
 sum = np.nansum(array)        # Tổng bỏ qua NaN
 percentile = np.percentile(array, 50) # Phần trăm vị trí 50 (trung vị)
+print('Trung bình theo trục 0:\n', mean)
 ```
 
-## 5. Ứng dụng numpy vào địa không gian
+    Trung bình theo trục 0:
+     [[3. 4.]
+     [5. 6.]]
+    
+
+- **Phép toán tích vô hướng giữa 2 vectors**
+
+
+```python
+# Tính tích vô hướng 2 vector a và b
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+dot_product = np.dot(a, b)
+print('Tích vô hướng của a và b:', dot_product)
+```
+
+    Tích vô hướng của a và b: 32
+    
+
+- **Phép toán tích vô hướng giữa ma trận với vector**
+
+
+```python
+# Tích vô hướng giữa một ma trận A và một vector x. Điều kiện là số cột của A phải bằng số phần tử của x.
+# Kết quả sẽ là một vector mới có số phần tử bằng số hàng của A.
+A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) # Ma trận 3x3
+x = np.array([1, 0, -1]) # Vector 3 phần tử
+dot_product_matrix_vector = np.dot(A, x)
+print('Tích vô hướng giữa ma trận A và vector x:\n', dot_product_matrix_vector)
+```
+
+    Tích vô hướng giữa ma trận A và vector x:
+     [-2 -2 -2]
+    
+
+- **Phép toán tích vô hướng giữa vector với ma trận**
+
+
+```python
+# Tích vô hướng giữa 1 vector a và một ma trận B. Điều kiện là số phần tử của a phải bằng số hàng của B.
+# Kết quả sẽ là một vector mới có số phần tử bằng số cột của B
+a = np.array([1, 2, 3]) # Vector 3 phần tử
+B = np.array([[4, 5, 6], [7, 8, 9], [10, 11, 12]]) # Ma trận 3x3
+dot_product_vector_matrix = np.dot(a, B)    
+print('Tích vô hướng giữa vector a và ma trận B:\n', dot_product_vector_matrix)
+```
+
+    Tích vô hướng giữa vector a và ma trận B:
+     [48 54 60]
+    
+
+- **Phép toán nhân 2 ma trận**
+
+
+```python
+# Tích vô hướng giữa hai ma trận A và B. Điều kiện là số cột của A phải bằng số hàng của B.
+# Kết quả sẽ là một ma trận mới có số hàng bằng số hàng của A và số cột bằng số cột của B
+A = np.array([[1, 2], [3, 4], [5, 6]]) # Ma trận 3x2
+B = np.array([[7, 8, 9], [10, 11, 12]]) # Ma trận 2x3
+dot_product_matrix_matrix = np.dot(A, B)
+print('Tích vô hướng giữa ma trận A và ma trận B:\n', dot_product_matrix_matrix)
+```
+
+    Tích vô hướng giữa ma trận A và ma trận B:
+     [[ 27  30  33]
+     [ 61  68  75]
+     [ 95 106 117]]
+    
+
+## 7.5. Ứng dụng numpy vào địa không gian
 
 - **Nhóm loại đất với mảng 2 chiều**
 
@@ -448,8 +520,8 @@ print(f"Giá trị lớn nhất trong mảng NDVI sau khi clip: {np.max(clipped_
 print(f"Giá trị nhỏ nhất trong mảng NDVI sau khi clip: {np.min(clipped_ndvi)}")
 ```
 
-    Giá trị lớn nhất trong mảng NDVI sau khi clip: 0.99999484265669
-    Giá trị nhỏ nhất trong mảng NDVI sau khi clip: -0.9999902269227232
+    Giá trị lớn nhất trong mảng NDVI sau khi clip: 0.9999888857568764
+    Giá trị nhỏ nhất trong mảng NDVI sau khi clip: -0.9999951172782293
     
 
 - **Sử dụng hàm `np.apply_along_axis`**

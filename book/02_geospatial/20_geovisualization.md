@@ -1,8 +1,8 @@
-#  Bài 19: Trực Quan hóa Dữ liệu Địa không gian
+#  Bài 20: Trực Quan hóa Dữ liệu Địa không gian
 
 Trực quan hóa dữ liệu địa không gian là bước quan trọng giúp hiểu sâu và truyền đạt thông tin từ dữ liệu bản đồ, ảnh vệ tinh, và các lớp địa lý khác. Các thư viện Python như GeoPandas, Rasterio, Matplotlib, và Xarray cung cấp giải pháp mạnh mẽ để hiển thị, phân tích và so sánh dữ liệu vector, raster, chuỗi thời gian, cũng như kết hợp nhiều lớp dữ liệu trên cùng một biểu đồ.
 
-## 19.1. Mục tiêu học tập
+## 20.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - **Hiển thị dữ liệu vector** (điểm, đường, đa giác) bằng GeoPandas và Matplotlib
@@ -18,8 +18,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 ```
 
-## 19.2. Hiển thị dữ liệu vector
-Phần này minh họa cách vẽ dữ liệu vector (điểm, đường, đa giác) bằng GeoPandas và Matplotlib.
+## 20.2. Hiển thị dữ liệu vector
+Phần này minh họa cách vẽ dữ liệu vector (điểm, đường, đa giác) bằng GeoPandas và Matplotlib. Dữ liệu vector được lấy từ trang web sau [link](https://geodata.ucdavis.edu/gadm)
 
 
 ```python
@@ -52,7 +52,7 @@ plt.show()
     
 
 
-## 19.3. Hiển thị dữ liệu raster
+## 20.3. Hiển thị dữ liệu raster
 Phần này minh họa cách hiển thị dữ liệu raster bằng Rasterio và Matplotlib.
 
 
@@ -91,7 +91,7 @@ plt.show()
     
 
 
-## 19.4. Hiển thị đồng thời vector và raster trên cùng một biểu đồ
+## 20.4. Hiển thị đồng thời vector và raster trên cùng một biểu đồ
 Phần này minh họa cách chồng dữ liệu vector lên raster để trực quan hóa kết hợp.
 
 
@@ -116,7 +116,7 @@ plt.show()
     
 
 
-## 19.5. Hiển thị nhiều subplot
+## 20.5. Hiển thị nhiều subplot
 Phần này minh họa cách tạo nhiều subplot để so sánh các lớp dữ liệu địa lý khác nhau.
 
 

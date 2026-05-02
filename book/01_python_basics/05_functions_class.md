@@ -356,177 +356,97 @@ print(square.show_info())
     Hình vuông có cạnh dài 4 m, diện tích 16 m2, chu vi 16 m
     
 
+## 5.3.2. Tạo class với phương thức nâng cao và tính kế thừa
+
+Class trong Python không chỉ chứa thuộc tính và phương thức, mà còn hỗ trợ kế thừa để tái sử dụng code và các phương thức nâng cao như @staticmethod, giúp thiết kế chương trình linh hoạt và rõ ràng hơn. Dưới đây ta xem xét một ví dụ về class giải phương trình bậc nhất và bậc hai.
+
+- **Tạo ra lớp cơ sở (base class)**
+
+Base class dùng để định nghĩa chuẩn chung (interface) cho các class con, đảm bảo chúng phải triển khai các phương thức cần thiết (như solve()), giúp code dễ mở rộng và sử dụng thống nhất.
+
 
 ```python
-# Ví dụ tính diện tích hình vuông từ 1 danh sách cạnh
-side_lengths = [2, 3, 4, 5]
-areas = [Square(side).area() for side in side_lengths]
-print(f"Diện tích các hình vuông: {areas} m2")
+import math
+class Equation:
+    """ Lớp cơ sở cho các phương trình, có phương thức solve() chưa được triển khai (abstract method)"""
+    def __init__(self):
+        pass
+    def solve(self):
+        raise NotImplementedError("Phương thức solve() chưa được triển khai")
 ```
 
-    Diện tích các hình vuông: [4, 9, 16, 25] m2
-    
-
-## 5.3.2. Tạo class với phương thức nâng cao
-
-Classes có thể có properties, class methods, và static methods.
+- **Viết class giải phương trình bậc nhất và kế thừa từ lớp cơ sở**
 
 
 ```python
-class Location:
-    def __init__(self, name, latitude, longitude):
-        self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
+class LinearSolver(Equation):
+    """ Lớp giải phương trình bậc nhất ax + b = 0"""
+    def __init__(self, a, b):
+        super().__init__()
+        self.a = a
+        self.b = b
     
-    def __str__(self):
-        return f"{self.name}: ({self.latitude}, {self.longitude})"
-    def __call__(self):
-        return f"{self.name}: ({self.latitude}, {self.longitude})"
-    def coordinate_point(self):
-        return self.latitude, self.longitude
-    
-location = Location("Hà Nội", 21.0285, 105.8542)
-print(location)  # Output: Hà Nội: (21.0285, 105.8542)
-print(location.coordinate_point())  # Output: (21.0285, 105.8542)
-print(location())  # Output: Hà Nội: (21.0285, 105.8542)
-```
-
-    Hà Nội: (21.0285, 105.8542)
-    (21.0285, 105.8542)
-    Hà Nội: (21.0285, 105.8542)
-    
-
-
-```python
-class Location:
-    def __init__(self, name, latitude, longitude):
-        self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
-    
-    def __str__(self):
-        return f"{self.name}: ({self.latitude}, {self.longitude})"
-    
-    def __call__(self):
-        return f"{self.name}: ({self.latitude}, {self.longitude})"
-    
-    def coordinate_point(self):
-        return self.latitude, self.longitude
-    def __add__(self, other):
-        if isinstance(other, Location):
-            other_lat, other_lon = other.coordinate_point()
-            new_lat = (self.latitude + other_lat) / 2
-            new_lon = (self.longitude + other_lon) / 2
-            return Location(f"Midpoint of {self.name} and {other.name}", new_lat, new_lon)
-        return NotImplemented
-location1 = Location("Hà Nội", 21.0285, 105.8542)
-location2 = Location("TP.HCM", 10.8231, 106.6297)
-midpoint = location1 + location2
-print(midpoint)  # Output: Midpoint of Hà Nội and TP.HCM: (
-```
-
-    Midpoint of Hà Nội and TP.HCM: (15.9258, 106.24195)
-    
-
-### 5.3.3 Inheritance (Kế Thừa)
-
-Classes có thể kế thừa từ classes khác để tái sử dụng và mở rộng functionality.
-
-
-```python
-# Base class
-class Location:
-    """Base class cho các địa điểm"""
-    
-    def __init__(self, name, latitude, longitude):
-        self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
-    
-    def display_coordinates(self):
-        print(f"{self.name}: ({self.latitude}, {self.longitude})")
-
-
-# Derived class - City inherit từ Location
-class City(Location):
-    """Class City kế thừa từ Location"""
-    
-    def __init__(self, name, latitude, longitude, population, country):
-        super().__init__(name, latitude, longitude)  # Gọi constructor của parent
-        self.population = population
-        self.country = country
-    
-    def display_info(self):
-        """Override method từ parent và thêm thông tin"""
-        super().display_coordinates()  # Gọi method từ parent
-        print(f"Dân số: {self.population:,}")
-        print(f"Quốc gia: {self.country}")
-    
-    def population_density_info(self):
-        """Method riêng của City"""
-        if self.population > 5000000:
-            return "Siêu đô thị"
-        elif self.population > 1000000:
-            return "Đô thị lớn"
+    def solve(self):
+        """ Giải phương trình bậc nhất ax + b = 0"""
+        if self.a == 0:
+            if self.b == 0:
+                return {"message": "Phương trình vô số nghiệm"}
+            else:
+                return {"message": "Phương trình vô nghiệm"}
         else:
-            return "Đô thị trung bình"
-
-# Derived class - NaturalSite inherit từ Location
-class NaturalSite(Location):
-    """Class cho các địa điểm tự nhiên"""
-    
-    def __init__(self, name, latitude, longitude, site_type, protected_status=False):
-        super().__init__(name, latitude, longitude)
-        self.site_type = site_type
-        self.protected_status = protected_status
-    
-    def display_info(self):
-        super().display_coordinates()
-        print(f"Loại: {self.site_type}")
-        print(f"Được bảo vệ: {'Có' if self.protected_status else 'Không'}")
-    
-    def conservation_level(self):
-        return "Vùng bảo tồn" if self.protected_status else "Không được bảo vệ"
+            return {"x": -self.b / self.a}
+# Ví dụ sử dụng LinearSolver
+linear_solver = LinearSolver(2, -4)
+solution = linear_solver.solve()
+print(f"Nghiệm của phương trình bậc nhất: {solution}")
 ```
+
+    Nghiệm của phương trình bậc nhất: {'x': 2.0}
+    
+
+- **Tạo lớp giải phương trình bậc hai có `staticmethod` và thừa kế từ `Equation`**
 
 
 ```python
-# Sử dụng inheritance
-hanoi = City("Hà Nội", 21.0285, 105.8542, 8053663, "Việt Nam")
-halong = NaturalSite("Vịnh Hạ Long", 20.9101, 107.1839, "Vịnh biển", True)
+class QuadraticSolver(Equation):
+    """ Lớp giải phương trình bậc 2 ax^2 + bx + c = 0"""
+    def __init__(self, a, b, c):
+        super().__init__()
+        self.a = a
+        self.b = b
+        self.c = c
+    
+    @staticmethod
+    def delta(a, b, c):
+        """ Tính discriminant (delta) của phương trình bậc 2"""
+        return b**2 - 4*a*c
 
-print("=== THÔNG TIN THÀNH PHỐ ===")
-hanoi.display_info()
-print(f"Phân loại: {hanoi.population_density_info()}")
-
-print("\n=== THÔNG TIN ĐỊA ĐIỂM TỰ NHIÊN ===")
-halong.display_info()
-print(f"Tình trạng bảo tồn: {halong.conservation_level()}")
-
-# Kiểm tra inheritance
-print(f"\nKiểm tra inheritance:")
-print(f"hanoi là instance của City: {isinstance(hanoi, City)}")
-print(f"hanoi là instance của Location: {isinstance(hanoi, Location)}")
-print(f"City là subclass của Location: {issubclass(City, Location)}")
+    def solve(self):
+        if self.a == 0:
+            return LinearSolver(self.b, self.c).solve()
+        
+        delta_value = self.delta(self.a, self.b, self.c)
+        if delta_value > 0:
+            x1 = (-self.b + math.sqrt(delta_value)) / (2*self.a)
+            x2 = (-self.b - math.sqrt(delta_value)) / (2*self.a)
+            return {
+                "x1": x1,
+                "x2": x2
+            }
+        elif delta_value == 0:
+            x = -self.b / (2*self.a)
+            return {
+                "x": x
+            }
+        else:
+            return {"message": "Phương trình vô nghiệm thực"}
+# Ví dụ sử dụng QuadraticSolver
+quadratic_solver = QuadraticSolver(1, -3, 2)
+result = quadratic_solver.solve()
+print(f"Nghiệm của phương trình bậc 2: {result}")
 ```
 
-    === THÔNG TIN THÀNH PHỐ ===
-    Hà Nội: (21.0285, 105.8542)
-    Dân số: 8,053,663
-    Quốc gia: Việt Nam
-    Phân loại: Siêu đô thị
-    
-    === THÔNG TIN ĐỊA ĐIỂM TỰ NHIÊN ===
-    Vịnh Hạ Long: (20.9101, 107.1839)
-    Loại: Vịnh biển
-    Được bảo vệ: Có
-    Tình trạng bảo tồn: Vùng bảo tồn
-    
-    Kiểm tra inheritance:
-    hanoi là instance của City: True
-    hanoi là instance của Location: True
-    City là subclass của Location: True
+    Nghiệm của phương trình bậc 2: {'x1': 2.0, 'x2': 1.0}
     
 
 ## Tóm tắt
@@ -539,8 +459,6 @@ Bạn đã hoàn thành Bài 5 và học được Functions và Classes - hai kh
 - ✅ **Variable arguments**: *args và **kwargs cho flexibility
 - ✅ **Lambda functions**: Anonymous functions cho các tác vụ ngắn gọn
 - ✅ **Classes**: Định nghĩa classes với __init__, attributes và methods
-- ✅ **Properties**: Getters, setters và validation với @property decorator
-- ✅ **Special methods**: __str__, __repr__, static methods và class methods
 - ✅ **Inheritance**: Kế thừa để tái sử dụng và mở rộng functionality
 
 ### Kỹ năng bạn có thể áp dụng:
