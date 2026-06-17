@@ -21,10 +21,12 @@ import geemap
 ee.Initialize()
 ```
 
+Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo bounding bên dưới và khoảng thời gian như bên dưới. Bạn có thể thay đổi vị trí và thời gian phù hợp với yêu cầu của bạn.
+
 
 ```python
 # Bounding box cho vùng nghiên cứu ở Đức
-bbox = [9.84375   , 47.5172007 , 10.1953125 , 47.75409798]
+bbox = [9.84375, 47.5172007 , 10.1953125 , 47.75409798]
 # Tạo một đối tượng hình chữ nhật từ bounding box
 roi = ee.Geometry.Rectangle(bbox)
 # Xác định khoảng thời gian cho bộ dữ liệu Sentinel-2
@@ -57,7 +59,7 @@ print('Số lượng ảnh Sentinel-2:', sen2col.size().getInfo())
 # Lấy một ảnh Sentinel-2 đầu tiên để tải ảnh về Google Drive cho vùng nghiên cứu roi
 image = sen2col.first()
 task = ee.batch.Export.image.toDrive(
-    image=image.toFloat(), # ảnh cần tải về
+    image=image.toFloat(), # ảnh cần tải về. Đảm bảo các bands cùng một loại float32. Bạn có thể chọn dtype khác phụ thuộc vào loại dữ liệu.
     description='Sentinel2_Image_Export',
     folder='GEE_Exports',
     fileNamePrefix='sentinel2_image',

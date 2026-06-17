@@ -34,6 +34,8 @@ Rioxarray DataArray là một lớp mở rộng của xarray.DataArray, được
 
 ### 18.2.1. Tạo DataArray đơn giản
 
+Trong ví dụ này, chúng ta tạo một DataArray với tên là `temperature` chứa dữ liệu nhiệt độ cho 4 điểm khác nhau, mỗi điểm có tọa độ kinh độ (lon) và vĩ độ (lat). Chúng ta đã sử dụng `rioxarray` để gán hệ tọa độ `EPSG:4326` cho DataArray này, giúp chúng ta có thể làm việc với dữ liệu địa lý một cách dễ dàng hơn trong các phân tích địa không gian.
+
 
 ```python
 # Tạo dữ liệu nhiệt độ cho 4 vị trí
@@ -52,6 +54,8 @@ temperature.rio.set_crs("EPSG:4326", inplace=True)
 ```
 
 ### 18.2.2. Tạo DataArray 2 chiều
+
+Tương tự vậy như ví dụ trên, chúng ta cũng có thể tạo một DataArray 2 chiều với các giá trị nhiệt độ được tổ chức theo lưới kinh độ và vĩ độ. Sau khi tạo DataArray này, chúng ta cũng gán hệ tọa độ `EPSG:4326` và `transform` để xác định vị trí của các pixel trong không gian địa lý. Điều này giúp chúng ta có thể hiển thị dữ liệu trên bản đồ.
 
 
 ```python
@@ -77,6 +81,8 @@ print(f"CRS: {temperature.rio.crs}")
 ```
 
 ### 18.2.3. Tạo DataArray nhiều chiều
+
+'Trong thực tế, dữ liệu được thu thập theo thời gian. Vì vậy, chúng ta có thể tạo một DataArray 3 chiều với các giá trị nhiệt độ được tổ chức theo thời gian (time), kinh độ (lon) và vĩ độ (lat). Sau khi tạo DataArray này, chúng ta cũng gán hệ tọa độ `EPSG:4326` và `transform` để xác định vị trí của các pixel trong không gian địa lý.
 
 
 ```python
@@ -104,6 +110,8 @@ Rioxarray Dataset là một cấu trúc dữ liệu cho phép bạn lưu trữ v
 
 ### 18.3.1. Tạo Dataset 1 chiều
 
+Giả sử chúng ta có một tập dữ liệu nhiệt độ được tổ chức theo các điểm với tọa độ kinh độ (lon) và vĩ độ (lat). Chúng ta muốn tạo một Dataset chứa biến "temperature" với các giá trị nhiệt độ tương ứng cho từng điểm. Sau đó, chúng ta sử dụng rioxarray để gán hệ tọa độ `EPSG:4326` và `transform` để xác định vị trí của các pixel trong không gian địa lý.
+
 
 ```python
 # Tạo dữ liệu nhiệt độ cho 4 vị trí
@@ -124,6 +132,7 @@ temperature.rio.write_transform(transform, inplace=True)
 
 ### 18.3.2. Tạo Dataset 2 chiều
 
+Thay vì tạo một Dataset với dữ liệu điểm, chúng ta có thể tạo một Dataset với dữ liệu được tổ chức theo lưới kinh độ và vĩ độ. Sau khi tạo Dataset, chúng ta cũng gán hệ tọa độ `EPSG:4326` và `transform` để xác định vị trí của các pixel trong không gian địa lý. Ngoài ra, chúng ta cũng có thể thêm các thông tin metadata khác như mô tả và đơn vị cho biến nhiệt độ để làm rõ ý nghĩa của dữ liệu.
 
 
 ```python
@@ -152,6 +161,8 @@ temperature
 
 ### 18.3.3. Tạo Dataset n chiều
 
+Trong ví dụ này, chúng ta tạo một Dataset với hai biến là `temperature` và `rainfall`, mỗi biến có dữ liệu được tổ chức theo thời gian (time), kinh độ (lon) và vĩ độ (lat). Sau khi tạo Dataset này, chúng ta cũng gán hệ tọa độ `EPSG:4326` và `transform` để xác định vị trí của các pixel trong không gian địa lý. Ngoài ra, chúng ta cũng có thể thêm các thông tin metadata khác như mô tả và đơn vị cho các biến để làm rõ ý nghĩa của dữ liệu.'
+
 
 ```python
 # Tạo DataArray 3d có time, lon, lat
@@ -176,7 +187,7 @@ climate.rio.write_transform(transform, inplace=True)
 
 RioXArray hỗ trợ đa dạng định dạng raster như `GeoTIFF`, `NetCDF`, `COG`, và `Zarr` và cho phép chunk với dữ liệu lớn (big data).
 
-### 18.3.1. Đọc dữ liệu 
+### 18.3.1. Đọc dữ liệu từ `url`
 
 
 ```python
@@ -186,7 +197,7 @@ temp = rxr.open_rasterio(f"/vsicurl/{raw_url}")
 temp.attrs = {} # Xóa metadata để tránh lỗi khi hiển thị
 ```
 
-### 18.3.2. Lưu dữ liệu
+### 18.3.2. Lưu dữ liệu trên máy
 
 
 ```python

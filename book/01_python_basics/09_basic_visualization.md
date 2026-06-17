@@ -449,11 +449,12 @@ plt.show()
 
 ### 9.5.3. Biểu đồ phân tán hexbin với colarbar
 
-Biểu đồ hexbin là một công cụ trực quan hóa thể hiện mật độ của các điểm dữ liệu trong không gian hai chiều. Bằng cách chia không gian thành các lục giác (hexagon) và đếm số lượng điểm dữ liệu trong mỗi lục giác, biểu đồ hexbin giúp bạn dễ dàng nhận biết xu hướng, phân bố, và các khu vực có mật độ cao hoặc thấp của dữ liệu. Việc sử dụng màu sắc để thể hiện mật độ hoặc giá trị trung bình của một biến khác trong mỗi lục giác cũng giúp tăng cường khả năng phân tích và hiểu rõ hơn về mối quan hệ giữa các biến trong dữ liệu của bạn.
+Biểu đồ `hexbin` là một công cụ trực quan hóa thể hiện mật độ của các điểm dữ liệu trong không gian hai chiều. Bằng cách chia không gian thành các lục giác (hexagon) và đếm số lượng điểm dữ liệu trong mỗi lục giác, biểu đồ `hexbin` giúp bạn dễ dàng nhận biết xu hướng, phân bố, và các khu vực có mật độ cao hoặc thấp của dữ liệu. Việc sử dụng màu sắc để thể hiện mật độ hoặc giá trị trung bình của một biến khác trong mỗi lục giác cũng giúp tăng cường khả năng phân tích và hiểu rõ hơn về mối quan hệ giữa các biến trong dữ liệu của bạn.
+
+Trong ví dụ bên dưới, chúng ta tạo biểu đồ `hexbin` để trực quan hóa mối quan hệ giữa nhiệt độ và NDVI (dữ liệu ngẫu nhiên), đồng thời sử dụng màu sắc để thể hiện sự phân bố các năm khác nhau trong dữ liệu. Biểu đồ `hexbin` là một công cụ để hiển thị mật độ của các điểm dữ liệu trong không gian hai chiều, giúp bạn dễ dàng nhận biết xu hướng và phân bố của dữ liệu theo thời gian hoặc theo các biến khác nhau.
 
 
 ```python
-"""Trong ví dụ này, chúng ta tạo biểu đồ hexbin để trực quan hóa mối quan hệ giữa nhiệt độ và NDVI (dữ liệu ngẫu nhiên), đồng thời sử dụng màu sắc để thể hiện sự phân bố của các năm khác nhau trong dữ liệu. Biểu đồ hexbin là một công cụ mạnh mẽ để hiển thị mật độ của các điểm dữ liệu trong không gian hai chiều, giúp bạn dễ dàng nhận biết xu hướng và phân bố của dữ liệu theo thời gian hoặc theo các biến khác nhau."""
 # Tạo dữ liệu mẫu ngẫu nhiên cho nhiệt độ và NDVI
 n = 5000
 temperature = np.random.uniform(15, 40, n)

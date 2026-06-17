@@ -15,7 +15,7 @@ import pandas as pd # nếu bạn chưa cài đặt pandas, hãy chạy: pip ins
 
 ## 8.2. Giới thiệu về Pandas
 
-Pandas cung cấp DataFrame cho việc phân tích dữ liệu mạnh mẽ làm việc với dữ liệu bảng như excel hay csv.
+Pandas cung cấp DataFrame và Series cho việc phân tích dữ liệu mạnh mẽ làm việc với dữ liệu bảng như excel hay csv.
 
 ### 8.2.1. Tạo DataFrame từ dictionary
 

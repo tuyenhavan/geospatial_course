@@ -308,7 +308,7 @@ summer_mean = summer_data.groupby('time.year').mean()
 
 ### 17.6.2. Tính theo rolling 
 
-`rolling` trong Xarray dùng để tính toán trên cửa sổ trượt (moving window) dọc theo một chiều (thường là time).
+`rolling` trong Xarray dùng để tính toán trên cửa sổ trượt (moving window) dọc theo một chiều (thường là time). Ví dụ như bạn muốn tính trung bình nhiệt độ theo thời gian với một cửa sổ 3 tháng, giúp làm mượt dữ liệu theo thời gian. Tuy nhiên, lưu ý rằng các giá trị ở đầu và cuối của chuỗi thời gian sẽ có giá trị NaN do không đủ dữ liệu để tính toán trong cửa sổ 3 tháng.
 
 
 ```python

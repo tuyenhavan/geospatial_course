@@ -82,6 +82,8 @@ vietnam_cities_data = [
 
 - **Viết dữ liệu vào file**
 
+Để viết dữ liệu địa lý vào một file GeoJSON, bạn cần xác định schema cho dữ liệu của mình, bao gồm loại hình học (geometry) và các thuộc tính (properties) mà bạn muốn lưu trữ. Sau đó, bạn có thể sử dụng thư viện Fiona để tạo file GeoJSON và ghi các feature vào đó. Trong ví dụ bên dưới, chúng ta đã tạo một file GeoJSON chứa thông tin về các tỉnh/thành phố ở Việt Nam, bao gồm tên, loại hình, dân số, diện tích, khu vực và mật độ dân số.
+
 
 ```python
 # 1. Tạo GeoJSON file
@@ -129,6 +131,8 @@ with fiona.open(geojson_file, 'w', driver='GeoJSON', schema=schema, crs=crs) as 
 ```
 
 ### 13.2.2. Đọc dữ liệu từ file `geojson`
+
+Fiona cho phép người dùng đọc file GeoJSON và truy cập vào các thuộc tính và hình học của từng feature trong file. Bạn có thể kiểm tra schema để biết được các thuộc tính nào có trong dữ liệu và kiểu dữ liệu của chúng, sau đó truy cập vào các thuộc tính và hình học của từng feature để sử dụng trong phân tích hoặc trực quan hóa.
 
 
 ```python
@@ -183,6 +187,8 @@ print(f"→ Tìm thấy {len(large_cities)} thành phố lớn")
     
 
 ### 13.3.2. Đổi từ `geojson` sang `shapefile`
+
+Fiona cho phép bạn dễ dàng chuyển đổi giữa các định dạng dữ liệu địa lý khác nhau, chẳng hạn như từ GeoJSON sang Shapefile, giúp bạn linh hoạt trong việc sử dụng dữ liệu địa lý cho các mục đích khác nhau trong GIS.
 
 
 ```python
