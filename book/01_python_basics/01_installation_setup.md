@@ -1,10 +1,10 @@
 # Bài 1: Cài đặt và thiết lập môi trường Python
 
-Trong bài học đầu tiên này, chúng ta sẽ cài đặt các công cụ cần thiết cho việc sử dụng python trong lĩnh vực địa không gian. Bài học này có kèm theo [video](https://www.youtube.com/watch?v=msZteBOpblc&t=29s) hướng dẫn cài đặt.
+Cài đặt và thiết lập môi trường là một bước quan trọng trong phân tích dữ liệu địa không gian với Python. Trong bài học đầu tiên này, chúng ta sẽ cài đặt các công cụ cần thiết cho khóa học. Bài học này có kèm theo [video](https://www.youtube.com/watch?v=msZteBOpblc&t=29s) hướng dẫn cài đặt.
 
 ## 1.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
-- Cài đặt và cấu hình VS Code làm môi trường làm việc
+- Cài đặt VS Code làm môi trường làm việc
 - Cài đặt Python thông qua Miniconda
 - Cài đặt và thiết lập Git để quản lý mã nguồn
 - Tạo và quản lý môi trường ảo bằng Miniconda
@@ -13,21 +13,21 @@ Sau khi hoàn thành bài học này, bạn sẽ có thể:
 
 ## 1.2. Tải và cài đặt VS Code
 
-Visual Studio Code (VS Code) là một trình soạn thảo mã nguồn mở miễn phí và mạnh mẽ, hoàn hảo cho việc soạn thảo code Python.
+VS Code (Visual Studio Code) là một trình soạn thảo mã nguồn mở miễn phí và hỗ trợ nhiều tiện ích cho các nhà phát triển phần mềm hoặc người học trong việc viết, soạn thảo và tổ chức code Python.
 
 ### 1.2.1. Tải VS code
 
-Để tải VS code, truy cập vào [vs code website](https://code.visualstudio.com/) và tiến hành tải về phiên bản phù hợp với hệ điều hành đang sử dụng. Trong quá trình tải, hãy lựa chọn đúng phiên bản cài đặt tương ứng:
+Để tải VS code, truy cập vào [website](https://code.visualstudio.com/) chính thức của VS code và tiến hành tải về phiên bản phù hợp với hệ điều hành đang sử dụng. Trong quá trình tải, hãy lựa chọn đúng phiên bản cài đặt tương ứng:
 - Windows: `.exe` file
 - macOS: `.dmg` file
 - Linux: `.deb` hoặc `.rpm` file
 
 ### 1.2.2. Cài đặt VS code trên Windows
 
-Dưới đây là các bước cài đặt `vs code` trên Windows:
+Sau khi tải về, bạn vào phần `Downloads` folder và tìm đến file có tên `VSCodeUserSetup-x64-1.105.1.exe` hoặc tên tương tự và làm theo các bước sau đây:
 
-- ✅ Chạy file `.exe`, trong quá trình cài đặt
-- ✅ Chọn "Add 'Open with Cod' action to Windows Explorer file context menu".
+- ✅ Chạy hoặc nhấn chuột trái hai lần vào file `.exe` bên trên, trong quá trình cài đặt
+- ✅ Chọn "Add 'Open with Code' action to Windows Explorer file context menu".
 - ✅ Chọn "Add 'Open with Code' action to Windows Explorer directory context menu".
 - ✅ Tất cả các thông số còn lại có thể chọn mặc định. 
 
@@ -41,9 +41,9 @@ Người dùng có thể lựa chọn phương pháp phù hợp với bản phâ
 
 ### 1.3.1. Cài đặt các tiện ích chính
 
-VS Code cung cấp một hệ sinh thái tiện ích (extensions) phong phú, cho phép người dùng dễ dàng mở rộng chức năng theo nhu cầu công việc. Trong phần này, chúng ta sẽ tập trung lựa chọn và cài đặt các tiện ích thiết yếu, hỗ trợ hiệu quả cho quá trình phân tích dữ liệu không gian.
+VS Code cung cấp một hệ sinh thái tiện ích (extensions) phong phú, cho phép người dùng dễ dàng mở rộng chức năng theo nhu cầu công việc. Trong phần này, chúng ta sẽ tập trung lựa chọn và cài đặt các tiện ích thiết yếu, hỗ trợ cho quá trình phân tích dữ liệu không gian.
 
-Để cài đặt tiện ích trong VS code, bạn có thể dùng Ctrl+Shift+X.
+Để cài đặt tiện ích trong VS code, bạn có thể dùng `Ctrl+Shift+X` để mở tiện ích. Sau đó bạn tìm các tiện ích sau và cài chọn cài đặt.
 
 - **Python** (Microsoft): Extension chính để phát triển Python, cung cấp khả năng chạy và debug code Python, quản lý interpreter, syntax highlighting, và tích hợp terminal Python. Đây là extension bắt buộc cho mọi dự án Python.
 
@@ -190,7 +190,7 @@ conda activate geotest
 Trong trường hợp muốn xóa, bạn có thể làm như sau:
 
 ```bash
-conda env remove -n geotest --all  # Bạn có thể thay ptest bằng tên môi trường bạn đã tạo.
+conda env remove -n geotest --all  # Bạn có thể thay geotest bằng tên môi trường bạn đã tạo.
 ```
 
 ## 1.8. Cài đặt các gói thư viện cần thiết 
@@ -220,7 +220,7 @@ conda install -c conda-forge geopandas rioxarray ee planetary-computer odc-stac 
 Ví dụ như cài đặt gói từ pymapee repo như sau:
 
 ```bash
-pip install git+https://github.com/tuyenhavan/pymapee.git 
+pip install git+https://github.com/tuyenhavan/geesat.git 
 ```
 
 ### 18.3.4. Cài đặt thư viện từ file requirements

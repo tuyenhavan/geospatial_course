@@ -53,7 +53,7 @@ plt.show()
 
 
 ## 20.3. Hiển thị dữ liệu raster
-Phần này minh họa cách hiển thị dữ liệu raster bằng Rasterio và Matplotlib.
+Phần này minh họa cách hiển thị dữ liệu raster bằng `Rioxarray` và `Matplotlib`.
 
 
 ```python

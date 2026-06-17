@@ -4,12 +4,12 @@ Trong bài học này, bạn sẽ học về các cấu trúc dữ liệu tích 
 
 ## 3.1. Mục tiêu học tập
 - Hiểu và sử dụng lists, tuples, dictionaries, và sets
-- Thực hiện các thao tác phổ biến: lập chỉ mục, cắt lát, thêm, xóa, tìm kiếm
+- Thực hiện các thao tác phổ biến như lập chỉ mục, cắt lát, thêm, xóa, tìm kiếm
 - Chọn đúng cấu trúc dữ liệu cho nhiệm vụ của bạn
 - Áp dụng cấu trúc dữ liệu vào các bài toán không gian địa lý
 
 ## 3.2. Danh sách
-Danh sách (list) là tập hợp có thứ tự và có thể thay đổi. Chúng được sử dụng để lưu chuỗi các phần tử và được tạo ra sử dụng hai phương pháp chính là dùng dấu ngoặc vuông ([]) hoặc là dùng từ khóa `list()`.
+Danh sách (list) là tập hợp có thứ tự và có thể thay đổi. Chúng được sử dụng để lưu các phần tử và được tạo ra sử dụng hai phương pháp chính là dùng dấu ngoặc vuông ([]) hoặc là dùng từ khóa `list()`.
 
 ### 3.2.1. Tạo danh sách
 
@@ -383,6 +383,8 @@ print(f"Danh sách thành phố {cities}")
 
 ### 3.5.2. Các phép toán tập hợp
 
+Giao của hai tập hợp là tập hợp các phần tử xuất hiện trong cả hai tập hợp.
+
 - **Giao của hai tập hợp**
 
 
@@ -395,10 +397,12 @@ intersection = cities & visited_cities
 print('Các thành phố đã được thăm và có trong danh sách:', intersection)
 ```
 
-    Các thành phố đã được thăm và có trong danh sách: {'Nam Định', 'Hà Nội'}
+    Các thành phố đã được thăm và có trong danh sách: {'Hà Nội', 'Nam Định'}
     
 
 - **Hợp của hai tập hợp (`union`)**
+
+Hợp của hai tập hợp là tập hợp tất cả phần tử xuất hiện trong ít nhất một trong hai tập hợp.
 
 
 ```python
@@ -415,6 +419,8 @@ print('Các thành phố trong danh sách hoặc đã được thăm:', union)
 
 - **Hiệu của hai tập hợp (`difference`)**
 
+Hiệu của hai tập hợp là tập hợp các phần tử xuất hiện trong tập hợp thứ nhất nhưng không xuất hiện trong tập hợp thứ hai. 
+
 
 ```python
 # Tạo tập hợp
@@ -429,6 +435,8 @@ print('Các thành phố trong danh sách nhưng chưa được thăm:', differe
     
 
 ### 3.5.3. Thêm và xóa tập hợp
+
+Ta có thể thêm và xóa phần tử khỏi tập hợp bằng các phương thức `add()` và `remove()` hoặc `discard()`.
 
 - **Thêm phần tử mới**
 

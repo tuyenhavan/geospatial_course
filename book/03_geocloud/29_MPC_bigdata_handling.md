@@ -43,6 +43,8 @@ catalog = pystac_client.Client.open(
 
 ### 29.2.1. Đọc toàn bộ AOI
 
+Trong ví dụ này, giả sử ta muốn tìm kiếm tất cả các bức ảnh Sentinel-2 trong khu vực Việt Nam vào năm 2023 có mây phủ dưới 10%. Ta có thể có hàng nghìn bức ảnh thoải mãn điều kiện trên như bên dưới.
+
 
 ```python
 # Ví dụ đọc dữ dữ liệu Việt Nam 

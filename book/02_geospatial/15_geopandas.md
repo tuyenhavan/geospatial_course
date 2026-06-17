@@ -244,7 +244,7 @@ polygon.head()
 
 ## 15.3. Đọc và Lưu Dữ liệu Địa không gian
 
-GeoPandas có thể đọc và ghi hơn **20 định dạng** địa không gian khác nhau. Đây là kỹ năng thiết yếu cho công việc thực tế.
+GeoPandas có thể đọc và ghi hơn **20 định dạng** địa không gian khác nhau. Đây là kỹ năng thiết yếu cho công việc thực tế. Trong phần này, chúng ta sẽ khám phá đọc và ghi các loại dữ liệu chính trong GIS.
 
 Dữ liệu sử dụng trong notebook này được tải từ [GADM](https://gadm.org/) và NDVI từ ảnh MODI.
 
@@ -506,7 +506,7 @@ vietnam_data.to_file(os.path.join(outpath, 'Vietnam_provinces.gpkg'), driver='GP
 
 ## 15.4. Thao tác và Phân tích Không gian
 
-Đây là phần mạnh nhất của GeoPandas - các thao tác không gian cho phép phân tích mối quan hệ địa lý phức tạp.
+Geopandas cho phép người dùng có thể dễ dàng thao tác với dữ liệu địa lý bằng cách sử dụng các phương thức và thuộc tính của GeoDataFrame. Bạn có thể chọn các cột cụ thể, đổi tên cột, lọc dữ liệu dựa trên điều kiện, và thực hiện nhiều thao tác địa lý khác.
 
 
 ```python

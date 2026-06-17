@@ -62,6 +62,8 @@ from odc.stac import stac_load
 import xarray as xr
 ```
 
+Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo bounding bên dưới. Bạn có thể thay đổi vị trí và thời gian phù hợp với yêu cầu của bạn.
+
 
 ```python
 # Bounding box cho vùng nghiên cứu ở Đức
@@ -70,7 +72,7 @@ bbox = [9.84375   , 47.5172007 , 10.1953125 , 47.75409798]
 
 ## 27.3 Kết nối MPC Catalog và khám phá dữ liệu
 
-Kết nối tới STAC API của MPC, sau đó liệt kê các collections dữ liệu phổ biến cho remote sensing. Tham số `modifier=planetary_computer.sign_inplace` giúp tự động ký URL khi truy cập asset.
+Kết nối tới STAC API của MPC, sau đó liệt kê các bộ dữ liệu phổ biến. Tham số `modifier=planetary_computer.sign_inplace` giúp tự động ký URL khi truy cập asset. Để biết có những bộ dữ liệu nào trong MPC, ta có thể liệt kê chúng ra như ví dụ bên dưới.
 
 
 ```python
@@ -129,7 +131,7 @@ sentinel_collections[:5]  # hiển thị 5 bộ sưu tập Sentinel đầu tiên
 
 ## 27.4 Tìm kiếm dữ liệu theo bộ sưu tập
 
-Trong phần này, chúng ta sẽ viết một hàm cho phép tìm kiếm ảnh trong một bộ sưu tập theo các điều kiện sau:
+Trong phần này, chúng ta sẽ chuẩn bị một số hàm cho phép tìm kiếm ảnh trong một bộ sưu tập theo các điều kiện sau:
 
 - `collections` - tên collection STAC
 - `bbox` - vùng quan tâm `[W, S, E, N]`
@@ -207,6 +209,8 @@ def load_data(bbox,
 
 ### 27.5.1. Tìm hiểu về thông tin thuộc tính của dữ liệu Sentinel-2
 
+Để lọc ảnh theo thông tin thuộc tính, chúng ta cần phải biết có thông tin thuộc tính nào trong bộ sưu tập. Để khám phá thông tin thuộc tính, ta có thể lấy một item từ bộ sưu tập và xem các thuộc tính của nó. Ví dụ, chúng ta có thể lấy item đầu tiên và in ra các thuộc tính của nó để xem có thông tin nào hữu ích để lọc ảnh không.
+
 
 ```python
 # Bộ sưu tập Sentinel-2 mặc định trên MPC là "sentinel-2-l2a"
@@ -219,7 +223,6 @@ print(f"Số lượng item tìm được: {len(items)}")
 # kiểm tra thông tin thuộc tính của item đầu tiên
 properties = items[0].properties # Ta  có thể dùng thông tin này để lọc thêm nếu cần thiết, ví dụ: "eo:cloud_cover", "datetime", v.v.
 print(f"Phần trăm che phủ mây của item đầu tiên: {properties.get('eo:cloud_cover', 'Không có thông tin')} %")
-
 ```
 
     Số lượng item tìm được: 3
@@ -238,6 +241,8 @@ print(f"Số lượng ảnh Sentinel-2 tìm thấy cho khu vực nghiên cứu: 
     
 
 ### 27.5.3. Loại bỏ mây ảnh Sentinel-2
+
+Để loại bỏ mây trong Sentinel-2, chúng ta sử dụng Scene Classification Layer (SCL) để xác định các pixel bị che phủ bởi mây và bóng mây. Các giá trị SCL tương ứng với mây và bóng mây là 2, 3, 7, 8, và 9. Chúng ta tạo một mặt nạ đám mây bằng cách gán giá trị `NaN` cho các pixel bị che phủ và giữ nguyên giá trị cho các pixel không bị che phủ. Sau đó, chúng ta nhân dữ liệu gốc với mặt nạ này để loại bỏ ảnh hưởng của mây trong phân tích tiếp theo.
 
 
 ```python
@@ -281,7 +286,7 @@ print(f"Các bands trong dữ liệu sau khi áp dụng cloud mask: {list(sen2ma
 
 ## 27.6 Tìm kiếm và đọc dữ liệu Copernicus DEM 30m
 
-Collection `cop-dem-glo-30` cung cấp **Digital Elevation Model (DEM) toàn cầu 30m** từ TanDEM-X. Không cần lọc theo thời gian — DEM là dữ liệu tĩnh.
+Bộ dữ liệu `cop-dem-glo-30` cung cấp Digital Elevation Model (DEM) toàn cầu 30m. Chúng ta có thể truy cập vào đọc dữ liệu này như bên dưới.
 
 
 ```python

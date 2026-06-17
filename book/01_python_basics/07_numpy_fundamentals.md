@@ -448,6 +448,8 @@ Hàm `vectorize` là một công cụ mạnh mẽ trong NumPy cho phép bạn á
 
 - **Nhóm loại đất với mảng 2 chiều**
 
+Ví dụ bạn có một mảng 2D (bản đồ) mô phỏng dữ liệu bản đồ đất đai với các giá trị từ 1 đến 10, bạn muốn phân loại lại các giá trị này thành 3 nhóm: Nhóm 1 (1-3), Nhóm 2 (4-7), và Nhóm 3 (8-10). Bạn có thể sử dụng hàm np.vectorize để áp dụng hàm phân loại lại cho từng phần tử trong mảng thành một trong ba nhóm như bên dưới.
+
 
 ```python
 # tạo mảng 2d array mô phỏng dữ liệu bản đồ đất đai với kích thước 200x200 và các giá trị từ 1 đến 10
@@ -469,6 +471,8 @@ print(f"Shpae của mảng sau khi phân loại lại: {new_land_use.shape}")
     
 
 - **Nhóm loại đất với mảng 3 chiều**
+
+Tương tự như vậy, bạn có thể áp dụng hàm np.vectorize để phân loại lại dữ liệu bản đồ đất đai cho mảng 3D (ví dụ như bản đồ đất theo năm), giúp bạn dễ dàng xử lý và phân tích dữ liệu theo thời gian hoặc theo các lớp khác nhau.
 
 
 ```python

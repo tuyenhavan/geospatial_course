@@ -1,5 +1,7 @@
 # Bài 25: Trích xuất giá trị ảnh theo vị trí (GEE)
 
+Trong bài học này, chúng ta sẽ học cách trích xuất giá trị raster theo theo vị trí điểm hoặc polygons sử dụng GEE Python API.
+
 ## 25.1. Mục tiêu học tập
 
 Sau bài này bạn có thể:
@@ -20,7 +22,7 @@ ee.Initialize()
 
 ## 25.2. Chuẩn bị dữ liệu Sentinel-2
 
-Trong mục này, chúng ta sẽ trích xuất giá trị ảnh Sentinel-2 dựa trên dữ liệu điểm và polygons.
+Trong mục này, chúng ta sẽ trích xuất giá trị ảnh Sentinel-2 dựa trên dữ liệu điểm và polygons. Trước tiên, chúng ta xác định khu vực nghiên cứu và thời gian. Trong ví dụ này, ta lấy bản đồ của Singapore và sau đó tạo ra các điểm cho mỗi huyện hay địa điểm và bộ dữ liệu Sentinel-2 như bên dưới.
 
 
 ```python
@@ -113,6 +115,8 @@ def format_values(values):
 ## 25.3. Trích xuất giá trị ảnh với dữ liệu điểm
 
 ### 25.3.1. Trích xuất giá trị với một ảnh
+
+Trong ví dụ này, chúng ta đã trích xuất giá trị pixel từ một ảnh Sentinel-2 tại các điểm vùng nghiên cứu Singapore. Kết quả được lưu trong một DataFrame của pandas, trong đó mỗi hàng tương ứng với một điểm và các cột chứa giá trị pixel của các band đã chọn (B2, B3, B4, B8). 
 
 
 ```python
@@ -222,6 +226,8 @@ df.head()
 
 
 ### 25.3.2. Trích xuất giá trị ảnh theo thời gian
+
+Tương tự như vậy, chúng ta có thể trích xuất giá trị pixel từ ảnh Sentinel-2 tại các vị trí theo thời gian của ảnh. Kết quả được lưu trong một DataFrame của pandas, trong đó mỗi hàng tương ứng với một điểm và các cột chứa giá trị pixel của các band đã chọn (B2, B3, B4, B8). Cột "time" chứa thông tin về thời gian của ảnh, được chuyển đổi từ định dạng timestamp của GEE sang định dạng datetime của Python.
 
 
 ```python
@@ -356,6 +362,8 @@ df.head()
 ## 25.4. Trích xuất giá trị ảnh với đối tượng đa giác
 
 ### 25.4.1. Trích xuất giá trị với một ảnh 
+
+Trong ví dụ này, chúng ta trích dẫn giá trị pixel ảnh Sentinel-2 cho các polygons trong vùng nghiên cứu. Kết quả được lưu trong một DataFrame của pandas, trong đó mỗi hàng tương ứng với một polygon và các cột chứa giá trị pixel trung bình của các band đã chọn (B2, B3, B4, B8) cùng với thông tin thuộc tính từ GeoDataFrame
 
 
 ```python
@@ -529,6 +537,8 @@ df.head()
 
 
 ### 25.4.2. Trích xuất giá trị ảnh theo thời gian
+
+Tương tự, chúng ta cũng có thể trích xuất giá trị raster theo polygons và theo thời gian. Kết quả lưu ra là một DataFrame với thông tin giá trị được trích xuất và cột thời gian.
 
 
 ```python

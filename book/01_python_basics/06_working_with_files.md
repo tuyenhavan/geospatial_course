@@ -1,6 +1,6 @@
 # Bài 6: Làm việc với Files
 
-Trong bài học này, bạn sẽ học cách đọc và ghi files trong Python, bao gồm làm việc với CSV files - một định dạng phổ biến cho dữ liệu không gian địa lý.
+Trong bài học này, bạn sẽ học cách đọc và ghi files trong Python, bao gồm làm việc với file `CSV`, một định dạng phổ biến cho dữ liệu không gian địa lý.
 
 ## 6.1. Mục tiêu học tập
 - Mở, đọc và ghi text files

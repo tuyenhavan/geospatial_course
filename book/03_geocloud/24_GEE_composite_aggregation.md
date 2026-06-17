@@ -47,6 +47,8 @@ ee.Initialize()
 
 
 
+Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo bounding bên dưới và khoảng thời gian như bên dưới. Bạn có thể thay đổi vị trí và thời gian phù hợp với yêu cầu của bạn.
+
 
 ```python
 # Trong bài học này, chúng ta sẽ sử dụng một bounding box nhỏ ở miền nam nước Đức để làm ví dụ. Bạn có thể thay đổi bbox này để phù hợp với khu vực bạn quan tâm.
@@ -119,7 +121,7 @@ def date_range_col(col):
         col.limit(1, "system:time_start", False).first().get("system:time_start")
     )
     return first_date, latest_date
-
+# Viết một hàm để tạo một danh sách các đối tượng datetime hàng tháng từ ngày đầu tiên đến ngày cuối cùng của bộ dữ liệu
 def monthly_datetime_list(first_date, latest_date):
     """Return a list of monthly datetime objects.
 
@@ -142,7 +144,7 @@ def monthly_datetime_list(first_date, latest_date):
 
     monthly_list = month_list.map(month_step)
     return monthly_list
-
+# Tương tự, chúng ta cũng có thể tạo một hàm để lấy danh sách các datetime hàng năm.
 def yearly_datetime_list(first_date, latest_date):
     """Return a list of yearly datetime objects.
 
@@ -232,6 +234,8 @@ sen2col = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
 
 ### 24.3.1. Tổng hợp ảnh Sentinel-2 theo tháng
 
+Trong ví dụ này, chúng ta đã tạo ra một bộ sưu tập ảnh tổng hợp hàng tháng bằng cách lấy giá trị trung bình của các ảnh trong mỗi tháng. Bạn có thể thay đổi phương pháp tổng hợp (ví dụ: median, min, max) hoặc khoảng thời gian (ví dụ: hàng năm) tùy theo nhu cầu phân tích của bạn.
+
 
 ```python
 # Tổng hợp ảnh theo tháng bằng cách lấy giá trị trung bình. Bạn có thể thay đổi sử dụng các phương pháp tổng hợp khác như median, min, max,... tùy theo mục đích phân tích của bạn.
@@ -252,7 +256,7 @@ def generate_monthly_composite(col):
         start = date
         end = date.advance(1, 'month')
         monthly_col = col.filterDate(start, end)
-        composite = monthly_col.mean().set('system:time_start', start.millis())
+        composite = monthly_col.mean().set('system:time_start', start.millis()) # Gán thời gian bắt đầu của tháng làm thuộc tính 'system:time_start' cho ảnh tổng hợp
         return composite
 
     monthly_composite_col = ee.ImageCollection(monthly_list.map(monthly_composite))
@@ -291,6 +295,8 @@ print('Số lượng ảnh sau khi tổng hợp theo tháng:', sen2col_monthly_c
     
 
 ### 24.3.2. Tổng hợp ảnh Sentinel-2 theo mùa
+
+Trong ví dụ này, chúng ta tạo ra một bộ sưu tập ảnh tổng hợp theo mùa (mùa hè) bằng cách tính giá trị trung bình mỗi năm theo mùa.
 
 
 ```python
@@ -350,6 +356,8 @@ print('Số lượng ảnh sau khi tổng hợp theo mùa hè:', sen2col_summer_
     
 
 ### 24.3.3. Tổng hợp ảnh Sentinel-2 theo năm
+
+Trong ví dụ này, chúng ta tính toán giá trị trung bình của các ảnh trong mỗi năm để tạo ra một bộ sưu tập ảnh tổng hợp hàng năm. Bạn có thể thay đổi phương pháp tổng hợp (ví dụ: median, min, max) hoặc khoảng thời gian (ví dụ: hàng tháng) tùy theo nhu cầu phân tích của bạn.
 
 
 ```python
@@ -416,6 +424,8 @@ Trong phần này, chúng ta sẽ tổng hợp ảnh theo thời gian sử dụn
 
 
 ### 24.4.1. Tính chỉ số NDVI Landsat
+
+Tính NDVI cho ảnh Landsat theo AOI và khoảng thời gian đã chọn.
 
 
 ```python
