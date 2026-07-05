@@ -22,114 +22,13 @@ import torch # Nếu chưa cài đặt torch thì cài đặt từ trang chính 
 import torch.nn as nn
 import torch.nn.functional as TF
 import rasterio as rio
-import albumentations as A # if not installed, install it using pip install albumentations
+# import albumentations as A # if not installed, install it using pip install albumentations
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 import xarray as xr
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    ModuleNotFoundError                       Traceback (most recent call last)
-
-    Cell In[1], line 6
-          2 import torch # Nếu chưa cài đặt torch thì cài đặt từ trang chính thức https://pytorch.org/get-started/locally/
-          3 import torch.nn as nn
-          4 import torch.nn.functional as TF
-          5 import rasterio as rio
-    ----> 6 import albumentations as A # if not installed, install it using pip install albumentations
-          7 import numpy as np
-          8 from torch.utils.data import Dataset, DataLoader
-          9 from tqdm import tqdm
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\__init__.py:18
-         14 from contextlib import suppress
-         16 from albumentations.check_version import check_for_updates
-    ---> 18 from .augmentations import *
-         19 from .core.composition import *
-         20 from .core.serialization import *
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\augmentations\__init__.py:1
-    ----> 1 from .blur.transforms import *
-          2 from .crops.transforms import *
-          3 from .dropout.channel_dropout import *
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\augmentations\blur\transforms.py:23
-         14 from pydantic import (
-         15     AfterValidator,
-         16     Field,
-       (...)     19     model_validator,
-         20 )
-         21 from typing_extensions import Self
-    ---> 23 from albumentations.augmentations.pixel import functional as fpixel
-         24 from albumentations.core.pydantic import (
-         25     NonNegativeFloatRangeType,
-         26     OnePlusFloatRangeType,
-       (...)     32     process_non_negative_range,
-         33 )
-         34 from albumentations.core.transforms_interface import (
-         35     BaseTransformInitSchema,
-         36     ImageOnlyTransform,
-         37 )
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\augmentations\pixel\functional.py:18
-         16 import cv2
-         17 import numpy as np
-    ---> 18 from albucore import (
-         19     MAX_VALUES_BY_DTYPE,
-         20     add,
-         21     add_array,
-         22     add_constant,
-         23     add_weighted,
-         24     clip,
-         25     clipped,
-         26     float32_io,
-         27     from_float,
-         28     get_num_channels,
-         29     is_grayscale_image,
-         30     is_rgb_image,
-         31     maybe_process_in_chunks,
-         32     multiply,
-         33     multiply_add,
-         34     multiply_by_array,
-         35     multiply_by_constant,
-         36     normalize_per_image,
-         37     power,
-         38     preserve_channel_dim,
-         39     sz_lut,
-         40     uint8_io,
-         41 )
-         43 import albumentations.augmentations.geometric.functional as fgeometric
-         44 from albumentations.augmentations.utils import (
-         45     PCA,
-         46     non_rgb_error,
-         47 )
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albucore\__init__.py:14
-         11     __maintainer__ = "Vladimir Iglovikov"
-         13 from .decorators import *
-    ---> 14 from .functions import *
-         15 from .utils import *
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albucore\functions.py:8
-          6 import cv2
-          7 import numpy as np
-    ----> 8 import simsimd as ss
-          9 import stringzilla as sz
-         11 from albucore.decorators import contiguous, preserve_channel_dim
-    
-
-    ModuleNotFoundError: No module named 'simsimd'
-
 
 ## 34.2. Chuẩn bị dữ liệu huấn luyện
 
