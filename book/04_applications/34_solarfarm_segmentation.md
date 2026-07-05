@@ -22,13 +22,114 @@ import torch # Nếu chưa cài đặt torch thì cài đặt từ trang chính 
 import torch.nn as nn
 import torch.nn.functional as TF
 import rasterio as rio
-import albumentations as A
+import albumentations as A # if not installed, install it using pip install albumentations
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 import xarray as xr
 ```
+
+
+    ---------------------------------------------------------------------------
+
+    ModuleNotFoundError                       Traceback (most recent call last)
+
+    Cell In[1], line 6
+          2 import torch # Nếu chưa cài đặt torch thì cài đặt từ trang chính thức https://pytorch.org/get-started/locally/
+          3 import torch.nn as nn
+          4 import torch.nn.functional as TF
+          5 import rasterio as rio
+    ----> 6 import albumentations as A # if not installed, install it using pip install albumentations
+          7 import numpy as np
+          8 from torch.utils.data import Dataset, DataLoader
+          9 from tqdm import tqdm
+    
+
+    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\__init__.py:18
+         14 from contextlib import suppress
+         16 from albumentations.check_version import check_for_updates
+    ---> 18 from .augmentations import *
+         19 from .core.composition import *
+         20 from .core.serialization import *
+    
+
+    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\augmentations\__init__.py:1
+    ----> 1 from .blur.transforms import *
+          2 from .crops.transforms import *
+          3 from .dropout.channel_dropout import *
+    
+
+    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\augmentations\blur\transforms.py:23
+         14 from pydantic import (
+         15     AfterValidator,
+         16     Field,
+       (...)     19     model_validator,
+         20 )
+         21 from typing_extensions import Self
+    ---> 23 from albumentations.augmentations.pixel import functional as fpixel
+         24 from albumentations.core.pydantic import (
+         25     NonNegativeFloatRangeType,
+         26     OnePlusFloatRangeType,
+       (...)     32     process_non_negative_range,
+         33 )
+         34 from albumentations.core.transforms_interface import (
+         35     BaseTransformInitSchema,
+         36     ImageOnlyTransform,
+         37 )
+    
+
+    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albumentations\augmentations\pixel\functional.py:18
+         16 import cv2
+         17 import numpy as np
+    ---> 18 from albucore import (
+         19     MAX_VALUES_BY_DTYPE,
+         20     add,
+         21     add_array,
+         22     add_constant,
+         23     add_weighted,
+         24     clip,
+         25     clipped,
+         26     float32_io,
+         27     from_float,
+         28     get_num_channels,
+         29     is_grayscale_image,
+         30     is_rgb_image,
+         31     maybe_process_in_chunks,
+         32     multiply,
+         33     multiply_add,
+         34     multiply_by_array,
+         35     multiply_by_constant,
+         36     normalize_per_image,
+         37     power,
+         38     preserve_channel_dim,
+         39     sz_lut,
+         40     uint8_io,
+         41 )
+         43 import albumentations.augmentations.geometric.functional as fgeometric
+         44 from albumentations.augmentations.utils import (
+         45     PCA,
+         46     non_rgb_error,
+         47 )
+    
+
+    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albucore\__init__.py:14
+         11     __maintainer__ = "Vladimir Iglovikov"
+         13 from .decorators import *
+    ---> 14 from .functions import *
+         15 from .utils import *
+    
+
+    File c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\albucore\functions.py:8
+          6 import cv2
+          7 import numpy as np
+    ----> 8 import simsimd as ss
+          9 import stringzilla as sz
+         11 from albucore.decorators import contiguous, preserve_channel_dim
+    
+
+    ModuleNotFoundError: No module named 'simsimd'
+
 
 ## 34.2. Chuẩn bị dữ liệu huấn luyện
 
@@ -457,9 +558,6 @@ for epoch in progess_bar:
     progess_bar.set_postfix({"Train Loss": train_loss, "Val Loss": val_loss})
 ```
 
-    Training Progress: 100%|██████████| 10/10 [10:19<00:00, 61.97s/epoch, Train Loss=0.254, Val Loss=0.263]
-    
-
 ### 34.5.4. Lưu lại mô hình đã huấn luyện
 
 Sau khi hoàn thành huấn luyện, mô hình cần được **lưu lại** để có thể sử dụng sau này mà không phải train lại từ đầu. PyTorch cung cấp hai cách lưu mô hình:
@@ -503,9 +601,6 @@ model.load_state_dict(torch.load(model_save_path, map_location=device, weights_o
 model = model.to(device)
 print("Model loaded successfully for inference.")
 ```
-
-    Model loaded successfully for inference.
-    
 
 ### 34.6.2. Hàm tải và tiền xử lý ảnh Sentinel-2
 
@@ -729,108 +824,6 @@ data = load_sen2_data(
     max_cloud_cover=5
 ).astype(np.float32)
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    CRSError                                  Traceback (most recent call last)
-
-    Cell In[22], line 5
-          1 # Xác định khu vực nghiên cứu (bounding box: [min_lon, min_lat, max_lon, max_lat])
-          2 bbox = [107.82491814, 12.54327821, 107.91316082, 12.62476045]
-          3 
-          4 # Tải và tiền xử lý ảnh Sentinel-2 từ Planetary Computer
-    ----> 5 data = load_sen2_data(
-          6     bbox,
-          7     start_date='2026-03-20',
-          8     end_date='2026-03-28',
-    
-
-    Cell In[20], line 14, in load_sen2_data(bbox, start_date, end_date, max_cloud_cover)
-         10         xarray.DataArray: A data array containing the loaded Sentinel-2 data, with bands normalized to 0-1 range and NDVI calculated.
-         11     """
-         12     import planetary_computer as pc
-         13     import pystac_client
-    ---> 14     from odc.stac import stac_load
-         15     import xarray as xr
-         16     # Connect to the STAC API
-         17     catalog = pystac_client.Client.open("https://planetarycomputer.microsoft.com/api/stac/v1")
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geobook\Lib\site-packages\odc\stac\__init__.py:6
-          3 from odc.loader import configure_rio, configure_s3_access
-          4 from odc.loader.types import RasterBandMetadata, RasterLoadParams, RasterSource
-    ----> 6 from ._mdtools import (
-          7     ConversionConfig,
-          8     ParsedItem,
-          9     extract_collection_metadata,
-         10     output_geobox,
-         11     parse_item,
-         12     parse_items,
-         13 )
-         14 from ._stac_load import load
-         15 from .model import RasterCollectionMetadata
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geobook\Lib\site-packages\odc\stac\_mdtools.py:83
-         74 from .model import (
-         75     MDParseConfig,
-         76     ParsedItem,
-         77     PropertyLoadRequest,
-         78     RasterCollectionMetadata,
-         79 )
-         81 ConversionConfig: TypeAlias = Dict[str, Any]
-    ---> 83 EPSG4326 = CRS("EPSG:4326")
-         85 # Assets with these roles are ignored unless manually requested
-         86 ROLES_THUMBNAIL = {"thumbnail", "overview"}
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geobook\Lib\site-packages\odc\geo\crs.py:110, in CRS.__init__(self, crs_spec)
-         99 """
-        100 Construct CRS object from *something*.
-        101 
-       (...)    106 :raises: :py:class:`pyproj.exceptions.CRSError`
-        107 """
-        109 if isinstance(crs_spec, (str, int, _CRS)):
-    --> 110     self._crs, self._str, self._epsg = _make_crs(crs_spec)
-        111 elif isinstance(crs_spec, CRS):
-        112     self._crs = crs_spec._crs
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geobook\Lib\site-packages\cachetools\_cached.py:210, in _unlocked.<locals>.wrapper(*args, **kwargs)
-        208 except KeyError:
-        209     pass  # key not found
-    --> 210 v = func(*args, **kwargs)
-        211 try:
-        212     cache[k] = v
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geobook\Lib\site-packages\odc\geo\crs.py:61, in _make_crs(crs_spec)
-         59 epsg = EPSG_UNSET
-         60 if isinstance(crs_spec, str):
-    ---> 61     crs = _CRS.from_user_input(crs_spec)
-         62 elif isinstance(crs_spec, int):
-         63     epsg = crs_spec
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geobook\Lib\site-packages\pyproj\crs\crs.py:503, in CRS.from_user_input(cls, value, **kwargs)
-        501 if isinstance(value, cls):
-        502     return value
-    --> 503 return cls(value, **kwargs)
-    
-
-    File c:\Users\tuyen\miniconda3\envs\geobook\Lib\site-packages\pyproj\crs\crs.py:350, in CRS.__init__(self, projparams, **kwargs)
-        348     self._local.crs = projparams
-        349 else:
-    --> 350     self._local.crs = _CRS(self.srs)
-    
-
-    File pyproj/_crs.pyx:2364, in pyproj._crs._CRS.__init__()
-    -> 2364 'Could not get source, probably due dynamically evaluated source code.'
-    
-
-    CRSError: Invalid projection: EPSG:4326: (Internal Proj Error: proj_create: no database context specified)
-
 
 
 ```python

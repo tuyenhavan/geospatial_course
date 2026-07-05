@@ -21,13 +21,6 @@ ee.Authenticate()
 ee.Initialize(project='earthengine-379609') # thay bằng project của bạn. Nếu bạn chưa có project thì tạo mới trong tài khoản Google Earth Engine của bạn theo video sau https://www.youtube.com/watch?v=Lfaamxqqk7k
 ```
 
-
-
-
-    True
-
-
-
 ## 20.2. Các đối tượng chính trong GEE
 
 Khi làm việc với GEE, các đối tượng trong GEE đều được xử lý theo cơ chế server-side. Vì vậy, chúng ta cần sử dụng các hàm và phương thức có sẵn của GEE như `map()`, `filter()`, `reduce()`, thay vì thao tác trực tiếp bằng Python như với dữ liệu local (client-side). Chỉ khi dùng `getInfo()` thì dữ liệu mới được tải từ server về client.
