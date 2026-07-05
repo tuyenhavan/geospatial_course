@@ -1,6 +1,6 @@
 version: 1
 project:
-  title: Python Cho Dữ Liệu Địa Không Gian
+  title: Phân tích Dữ liệu Địa không gian với Python
   # authors:
   #   - name: Tuyen Ha Van
   copyright: '2026'
@@ -96,10 +96,10 @@ project:
           title: Bài 31 - Phân loại lớp phủ đất sử dụng học máy (machine learning) và Sentinel-2
         - file: book/04_applications/32_drought_detection.md
           title: Bài 32 - Phát hiện hạn hán sử dụng dữ liệu MODIS và ERA-5 Land
-        - file: book/04_applications/33_flood_mapping.md
+        - file: book/04_applications/33_water_mapping.md
           title: Bài 33 - Lập bản đồ biến động nước bề mặt sử dụng dữ liệu Sentinel-1 và Sentinel-2
-        - file: book/04_applications/34_water_segmentation.md
-          title: Bài 34 - Phân vùng mặt nước sử dụng học sâu (deep learning) và Sentinel-2
+        - file: book/04_applications/34_solarfarm_segmentation.md
+          title: Bài 34 - Phân vùng trang trại năng lượng mặt trời sử dụng học sâu (deep learning) và Sentinel-2
 site:
   options:
     logo: images/logo.png

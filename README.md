@@ -1,4 +1,4 @@
-# Python cho Phân tích Dữ liệu Địa không gian
+# Phân tích Dữ liệu Địa không gian với Python
 
 Chuỗi bài hướng dẫn toàn diện về lập trình Python ứng dụng trong phân tích dữ liệu địa không gian, viễn thám và các nền tảng địa không gian đám mây.
 
@@ -98,5 +98,6 @@ Dự án này là mã nguồn mở, được phép sử dụng miễn phí cho m
 
 ## Kết nối
 
-Trong quá trình học, nếu bạn có bất kỳ câu hỏi nào, hãy tham gia và trao đổi trên nhóm Facebook chính thức của khóa học: [Geospatial Vietnam](https://www.facebook.com/groups/4141192679432266). Đây là nơi bạn có thể đặt câu hỏi, thảo luận, và đóng góp giúp cải thiện khóa học.
+Trong quá trình học, nếu bạn có bất kỳ câu hỏi nào, hãy tham gia và trao đổi trên nhóm Facebook chính thức của khóa học: [Open Learning Geolab](https://www.facebook.com/groups/4141192679432266). Đây là nơi bạn có thể đặt câu hỏi, thảo luận và đóng góp giúp cải thiện khóa học.
+
 
