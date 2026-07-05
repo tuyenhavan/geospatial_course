@@ -1,0 +1,12 @@
+/outputs
+*.ipynb_checkpoints
+*.pyc
+__pycache__/
+/data/outputs
+*.log
+/data/vector/
+/ppts
+/notebooks/notebook2markdown.ipynb
+
+# /data
+.vscode/
