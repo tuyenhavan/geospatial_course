@@ -2,6 +2,8 @@
 
 NumPy là nền tảng của tính toán số trong Python. Trong phân tích không gian địa lý, nó được sử dụng cho các phép toán mảng hiệu quả, dữ liệu raster và tính toán toán học.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1J2vFtvV5vV7kjuWnC03HQqiDdltyeBxz?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 7.1. Mục tiêu học tập
 - Hiểu về NumPy arrays và ưu điểm so với lists
 - Tạo, lập chỉ mục và thao tác arrays
@@ -28,6 +30,10 @@ print('Array:', arr)
 print('Kiểu dữ liệu:', type(arr))
 ```
 
+    Array: [1 2 3 4 5]
+    Kiểu dữ liệu: <class 'numpy.ndarray'>
+    
+
 ### 7.2.2. Tạo arrays bằng các hàm của numpy
 
 NumPy có thể tạo arrays từ lists, hoặc tạo arrays với các giá trị cụ thể. Ghi chú, mảng numpy array chỉ chứa 1 kiểu loại dữ liệu cho toàn mảng. Ví dụ là số thực thì toàn mảng là số thực.
@@ -41,6 +47,12 @@ zeros = np.zeros((3, 3)) # Mảng 3x3 toàn số 0
 print('Mảng zeros:\n', zeros)
 ```
 
+    Mảng zeros:
+     [[0. 0. 0.]
+     [0. 0. 0.]
+     [0. 0. 0.]]
+    
+
 - **Tạo mảng toàn số 0 với hàm `np.zeros_like`**
 
 
@@ -48,6 +60,12 @@ print('Mảng zeros:\n', zeros)
 zero_like = np.zeros_like(zeros) # Mảng cùng kích thước với zeros nhưng toàn số 0
 print('Mảng zeros_like:\n', zero_like)
 ```
+
+    Mảng zeros_like:
+     [[0. 0. 0.]
+     [0. 0. 0.]
+     [0. 0. 0.]]
+    
 
 - **Tạo mảng toàn số 1 với hàm `np.ones`**
 
@@ -57,6 +75,11 @@ ones = np.ones((2, 4)) # Mảng 2x4 toàn số 1
 print('Mảng ones:\n', ones)
 ```
 
+    Mảng ones:
+     [[1. 1. 1. 1.]
+     [1. 1. 1. 1.]]
+    
+
 - **Tạo mạng toàn số 1 với hàm `np.ones_like`**
 
 
@@ -65,6 +88,12 @@ one_like = np.ones_like(zeros) # Mảng cùng kích thước với zeros nhưng 
 print('Mảng ones_like:\n', one_like)
 ```
 
+    Mảng ones_like:
+     [[1. 1. 1.]
+     [1. 1. 1.]
+     [1. 1. 1.]]
+    
+
 - **Tạo mảng toàn một số cụ thể với hàm `np.full`**
 
 
@@ -72,6 +101,11 @@ print('Mảng ones_like:\n', one_like)
 full = np.full((2, 2), 7) # Mảng 2x2 toàn số 7
 print('Mảng full:\n', full)
 ```
+
+    Mảng full:
+     [[7 7]
+     [7 7]]
+    
 
 - **Thay đổi `shape` của mảng**
 
@@ -84,12 +118,25 @@ array_1d = array_2d.reshape(-1)  # Chuyển từ 2D sang 1D
 print('Mảng 1D:', array_1d)
 ```
 
+    Mảng 2D:
+     [[1 2 3]
+     [4 5 6]
+     [7 8 9]]
+    Mảng 1D: [1 2 3 4 5 6 7 8 9]
+    
+
 
 ```python
 # Reshape array sau 
 array_2d = np.arange(12).reshape(3, 4)  # Tạo mảng 2D 3x4 từ 1D
 print('Mảng 2D sau reshape:\n', array_2d)
 ```
+
+    Mảng 2D sau reshape:
+     [[ 0  1  2  3]
+     [ 4  5  6  7]
+     [ 8  9 10 11]]
+    
 
 - **Concatenate hai hoặc nhiều mảng**
 
@@ -105,6 +152,23 @@ merged_array = np.concatenate((a, b), axis=0)  # Kết hợp theo chiều dọc 
 print('Mảng sau khi merge:\n', merged_array)
 ```
 
+    Mảng a:
+     [[ 0  1  2  3]
+     [ 4  5  6  7]
+     [ 8  9 10 11]]
+    Mảng b:
+     [[10 11 12 13]
+     [14 15 16 17]
+     [18 19 20 21]]
+    Mảng sau khi merge:
+     [[ 0  1  2  3]
+     [ 4  5  6  7]
+     [ 8  9 10 11]
+     [10 11 12 13]
+     [14 15 16 17]
+     [18 19 20 21]]
+    
+
 - **Tách mảng thành 2 phần**
 
 
@@ -116,6 +180,17 @@ for i, arr in enumerate(split_arrays):
     print(f'Phần {i+1}:\n', arr)
 ```
 
+    Mảng sau khi split:
+    Phần 1:
+     [[ 0  1  2  3]
+     [ 4  5  6  7]
+     [ 8  9 10 11]]
+    Phần 2:
+     [[10 11 12 13]
+     [14 15 16 17]
+     [18 19 20 21]]
+    
+
 - **Lọc giá trị với `np.where`**
 
 
@@ -126,6 +201,9 @@ filtered_array = array[np.where(array > 20)]  # Lọc các giá trị lớn hơn
 print('Mảng sau khi lọc:', filtered_array)
 ```
 
+    Mảng sau khi lọc: [25 30 35]
+    
+
 - **Tạo mảng ngẫu nhiên với `np.random`**
 
 
@@ -134,6 +212,12 @@ print('Mảng sau khi lọc:', filtered_array)
 array = np.random.randint(-10, 10, size=(3, 3)) # Tạo mảng 3x3 với các số nguyên ngẫu nhiên từ -10 đến 9
 print('Mảng ban đầu:\n', array)
 ```
+
+    Mảng ban đầu:
+     [[-6  7  9]
+     [ 6 -6 -8]
+     [-5  8  6]]
+    
 
 - **Chuyển đổi kiểu dữ liệu cho mảng**
 
@@ -144,6 +228,16 @@ print('Mảng sau khi tạo mới với kiểu dữ liệu:', array.dtype, '\n',
 array_float = array.astype(float) # Chuyển đổi kiểu dữ liệu sang float
 print('Mảng sau khi đổi kiểu dữ liệu sang float:\n', array_float)
 ```
+
+    Mảng sau khi tạo mới với kiểu dữ liệu: int32 
+     [[ -8   5   0]
+     [  3   4  -4]
+     [ -8   7 -10]]
+    Mảng sau khi đổi kiểu dữ liệu sang float:
+     [[ -8.   5.   0.]
+     [  3.   4.  -4.]
+     [ -8.   7. -10.]]
+    
 
 - **Kiểm tra thuộc tính liên quan đến mảng**
 
@@ -157,6 +251,12 @@ print('Kích thước (size):', array.size)
 print('Kiểu dữ liệu (dtype):', array.dtype)
 ```
 
+    Kích thước (shape): (6,)
+    Số chiều (ndim): 1
+    Kích thước (size): 6
+    Kiểu dữ liệu (dtype): int64
+    
+
 ## 7.3. Lập chỉ mục và cắt lát Array
 
 Lập chỉ mục và cắt lát (indexing and slicing) hoạt động tương tự như lists, nhưng mạnh mẽ hơn cho dữ liệu đa chiều.
@@ -169,6 +269,13 @@ arr2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) # Mảng 2D
 print('Mảng 2D:\n', arr2d)
 print('Phần tử tại hàng 0, cột 1:', arr2d[0, 1])
 ```
+
+    Mảng 2D:
+     [[1 2 3]
+     [4 5 6]
+     [7 8 9]]
+    Phần tử tại hàng 0, cột 1: 2
+    
 
 - **Cắt lát**
 
@@ -184,6 +291,15 @@ print('Tất cả phần tử của hàng 0:', arr2d[0, :])
 print('Lấy phần tử tại hàng 1 với bước nhảy 2:', arr2d[1, ::2])
 ```
 
+    Mảng 2D:
+     [[1 2 3]
+     [4 5 6]
+     [7 8 9]]
+    Tất cả phần tử của cột 1: [2 5 8]
+    Tất cả phần tử của hàng 0: [1 2 3]
+    Lấy phần tử tại hàng 1 với bước nhảy 2: [4 6]
+    
+
 - **Thay thế cập nhật giá trị trong mảng**
 
 
@@ -195,6 +311,16 @@ print('Mảng sau khi thay thế:\n', arr2d)
 arr2d[:, 2] = [7, 8, 9]
 print('Mảng sau khi thay thế cột 2:\n', arr2d)
 ```
+
+    Mảng sau khi thay thế:
+     [[ 1  2  3]
+     [ 4 99  6]
+     [ 7  8  9]]
+    Mảng sau khi thay thế cột 2:
+     [[ 1  2  7]
+     [ 4 99  8]
+     [ 7  8  9]]
+    
 
 ## 7.4. Các phép toán Array
 
@@ -212,6 +338,12 @@ print('Giá trị trung bình:', np.mean(a))
 print('Tổng:', np.sum(b))
 ```
 
+    Phép cộng: [5 7 9]
+    Phép nhân: [ 4 10 18]
+    Giá trị trung bình: 2.0
+    Tổng: 15
+    
+
 
 ```python
 # Ví dụ: Lưới độ cao
@@ -220,6 +352,14 @@ print('Lưới độ cao:\n', elevation)
 print('Độ cao lớn nhất:', np.max(elevation))
 print('Độ cao trung bình:', np.mean(elevation))
 ```
+
+    Lưới độ cao:
+     [[100 110 120]
+     [ 90  95 105]
+     [ 80  85  90]]
+    Độ cao lớn nhất: 120
+    Độ cao trung bình: 97.22222222222223
+    
 
 
 ```python
@@ -233,6 +373,11 @@ percentile = np.percentile(array, 50) # Phần trăm vị trí 50 (trung vị)
 print('Trung bình theo trục 0:\n', mean)
 ```
 
+    Trung bình theo trục 0:
+     [[3. 4.]
+     [5. 6.]]
+    
+
 - **Phép toán tích vô hướng giữa 2 vectors**
 
 
@@ -243,6 +388,9 @@ b = np.array([4, 5, 6])
 dot_product = np.dot(a, b)
 print('Tích vô hướng của a và b:', dot_product)
 ```
+
+    Tích vô hướng của a và b: 32
+    
 
 - **Phép toán tích vô hướng giữa ma trận với vector**
 
@@ -256,6 +404,10 @@ dot_product_matrix_vector = np.dot(A, x)
 print('Tích vô hướng giữa ma trận A và vector x:\n', dot_product_matrix_vector)
 ```
 
+    Tích vô hướng giữa ma trận A và vector x:
+     [-2 -2 -2]
+    
+
 - **Phép toán tích vô hướng giữa vector với ma trận**
 
 
@@ -268,6 +420,10 @@ dot_product_vector_matrix = np.dot(a, B)
 print('Tích vô hướng giữa vector a và ma trận B:\n', dot_product_vector_matrix)
 ```
 
+    Tích vô hướng giữa vector a và ma trận B:
+     [48 54 60]
+    
+
 - **Phép toán nhân 2 ma trận**
 
 
@@ -279,6 +435,12 @@ B = np.array([[7, 8, 9], [10, 11, 12]]) # Ma trận 2x3
 dot_product_matrix_matrix = np.dot(A, B)
 print('Tích vô hướng giữa ma trận A và ma trận B:\n', dot_product_matrix_matrix)
 ```
+
+    Tích vô hướng giữa ma trận A và ma trận B:
+     [[ 27  30  33]
+     [ 61  68  75]
+     [ 95 106 117]]
+    
 
 ## 7.5. Ứng dụng numpy vào địa không gian
 
@@ -307,6 +469,9 @@ new_land_use = np.vectorize(reclass_landuse)(land_use)
 print(f"Shpae của mảng sau khi phân loại lại: {new_land_use.shape}")
 ```
 
+    Shpae của mảng sau khi phân loại lại: (200, 200)
+    
+
 - **Nhóm loại đất với mảng 3 chiều**
 
 Tương tự như vậy, bạn có thể áp dụng hàm np.vectorize để phân loại lại dữ liệu bản đồ đất đai cho mảng 3D (ví dụ như bản đồ đất theo năm), giúp bạn dễ dàng xử lý và phân tích dữ liệu theo thời gian hoặc theo các lớp khác nhau.
@@ -328,6 +493,9 @@ new_land_use = np.vectorize(reclass_landuse)(land_use)
 print(f"Shpae của mảng sau khi phân loại lại: {new_land_use.shape}")
 ```
 
+    Shpae của mảng sau khi phân loại lại: (20, 200, 200)
+    
+
 ### 7.5.2. Tính giá trị theo trục
 
 Tính toán theo trục trong NumPy cho phép bạn thực hiện các phép toán như trung bình, tổng, hoặc đếm số phần tử theo một chiều cụ thể của mảng. Điều này rất hữu ích khi bạn muốn phân tích dữ liệu theo thời gian, không gian, hoặc bất kỳ chiều nào khác mà dữ liệu của bạn có.
@@ -347,6 +515,11 @@ ndvi_above_threshold = np.sum(ndvi > 0.5, axis=0)
 print(f"Shape của mảng số tháng có NDVI > 0.5: {ndvi_above_threshold.shape}")
 ```
 
+    Shape của mảng NDVI trung bình hàng năm: (100, 100)
+    Shape của mảng NDVI cao nhất trong năm: (100, 100)
+    Shape của mảng số tháng có NDVI > 0.5: (100, 100)
+    
+
 ### 7.5.3. Clip giá trị
 
 Hàm `clip` trong NumPy được sử dụng để giới hạn giá trị của một mảng trong một khoảng nhất định. Điều này rất hữu ích khi bạn muốn đảm bảo rằng các giá trị của mảng không vượt quá một ngưỡng cụ thể, chẳng hạn như khi làm việc với dữ liệu NDVI, nơi giá trị phải nằm trong khoảng từ -1 đến 1.
@@ -358,6 +531,10 @@ clipped_ndvi = np.clip(ndvi, -1, 1)
 print(f"Giá trị lớn nhất trong mảng NDVI sau khi clip: {np.max(clipped_ndvi)}")
 print(f"Giá trị nhỏ nhất trong mảng NDVI sau khi clip: {np.min(clipped_ndvi)}")
 ```
+
+    Giá trị lớn nhất trong mảng NDVI sau khi clip: 0.999989157199223
+    Giá trị nhỏ nhất trong mảng NDVI sau khi clip: -0.9999997198877564
+    
 
 ### 7.5.4. Sử dụng hàm `np.apply_along_axis`
 
@@ -396,6 +573,12 @@ transposed_data = np.transpose(data, (1, 0, 2)) # Chuyển vị mảng theo th�
 print('Dữ liệu gốc:\n', data.shape)
 print('Dữ liệu sau khi chuyển vị:\n', transposed_data.shape)
 ```
+
+    Dữ liệu gốc:
+     (2, 3, 4)
+    Dữ liệu sau khi chuyển vị:
+     (3, 2, 4)
+    
 
 ## Tóm tắt
 

@@ -2,6 +2,8 @@
 
 Trong bài học này, bạn sẽ học cách đọc và ghi files trong Python, bao gồm làm việc với file `CSV`, một định dạng phổ biến cho dữ liệu không gian địa lý.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/13N1oR1Jk5YldCrEJ6iq58auX6u2dvXzY?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 6.1. Mục tiêu học tập
 - Mở, đọc và ghi text files
 - Làm việc với CSV files sử dụng module `csv` tích hợp sẵn

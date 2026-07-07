@@ -2,6 +2,8 @@
 
 Trực quan hóa là chìa khóa để hiểu và truyền đạt dữ liệu. Trong bài học này, bạn sẽ sử dụng Matplotlib để tạo các biểu đồ cơ bản cho dữ liệu bảng và không gian địa lý.  
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1MHoY3BFW510ru85cFieU0z3Sbhq9M5Oq?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 9.1. Mục tiêu học tập
 - Tạo biểu đồ đường, cột, heatmap, và phân tán
 - Tùy chỉnh giao diện biểu đồ
@@ -73,6 +75,12 @@ plt.tight_layout()  # Điều chỉnh layout
 plt.show()
 ```
 
+
+    
+![png](output_7_0.png)
+    
+
+
 ### 9.3.2. Biểu đồ đường
 
 Biều đồ đường biểu diễn sự thay đổi của một biến theo thời gian hoặc theo một thứ tự nào đó. Bằng cách sử dụng các tùy chọn như kiểu đường, màu sắc, và marker, bạn có thể làm cho biểu đồ của mình trở nên rõ ràng và dễ hiểu hơn.
@@ -96,6 +104,12 @@ ax.legend(['Dữ liệu X', 'Dữ liệu Y']) # Thêm chú thích
 ax.grid(linestyle='--', alpha=0.7, color="gray") # Thêm lưới
 plt.show()
 ```
+
+
+    
+![png](output_9_0.png)
+    
+
 
 ### 9.3.3. Biểu đồ phân tán
 
@@ -123,6 +137,12 @@ ax.grid(True, alpha=0.3) # Thêm lưới
 plt.show()
 ```
 
+
+    
+![png](output_11_0.png)
+    
+
+
 ## 9.4. Kết hợp nhiều biều đồ 
 
 
@@ -132,8 +152,67 @@ Kết hợp nhiều biểu đồ trong một figure cho phép bạn so sánh và
 ```python
 import pandas as pd
 df = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
-df.head()
+df.head(3)
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 ### 9.4.1. Biểu đồ boxplot và cột trong cùng một figure
 
@@ -165,6 +244,12 @@ for i, ax in enumerate(axes.flatten()): # Duyệt qua từng axis
                 fontsize=12) # Thêm ghi chú vào góc trên bên trái của biểu đồ
 ```
 
+
+    
+![png](output_15_0.png)
+    
+
+
 ### 9.4.2. Biểu đồ phân tán và biểu đồ histogram
 
 
@@ -194,6 +279,12 @@ for i, ax in enumerate(axes.flatten()): # Duyệt qua từng axis
         ax.tick_params(axis='both', which='major', labelsize=12) # Tùy chỉnh kích thước chữ trục
         ax.text(0.07, 0.9, '(b)', transform=ax.transAxes, fontsize=12) # Thêm ghi chú vào góc trên bên trái của biểu đồ
 ```
+
+
+    
+![png](output_17_0.png)
+    
+
 
 ### 9.4.3. Sắp xếp điều chính kích thước của từng biểu đồ
 
@@ -240,6 +331,12 @@ for i, ax in enumerate([ax1, ax2, ax3]): # Duyệt qua từng axis
         ax.text(0.07, 0.9, f'({note_list[i]})', transform=ax.transAxes, 
                 fontsize=12)
 ```
+
+
+    
+![png](output_19_0.png)
+    
+
 
 ### 9.5. Biểu đồ heatmap và colorbar line plots
 
@@ -288,6 +385,12 @@ cbar.set_label('Số ca bệnh sởi', fontsize=12) # Thêm nhãn cho colorbar
 plt.show()
 ```
 
+
+    
+![png](output_23_0.png)
+    
+
+
 ### 9.5.2. Biểu đồ line plots with colorbars
 
 Sử dụng khi cần vẽ nhiều biểu đồ đường với mỗi màu sắc cho một đường.
@@ -323,6 +426,12 @@ ax.tick_params(axis='both', which='major', labelsize=12) # Tùy chỉnh kích th
 ax.grid(linestyle='--', alpha=0.5, color="gray") # Thêm lưới với kiểu đường nét đứt và độ mờ
 plt.show()
 ```
+
+
+    
+![png](output_25_0.png)
+    
+
 
 ### 9.5.3. Biểu đồ phân tán hexbin với colarbar
 
@@ -362,6 +471,12 @@ cbar.ax.tick_params(labelsize=12) # Tùy chỉnh kích thước chữ trên colo
 ax.grid(linestyle='--', alpha=0.5, color="gray") # Thêm lưới với kiểu đường nét đứt và độ mờ
 plt.show()
 ```
+
+
+    
+![png](output_27_0.png)
+    
+
 
 ## Tóm tắt
 

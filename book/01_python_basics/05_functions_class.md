@@ -1,6 +1,8 @@
 # Bài 5: Hàm và lớp
 
-`Hàm` (function) và `lớp` (class) là hai khái niệm cốt lõi của lập trình Python, giúp tổ chức code một cách có cấu trúc và tái sử dụng. Trong phân tích không gian địa lý, chúng giúp xây dựng các công cụ và workflows có thể tái sử dụng.
+`Hàm` (function) và `lớp` (class) là hai khái niệm cốt lõi của lập trình Python, giúp tổ chức code một cách có cấu trúc và tái sử dụng. Trong phân tích không gian địa lý, chúng giúp xây dựng các công cụ và workflows có thể tái sử dụng. 
+
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1dwiHzvHLSXzoO6LzmQoqBxC_c5H6hEzv?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 5.1. Mục tiêu học tập
 - Định nghĩa và sử dụng functions với parameters và return values
@@ -221,6 +223,13 @@ display_number(1, 2, 3, 4, 5)
 
     Các số đã nhập: 1, 2, 3, 4, 5
     
+
+
+
+
+    (1, 2, 3, 4, 5)
+
+
 
 - **Hàm với keyword arguments `(**kwargs)`**
 

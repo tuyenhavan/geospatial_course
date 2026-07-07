@@ -2,6 +2,8 @@
 
 Trong bài học này, chúng ta sẽ học cách trích xuất giá trị raster theo theo vị trí điểm hoặc polygons sử dụng GEE Python API.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1aXJYL8YYIPwG7tUus-xwzdt8xDyh9bS7?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 25.1. Mục tiêu học tập
 
 Sau bài này bạn có thể:

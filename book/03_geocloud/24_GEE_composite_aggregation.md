@@ -2,6 +2,7 @@
 
 Tổng hợp ảnh là kỹ thuật kết hợp nhiều ảnh thành một ảnh đại diện cho một giai đoạn (tháng, mùa, năm). Kĩ thuật này giúp giảm ảnh hưởng của mây và cung cấp dữ liệu đầu vào ổn định hơn cho các phân tích không gian.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ZrYGW8CUmUvAlBx5gwMvbS6L_b2qEo86?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 24.1. Mục tiêu học tập
 

@@ -5,6 +5,8 @@ Google Earth Engine cho phép **export dữ liệu** ở ba dạng chính:
 - **Table → Drive/Asset**: bảng dữ liệu dưới dạng CSV / GeoJSON / SHP
 - **getDownloadURL**: tải trực tiếp ảnh nhỏ về máy (không cần task)
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/15W5vdI05KGvSMtKbiBiVd1h30bDFJ5gQ?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 26.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài này, bạn có thể:

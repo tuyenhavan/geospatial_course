@@ -7,6 +7,8 @@ GDAL bao gồm 3 thành phần chính:
 - **OGR**: Xử lý dữ liệu vector (điểm, đường, vùng)
 - **OSR**: Quản lý hệ tọa độ tham chiếu (CRS) và phép chiếu bản đồ
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1Vj7XgUfvuHVRH5AVFnx-6RTF_M3BJRmk?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 14.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

@@ -2,6 +2,8 @@
 
 Bài này tập trung vào các thao tác **cơ bản** trực tiếp trên đối tượng ảnh `ee.Image` - những bước nền tảng cần nắm vững trước khi đi vào phân tích nâng cao. 
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1tfvQiPCMDclw6rGSU_fhUj6l0EXL-s9L?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 21.1. Mục tiêu bài học
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

@@ -4,6 +4,8 @@ Nước mặt (bao gồm sông, hồ, đầm, và các vùng ngập nước khá
 
 Trong bài học này, chúng ta sẽ sử dụng hai loại dữ liệu vệ tinh bổ trợ cho nhau: ảnh Sentinel-2 với khả năng quang học phát hiện nước qua chỉ số NDWI (Normalized Difference Water Index), và ảnh radar Sentinel-1 với ưu thế xuyên thấu qua mây và hoạt động cả ngày lẫn đêm. Sự kết hợp này cung cấp giải pháp toàn diện để lập bản đồ nước mặt, đặc biệt hiệu quả trong điều kiện thời tiết xấu khi mây che phủ thường xuyên.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 33.1. Mục tiêu bài học
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

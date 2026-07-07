@@ -2,6 +2,8 @@
 
 Pandas là thư viện chính cho việc thao tác và phân tích dữ liệu trong Python. Nó rất quan trọng để làm việc với dữ liệu dạng bảng.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1C4_tMHXoBSEvCWVO7d-XLGg4W6DQWfQt?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 8.1. Mục tiêu học tập
 - Tạo và sử dụng DataFrames
 - Đọc và ghi CSV hoặc excel files
@@ -159,7 +161,7 @@ data = [
     ['Đà Nẵng', 1134000, 16.0544, 108.2022]
 ]
 df = pd.DataFrame(data, columns=['City', 'Population', 'Latitude', 'Longitude']) # Thêm cột tương ứng
-df.head()
+df.head(2)
 ```
 
 
@@ -203,13 +205,6 @@ df.head()
       <td>9420000</td>
       <td>10.8231</td>
       <td>106.6297</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Đà Nẵng</td>
-      <td>1134000</td>
-      <td>16.0544</td>
-      <td>108.2022</td>
     </tr>
   </tbody>
 </table>
@@ -227,9 +222,10 @@ CSV và excel là định dạng phổ biến nhất cho dữ liệu dạng bả
 ```python
 # Ghi DataFrame ra CSV
 df.to_csv(r'G:\My Drive\python\geocourse\data\outputs\cities.csv', index=False)
+df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\cities.xlsx', index=False)
 # Đọc DataFrame từ CSV
 df_read = pd.read_csv(r'G:\My Drive\python\geocourse\data\outputs\cities.csv')
-df_read.head()  
+df_read.head(2)  
 ```
 
 
@@ -273,13 +269,6 @@ df_read.head()
       <td>9420000</td>
       <td>10.8231</td>
       <td>106.6297</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Đà Nẵng</td>
-      <td>1134000</td>
-      <td>16.0544</td>
-      <td>108.2022</td>
     </tr>
   </tbody>
 </table>
@@ -320,7 +309,7 @@ Bạn có thể lọc các hàng và sắp xếp dữ liệu một cách dễ d�
 ```python
 # Dữ liệu Olympiad toán 2018 từ github bên dưới
 df = pd.read_csv('https://raw.githubusercontent.com/leomtz/apmowebsite/refs/heads/master/data/data_clean/scoretable-2018-clean.csv')
-df.head()
+df.head(2)
 ```
 
 
@@ -389,51 +378,6 @@ df.head()
       <td>0</td>
       <td>18</td>
     </tr>
-    <tr>
-      <th>2</th>
-      <td>ARG</td>
-      <td>Argentina</td>
-      <td>3</td>
-      <td>SOTO</td>
-      <td>CARLOS MIGUEL</td>
-      <td>M</td>
-      <td>7</td>
-      <td>0</td>
-      <td>4</td>
-      <td>5</td>
-      <td>0</td>
-      <td>16</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>ARG</td>
-      <td>Argentina</td>
-      <td>4</td>
-      <td>DI SANZO</td>
-      <td>BRUNO</td>
-      <td>M</td>
-      <td>7</td>
-      <td>3</td>
-      <td>0</td>
-      <td>5</td>
-      <td>0</td>
-      <td>15</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>ARG</td>
-      <td>Argentina</td>
-      <td>5</td>
-      <td>CASSIA</td>
-      <td>NICOLÁS</td>
-      <td>M</td>
-      <td>7</td>
-      <td>3</td>
-      <td>1</td>
-      <td>2</td>
-      <td>0</td>
-      <td>13</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -446,7 +390,7 @@ df.head()
 ranked_df = df[df['rank'] < 3]
 # Sắp xếp theo điểm tổng (Total Score) giảm dần
 sorted_df = df.sort_values(by='total', ascending=False)
-sorted_df.head()
+sorted_df.head(2)
 ```
 
 
@@ -515,51 +459,6 @@ sorted_df.head()
       <td>7</td>
       <td>35</td>
     </tr>
-    <tr>
-      <th>146</th>
-      <td>KOR</td>
-      <td>Republic of Korea</td>
-      <td>2</td>
-      <td>Kim</td>
-      <td>Ji Min</td>
-      <td>M</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>35</td>
-    </tr>
-    <tr>
-      <th>147</th>
-      <td>KOR</td>
-      <td>Republic of Korea</td>
-      <td>3</td>
-      <td>Kim</td>
-      <td>Dain</td>
-      <td>F</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>35</td>
-    </tr>
-    <tr>
-      <th>145</th>
-      <td>KOR</td>
-      <td>Republic of Korea</td>
-      <td>1</td>
-      <td>Kwon</td>
-      <td>Sunghyun</td>
-      <td>M</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>35</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -570,7 +469,7 @@ sorted_df.head()
 ```python
 # Tóm tắt điểm trung bình theo quốc gia
 mean_scores = df.groupby('country')['total'].mean().reset_index().sort_values(by='total', ascending=False)
-mean_scores.head()
+mean_scores.head(2)
 ```
 
 
@@ -609,21 +508,6 @@ mean_scores.head()
       <td>United States of America</td>
       <td>30.6</td>
     </tr>
-    <tr>
-      <th>15</th>
-      <td>Japan</td>
-      <td>25.4</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>Singapore</td>
-      <td>23.1</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Canada</td>
-      <td>22.0</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -636,7 +520,7 @@ mean_scores.head()
 ```python
 # Tạo ra cột mới fullname bằng cách ghép first_name và last_name
 df['fullname'] = df['first'] + ' ' + df['last']
-df.head()
+df.head(2)
 ```
 
 
@@ -707,54 +591,6 @@ df.head()
       <td>0</td>
       <td>18</td>
       <td>IAN FLESCHLER</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>ARG</td>
-      <td>Argentina</td>
-      <td>3</td>
-      <td>SOTO</td>
-      <td>CARLOS MIGUEL</td>
-      <td>M</td>
-      <td>7</td>
-      <td>0</td>
-      <td>4</td>
-      <td>5</td>
-      <td>0</td>
-      <td>16</td>
-      <td>CARLOS MIGUEL SOTO</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>ARG</td>
-      <td>Argentina</td>
-      <td>4</td>
-      <td>DI SANZO</td>
-      <td>BRUNO</td>
-      <td>M</td>
-      <td>7</td>
-      <td>3</td>
-      <td>0</td>
-      <td>5</td>
-      <td>0</td>
-      <td>15</td>
-      <td>BRUNO DI SANZO</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>ARG</td>
-      <td>Argentina</td>
-      <td>5</td>
-      <td>CASSIA</td>
-      <td>NICOLÁS</td>
-      <td>M</td>
-      <td>7</td>
-      <td>3</td>
-      <td>1</td>
-      <td>2</td>
-      <td>0</td>
-      <td>13</td>
-      <td>NICOLÁS CASSIA</td>
     </tr>
   </tbody>
 </table>
@@ -833,13 +669,66 @@ summary = df.describe()
 # Tóm tắt chỉ cột số liệu
 numeric_summary = df.describe(include=['number'])
 # Tóm tắt chỉ cột đối tượng
-categorical_summary = df.describe(include=['object'])
+categorical_summary = df.describe()
+categorical_summary.head(2)
 ```
 
-    C:\Users\tuyen\AppData\Local\Temp\ipykernel_12788\2741901675.py:6: Pandas4Warning: For backward compatibility, 'str' dtypes are included by select_dtypes when 'object' dtype is specified. This behavior is deprecated and will be removed in a future version. Explicitly pass 'str' to `include` to select them, or to `exclude` to remove them and silence this warning.
-    See https://pandas.pydata.org/docs/user_guide/migration-3-strings.html#string-migration-select-dtypes for details on how to write code that works with pandas 2 and 3.
-      categorical_summary = df.describe(include=['object'])
-    
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rank</th>
+      <th>p1</th>
+      <th>p2</th>
+      <th>p3</th>
+      <th>p4</th>
+      <th>p5</th>
+      <th>total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>352.000000</td>
+      <td>352.000000</td>
+      <td>352.000000</td>
+      <td>352.000000</td>
+      <td>352.000000</td>
+      <td>352.000000</td>
+      <td>352.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>5.272727</td>
+      <td>5.457386</td>
+      <td>3.590909</td>
+      <td>1.840909</td>
+      <td>2.082386</td>
+      <td>0.426136</td>
+      <td>13.400568</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 
 ```python
@@ -849,7 +738,7 @@ stats = df.groupby('country').agg({
     'rank': ['mean', 'max', 'min']
 })
 stats = stats.reset_index()
-stats.head()
+stats.head(3)
 ```
 
 
@@ -868,40 +757,30 @@ stats.head()
     .dataframe thead tr th {
         text-align: left;
     }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
 </style>
 <table border="1" class="dataframe">
   <thead>
     <tr>
       <th></th>
+      <th>country</th>
       <th colspan="3" halign="left">total</th>
       <th colspan="3" halign="left">rank</th>
     </tr>
     <tr>
       <th></th>
+      <th></th>
       <th>mean</th>
       <th>max</th>
       <th>min</th>
       <th>mean</th>
       <th>max</th>
       <th>min</th>
-    </tr>
-    <tr>
-      <th>country</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Argentina</th>
+      <th>0</th>
+      <td>Argentina</td>
       <td>12.2</td>
       <td>19</td>
       <td>7</td>
@@ -910,7 +789,8 @@ stats.head()
       <td>1</td>
     </tr>
     <tr>
-      <th>Australia</th>
+      <th>1</th>
+      <td>Australia</td>
       <td>16.5</td>
       <td>21</td>
       <td>12</td>
@@ -919,28 +799,11 @@ stats.head()
       <td>1</td>
     </tr>
     <tr>
-      <th>Bangladesh</th>
+      <th>2</th>
+      <td>Bangladesh</td>
       <td>13.5</td>
       <td>21</td>
       <td>9</td>
-      <td>5.5</td>
-      <td>10</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Bolivia</th>
-      <td>13.2</td>
-      <td>21</td>
-      <td>3</td>
-      <td>3.0</td>
-      <td>5</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Brazil</th>
-      <td>14.8</td>
-      <td>20</td>
-      <td>12</td>
       <td>5.5</td>
       <td>10</td>
       <td>1</td>

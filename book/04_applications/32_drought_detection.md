@@ -4,6 +4,8 @@ Hạn hán là một trong những thảm họa tự nhiên nghiêm trọng, ả
 
 Trong bài học này, chúng ta sẽ sử dụng dữ liệu MODIS để tính toán chỉ số tình trạng thực vật (VCI - Vegetation Condition Index) và dữ liệu ERA5-Land để tính toán chỉ số bất thường lượng mưa (Precipitation Anomaly Index). Hai chỉ số này kết hợp với nhau cung cấp cái nhìn toàn diện về tình trạng hạn hán, từ góc độ tình trạng thực vật và lượng mưa, giúp đánh giá mức độ nghiêm trọng và phạm vi ảnh hưởng của hạn hán trên khu vực nghiên cứu.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 32.1. Mục tiêu bài học
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

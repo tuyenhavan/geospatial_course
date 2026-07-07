@@ -1,6 +1,8 @@
 # Bài 3: Cấu trúc dữ liệu
 
-Trong bài học này, bạn sẽ học về các cấu trúc dữ liệu tích hợp sẵn của Python, bao gồm danh sách (lists), bộ giá trị (tuples), từ điển (dictionaries), và tập hợp (sets). Chúng rất quan trọng để tổ chức và thao tác dữ liệu không gian địa lý.
+Trong bài học này, bạn sẽ học về các cấu trúc dữ liệu tích hợp sẵn của Python, bao gồm danh sách (lists), bộ giá trị (tuples), từ điển (dictionaries), và tập hợp (sets). Chúng rất quan trọng để tổ chức và thao tác dữ liệu không gian địa lý. 
+
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LOh-mvecOfpXbrWwOM7dRP1epV9zUl34?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 3.1. Mục tiêu học tập
 - Hiểu và sử dụng lists, tuples, dictionaries, và sets
@@ -421,7 +423,7 @@ cities = set(['Hà Nội', 'TP.HCM', 'Đà Nẵng', 'Cần Thơ', 'Hải Phòng'
 print(f"Danh sách thành phố {cities}")
 ```
 
-    Danh sách thành phố {'Hà Nội', 'Hải Phòng', 'TP.HCM', 'Cần Thơ', 'Đà Nẵng'}
+    Danh sách thành phố {'TP.HCM', 'Cần Thơ', 'Đà Nẵng', 'Hà Nội', 'Hải Phòng'}
     
 
 ### 3.5.2. Các phép toán tập hợp
@@ -459,7 +461,7 @@ union = cities | visited_cities
 print('Các thành phố trong danh sách hoặc đã được thăm:', union)
 ```
 
-    Các thành phố trong danh sách hoặc đã được thăm: {'Hải Phòng', 'Vĩnh Phúc', 'Nam Định', 'Hà Nội'}
+    Các thành phố trong danh sách hoặc đã được thăm: {'Hà Nội', 'Hải Phòng', 'Nam Định', 'Vĩnh Phúc'}
     
 
 - **Hiệu của hai tập hợp (`difference`)**
@@ -498,7 +500,7 @@ new_cities.add('Huế')
 print(f"Tập hợp new_cities: {new_cities}")
 ```
 
-    Tập hợp: {'Phú Thọ', 'Hà Nội', 'Vĩnh Phúc'}
+    Tập hợp: {'Hà Nội', 'Vĩnh Phúc', 'Phú Thọ'}
     Tập hợp new_cities: {'Huế'}
     
 
