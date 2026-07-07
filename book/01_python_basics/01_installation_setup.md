@@ -1,6 +1,6 @@
 # Bài 1: Cài đặt và thiết lập môi trường Python
 
-Cài đặt và thiết lập môi trường là một bước quan trọng trong phân tích dữ liệu địa không gian với Python. Trong bài học đầu tiên này, chúng ta sẽ cài đặt các công cụ cần thiết cho khóa học. Bài học này có kèm theo [video](https://www.youtube.com/watch?v=msZteBOpblc&t=29s) hướng dẫn cài đặt.
+Cài đặt và thiết lập môi trường là một bước quan trọng trong phân tích dữ liệu địa không gian với Python. Trong bài học đầu tiên này, chúng ta sẽ cài đặt các công cụ cần thiết cho khóa học. Bài học này có kèm theo [video](https://www.youtube.com/watch?v=msZteBOpblc&t=29s) hướng dẫn cài đặt. 
 
 ## 1.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

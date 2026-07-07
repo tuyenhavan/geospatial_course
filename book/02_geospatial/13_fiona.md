@@ -2,6 +2,8 @@
 
 Fiona cung cấp giao diện Python đơn giản, đáng tin cậy và hiệu quả để làm việc với các tệp dữ liệu không gian địa lý. Được xây dựng trên nền tảng OGR (một phần của GDAL), Fiona tập trung hoàn toàn vào việc xử lý dữ liệu vector và là thư viện I/O nền tảng cho GeoPandas.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10AskmkiK2lrTNQCCDXs1uDk39Llytn21?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 13.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - Đọc và ghi các định dạng file vector địa không gian phổ biến (Shapefile, GeoJSON)

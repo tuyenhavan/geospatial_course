@@ -2,6 +2,8 @@
 
 **Microsoft Planetary Computer (MPC)** là nền tảng lưu trữ dữ liệu địa không gian quy mô lớn của Microsoft, cung cấp hàng petabytes dữ liệu vệ tinh miễn phí thông qua giao thức **STAC** (SpatioTemporal Asset Catalog).
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1YslcGkhMOSraKeamuw722b0H5MN6Krix?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 27.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài này, bạn có thể:

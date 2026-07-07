@@ -2,6 +2,8 @@
 
 Copernicus Data Space Ecosystem (CDSE) là nền tảng cloud mới thay thế cho Copernicus Open Access Hub, cung cấp truy cập miễn phí đến toàn bộ dữ liệu Sentinel và các sản phẩm dữ liệu khác của Copernicus.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1JyqIWyv2PxGfa3i3uIFU5YrhtnsY79v-?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 30.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

@@ -68,7 +68,7 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 
 ### Phần 4 - Ứng dụng
 
-Ứng dụng các kỹ thuật phân tích và học máy vào dữ liệu không gian và viễn thám *(sắp ra mắt)*.
+Ứng dụng các kỹ thuật phân tích và học máy vào dữ liệu không gian và viễn thám.
 
 | Bài số | Nội dung                                                                                                                       |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------ |

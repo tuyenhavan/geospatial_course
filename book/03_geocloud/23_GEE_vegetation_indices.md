@@ -2,6 +2,8 @@
 
 Chỉ số thực vật (vegetation indices) được tính từ tổ hợp các bands phổ - đặc biệt là `NIR` và `Red` - phản ánh trạng thái sức khoẻ và mật độ thực vật. Bài này trình bày cách tính các chỉ số phổ biến nhất trên ba nguồn dữ liệu chính trong GEE như Sentinel-2, Landsat, MODIS.
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/155KvAL7reLN-rBWaWCP6SntYu2-c-0D2?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 23.1. Mục tiêu học tập
 
 Sau bài này bạn có thể:

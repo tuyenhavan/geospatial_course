@@ -5,6 +5,8 @@ Zarr và Dask tạo thành bộ công cụ mạnh mẽ cho xử lý **big data �
 - **Zarr**: Định dạng lưu trữ mảng nhiều chiều (array) được tối ưu cho cloud, hỗ trợ chunking và compression mạnh mẽ
 - **Dask**: Framework tính toán song song (parallel computing) với lazy evaluation, có thể scale từ laptop đến HPC cluster
 
+Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1k_d-Tn5yPkQKqftoxkoizT53c12Gu3D0?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+
 ## 19.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
