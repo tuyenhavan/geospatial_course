@@ -4,7 +4,9 @@ Trong bài  học này, chúng ta sẽ tập trung vào **xử lý dữ liệu**
 
 > **Yêu cầu:** `pip install pystac-client planetary-computer odc-stac geopandas`
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 28.1. Mục tiêu học tập
 
@@ -135,6 +137,12 @@ print(f'Giá trị NDVI trung bình cho vùng nghiên cứu vào ngày đầu ti
     Giá trị NDVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: 0.6590
     
 
+    c:\Users\tuyen\miniconda3\envs\geomap\Lib\site-packages\dask\_task_spec.py:759: RuntimeWarning: divide by zero encountered in divide
+      return self.func(*new_argspec)
+    c:\Users\tuyen\miniconda3\envs\geomap\Lib\site-packages\numpy\_core\fromnumeric.py:86: RuntimeWarning: invalid value encountered in reduce
+      return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+    
+
 ### 28.3.2. Tính toán chỉ số EVI
 
 EVI là chỉ số thực vật được phát triển nhằm cải thiện khả năng theo dõi thảm thực vật trong các khu vực có mật độ cây xanh cao. EVI sử dụng thêm dải xanh lam (Blue) để giảm ảnh hưởng của khí quyển và hạn chế hiện tượng bão hòa tín hiệu thường gặp ở NDVI. Nhờ đó, EVI phản ánh chính xác hơn tình trạng sinh trưởng, sức khỏe và biến động của thảm thực vật, đặc biệt trong các khu rừng hoặc vùng có sinh khối lớn.
@@ -145,6 +153,9 @@ evi = 2.5 * (sen2data["B08"] - sen2data["B04"]) / (sen2data["B08"] + 6 * sen2dat
 first_evi = evi.isel(time=0)
 print(f'Giá trị EVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: {first_evi.mean().compute().item():.4f}')
 ```
+
+    Giá trị EVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: nan
+    
 
 ### 28.3.3. Tính toán chỉ số SAVI
 
@@ -164,6 +175,8 @@ print(f"Giá trị SAVI trung bình cho vùng nghiên cứu cho ngày đầu ti�
 Sau khi đọc dữ liệu, chúng ta có thể sử dụng kĩ năng từ xarray để tính toán chỉ số thực vật hoặc tổng hợp ảnh theo giai đoạn thời gian, ví dụ như tạo composite theo mùa hoặc theo năm. Dưới đây là một số ví dụ về cách thực hiện điều này.
 
 ### 28.4.1. Tổng hợp spectral bands theo tháng
+
+Tổng hợp spectral bands theo tháng giúp giảm nhiễu từ mây và tạo ra dữ liệu đại diện cho từng tháng, phù hợp cho phân tích chuỗi thời gian. Sử dụng phương thức `.resample(time="1MS")` của xarray để nhóm dữ liệu theo tháng (MS = Month Start), sau đó áp dụng `.median()` hoặc `.mean()` để tính giá trị đại diện. Median thường được ưu tiên hơn vì ít bị ảnh hưởng bởi outliers (mây sót, nhiễu). Kỹ thuật này rất hữu ích khi làm việc với dữ liệu Sentinel-2 có chu kỳ quay lại 5 ngày, giúp tạo ra monthly composites sạch hơn để phân tích xu hướng thực vật theo mùa.
 
 
 ```python
@@ -193,6 +206,8 @@ monthly_median = sen2col.resample(time="1MS").median(dim="time")
     
 
 ### 28.4.2. Tính NDVI và tổng hợp theo tháng
+
+Kết hợp tính toán chỉ số thực vật và tổng hợp theo thời gian là workflow phổ biến trong phân tích viễn thám. Trong ví dụ này, sau khi tính NDVI từ bands B08 và B04, chúng ta tổng hợp giá trị NDVI theo tháng bằng median. Cách tiếp cận này giúp tạo ra chuỗi thời gian NDVI hàng tháng sạch, loại bỏ ảnh hưởng của mây và nhiễu, rất phù hợp để phân tích chu kỳ sinh trưởng cây trồng, theo dõi biến động thảm thực vật theo mùa, hoặc phát hiện xu hướng dài hạn. Kết quả là một DataArray chứa giá trị NDVI đại diện cho mỗi tháng trong khoảng thời gian nghiên cứu.
 
 
 ```python

@@ -4,7 +4,9 @@ Nước mặt (bao gồm sông, hồ, đầm, và các vùng ngập nước khá
 
 Trong bài học này, chúng ta sẽ sử dụng hai loại dữ liệu vệ tinh bổ trợ cho nhau: ảnh Sentinel-2 với khả năng quang học phát hiện nước qua chỉ số NDWI (Normalized Difference Water Index), và ảnh radar Sentinel-1 với ưu thế xuyên thấu qua mây và hoạt động cả ngày lẫn đêm. Sự kết hợp này cung cấp giải pháp toàn diện để lập bản đồ nước mặt, đặc biệt hiệu quả trong điều kiện thời tiết xấu khi mây che phủ thường xuyên.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**
+> >
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl?authuser=3) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 33.1. Mục tiêu bài học
 
@@ -24,7 +26,7 @@ import geemap # Bạn có thể cài đặt geemap bằng pip install geemap
 import geesat # Bạn có thể cài đặt geesat bằng pip install git+https://github.com/tuyenhavan/geesat.git
 from geesat import geogee, geosen
 ee.Authenticate()
-ee.Initialize(project='ee-tuyenrss')
+ee.Initialize(project='geocourse-501706')
 ```
 
 ## 33.2. Xác định khu vực nghiên cứu
@@ -41,32 +43,6 @@ bbox = [
 # Chuyển đổi bbox thành geometry để sử dụng trong các thao tác với Google Earth Engine
 geometry = ee.Geometry.Rectangle(bbox)
 ```
-
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
 
 Trong bài học này, chúng ta sẽ sử dụng khu vực hồ Đá Bàn (Gia Lai) làm ví dụ minh họa. Đây là khu vực có mặt nước rõ ràng, phù hợp để thực hành các kỹ thuật phát hiện nước từ ảnh vệ tinh. Các phương pháp được trình bày có thể áp dụng cho bất kỳ khu vực nào để theo dõi nước mặt hoặc giám sát biến đổi mặt nước theo thời gian.
 
@@ -98,32 +74,6 @@ sen2col = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED").filterBounds(geometr
 ndwi = sen2col.multiply(0.0001).normalizedDifference(['B3', 'B8']).rename('NDWI').clip(geometry)
 ```
 
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
 ### 33.3.2. Xác định vùng nước dựa vào chỉ số NDWI
 
 Sau khi tính toán chỉ số NDWI, bước tiếp theo là áp dụng ngưỡng (threshold) để tách vùng nước khỏi các bề mặt khác. Trong ví dụ này, chúng ta sử dụng ngưỡng NDWI > 0.1 để tạo mặt nạ nhị phân (binary mask), trong đó pixel có giá trị 1 đại diện cho nước và 0 đại diện cho không phải nước.
@@ -138,39 +88,6 @@ Map.centerObject(geometry, 12)
 Map.addLayer(water, {'palette': ['blue']}, 'Water Mask')
 Map
 ```
-
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
-
-
-
-    Map(center=[12.65384041730817, 109.10030069209694], controls=(WidgetControl(options=['position', 'transparent_…
-
-
 
 ## 33.4. Tính toán chỉ số nước từ ảnh Sentinel-1
 
@@ -192,32 +109,6 @@ sen1col = geosen.prepare_sentinel1_collection(
 ).select(['VV']).median().clip(geometry)
 ```
 
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
 ### 33.4.2. Xác định vùng nước dựa vào ngưỡng giá trị
 
 Tương tự như phương pháp với Sentinel-2, chúng ta áp dụng ngưỡng để tách vùng nước. Với dữ liệu Sentinel-1 VV, mặt nước thường có giá trị backscatter dưới -15 dB. Giá trị ngưỡng này có thể thay đổi tùy thuộc vào điều kiện gió (làm gợn sóng mặt nước, tăng backscatter) và loại mặt nước (nước tĩnh vs nước chảy).
@@ -235,39 +126,6 @@ Map.addLayer(sen1col, {'min': -20, 'max': 0}, 'Sentinel-1 VV')
 Map.addLayer(water, {'palette': ['blue']}, 'Water')
 Map
 ```
-
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
-
-
-
-    Map(center=[12.65384041730817, 109.10030069209694], controls=(WidgetControl(options=['position', 'transparent_…
-
-
 
 ## Tóm tắt
 

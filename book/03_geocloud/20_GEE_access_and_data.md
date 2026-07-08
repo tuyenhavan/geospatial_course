@@ -2,7 +2,9 @@
 
 Google Earth Engine (GEE) là một trong những nền tảng điện toán đám mây mạnh mẽ nhất thế giới dành cho phân tích dữ liệu địa không gian, cung cấp quyền truy cập vào hàng nghìn bộ dữ liệu vệ tinh, khí hậu và địa lý, miễn phí cho nghiên cứu và giáo dục theo một cách thống nhất. Trước khi học bày này, bạn cần phải đăng kí tài khoản GEE nếu chưa có. Bạn có thể tham khảo hướng dẫn đăng kí theo video [link](https://www.youtube.com/watch?v=O9iyjs4w-8I) này.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LEBpB_hGojZUNfwdUc1ATZnpr86JwVJ4?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LEBpB_hGojZUNfwdUc1ATZnpr86JwVJ4?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 20.1. Mục tiêu học tập
 
@@ -78,7 +80,7 @@ print(f"Tên vệ tinh: {s2img.get('SPACECRAFT_NAME').getInfo()}") # hiển th�
 ```python
 # ee.Feature: Tạo điểm đại diện cho Hà Nội
 hanoi = ee.Feature(
-    ee.Geometry.Point([105.8542, 21.0285]),
+    ee.Geometry.Point([105.8542, 21.0285]), # Ví dụ tọa độ điểm đại diện cho Hà Nội
     {
         'name':       'Hà Nội',
         'population': 8246600,

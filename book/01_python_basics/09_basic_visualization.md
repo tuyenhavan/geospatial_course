@@ -2,7 +2,9 @@
 
 Trực quan hóa là chìa khóa để hiểu và truyền đạt dữ liệu. Trong bài học này, bạn sẽ sử dụng Matplotlib để tạo các biểu đồ cơ bản cho dữ liệu bảng và không gian địa lý.  
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1MHoY3BFW510ru85cFieU0z3Sbhq9M5Oq?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1MHoY3BFW510ru85cFieU0z3Sbhq9M5Oq?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 9.1. Mục tiêu học tập
 - Tạo biểu đồ đường, cột, heatmap, và phân tán
@@ -54,7 +56,7 @@ Biểu đồ cột là một cách trực quan để so sánh các giá trị gi
 ```python
 # Biểu đồ cột dân số thành phố
 cities = ['Hà Nội', 'TP.HCM', 'Đà Nẵng']
-populations = [8053663, 9420000, 1134000] # Các bạn kiểm tra lại số liệu hiện tại để cập nhật chính xác
+populations = [8860000, 9420000, 1134000] # Các bạn kiểm tra lại số liệu hiện tại để cập nhật chính xác
 # Đầu tiên tạo figure và axes
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 5))
 # Vẽ biểu đồ cột với màu sắc và đường viền
@@ -216,6 +218,8 @@ df.head(3)
 
 ### 9.4.1. Biểu đồ boxplot và cột trong cùng một figure
 
+Khi kết hợp nhiều loại biểu đồ khác nhau trong cùng một figure, bạn có thể so sánh và phân tích dữ liệu từ nhiều khía cạnh khác nhau. Trong ví dụ này, biểu đồ boxplot giúp xem phân bố và giá trị ngoại lệ, trong khi histogram cho thấy tần suất xuất hiện của các giá trị. Việc sử dụng `subplots()` cho phép tạo nhiều axes trong cùng một figure.
+
 
 ```python
 # Hiển thị nhiều biểu đồ trong cùng một figure
@@ -252,6 +256,8 @@ for i, ax in enumerate(axes.flatten()): # Duyệt qua từng axis
 
 ### 9.4.2. Biểu đồ phân tán và biểu đồ histogram
 
+Biểu đồ phân tán (scatter plot) hiển thị mối quan hệ giữa hai biến liên tục, cho phép bạn nhận biết correlation và patterns trong dữ liệu. Khi kết hợp với histogram, bạn có thể đồng thời xem phân bố của từng biến riêng lẻ. Sử dụng màu sắc khác nhau cho từng nhóm (như loài hoa) giúp phân biệt rõ ràng các clusters trong dữ liệu.
+
 
 ```python
 # Biểu đồ phân tán với màu sắc theo loài hoa cho nhiều biến
@@ -286,7 +292,9 @@ for i, ax in enumerate(axes.flatten()): # Duyệt qua từng axis
     
 
 
-### 9.4.3. Sắp xếp điều chính kích thước của từng biểu đồ
+### 9.4.3. Sắp xếp điều chỉnh kích thước của từng biểu đồ
+
+Với `subplot2grid()`, bạn có thể tạo layout phức tạp hơn với các biểu đồ có kích thước khác nhau trong cùng một figure. Điều này rất hữu ích khi bạn muốn nhấn mạnh một biểu đồ chính và hiển thị các biểu đồ phụ nhỏ hơn bên cạnh. Tham số `colspan` và `rowspan` cho phép một biểu đồ chiếm nhiều cột hoặc hàng, tạo ra layout linh hoạt và chuyên nghiệp.
 
 
 ```python
@@ -393,7 +401,7 @@ plt.show()
 
 ### 9.5.2. Biểu đồ line plots with colorbars
 
-Sử dụng khi cần vẽ nhiều biểu đồ đường với mỗi màu sắc cho một đường.
+Khi vẽ nhiều đường line plot cùng lúc, việc sử dụng colorbar để thể hiện một biến thứ ba (như độ ẩm đất, thời gian, hoặc nhiệt độ) giúp biểu đồ trở nên thông tin hơn mà không bị rối mắt. Mỗi đường được tô màu theo giá trị của biến thứ ba, và colorbar giúp người đọc hiểu được ý nghĩa của màu sắc. Kỹ thuật này đặc biệt hữu ích khi trực quan hóa dữ liệu phổ (spectral data) hoặc time series với nhiều điều kiện khác nhau.
 
 
 ```python

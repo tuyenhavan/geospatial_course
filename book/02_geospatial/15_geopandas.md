@@ -2,7 +2,9 @@
 
 GeoPandas là thư viện mạnh mẽ nhất cho phân tích dữ liệu địa không gian trong Python, kết hợp sức mạnh của pandas và Shapely để mang đến trải nghiệm xử lý dữ liệu GIS hoàn hảo.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1QJjw-5dmbrj6kO3Dm_XMYilZJpnjk22t?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1QJjw-5dmbrj6kO3Dm_XMYilZJpnjk22t?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 15.1. Mục tiêu học tập
 
@@ -22,7 +24,7 @@ import geopandas as gpd           # Thư viện chính cho phân tích địa kh
 import pandas as pd                # Xử lý dữ liệu bảng
 from shapely.geometry import Point, Polygon
 import os 
-outpath = r'G:\My Drive\python\geocourse\data\vector'
+outpath = r'J:\My Drive\geocourse_data\outputs'
 ```
 
 ## 15.2 Tạo và hiểu GeoDataFrames
@@ -31,7 +33,7 @@ GeoDataFrame là **pandas DataFrame đặc biệt** có cột geometry chứa c�
 
 ### 15.2.1. Tạo GeoSeries
 
-GeoSeries là một cột duy nhất chứa geometry với hệ tọa độ (CRS)
+GeoSeries là cấu trúc dữ liệu cơ bản nhất trong GeoPandas, đại diện cho một cột chứa các đối tượng geometry (như Point, LineString, Polygon) cùng với hệ tọa độ tham chiếu (CRS). GeoSeries tương tự như pandas Series nhưng được tối ưu hóa cho dữ liệu không gian, cho phép thực hiện các phép toán geometric và spatial indexing. Bạn tạo GeoSeries bằng cách truyền danh sách các đối tượng Shapely geometry và chỉ định CRS.
 
 
 ```python
@@ -76,7 +78,7 @@ gdf = gpd.GeoDataFrame(
     geometry=geometry, 
     crs='EPSG:4326'
 )
-gdf.head()
+gdf.head(2)
 ```
 
 
@@ -127,33 +129,6 @@ gdf.head()
       <td>True</td>
       <td>POINT (106.6297 10.8231)</td>
     </tr>
-    <tr>
-      <th>2</th>
-      <td>Hải Phòng</td>
-      <td>Hải Phòng</td>
-      <td>Miền Bắc</td>
-      <td>2028514</td>
-      <td>True</td>
-      <td>POINT (106.6881 20.8449)</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Đà Nẵng</td>
-      <td>Đà Nẵng</td>
-      <td>Miền Trung</td>
-      <td>1134310</td>
-      <td>True</td>
-      <td>POINT (108.2022 16.0544)</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Cần Thơ</td>
-      <td>Cần Thơ</td>
-      <td>Miền Nam</td>
-      <td>1282937</td>
-      <td>True</td>
-      <td>POINT (105.7469 10.0452)</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -161,6 +136,8 @@ gdf.head()
 
 
 ### 15.2.3. Tạo GeoDataFrame từ list
+
+Ngoài việc tạo GeoDataFrame từ dictionary, bạn có thể tạo trực tiếp từ list các đối tượng geometry. Phương pháp này đặc biệt hữu ích khi bạn đã có sẵn các đối tượng Shapely geometry (như Polygon, LineString) và muốn chuyển chúng thành GeoDataFrame để phân tích. Bạn chỉ cần truyền list geometry vào tham số `geometry` và chỉ định CRS. Sau đó có thể thêm các cột thuộc tính khác bằng cách gán trực tiếp như pandas DataFrame.
 
 
 ```python
@@ -184,7 +161,7 @@ polygon = gpd.GeoDataFrame(
 )
 # Ta có thêm cột thuộc tính vào GeoDataFrame polygon
 polygon["landcover"] = ["Urban", "Urban", "Rural", "Rural", "Urban", "Urban", "Rural", "Rural", "Rural", "Rural"]
-polygon.head()
+polygon.head(2)
 ```
 
 
@@ -223,21 +200,6 @@ polygon.head()
       <td>POLYGON ((106 10, 107 10, 107 11, 106 11, 106 ...</td>
       <td>Urban</td>
     </tr>
-    <tr>
-      <th>2</th>
-      <td>POLYGON ((108 16, 109 16, 109 17, 108 17, 108 ...</td>
-      <td>Rural</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>POLYGON ((109 12, 110 12, 110 13, 109 13, 109 ...</td>
-      <td>Rural</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>POLYGON ((105 10, 106 10, 106 11, 105 11, 105 ...</td>
-      <td>Urban</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -252,17 +214,21 @@ Dữ liệu sử dụng trong notebook này được tải từ [GADM](https://g
 
 ### 15.3.1. Đọc dữ liệu
 
+GeoPandas sử dụng `read_file()` để đọc dữ liệu địa không gian từ nhiều nguồn khác nhau. Hàm này tự động nhận diện định dạng file (Shapefile, GeoJSON, GPKG, KML...) và đọc vào GeoDataFrame. Bạn có thể đọc từ file local trên máy tính hoặc trực tiếp từ URL trên internet. Khi đọc xong, dữ liệu được tải vào bộ nhớ dưới dạng GeoDataFrame với đầy đủ geometry và attributes, cho phép thao tác như pandas DataFrame nhưng có thêm các phương thức spatial.
+
 - **Đọc dữ liệu lưu trữ trên máy**
+
+Khi làm việc với dữ liệu local, bạn cung cấp đường dẫn tuyệt đối hoặc tương đối đến file. GeoPandas sẽ tự động detect định dạng dựa trên phần mở rộng file (.shp, .geojson, .gpkg...). Sau khi đọc, bạn có thể thực hiện các thao tác như chuyển đổi CRS (coordinate reference system) với `to_crs()` để phù hợp với hệ tọa độ cần thiết cho phân tích. Ví dụ, chuyển từ WGS84 (EPSG:4326) sang UTM để tính toán diện tích chính xác hơn.
 
 
 ```python
 # Đọc dữ liệu từ local machine
-districts = gpd.read_file(r'G:\My Drive\python\geocourse\data\vector\Vietnam_districts.geojson')
+districts = gpd.read_file(r'G:\My Drive\python\geocourse\data\vector\subset_polygon.geojson')
 # Chuyển crs từ 4326 sang 32648 (UTM 48N)
 districts = districts.to_crs(epsg=32648)
 # Thêm cột diện tích 
 districts['area_km2'] = districts.geometry.area/1e6  # Chuyển từ m2 sang km2
-districts.head()
+districts.head(2)
 ```
 
 
@@ -286,10 +252,6 @@ districts.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>codes</th>
-      <th>NAME_1</th>
-      <th>NAME_2</th>
-      <th>NDVI</th>
       <th>geometry</th>
       <th>area_km2</th>
     </tr>
@@ -297,48 +259,8 @@ districts.head()
   <tbody>
     <tr>
       <th>0</th>
-      <td>A01</td>
-      <td>AnGiang</td>
-      <td>AnPhú</td>
-      <td>0.571832</td>
-      <td>MULTIPOLYGON (((517117.408 1197043.213, 517502...</td>
-      <td>226.849284</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>A02</td>
-      <td>AnGiang</td>
-      <td>ChâuĐốc</td>
-      <td>0.596210</td>
-      <td>MULTIPOLYGON (((511484.367 1175988.508, 508914...</td>
-      <td>103.388808</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>A03</td>
-      <td>AnGiang</td>
-      <td>ChâuPhú</td>
-      <td>0.583617</td>
-      <td>MULTIPOLYGON (((520563.388 1156311.715, 519676...</td>
-      <td>450.432027</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>A04</td>
-      <td>AnGiang</td>
-      <td>ChâuThành</td>
-      <td>0.605679</td>
-      <td>MULTIPOLYGON (((540603.418 1145482.678, 540308...</td>
-      <td>354.959119</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>A05</td>
-      <td>AnGiang</td>
-      <td>ChợMới</td>
-      <td>0.607893</td>
-      <td>MULTIPOLYGON (((553305.107 1165103.948, 553435...</td>
-      <td>368.509538</td>
+      <td>POLYGON ((561151.12 2356095.551, 561139.961 23...</td>
+      <td>8.33682</td>
     </tr>
   </tbody>
 </table>
@@ -348,11 +270,13 @@ districts.head()
 
 - **Đọc dữ liệu từ `url`**
 
+GeoPandas cho phép đọc dữ liệu trực tiếp từ URL mà không cần tải về máy trước. Điều này rất tiện lợi khi làm việc với các data repositories công khai như GADM (Global Administrative Areas), Natural Earth, hoặc các API GIS. Dữ liệu được stream và parse trực tiếp vào GeoDataFrame. Phương pháp này giúp tiết kiệm không gian lưu trữ và đảm bảo bạn luôn làm việc với phiên bản dữ liệu mới nhất từ nguồn.
+
 
 ```python
 # Đọc dữ liệu từ url 
 vietnam_data = gpd.read_file('https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_VNM_1.json')
-vietnam_data.head()
+vietnam_data.head(2)
 ```
 
 
@@ -421,51 +345,6 @@ vietnam_data.head()
       <td>NA</td>
       <td>MULTIPOLYGON (((107.0901 10.324, 107.0889 10.3...</td>
     </tr>
-    <tr>
-      <th>2</th>
-      <td>VNM.3_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>BắcGiang</td>
-      <td>BacGiang</td>
-      <td>NA</td>
-      <td>Tỉnh</td>
-      <td>Province</td>
-      <td>NA</td>
-      <td>VN.BG</td>
-      <td>NA</td>
-      <td>MULTIPOLYGON (((106.2838 21.1323, 106.2734 21....</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>VNM.4_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>BắcKạn</td>
-      <td>BacKan</td>
-      <td>NA</td>
-      <td>Tỉnh</td>
-      <td>Province</td>
-      <td>NA</td>
-      <td>VN.BK</td>
-      <td>NA</td>
-      <td>MULTIPOLYGON (((105.8724 21.8558, 105.8629 21....</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>VNM.2_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>BạcLiêu</td>
-      <td>BacLieu</td>
-      <td>NA</td>
-      <td>Tỉnh</td>
-      <td>Province</td>
-      <td>NA</td>
-      <td>VN.BL</td>
-      <td>NA</td>
-      <td>MULTIPOLYGON (((105.4244 9.0213, 105.4164 9.01...</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -474,7 +353,11 @@ vietnam_data.head()
 
 ### 15.3.2. Viết dữ liệu
 
+Sau khi xử lý và phân tích dữ liệu, bạn cần lưu kết quả ra file để chia sẻ hoặc sử dụng trong các công cụ GIS khác. GeoPandas sử dụng phương thức `to_file()` để ghi GeoDataFrame ra nhiều định dạng khác nhau. Bạn chỉ cần chỉ định đường dẫn output và driver (định dạng) mong muốn. Mỗi định dạng có ưu nhược điểm riêng: GeoJSON tốt cho web, Shapefile phổ biến trong desktop GIS, Parquet hiệu quả cho big data, GeoPackage là standard mới của OGC.
+
 - **Lưu dữ liệu ra file `GeoJSON`**
+
+GeoJSON là định dạng text-based, dễ đọc và được sử dụng rộng rãi trong web mapping và JavaScript libraries (Leaflet, Mapbox, Deck.gl). File GeoJSON có thể mở trực tiếp trong text editor để xem cấu trúc dữ liệu. Đây là định dạng lý tưởng khi cần chia sẻ dữ liệu qua web APIs hoặc tích hợp với web applications. Tuy nhiên, file size có thể lớn hơn các định dạng binary như Shapefile hay Parquet.
 
 
 ```python
@@ -484,6 +367,8 @@ vietnam_data.to_file(os.path.join(outpath, 'vietnam_provinces.geojson'), driver=
 
 - **Lưu dữ liệu ra `shapefile`**
 
+Shapefile là định dạng vector cổ điển và phổ biến nhất trong GIS, được hỗ trợ bởi hầu hết các phần mềm GIS như ArcGIS, QGIS. Lưu ý rằng một Shapefile thực chất gồm nhiều files (.shp, .shx, .dbf, .prj...) nên cần giữ chúng cùng nhau. Shapefile có giới hạn về độ dài tên trường (10 ký tự) và file size (2GB), nhưng vẫn là lựa chọn tốt cho tương thích với legacy systems và desktop GIS tools.
+
 
 ```python
 # Lưu dữ liệu ra file Shapefile
@@ -492,6 +377,8 @@ vietnam_data.to_file(os.path.join(outpath, 'Vietnam_provincess.shp'), driver='ES
 
 - **Lưu dữ liệu ra `Parquet` file**
 
+Parquet là định dạng columnar storage hiệu quả cao, được thiết kế cho big data analytics. File Parquet có kích thước nhỏ hơn nhiều so với GeoJSON hay Shapefile nhờ compression tốt, đồng thời đọc/ghi nhanh hơn đáng kể. Đây là lựa chọn lý tưởng khi làm việc với datasets lớn (hàng triệu features), trong data pipelines, hoặc khi cần tích hợp với các công cụ big data như Apache Spark, Dask. Tuy nhiên, Parquet ít được hỗ trợ trong traditional GIS software.
+
 
 ```python
 # Lưu dữ liệu ra file Parquet
@@ -499,6 +386,8 @@ vietnam_data.to_file(os.path.join(outpath, 'Vietnam_provinces.parquet'), driver=
 ```
 
 - **Lưu dữ liệu ra `GeoPackage`**
+
+GeoPackage (GPKG) là định dạng container dạng SQLite database, được OGC (Open Geospatial Consortium) công nhận là standard mới thay thế Shapefile. GPKG lưu toàn bộ dữ liệu trong một file duy nhất, không giới hạn file size hay độ dài tên trường, hỗ trợ nhiều layers trong cùng một file, và có thể chứa cả vector lẫn raster data. Đây là định dạng được khuyến nghị cho các projects GIS hiện đại và được hỗ trợ tốt bởi QGIS, ArcGIS Pro.
 
 
 ```python
@@ -518,7 +407,7 @@ province = gpd.read_file('https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_V
 province = province[['VARNAME_1', 'geometry']]
 # Rename the column
 province = province.rename(columns={'VARNAME_1': 'province'})
-province.head()
+province.head(2)
 ```
 
 
@@ -557,21 +446,6 @@ province.head()
       <td>BaRia-VungTau</td>
       <td>MULTIPOLYGON (((107.0901 10.324, 107.0889 10.3...</td>
     </tr>
-    <tr>
-      <th>2</th>
-      <td>BacGiang</td>
-      <td>MULTIPOLYGON (((106.2838 21.1323, 106.2734 21....</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>BacKan</td>
-      <td>MULTIPOLYGON (((105.8724 21.8558, 105.8629 21....</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>BacLieu</td>
-      <td>MULTIPOLYGON (((105.4244 9.0213, 105.4164 9.01...</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -592,7 +466,7 @@ vinhphuc = province_utm[province_utm['province'] == 'VinhPhuc']
 vinhphuc_buffer = vinhphuc.buffer(1000)  # Buffer 1000 mét (1 km)
 # Chuyển từ GeoSeries sang GeoDataFrame để dễ dàng xử lý
 vinhphuc_buffer_gdf = gpd.GeoDataFrame(geometry=vinhphuc_buffer, crs='EPSG:32648')
-vinhphuc_buffer_gdf.head()
+vinhphuc_buffer_gdf.head(2)
 ```
 
 
@@ -632,6 +506,8 @@ vinhphuc_buffer_gdf.head()
 
 ### 15.4.2. Sử dụng phép join giữa hai `GeoDataFrame`
 
+Spatial join là phép toán kết hợp hai GeoDataFrames dựa trên mối quan hệ không gian giữa các geometries, không phải dựa vào key chung như database join thông thường. `gpd.sjoin()` (spatial join) cho phép bạn tìm các features từ GeoDataFrame này mà có quan hệ không gian với features từ GeoDataFrame kia. Các predicates phổ biến: `intersects` (giao nhau), `within` (nằm trong), `contains` (chứa), `touches` (chạm). Ví dụ, tìm tất cả các huyện nằm trong một tỉnh bằng cách join districts với province sử dụng predicate `intersects`.
+
 
 ```python
 # Đọc dữ liệu districts từ url
@@ -640,7 +516,7 @@ districts = gpd.read_file('https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_
 vinhphuc = vinhphuc.to_crs(districts.crs)
 # Join dữ liệu tỉnh vĩnh phúc với dữ liệu districts để lấy ra các huyện thuộc tỉnh vĩnh phúc
 vinhphuc_districts = gpd.sjoin(vinhphuc, districts, how='inner', predicate='intersects') # ngoài intersects còn có within, contains, touches, crosses, covers, covered_by.
-vinhphuc_districts.head()
+vinhphuc_districts.head(2)
 ```
 
 
@@ -720,63 +596,6 @@ vinhphuc_districts.head()
       <td>Town</td>
       <td>NA</td>
       <td>VN.TV.TI</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>VinhPhuc</td>
-      <td>MULTIPOLYGON (((105.5713 21.1615, 105.5336 21....</td>
-      <td>230</td>
-      <td>VNM.27.4_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>VNM.27_1</td>
-      <td>HàNội</td>
-      <td>NA</td>
-      <td>BaVì</td>
-      <td>BaVi</td>
-      <td>NA</td>
-      <td>Huyện</td>
-      <td>District</td>
-      <td>NA</td>
-      <td>VN.KG.HT</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>VinhPhuc</td>
-      <td>MULTIPOLYGON (((105.5713 21.1615, 105.5336 21....</td>
-      <td>251</td>
-      <td>VNM.27.24_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>VNM.27_1</td>
-      <td>HàNội</td>
-      <td>NA</td>
-      <td>SơnTây</td>
-      <td>SonTay</td>
-      <td>NA</td>
-      <td>Thịxã</td>
-      <td>Town</td>
-      <td>NA</td>
-      <td>VN.TN.HT</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>VinhPhuc</td>
-      <td>MULTIPOLYGON (((105.5713 21.1615, 105.5336 21....</td>
-      <td>248</td>
-      <td>VNM.27.21_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>VNM.27_1</td>
-      <td>HàNội</td>
-      <td>NA</td>
-      <td>PhúcThọ</td>
-      <td>PhucTho</td>
-      <td>NA</td>
-      <td>Huyện</td>
-      <td>District</td>
-      <td>NA</td>
-      <td>VN.HO.HB</td>
     </tr>
   </tbody>
 </table>

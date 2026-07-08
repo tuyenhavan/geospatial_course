@@ -7,7 +7,9 @@ GDAL bao gồm 3 thành phần chính:
 - **OGR**: Xử lý dữ liệu vector (điểm, đường, vùng)
 - **OSR**: Quản lý hệ tọa độ tham chiếu (CRS) và phép chiếu bản đồ
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1Vj7XgUfvuHVRH5AVFnx-6RTF_M3BJRmk?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1Vj7XgUfvuHVRH5AVFnx-6RTF_M3BJRmk?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 14.1. Mục tiêu học tập
 
@@ -50,7 +52,7 @@ Trong ví dự sau, chúng ta sẽ tạo ra một dữ liệu độ cao (giả �
 
 
 ```python
-raster_path = r"G:\My Drive\python\geocourse\data\outputs"
+raster_path = r"J:\My Drive\geocourse_data\outputs"
 # B1: Chọn driver để tạo file GeoTIFF
 driver = gdal.GetDriverByName('GTiff')
 
@@ -91,6 +93,8 @@ dataset = None   # None = đóng file và giải phóng bộ nhớ
 
 ### 14.2.2. Đọc raster và xem thông tin metadata
 
+Sau khi tạo file raster, bước tiếp theo là đọc và kiểm tra thông tin metadata của nó. GDAL cung cấp các phương thức để truy cập thông tin cơ bản về dataset như số lượng band, kích thước (số cột và hàng), driver được sử dụng, hệ tọa độ và GeoTransform. Việc hiểu metadata giúp bạn xác định cấu trúc dữ liệu trước khi xử lý.
+
 
 ```python
 # Mở raster file đã tạo
@@ -106,7 +110,7 @@ ds = None  # Đóng dataset
 
 ### 14.2.3. Đọc và ghi dữ liệu nhiều kênh
 
-Band là lớp dữ liệu trong raster. Mỗi band lưu một ma trận numpy 2D. Ảnh vệ tinh đa phổ (multispectral) có nhiều band (Red, Green, Blue, NIR, SWIR,…).
+Dữ liệu raster thường có nhiều band (kênh), đặc biệt là ảnh vệ tinh đa phổ với các kênh như Red, Green, Blue, NIR, SWIR. Mỗi band lưu trữ một ma trận 2D có thể đọc thành numpy array. GDAL cho phép đọc toàn bộ band hoặc chỉ một vùng nhỏ (window) để tối ưu bộ nhớ. Khi tạo raster đa band, bạn cần ghi dữ liệu vào từng band và có thể thiết lập color interpretation để chỉ định ý nghĩa của mỗi band.
 
 
 ```python
@@ -150,7 +154,7 @@ ds_rgb = None
 
 ### 14.2.4. Reproject raster sang hệ tọa độ mới
 
-`gdal.Warp()` (hay `gdalwarp`) là công cụ đa năng nhất trong GDAL để reproject, resample, clip và merge raster.
+Reprojection là quá trình chuyển đổi dữ liệu raster từ hệ tọa độ này sang hệ tọa độ khác. `gdal.Warp()` là công cụ mạnh mẽ cho phép reproject, resample, clip và merge raster trong một lệnh. Khi reproject, bạn cần chọn thuật toán nội suy (resampling) phù hợp: Nearest Neighbour cho dữ liệu rời rạc (landcover), Bilinear/Cubic cho dữ liệu liên tục (DEM, nhiệt độ). Việc chuyển đổi sang hệ tọa độ như UTM giúp tính toán diện tích và khoảng cách chính xác hơn.
 
 
 ```python
@@ -173,7 +177,7 @@ result = None  # Đóng dataset
 
 ### 14.2.5. Clip raster theo bounding box
 
-Clip (cắt) raster là thao tác phổ biến nhất khi xử lý ảnh vệ tinh - chỉ giữ lại vùng quan tâm (AOI) để giảm kích thước dữ liệu.
+Clip (cắt) raster là thao tác cắt bỏ phần dữ liệu nằm ngoài vùng quan tâm (Area of Interest - AOI), chỉ giữ lại phần cần thiết. Điều này giúp giảm kích thước file, tăng tốc độ xử lý và tiết kiệm bộ nhớ. `gdal.Translate()` với tham số `projWin` cho phép clip theo bounding box được định nghĩa bởi tọa độ (xmin, ymax, xmax, ymin). Phép clip đặc biệt hữu ích khi làm việc với ảnh vệ tinh phủ vùng lớn nhưng bạn chỉ cần phân tích một khu vực nhỏ.
 
 
 ```python
@@ -207,20 +211,14 @@ ds_clip = None
     Clipped: 70 x 10 pixels
     
 
-## 14.3. Xử lý dữ liệu Vector với OGR
-
-OGR (phần vector của GDAL) xử lý dữ liệu vector thông qua mô hình phân cấp:
-- **DataSource**: Kết nối đến file/database (Shapefile, GeoJSON, PostGIS,…)
-- **Layer**: Một lớp dữ liệu trong DataSource (tương tự "bảng" trong database)
-- **Feature**: Một đối tượng địa lý = geometry + attributes
-- **Geometry**: Hình học (Point, LineString, Polygon,…)
-
 ### 14.3.1. Đọc vector và xem thông tin layer
+
+OGR (phần vector của GDAL) cho phép đọc dữ liệu vector từ nhiều định dạng khác nhau như Shapefile, GeoJSON, GeoPackage. Khi mở một DataSource, bạn có thể truy cập các layer chứa features. Mỗi layer có thông tin về số lượng features, kiểu geometry (Point, LineString, Polygon) và cấu trúc thuộc tính (fields). Việc kiểm tra metadata của layer giúp bạn hiểu cấu trúc dữ liệu trước khi xử lý hoặc truy vấn.
 
 
 ```python
 # Đọc file GeoJSON tỉnh/thành Việt Nam
-vector_path = r"G:\My Drive\python\geocourse\data\vector"
+vector_path = r"J:\My Drive\geocourse_data\outputs\vector"
 geojson_path = os.path.join(vector_path, 'Vietnam_provinces.geojson')
 ds = ogr.Open(geojson_path, 0)  # 0 = read-only, 1 = read-write
 
@@ -268,7 +266,7 @@ ds = None
 
 ### 14.3.2. Duyệt qua các features và thuộc tính
 
-Mỗi **Feature** trong OGR bao gồm geometry (hình học) và các trường thuộc tính. Chúng ta có thể duyệt qua từng feature để đọc hoặc tính toán dữ liệu.
+Mỗi Feature trong OGR bao gồm hai thành phần chính: geometry (hình học không gian) và attributes (thuộc tính mô tả). Bạn có thể duyệt qua từng feature trong layer để đọc thông tin, trích xuất geometry, tính toán các giá trị như diện tích, chu vi, hoặc lọc dữ liệu theo điều kiện. `GetGeometryRef()` trả về geometry của feature, `GetField()` trả về giá trị của một trường thuộc tính. Việc duyệt tuần tự (iterator) tiết kiệm bộ nhớ hơn so với đọc toàn bộ dữ liệu vào memory.
 
 
 ```python
@@ -319,11 +317,11 @@ ds = None
 
 ### 14.3.3. Tạo vector file mới từ đầu
 
-Tạo Shapefile hoặc GeoJSON chứa dữ liệu điểm (Point) cho các thành phố lớn của Việt Nam.
+OGR cho phép tạo file vector mới từ đầu với bất kỳ định dạng nào được hỗ trợ. Quy trình bao gồm: (1) tạo DataSource với driver tương ứng, (2) tạo layer với geometry type và CRS, (3) định nghĩa schema (các trường thuộc tính), (4) tạo từng feature với geometry và attributes, (5) lưu file. Khi tạo geometry, bạn sử dụng các lớp như `ogr.Geometry(ogr.wkbPoint)` và thêm tọa độ với `AddPoint()`. Việc tạo vector programmatically hữu ích khi chuyển đổi dữ liệu từ CSV, database hoặc kết quả phân tích.
 
 
 ```python
-# Dữ liệu các thành phố lớn Việt Nam
+# Dữ liệu minh họa các thành phố lớn Việt Nam. Cần kiểm tra và cập nhật số liệu dân số chính xác từ nguồn đáng tin cậy khi sử dụng thực tế.
 cities_data = [
     {'name': 'Hà Nội',    'pop': 8246600, 'lon': 105.8542, 'lat': 21.0285},
     {'name': 'TP.HCM',    'pop': 8993082, 'lon': 106.6297, 'lat': 10.8231},
@@ -380,9 +378,7 @@ out_ds = None
 
 ### 14.3.4. Spatial filter và Attribute filter
 
-OGR cung cấp hai loại filter để truy vấn dữ liệu hiệu quả:
-- **SetAttributeFilter**: Lọc theo thuộc tính (giống SQL WHERE)
-- **SetSpatialFilter**: Lọc theo vùng không gian (bounding box hoặc geometry)
+OGR cung cấp hai loại filter mạnh mẽ để truy vấn dữ liệu hiệu quả mà không cần load toàn bộ features vào memory. **Attribute filter** (`SetAttributeFilter`) giống SQL WHERE clause, cho phép lọc features dựa trên giá trị thuộc tính (ví dụ: population > 1000000). **Spatial filter** (`SetSpatialFilter`) lọc features nằm trong một vùng không gian xác định (bounding box hoặc geometry phức tạp). Kết hợp hai loại filter giúp truy vấn chính xác và nhanh chóng trên datasets lớn, đặc biệt hữu ích cho web GIS và spatial analysis.
 
 
 ```python
@@ -433,7 +429,7 @@ ds = None
 
 ### 14.3.5. Chuyển đổi định dạng vector (Format Conversion)
 
-OGR hỗ trợ chuyển đổi giữa hàng chục định dạng vector: GeoJSON, Shapefile, GeoPackage, KML, CSV, PostgreSQL/PostGIS,…
+OGR hỗ trợ chuyển đổi linh hoạt giữa hơn 50 định dạng vector khác nhau như GeoJSON, Shapefile, GeoPackage, KML, CSV, và thậm chí databases như PostGIS. `CopyDataSource()` là phương thức đơn giản nhất để copy toàn bộ DataSource sang format mới, giữ nguyên geometry, attributes và CRS. Việc chuyển đổi định dạng hữu ích khi tích hợp dữ liệu từ nhiều nguồn, tối ưu storage (GeoPackage nhỏ hơn Shapefile), hoặc tương thích với các công cụ GIS khác nhau.
 
 
 ```python

@@ -2,7 +2,9 @@
 
 Trong bài học này, chúng ta sẽ tìm hiểu các khối xây dựng cơ bản trong lập trình Python. Bài học này có [video](https://www.youtube.com/watch?v=aFI6suhmjhQ&t=6s) kèm theo. 
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://drive.google.com/file/d/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB/view?usp=sharing) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao (File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 2.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -37,13 +39,13 @@ Biến giống như các thùng chứa lưu trữ giá trị dữ liệu. Trong 
 
 ### 2.3.1. Tạo biến
 
-Trong ví dụ dưới đây, ta sẽ đặt một vài tên biến và gán giá trị cho chúng.
+Trong ví dụ dưới đây, ta sẽ đặt một vài tên biến và gán giá trị cho chúng. Dân số lấy từ trang [thư viện pháp luật](https://thuvienphapluat.vn/chinh-sach-phap-luat-moi/vn/ho-tro-phap-luat/chinh-sach-moi/108590/xep-hang-dan-so-34-tinh-thanh-pho-moi-nhat-2026) năm 2025. 
 
 
 ```python
 # Tạo biến
 city_name = "Ha Noi" # city_name là tên biến và gán giá trị. Trong ví dụ này giá trị là Ha Noi
-population = 8587000 # population là tên biến và gán giá trị. Trong ví dụ này giá trị là 8587000
+population = 8860000 # population là tên biến và gán giá trị.
 latitude = 21.0285 # latitude là tên biến và gán giá trị. Trong ví dụ này giá trị là 21.0285
 longitude = 105.8542 # longitude là tên biến và gán giá trị. Trong ví dụ này giá trị là 105.8542
 is_capital = True # is_capital là tên biến và gán giá trị. Trong ví dụ này giá trị là True
@@ -163,14 +165,14 @@ Số nguyên dạng chuỗi có thể chuyển sang dạng số nguyên dùng h�
 
 ```python
 # Chuyển đổi giữa các kiểu dữ liệu chuỗi số
-population_str = "8419000"  # Chuỗi số
+population_str = "8860000"  # Chuỗi số
 population_int = int(population_str)  # Chuỗi sang số nguyên
 print("Dân số (số nguyên):", population_int)
 print(f'Nhiệt độ hiện tại là {int(23.7)}°C') # Chuyển đổi số thực sang số nguyên và in ra kết quả
 
 ```
 
-    Dân số (số nguyên): 8419000
+    Dân số (số nguyên): 8860000
     Nhiệt độ hiện tại là 23°C
     
 
@@ -469,8 +471,8 @@ print("Vị trí đầy đủ:", full_location)
 
 ```python
 # Định dạng chuỗi (f-strings) - Cách hiện đại của Python
-population = 8587000
-area_sq_km = 3358.59
+population = 8860000
+area_sq_km = 3359.59
 country = "Việt Nam"
 city = "Hà Nội"
 # Tạo mô tả về thành phố sử dụng f-string
@@ -478,7 +480,7 @@ description = f"{city} là thành phố thuộc {country} với dân số {popul
 print(description)
 ```
 
-    Hà Nội là thành phố thuộc Việt Nam với dân số 8,587,000 người và diện tích 3358.59 km².
+    Hà Nội là thành phố thuộc Việt Nam với dân số 8,860,000 người và diện tích 3359.59 km².
     
 
 ### 2.6.3. Phương thức chuỗi

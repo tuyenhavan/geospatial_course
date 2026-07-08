@@ -2,7 +2,9 @@
 
 NumPy là nền tảng của tính toán số trong Python. Trong phân tích không gian địa lý, nó được sử dụng cho các phép toán mảng hiệu quả, dữ liệu raster và tính toán toán học.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1J2vFtvV5vV7kjuWnC03HQqiDdltyeBxz?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+>
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1J2vFtvV5vV7kjuWnC03HQqiDdltyeBxz?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 7.1. Mục tiêu học tập
 - Hiểu về NumPy arrays và ưu điểm so với lists
@@ -20,6 +22,8 @@ import numpy as np # Nếu bạn chưa cài đặt numpy, hãy chạy: pip insta
 NumPy cung cấp ndarray (mảng N-chiều) cho các phép toán số nhanh chóng và hiệu quả.
 
 ### 7.2.1. Tạo array từ list
+
+Cách đơn giản nhất để tạo NumPy array là chuyển đổi từ Python list bằng hàm `np.array()`. Điều này giúp chúng ta dễ dàng làm việc với dữ liệu có sẵn dưới dạng list và tận dụng được các phép toán hiệu quả của NumPy.
 
 
 ```python
@@ -40,6 +44,8 @@ NumPy có thể tạo arrays từ lists, hoặc tạo arrays với các giá tr�
 
 - **Tạo mảng toàn số 0 với hàm `np.zeros`**
 
+Hàm `np.zeros()` tạo một mảng mới với tất cả các phần tử có giá trị 0. Bạn cần chỉ định kích thước mảng mong muốn thông qua một tuple. Điều này rất hữu ích khi khởi tạo mảng để lưu trữ kết quả tính toán.
+
 
 ```python
 # Các phương pháp tạo mảng phổ biến
@@ -55,6 +61,8 @@ print('Mảng zeros:\n', zeros)
 
 - **Tạo mảng toàn số 0 với hàm `np.zeros_like`**
 
+Hàm `np.zeros_like()` tạo một mảng mới với cùng kích thước và kiểu dữ liệu với mảng đầu vào, nhưng tất cả giá trị đều là 0. Điều này tiện lợi khi bạn muốn tạo một mảng kết quả có cùng cấu trúc với mảng gốc.
+
 
 ```python
 zero_like = np.zeros_like(zeros) # Mảng cùng kích thước với zeros nhưng toàn số 0
@@ -69,6 +77,8 @@ print('Mảng zeros_like:\n', zero_like)
 
 - **Tạo mảng toàn số 1 với hàm `np.ones`**
 
+Hàm `np.ones()` hoạt động tương tự như `np.zeros()` nhưng tạo mảng với tất cả các phần tử có giá trị 1. Hàm này thường được sử dụng để khởi tạo ma trận đơn vị hoặc tạo mask cho các phép toán.
+
 
 ```python
 ones = np.ones((2, 4)) # Mảng 2x4 toàn số 1
@@ -80,7 +90,9 @@ print('Mảng ones:\n', ones)
      [1. 1. 1. 1.]]
     
 
-- **Tạo mạng toàn số 1 với hàm `np.ones_like`**
+- **Tạo mảng toàn số 1 với hàm `np.ones_like`**
+
+Hàm `np.ones_like()` tạo một mảng với cùng kích thước và kiểu dữ liệu với mảng đầu vào, nhưng tất cả giá trị đều là 1. Đây là cách nhanh chóng để khởi tạo một mảng có cùng cấu trúc với dữ liệu gốc.
 
 
 ```python
@@ -96,6 +108,8 @@ print('Mảng ones_like:\n', one_like)
 
 - **Tạo mảng toàn một số cụ thể với hàm `np.full`**
 
+Hàm `np.full()` cho phép bạn tạo một mảng với tất cả các phần tử có cùng một giá trị tùy chỉnh. Bạn chỉ định kích thước mảng và giá trị muốn điền vào. Điều này hữu ích khi khởi tạo mảng với một giá trị mặc định cụ thể.
+
 
 ```python
 full = np.full((2, 2), 7) # Mảng 2x2 toàn số 7
@@ -108,6 +122,8 @@ print('Mảng full:\n', full)
     
 
 - **Thay đổi `shape` của mảng**
+
+Phương thức `reshape()` cho phép thay đổi hình dạng của mảng mà không thay đổi dữ liệu. Điều quan trọng là tổng số phần tử phải giữ nguyên. Sử dụng `-1` trong reshape sẽ tự động tính toán kích thước cho chiều đó. 
 
 
 ```python
@@ -140,6 +156,8 @@ print('Mảng 2D sau reshape:\n', array_2d)
 
 - **Concatenate hai hoặc nhiều mảng**
 
+Hàm `np.concatenate()` kết hợp nhiều mảng thành một mảng duy nhất theo một trục cụ thể. Tham số `axis` xác định chiều kết hợp: `axis=0` kết hợp theo hàng (dọc), `axis=1` kết hợp theo cột (ngang). Các mảng phải có cùng kích thước ở các chiều khác.
+
 
 ```python
 # Reshape array sau 
@@ -171,6 +189,8 @@ print('Mảng sau khi merge:\n', merged_array)
 
 - **Tách mảng thành 2 phần**
 
+Hàm `np.array_split()` chia một mảng thành nhiều mảng con theo số phần chỉ định. Tham số `axis` xác định chiều tách. Nếu không thể chia đều, các phần sẽ có kích thước gần bằng nhau. Điều này hữu ích khi chia dữ liệu thành các batch hoặc fold cho cross-validation.
+
 
 ```python
 # Split (tách) mảng thành hai phần
@@ -193,6 +213,8 @@ for i, arr in enumerate(split_arrays):
 
 - **Lọc giá trị với `np.where`**
 
+Hàm `np.where()` trả về các chỉ số của các phần tử thỏa mãn điều kiện. Kết hợp với indexing, bạn có thể lọc và lấy ra các giá trị cần thiết từ mảng. Đây là công cụ mạnh mẽ để thao tác dữ liệu dựa trên điều kiện logic.
+
 
 ```python
 # sử dụng where để lọc các giá trị trong mảng
@@ -206,6 +228,8 @@ print('Mảng sau khi lọc:', filtered_array)
 
 - **Tạo mảng ngẫu nhiên với `np.random`**
 
+Module `np.random` cung cấp nhiều hàm để tạo mảng với các giá trị ngẫu nhiên. `randint()` tạo số nguyên ngẫu nhiên trong một khoảng, `rand()` tạo số thực từ 0 đến 1, `randn()` tạo số theo phân phối chuẩn. Điều này hữu ích cho việc khởi tạo dữ liệu test hoặc simulation.
+
 
 ```python
 # doi kieu du lieu cua array
@@ -214,12 +238,14 @@ print('Mảng ban đầu:\n', array)
 ```
 
     Mảng ban đầu:
-     [[-6  7  9]
-     [ 6 -6 -8]
-     [-5  8  6]]
+     [[ 4  3  4]
+     [ 4  9  0]
+     [ 7  2 -8]]
     
 
 - **Chuyển đổi kiểu dữ liệu cho mảng**
+
+Phương thức `astype()` cho phép chuyển đổi kiểu dữ liệu của mảng sang kiểu khác như int, float, bool. Việc chọn đúng kiểu dữ liệu giúp tiết kiệm bộ nhớ và tăng hiệu suất tính toán.
 
 
 ```python
@@ -230,16 +256,18 @@ print('Mảng sau khi đổi kiểu dữ liệu sang float:\n', array_float)
 ```
 
     Mảng sau khi tạo mới với kiểu dữ liệu: int32 
-     [[ -8   5   0]
-     [  3   4  -4]
-     [ -8   7 -10]]
+     [[-7 -1 -9]
+     [ 5  1 -3]
+     [ 0  7 -8]]
     Mảng sau khi đổi kiểu dữ liệu sang float:
-     [[ -8.   5.   0.]
-     [  3.   4.  -4.]
-     [ -8.   7. -10.]]
+     [[-7. -1. -9.]
+     [ 5.  1. -3.]
+     [ 0.  7. -8.]]
     
 
 - **Kiểm tra thuộc tính liên quan đến mảng**
+
+NumPy arrays có nhiều thuộc tính hữu ích: `shape` cho biết kích thước mỗi chiều, `ndim` cho biết số chiều, `size` cho biết tổng số phần tử, và `dtype` cho biết kiểu dữ liệu. Hiểu rõ các thuộc tính này giúp bạn debug và xử lý dữ liệu hiệu quả hơn.
 
 
 ```python
@@ -262,6 +290,8 @@ print('Kiểu dữ liệu (dtype):', array.dtype)
 Lập chỉ mục và cắt lát (indexing and slicing) hoạt động tương tự như lists, nhưng mạnh mẽ hơn cho dữ liệu đa chiều.
 
 - **Lập chỉ mục**
+
+Lập chỉ mục (indexing) cho phép truy cập các phần tử cụ thể trong mảng. Đối với mảng đa chiều, sử dụng dấu phẩy để phân tách các chỉ số cho mỗi chiều. Chỉ số bắt đầu từ 0 và có thể sử dụng chỉ số âm để đếm từ cuối mảng.
 
 
 ```python
@@ -302,6 +332,8 @@ print('Lấy phần tử tại hàng 1 với bước nhảy 2:', arr2d[1, ::2])
 
 - **Thay thế cập nhật giá trị trong mảng**
 
+Bạn có thể gán giá trị mới cho một phần tử hoặc một nhóm phần tử trong mảng bằng cách sử dụng indexing hoặc slicing. Điều này cho phép cập nhật dữ liệu một cách linh hoạt, từ thay đổi một giá trị đơn lẻ đến cập nhật toàn bộ một hàng hay cột.
+
 
 ```python
 # Thay thế giá trị trong mảng
@@ -327,6 +359,8 @@ print('Mảng sau khi thay thế cột 2:\n', arr2d)
 NumPy hỗ trợ các phép toán theo từng phần tử nhanh chóng và broadcasting.
 
 - **Phép toán cơ bản**
+
+NumPy hỗ trợ các phép toán số học cơ bản (+, -, *, /) được thực hiện theo từng phần tử (element-wise). Ngoài ra còn có các hàm thống kê như `mean()`, `sum()`, `max()`, `min()`, `std()` để tính toán nhanh chóng trên toàn bộ mảng hoặc theo từng trục.
 
 
 ```python
@@ -380,6 +414,8 @@ print('Trung bình theo trục 0:\n', mean)
 
 - **Phép toán tích vô hướng giữa 2 vectors**
 
+Tích vô hướng (dot product) của hai vectors là tổng của tích các phần tử tương ứng. Trong NumPy, sử dụng `np.dot()` để tính tích vô hướng. Phép toán này rất quan trọng trong đại số tuyến tính và machine learning, đo lường mức độ tương đồng giữa hai vectors.
+
 
 ```python
 # Tính tích vô hướng 2 vector a và b
@@ -393,6 +429,8 @@ print('Tích vô hướng của a và b:', dot_product)
     
 
 - **Phép toán tích vô hướng giữa ma trận với vector**
+
+Khi nhân ma trận với vector, mỗi hàng của ma trận được nhân tích vô hướng với vector, tạo ra một vector kết quả. Điều kiện là số cột của ma trận phải bằng số phần tử của vector. Phép toán này được sử dụng rộng rãi trong các mô hình hồi quy tuyến tính và neural networks.
 
 
 ```python
@@ -410,6 +448,8 @@ print('Tích vô hướng giữa ma trận A và vector x:\n', dot_product_matri
 
 - **Phép toán tích vô hướng giữa vector với ma trận**
 
+Nhân vector với ma trận tương tự như nhân ma trận với vector nhưng theo thứ tự ngược lại. Vector được nhân với từng cột của ma trận. Điều kiện là số phần tử của vector phải bằng số hàng của ma trận. Kết quả là một vector có số phần tử bằng số cột của ma trận.
+
 
 ```python
 # Tích vô hướng giữa 1 vector a và một ma trận B. Điều kiện là số phần tử của a phải bằng số hàng của B.
@@ -425,6 +465,8 @@ print('Tích vô hướng giữa vector a và ma trận B:\n', dot_product_vecto
     
 
 - **Phép toán nhân 2 ma trận**
+
+Phép nhân ma trận (matrix multiplication) là phép toán cơ bản trong đại số tuyến tính. Phần tử ở hàng i, cột j của ma trận kết quả là tích vô hướng của hàng i của ma trận thứ nhất với cột j của ma trận thứ hai. Điều kiện là số cột của ma trận đầu phải bằng số hàng của ma trận sau.
 
 
 ```python
@@ -532,8 +574,8 @@ print(f"Giá trị lớn nhất trong mảng NDVI sau khi clip: {np.max(clipped_
 print(f"Giá trị nhỏ nhất trong mảng NDVI sau khi clip: {np.min(clipped_ndvi)}")
 ```
 
-    Giá trị lớn nhất trong mảng NDVI sau khi clip: 0.999989157199223
-    Giá trị nhỏ nhất trong mảng NDVI sau khi clip: -0.9999997198877564
+    Giá trị lớn nhất trong mảng NDVI sau khi clip: 0.9999879149782394
+    Giá trị nhỏ nhất trong mảng NDVI sau khi clip: -0.9999742130704479
     
 
 ### 7.5.4. Sử dụng hàm `np.apply_along_axis`

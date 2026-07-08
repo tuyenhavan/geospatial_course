@@ -5,7 +5,9 @@ Zarr và Dask tạo thành bộ công cụ mạnh mẽ cho xử lý **big data �
 - **Zarr**: Định dạng lưu trữ mảng nhiều chiều (array) được tối ưu cho cloud, hỗ trợ chunking và compression mạnh mẽ
 - **Dask**: Framework tính toán song song (parallel computing) với lazy evaluation, có thể scale từ laptop đến HPC cluster
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1k_d-Tn5yPkQKqftoxkoizT53c12Gu3D0?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1k_d-Tn5yPkQKqftoxkoizT53c12Gu3D0?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 19.1. Mục tiêu học tập
 
@@ -31,6 +33,8 @@ Dask là thư viện Python giúp xử lý dữ liệu lớn bằng cách chia n
 
 ### 29.2.1. Tạo dask array
 
+Để bắt đầu làm việc với Dask, bạn cần chuyển đổi dữ liệu từ NumPy array sang Dask array bằng hàm `da.from_array()`. Điều quan trọng nhất khi tạo Dask array là chọn kích thước chunk phù hợp - quá lớn sẽ tốn bộ nhớ, quá nhỏ sẽ làm tăng overhead tính toán. Thông thường, mỗi chunk nên có kích thước từ 100MB đến 1GB. Dask array hoạt động theo cơ chế lazy evaluation, nghĩa là không có tính toán nào được thực hiện cho đến khi bạn gọi `.compute()`.
+
 
 ```python
 # Tạo một mảng dữ liệu lớn với NumPy (ví dụ 10000x10000) để mô phỏng dữ liệu vệ tinh lớn. Bạn có thể thay thế bằng dữ liệu thực tế nếu có.
@@ -47,6 +51,8 @@ print(f"Đây là một Dask array với dtype: {dask_array.dtype} và có {dask
     
 
 ### 29.2.2. Tính toán trên dask
+
+Sau khi tạo Dask array, bạn có thể thực hiện các phép toán tương tự như NumPy (mean, sum, std, max, min, v.v.). Tuy nhiên, các phép toán này chỉ tạo ra task graph (sơ đồ các công việc cần làm) mà không thực sự tính toán. Khi gọi `.compute()`, Dask mới thực thi toàn bộ các phép toán đã định nghĩa trên các chunk, tận dụng đa luồng để xử lý song song. Điều này giúp tối ưu hóa bộ nhớ vì chỉ xử lý từng phần dữ liệu tại một thời điểm.
 
 
 ```python
@@ -113,6 +119,8 @@ outpath = r"G:\My Drive\python\geocourse\data\outputs"
 
 - **Tạo zarr array với `zarr.zeros()`**
 
+`zarr.zeros()` tạo một mảng Zarr được khởi tạo với giá trị 0, tương tự như `np.zeros()` trong NumPy. Phương pháp này rất hữu ích khi bạn muốn tạo một mảng trống để sau đó điền dữ liệu vào từng phần. Bạn cần chỉ định `shape` (kích thước mảng), `chunks` (kích thước mỗi khối), `dtype` (kiểu dữ liệu), và `store` (đường dẫn lưu file). Zarr sẽ tự động tạo cấu trúc thư mục chứa các file chunk được nén.
+
 
 ```python
 # Tạo một mảng dữ liệu 100x100 với zarr.zeros và lưu vào file zarr
@@ -126,6 +134,8 @@ print(zeros.info)
 ```
 
 - **Chuyển NumPy array sang Zarr**
+
+Nếu bạn đã có dữ liệu dạng NumPy array và muốn chuyển sang định dạng Zarr để tận dụng các lợi ích về lưu trữ và truy xuất, sử dụng `zarr.array()`. Hàm này nhận vào một NumPy array, tự động chia thành chunks theo kích thước bạn chỉ định, nén dữ liệu và lưu vào đĩa. Đây là cách đơn giản nhất để chuyển đổi dữ liệu hiện có sang Zarr mà không cần tạo mảng trống trước.
 
 
 ```python
@@ -146,6 +156,8 @@ z = zarr.array(
 ```
 
 - **Tạo zarr array với `zarr.open()`**
+
+`zarr.open()` là phương pháp linh hoạt nhất để làm việc với Zarr, cho phép bạn mở file Zarr ở các chế độ khác nhau: `'r'` (read), `'w'` (write/overwrite), `'a'` (append). Khi sử dụng mode `'w'`, bạn tạo một mảng Zarr mới và có thể ghi dữ liệu vào từng phần một cách tuần tự - rất hữu ích khi xử lý dữ liệu lớn theo từng batch (ví dụ: ghi từng timestep của dữ liệu vệ tinh) mà không cần tải toàn bộ dữ liệu vào bộ nhớ.
 
 
 ```python
@@ -181,6 +193,8 @@ for t in range(100):
 
 - **Đọc dữ liệu dùng `zarr.open()`**
 
+Để đọc dữ liệu từ file Zarr đã tồn tại, sử dụng `zarr.open()` với mode `'r'` (read-only). Phương pháp này cho phép bạn truy cập metadata như shape và dtype mà không cần tải toàn bộ dữ liệu vào bộ nhớ. Khi bạn cần lấy giá trị thực tế, có thể truy cập theo index (slice) để đọc từng phần dữ liệu. Zarr sẽ tự động đọc và giải nén các chunk cần thiết, giúp tiết kiệm bộ nhớ khi làm việc với dữ liệu lớn.
+
 
 ```python
 # Mở Zarr array với zarr.open để kiểm tra thông tin về shape và dtype
@@ -189,6 +203,8 @@ print(f"Zarr array shape: {ds.shape}, dtype: {ds.dtype}")
 ```
 
 - **Đọc zarr array với `dask` và `xarray`**
+
+Để xử lý dữ liệu Zarr lớn một cách hiệu quả, nên kết hợp Dask với XArray. Đầu tiên, dùng `da.from_zarr()` để đọc dữ liệu dưới dạng Dask array với lazy loading - không tải dữ liệu vào bộ nhớ ngay lập tức. Sau đó, bọc Dask array thành `xr.DataArray` để thêm thông tin về dimensions (time, y, x), coordinates và attributes. Điều này cho phép bạn thực hiện các phép toán phân tích không gian-thời gian một cách trực quan và hiệu quả hơn.
 
 
 ```python
@@ -257,6 +273,8 @@ print(group.tree())
 
 - **Đọc một dataset trong `group`**
 
+Khi làm việc với Zarr Group chứa nhiều arrays (ví dụ: nhiều bands của ảnh vệ tinh), bạn có thể truy cập từng array riêng lẻ bằng cách sử dụng tên array như một key trong dictionary (`group['B02']`). Sử dụng `[:]` sẽ đọc toàn bộ dữ liệu vào bộ nhớ - hãy cẩn thận với dữ liệu lớn vì có thể gây lỗi out of memory. Để an toàn hơn, nên đọc theo từng chunk hoặc sử dụng Dask để quản lý việc đọc dữ liệu theo từng phần.
+
 
 ```python
 b2 = group['B02'][:] # Đọc toàn bộ dữ liệu của band B02 vào bộ nhớ. Nếu dữ liệu quá lớn, điều này có thể gây ra lỗi thiếu bộ nhớ (out of memory) vì kích thước dữ liệu quá lớn để xử lý trên một máy tính cá nhân. Để tránh điều này, bạn có thể đọc dữ liệu theo từng chunk hoặc sử dụng Dask để quản lý việc đọc dữ liệu một cách hiệu quả hơn.
@@ -264,6 +282,8 @@ print(f"Đã đọc band B02 với shape: {b2.shape} và dtype: {b2.dtype}.")
 ```
 
 - **Đọc dữ liệu với `dask`**
+
+Cách an toàn và hiệu quả nhất để đọc array từ Zarr Group là sử dụng `da.from_zarr()` với đường dẫn đến array cụ thể (bao gồm cả tên array, ví dụ: `sentinel2.zarr/B02`). Dask sẽ tạo một Dask array với lazy evaluation, giữ nguyên cấu trúc chunks đã được định nghĩa khi tạo Zarr. Bạn có thể thực hiện các phép toán trên Dask array này mà không lo lắng về bộ nhớ, vì dữ liệu chỉ được tải khi gọi `.compute()`.
 
 
 ```python

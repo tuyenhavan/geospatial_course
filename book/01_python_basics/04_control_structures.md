@@ -1,6 +1,10 @@
 # Bài 4: Cấu trúc điều khiển và vòng lặp
 
-Trong bài học này, chúng ta sẽ tìm hiểu về cấu trúc điều khiển và vòng lặp trong Python. Cấu trúc điều khiển cho phép chúng ta kiểm soát luồng thực thi của chương trình, trong khi vòng lặp giúp chúng ta thực hiện một khối mã nhiều lần. Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/12lMlI6uiW5EYI2sbEjvy8E2Xt9UYZp1S?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+Trong bài học này, chúng ta sẽ tìm hiểu về cấu trúc điều khiển và vòng lặp trong Python. Cấu trúc điều khiển cho phép chúng ta kiểm soát luồng thực thi của chương trình, trong khi vòng lặp giúp chúng ta thực hiện một khối mã nhiều lần. 
+
+> **Lưu ý**
+>
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/12lMlI6uiW5EYI2sbEjvy8E2Xt9UYZp1S?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 4.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

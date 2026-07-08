@@ -2,7 +2,9 @@
 
 Tổng hợp ảnh là kỹ thuật kết hợp nhiều ảnh thành một ảnh đại diện cho một giai đoạn (tháng, mùa, năm). Kĩ thuật này giúp giảm ảnh hưởng của mây và cung cấp dữ liệu đầu vào ổn định hơn cho các phân tích không gian.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ZrYGW8CUmUvAlBx5gwMvbS6L_b2qEo86?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ZrYGW8CUmUvAlBx5gwMvbS6L_b2qEo86?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 24.1. Mục tiêu học tập
 
@@ -551,6 +553,8 @@ ERA5 là tập dữ liệu **tái phân tích khí hậu** (reanalysis) của EC
 
 ### 24.5.1. Tổng hợp ảnh ERA5-Land theo năm
 
+ERA5-Land cung cấp dữ liệu khí hậu theo giờ với độ phân giải không gian 9km từ năm 1950 đến hiện tại, bao gồm nhiều biến khí hậu như nhiệt độ không khí (temperature_2m), độ ẩm, lượng mưa, và bốc tán. Khi tổng hợp theo năm, chúng ta thường lấy giá trị trung bình (mean) để tính nhiệt độ trung bình năm hoặc tổng (sum) để tính tổng lượng mưa năm. Vì ERA5-Land có tần suất cập nhật cao (hàng giờ), mỗi năm sẽ có ~8760 ảnh (24 giờ × 365 ngày), do đó việc tổng hợp giúp giảm đáng kể khối lượng dữ liệu và tạo ra các chỉ số khí hậu đại diện cho cả năm phục vụ phân tích xu hướng dài hạn.
+
 
 ```python
 # Ảnh era5-land theo giờ từ 1950 đến nay
@@ -624,6 +628,8 @@ print(f"Số lượng ảnh theo năm {era5land_yearly_composite.size().getInfo(
     
 
 ### 24.5.2. Tổng hợp ảnh ERA5-Land theo tháng
+
+Tổng hợp ERA5-Land theo tháng hữu ích để phân tích biến động khí hậu theo mùa và xác định chu kỳ hàng năm. Có hai cách thực hiện: (1) sử dụng `.map()` với server-side processing - nhanh và khuyên dùng cho dataset lớn, hoặc (2) sử dụng vòng lặp (loop) client-side, trực quan hơn nhưng chậm hơn do phải giao tiếp nhiều lần với server. Trong ví dụ này, chúng ta sử dụng cách 2 để minh họa rõ ràng cách lặp qua từng tháng, tính composite và thêm thuộc tính 'valid' để đếm số lượng ảnh gốc trong mỗi composite. Việc lọc ra những composite có ít nhất 1 ảnh gốc (`valid > 0`) đảm bảo không có composite null trong kết quả cuối cùng.
 
 
 ```python

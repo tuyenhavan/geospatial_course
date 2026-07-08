@@ -2,7 +2,9 @@
 
 Fiona cung cấp giao diện Python đơn giản, đáng tin cậy và hiệu quả để làm việc với các tệp dữ liệu không gian địa lý. Được xây dựng trên nền tảng OGR (một phần của GDAL), Fiona tập trung hoàn toàn vào việc xử lý dữ liệu vector và là thư viện I/O nền tảng cho GeoPandas.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10AskmkiK2lrTNQCCDXs1uDk39Llytn21?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10AskmkiK2lrTNQCCDXs1uDk39Llytn21?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 13.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -25,7 +27,11 @@ Mở và khám phá các định dạng file vector khác nhau.
 
 ### 13.2.1. Viết dữ liệu vào file
 
+Fiona cung cấp khả năng ghi dữ liệu vector vào các định dạng file khác nhau như GeoJSON, Shapefile, KML, GPKG. Quá trình ghi dữ liệu yêu cầu bạn định nghĩa schema (cấu trúc dữ liệu) bao gồm loại hình học (geometry type) và các thuộc tính (properties), cùng với hệ tọa độ (CRS). Fiona sử dụng context manager (`with` statement) để đảm bảo file được đóng đúng cách sau khi ghi.
+
 - **Tạo dữ liệu minh họa**
+
+Trước khi ghi dữ liệu vào file, chúng ta cần chuẩn bị dữ liệu dưới dạng cấu trúc Python. Trong ví dụ này, chúng ta tạo một danh sách các dictionary chứa thông tin về các tỉnh/thành phố Việt Nam, bao gồm tên, loại hình, dân số, diện tích, khu vực và tọa độ địa lý. Dữ liệu này sẽ được chuyển đổi thành các features không gian địa lý trong bước tiếp theo.
 
 
 ```python
@@ -34,8 +40,8 @@ vietnam_cities_data = [
     {
         'name': 'Hà Nội',
         'type': 'Thành phố trực thuộc TW',
-        'population': 8435700,
-        'area_km2': 3358.59,
+        'population': 8860000,
+        'area_km2': 3359.59,
         'region': 'Miền Bắc',
         'coordinates': (21.0285, 105.8542),
     },
@@ -89,7 +95,7 @@ vietnam_cities_data = [
 
 ```python
 # 1. Tạo GeoJSON file
-geojson_file = r"G:\My Drive\python\geocourse\data\outputs\vietnam_cities.geojson"
+geojson_file = r"J:\My Drive\geocourse_data\outputs\vietnam_cities.geojson"
 
 # Schema cho GeoJSON
 schema = {
@@ -139,7 +145,7 @@ Fiona cho phép người dùng đọc file GeoJSON và truy cập vào các thu�
 
 ```python
 # Đọc file GeoJSON
-geojson_file = r"G:\My Drive\python\geocourse\data\outputs\vietnam_cities.geojson"
+geojson_file = r"J:\My Drive\geocourse_data\outputs\vietnam_cities.geojson"
 
 with fiona.open(geojson_file, 'r') as src:
     for prop, dtype in src.schema['properties'].items():
@@ -167,7 +173,7 @@ with fiona.open(geojson_file, 'r') as src:
 
 ### 13.3.1. Lọc thông tin
 
-Ví dụ chúng ta muốn lọc các thành phố có dân số trên 5 triệu người. 
+Fiona cho phép bạn duyệt qua các features và lọc chúng dựa trên các thuộc tính (attributes). Thay vì đọc toàn bộ dữ liệu vào bộ nhớ, bạn có thể xử lý từng feature một và chỉ giữ lại những feature thỏa mãn điều kiện. Điều này rất hiệu quả khi làm việc với datasets lớn, giúp tiết kiệm bộ nhớ và tăng tốc độ xử lý.
 
 
 ```python
@@ -194,7 +200,8 @@ Fiona cho phép bạn dễ dàng chuyển đổi giữa các định dạng dữ
 
 
 ```python
-outfile = r"G:\My Drive\python\geocourse\data\vector\vietnam_cities.shp"
+# Bạn nên thay đổi đường dẫn và tên file theo yêu cầu của bạn.
+outfile = r"J:\My Drive\geocourse_data\outputs\vietnam_cities.shp"
 with fiona.open(geojson_file, 'r') as src:
     # Đọc tất cả features vào bộ nhớ
     features = list(src)

@@ -4,7 +4,9 @@ Hạn hán là một trong những thảm họa tự nhiên nghiêm trọng, ả
 
 Trong bài học này, chúng ta sẽ sử dụng dữ liệu MODIS để tính toán chỉ số tình trạng thực vật (VCI - Vegetation Condition Index) và dữ liệu ERA5-Land để tính toán chỉ số bất thường lượng mưa (Precipitation Anomaly Index). Hai chỉ số này kết hợp với nhau cung cấp cái nhìn toàn diện về tình trạng hạn hán, từ góc độ tình trạng thực vật và lượng mưa, giúp đánh giá mức độ nghiêm trọng và phạm vi ảnh hưởng của hạn hán trên khu vực nghiên cứu.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x?authuser=3) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 32.1. Mục tiêu bài học
 
@@ -28,7 +30,7 @@ import ee
 import geemap 
 import geopandas as gpd
 ee.Authenticate()
-ee.Initialize(project='ee-tuyenrss')
+ee.Initialize(project='geocourse-501706')
 ```
 
 ## 32.3. Tính toán chỉ số hạn hán
@@ -55,6 +57,8 @@ Trong đó:
 VCI dao động từ 0 đến 100, với giá trị thấp (< 35) chỉ ra điều kiện thực vật kém, có khả năng xảy ra hạn hán, trong khi giá trị cao (> 65) thể hiện điều kiện thực vật tốt. Chỉ số này đặc biệt hữu ích trong nông nghiệp vì phản ánh trực tiếp tác động của hạn hán lên cây trồng.
 
 - **Đọc và chuẩn bị dữ liệu**
+
+Bước đầu tiên trong tính toán VCI là chuẩn bị dữ liệu MODIS EVI chất lượng cao. Chúng ta kết hợp dữ liệu từ cả hai vệ tinh Terra (MOD13A2) và Aqua (MYD13A2) để tăng tần suất quan sát và giảm khoảng trống do mây. Sau đó áp dụng cloud masking dựa trên band DetailedQA để loại bỏ các pixel bị ảnh hưởng bởi mây, bóng mây và tuyết. Dữ liệu được scale về khoảng 0-1 (nhân với 0.0001) theo tài liệu của NASA. Cuối cùng, tổng hợp ảnh theo tháng bằng median để tạo ra chuỗi thời gian EVI hàng tháng ổn định, loại bỏ nhiễu và cung cấp đầu vào tin cậy cho tính toán VCI.
 
 
 ```python
@@ -84,6 +88,8 @@ modis = geogee.generate_monthly_composite(
 
 - **Tính chỉ số VCI**
 
+Hàm `generate_monthly_vci()` từ gói geesat tự động tính toán VCI cho toàn bộ chuỗi thời gian MODIS EVI. Hàm này thực hiện các bước: (1) Nhóm dữ liệu theo tháng trong năm (tháng 1, 2, 3,...), (2) Tính giá trị min và max của EVI cho mỗi tháng từ toàn bộ dữ liệu lịch sử, (3) Chuẩn hóa giá trị EVI hiện tại theo công thức VCI để tạo ra giá trị từ 0-100. Kết quả là một ImageCollection chứa VCI hàng tháng, trong đó mỗi ảnh phản ánh tình trạng thực vật tại thời điểm đó so với lịch sử, giúp xác định các giai đoạn và khu vực bị ảnh hưởng bởi hạn hán.
+
 
 ```python
 # Tính chỉ số thực vật VCI hàng tháng
@@ -91,6 +97,8 @@ vci = geogee.generate_monthly_vci(col=modis)
 ```
 
 - **Trực quan ảnh**
+
+Để kiểm tra kết quả VCI, chúng ta sử dụng geemap để hiển thị ảnh VCI đầu tiên trong collection trên bản đồ tương tác. Bảng màu được chọn từ màu đỏ sẫm (darkred) cho giá trị thấp (hạn hán nghiêm trọng) đến màu xanh đậm (darkgreen) cho giá trị cao (thực vật khỏe mạnh), với các mức trung gian là cam (orange), xám nhạt (lightgray) và xanh nhạt (lightgreen). Phạm vi giá trị từ 0-100 phản ánh đầy đủ điều kiện thực vật từ tồi tệ nhất đến tốt nhất. Bản đồ này cho phép quan sát không gian phân bố hạn hán và xác định các khu vực cần can thiệp.
 
 
 ```python

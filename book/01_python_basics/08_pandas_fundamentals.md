@@ -2,7 +2,9 @@
 
 Pandas là thư viện chính cho việc thao tác và phân tích dữ liệu trong Python. Nó rất quan trọng để làm việc với dữ liệu dạng bảng.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1C4_tMHXoBSEvCWVO7d-XLGg4W6DQWfQt?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+>
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1C4_tMHXoBSEvCWVO7d-XLGg4W6DQWfQt?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 8.1. Mục tiêu học tập
 - Tạo và sử dụng DataFrames
@@ -21,12 +23,14 @@ Pandas cung cấp DataFrame và Series cho việc phân tích dữ liệu mạnh
 
 ### 8.2.1. Tạo DataFrame từ dictionary
 
+Cách phổ biến nhất để tạo DataFrame là từ dictionary, trong đó mỗi key trở thành tên cột và value tương ứng là dữ liệu của cột đó. Các giá trị phải có cùng độ dài để tạo thành bảng dữ liệu hợp lệ. Đây là phương pháp đơn giản và trực quan nhất khi bạn đã có dữ liệu có cấu trúc trong Python.
+
 
 ```python
 # Tạo DataFrame từ một dictionary
 data = {
     'City': ['Hà Nội', 'TP.HCM', 'Đà Nẵng'],
-    'Population': [8053663, 9420000, 1134000],
+    'Population': [8860000, 9420000, 1134000],
     'Latitude': [21.0285, 10.8231, 16.0544],
     'Longitude': [105.8542, 106.6297, 108.2022]
 }
@@ -65,7 +69,7 @@ df.head()
     <tr>
       <th>0</th>
       <td>Hà Nội</td>
-      <td>8053663</td>
+      <td>8860000</td>
       <td>21.0285</td>
       <td>105.8542</td>
     </tr>
@@ -156,7 +160,7 @@ df.head()
 ```python
 # Tạo DataFrame từ list các lists với chỉ mục và tên cột tùy chỉnh
 data = [
-    ['Hà Nội', 8053663, 21.0285, 105.8542],
+    ['Hà Nội', 8860000, 21.0285, 105.8542],
     ['TP.HCM', 9420000, 10.8231, 106.6297],
     ['Đà Nẵng', 1134000, 16.0544, 108.2022]
 ]
@@ -195,7 +199,7 @@ df.head(2)
     <tr>
       <th>0</th>
       <td>Hà Nội</td>
-      <td>8053663</td>
+      <td>8860000</td>
       <td>21.0285</td>
       <td>105.8542</td>
     </tr>
@@ -218,13 +222,15 @@ CSV và excel là định dạng phổ biến nhất cho dữ liệu dạng bả
 
 ### 8.3.1. Đọc và ghi ra file csv
 
+CSV (Comma-Separated Values) là định dạng file phổ biến nhất để lưu trữ dữ liệu dạng bảng. Pandas cung cấp `read_csv()` để đọc file CSV và `to_csv()` để ghi dữ liệu ra file CSV. Tham số `index=False` giúp bỏ qua việc ghi chỉ số hàng vào file, giữ cho dữ liệu gọn gàng hơn.
+
 
 ```python
 # Ghi DataFrame ra CSV
-df.to_csv(r'G:\My Drive\python\geocourse\data\outputs\cities.csv', index=False)
-df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\cities.xlsx', index=False)
+df.to_csv(r'J:\My Drive\geocourse_data\outputs\cities.csv', index=False)
+df.to_excel(r'J:\My Drive\geocourse_data\outputs\cities.xlsx', index=False)
 # Đọc DataFrame từ CSV
-df_read = pd.read_csv(r'G:\My Drive\python\geocourse\data\outputs\cities.csv')
+df_read = pd.read_csv(r'J:\My Drive\geocourse_data\outputs\cities.csv')
 df_read.head(2)  
 ```
 
@@ -259,7 +265,7 @@ df_read.head(2)
     <tr>
       <th>0</th>
       <td>Hà Nội</td>
-      <td>8053663</td>
+      <td>8860000</td>
       <td>21.0285</td>
       <td>105.8542</td>
     </tr>
@@ -278,15 +284,19 @@ df_read.head(2)
 
 ### 8.3.2. Đọc và ghi ra file excel
 
+Excel là định dạng file được sử dụng rộng rãi trong môi trường doanh nghiệp và nghiên cứu. Pandas hỗ trợ `read_excel()` để đọc file Excel (.xlsx, .xls) và `to_excel()` để ghi dữ liệu ra file Excel. Lưu ý rằng bạn cần cài đặt thư viện `openpyxl` để làm việc với file Excel.
+
 
 ```python
 # Đọc DataFrame từ Excel
-df_excel = pd.read_excel(r'G:\My Drive\python\geocourse\data\outputs\cities.xlsx')  # Giả sử bạn có file cities.xlsx
+df_excel = pd.read_excel(r'J:\My Drive\geocourse_data\outputs\cities.xlsx')  # Giả sử bạn có file cities.xlsx
 # Ghi DataFrame ra Excel
-df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\cities_output.xlsx', index=False)
+df.to_excel(r'J:\My Drive\geocourse_data\outputs\cities_output.xlsx', index=False)
 ```
 
 ### 8.3.3. Đọc dữ liệu từ url
+
+Pandas có thể đọc dữ liệu trực tiếp từ URL, giúp bạn dễ dàng truy cập và phân tích dữ liệu từ các nguồn online mà không cần tải xuống trước. Điều này rất hữu ích khi làm việc với các bộ dữ liệu công khai từ GitHub, API, hoặc các data repositories khác.
 
 
 ```python
@@ -294,9 +304,9 @@ df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\cities_output.xlsx', ind
 url = 'https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv'
 df = pd.read_csv(url)
 # Lưu DataFrame ra file CSV
-df.to_csv(r'G:\My Drive\python\geocourse\data\outputs\iris_data.csv', index=False)
+df.to_csv(r'J:\My Drive\geocourse_data\outputs\iris_data.csv', index=False)
 # Lưu DataFrame ra file Excel
-df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\iris_data.xlsx', index=False)
+df.to_excel(r'J:\My Drive\geocourse_data\outputs\iris_data.xlsx', index=False)
 ```
 
 ## 8.4. Lọc và sắp xếp
@@ -304,6 +314,8 @@ df.to_excel(r'G:\My Drive\python\geocourse\data\outputs\iris_data.xlsx', index=F
 Bạn có thể lọc các hàng và sắp xếp dữ liệu một cách dễ dàng.
 
 ### 8.4.1. Lọc và nhóm
+
+Lọc dữ liệu (filtering) cho phép bạn chọn các hàng thỏa mãn điều kiện cụ thể bằng cách sử dụng boolean indexing. Nhóm dữ liệu (grouping) với `groupby()` cho phép tính toán thống kê theo các nhóm khác nhau, rất hữu ích khi phân tích dữ liệu theo danh mục như quốc gia, vùng địa lý, hoặc thời gian.
 
 
 ```python
@@ -515,6 +527,8 @@ mean_scores.head(2)
 
 
 ### 8.4.2. Tạo cột mới và gộp các DataFrames
+
+Tạo cột mới trong DataFrame rất đơn giản - chỉ cần gán giá trị cho một tên cột mới. Bạn có thể tạo cột từ các phép toán trên cột hiện có hoặc từ dữ liệu mới. Gộp DataFrames với `merge()` giống như SQL JOIN, cho phép kết hợp dữ liệu từ nhiều nguồn dựa trên các cột chung (inner, outer, left, right join).
 
 
 ```python
