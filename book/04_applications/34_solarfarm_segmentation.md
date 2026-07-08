@@ -6,7 +6,7 @@ Trong bài học này, chúng ta sẽ áp dụng kỹ thuật học sâu (deep l
 
 > **Lưu ý**
 >
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ikx8wnQpOg6GAeQwjHMIdN5p9qs3GmcV?authuser=3) mà không cần cài đặt thự viện hay Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ikx8wnQpOg6GAeQwjHMIdN5p9qs3GmcV) mà không cần cài đặt thự viện hay Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 >
 > Dữ liệu thực hành có thể tải tại [đây](https://drive.google.com/drive/folders/119C2B1pBKwvDx5OASvQRvGR1lOljgJNd?usp=sharing)
 

@@ -4,7 +4,7 @@ NumPy là nền tảng của tính toán số trong Python. Trong phân tích kh
 
 > **Lưu Ý**
 >
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1J2vFtvV5vV7kjuWnC03HQqiDdltyeBxz?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1J2vFtvV5vV7kjuWnC03HQqiDdltyeBxz) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 7.1. Mục tiêu học tập
 - Hiểu về NumPy arrays và ưu điểm so với lists

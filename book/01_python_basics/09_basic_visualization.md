@@ -4,7 +4,7 @@ Trực quan hóa là chìa khóa để hiểu và truyền đạt dữ liệu. T
 
 > **Lưu Ý**
 > 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1MHoY3BFW510ru85cFieU0z3Sbhq9M5Oq?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1MHoY3BFW510ru85cFieU0z3Sbhq9M5Oq) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 9.1. Mục tiêu học tập
 - Tạo biểu đồ đường, cột, heatmap, và phân tán

@@ -4,7 +4,7 @@ Loại bỏ mây là bước tiền xử lý quan trọng trong mọi phân tíc
 
 > **Lưu Ý**
 > 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1iqyx8fUymOAuYfyZcQ1q2NbL_j_-aMUg?authuser=3) mà không cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1iqyx8fUymOAuYfyZcQ1q2NbL_j_-aMUg) mà không cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 22.1. Mục tiêu học tập
 

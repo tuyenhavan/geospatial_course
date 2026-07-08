@@ -4,7 +4,7 @@ Trong bài học này, bạn sẽ học cách đọc và ghi files trong Python,
 
 > **Lưu ý**
 > 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/13N1oR1Jk5YldCrEJ6iq58auX6u2dvXzY?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/13N1oR1Jk5YldCrEJ6iq58auX6u2dvXzY) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 6.1. Mục tiêu học tập
 - Mở, đọc và ghi text files

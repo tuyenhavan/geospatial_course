@@ -6,7 +6,7 @@ Trong bài học này, chúng ta sẽ sử dụng dữ liệu MODIS để tính 
 
 > **Lưu ý**
 > 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x?authuser=3) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 32.1. Mục tiêu bài học
 

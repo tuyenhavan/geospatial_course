@@ -4,7 +4,7 @@ Trong bài học này, chúng ta sẽ học cách trích xuất giá trị raste
 
 > **Lưu Ý**
 > 
-> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1aXJYL8YYIPwG7tUus-xwzdt8xDyh9bS7?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1aXJYL8YYIPwG7tUus-xwzdt8xDyh9bS7) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 25.1. Mục tiêu học tập
 
