@@ -80,7 +80,9 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 
 ## Dữ liệu
 
-Các tập dữ liệu mẫu sử dụng trong khóa học (bao gồm ranh giới hành chính Việt Nam và dữ liệu raster) được lưu trong thư mục `data/`.
+Các tập dữ liệu mẫu sử dụng trong khóa học có thể tải về tại [đây](https://drive.google.com/drive/folders/119C2B1pBKwvDx5OASvQRvGR1lOljgJNd?usp=sharing) hoặc trong mỗi phần của bài học. 
+
+> **Chú ý**: Dữ liệu trong khóa học này chỉ phục vụ mục đích minh họa. Để đảm bảo tính chính xác và cập nhật, vui lòng đối chiếu với các nguồn thông tin chính thống.
 
 ## Cài đặt
 
@@ -88,13 +90,20 @@ Các tập dữ liệu mẫu sử dụng trong khóa học (bao gồm ranh giớ
 
 Nếu chưa cài đặt Python và Miniconda, hãy đọc Bài 1, trong đó hướng dẫn chi tiết cách cài đặt và thiết lập đầy đủ các công cụ cần thiết.
 Nếu bạn đã cài đặt Python và Miniconda, bạn chỉ cần chạy câu lệnh sau sẽ tạo ra môi trường ảo `geobook` và cài đặt các thư viện cần thiết trong `environment.yml` file.
+
 ```bash 
 conda env create -f https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/environment.yml
 ```
 
+> **Chú ý**: Mỗi bài học đều hỗ trợ chạy notebook trên Google Colab, giúp bạn thực hành ngay mà không cần cài đặt Python.
+
 ## Giấy phép
 
 Dự án này là mã nguồn mở, được phép sử dụng miễn phí cho mục đích học tập và nghiên cứu cá nhân. Mọi hình thức sử dụng cho giảng dạy, đào tạo hoặc mục đích thương mại cần có sự đồng ý của tác giả.
+
+## Miễn trừ trách nhiệm
+
+Nội dung, mã nguồn và dữ liệu trong dự án này chỉ nhằm mục đích học tập, nghiên cứu và minh họa. Tác giả không bảo đảm tính đầy đủ, chính xác hoặc cập nhật của thông tin và không chịu trách nhiệm đối với bất kỳ thiệt hại nào phát sinh từ việc sử dụng nội dung của dự án. Người sử dụng có trách nhiệm tự kiểm chứng thông tin trước khi áp dụng vào thực tế.
 
 ## Kết nối
 

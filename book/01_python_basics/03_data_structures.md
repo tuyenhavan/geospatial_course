@@ -2,9 +2,7 @@
 
 Trong bài học này, bạn sẽ học về các cấu trúc dữ liệu tích hợp sẵn của Python, bao gồm danh sách (lists), bộ giá trị (tuples), từ điển (dictionaries), và tập hợp (sets). Chúng rất quan trọng để tổ chức và thao tác dữ liệu không gian địa lý. 
 
-> **Lưu ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LOh-mvecOfpXbrWwOM7dRP1epV9zUl34) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LOh-mvecOfpXbrWwOM7dRP1epV9zUl34) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 3.1. Mục tiêu học tập
 - Hiểu và sử dụng lists, tuples, dictionaries, và sets
