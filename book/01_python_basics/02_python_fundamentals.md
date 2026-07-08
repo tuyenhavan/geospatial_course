@@ -4,7 +4,7 @@ Trong bài học này, chúng ta sẽ tìm hiểu các khối xây dựng cơ b�
 
 > **Lưu ý**
 > 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://drive.google.com/file/d/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB/view?usp=sharing) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao (File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao (File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 2.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
