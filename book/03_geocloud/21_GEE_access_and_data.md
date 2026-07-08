@@ -1,12 +1,10 @@
-# Bài 20: Truy cập và lọc dữ liệu trên Google Earth Engine (GEE)
+# Bài 21: Truy cập và lọc dữ liệu trên Google Earth Engine (GEE)
 
 Google Earth Engine (GEE) là một trong những nền tảng điện toán đám mây mạnh mẽ nhất thế giới dành cho phân tích dữ liệu địa không gian, cung cấp quyền truy cập vào hàng nghìn bộ dữ liệu vệ tinh, khí hậu và địa lý, miễn phí cho nghiên cứu và giáo dục theo một cách thống nhất. Trước khi học bày này, bạn cần phải đăng kí tài khoản GEE nếu chưa có. Bạn có thể tham khảo hướng dẫn đăng kí theo video [link](https://www.youtube.com/watch?v=O9iyjs4w-8I) này.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LEBpB_hGojZUNfwdUc1ATZnpr86JwVJ4) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LEBpB_hGojZUNfwdUc1ATZnpr86JwVJ4) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 20.1. Mục tiêu học tập
+## 21.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 
@@ -22,16 +20,16 @@ import ee # chưa có thì cài đặt bằng pip install earthengine-api
 import geopandas as gpd # chưa có thì cài đặt bằng pip install geopandas
 from shapely.geometry import mapping
 ee.Authenticate()
-ee.Initialize(project='earthengine-379609') # thay bằng project của bạn. Nếu bạn chưa có project thì tạo mới trong tài khoản Google Earth Engine của bạn theo video sau https://www.youtube.com/watch?v=Lfaamxqqk7k
+ee.Initialize(project='geocourse-501706') # thay bằng project của bạn. Nếu bạn chưa có project thì tạo mới trong tài khoản Google Earth Engine của bạn theo video sau https://www.youtube.com/watch?v=Lfaamxqqk7k
 ```
 
-## 20.2. Các đối tượng chính trong GEE
+## 21.2. Các đối tượng chính trong GEE
 
 Khi làm việc với GEE, các đối tượng trong GEE đều được xử lý theo cơ chế server-side. Vì vậy, chúng ta cần sử dụng các hàm và phương thức có sẵn của GEE như `map()`, `filter()`, `reduce()`, thay vì thao tác trực tiếp bằng Python như với dữ liệu local (client-side). Chỉ khi dùng `getInfo()` thì dữ liệu mới được tải từ server về client.
 
 Tổng quan dữ liệu trên GEE có thể tham khảo tại [đây](https://developers.google.com/earth-engine/datasets). Nếu bạn chưa có tài khoản, bạn có thể đăng kí theo hướng dẫn tại video [link](https://www.youtube.com/watch?v=O9iyjs4w-8I) này.
 
-### 20.2.1. Tổng quan 4 đối tượng cơ bản
+### 21.2.1. Tổng quan 4 đối tượng cơ bản
 
 | Đối tượng | Mô tả | Ví dụ thực tế |
 |---|---|---|
@@ -40,7 +38,7 @@ Tổng quan dữ liệu trên GEE có thể tham khảo tại [đây](https://de
 | `ee.Feature` | Đối tượng vector = geometry + properties | Ranh giới một tỉnh |
 | `ee.FeatureCollection` | Tập hợp nhiều Feature | Ranh giới 63 tỉnh VN |
 
-### 20.2.2. Truy cập dữ liệu 
+### 21.2.2. Truy cập dữ liệu 
 
 - **`ee.Image`**
  
@@ -120,7 +118,7 @@ fcol = ee.FeatureCollection(ee_features)
 print(f"Số lượng feature trong collection: {fcol.size().getInfo()}")
 ```
 
-## 20.3. Lọc dữ liệu với Filters
+## 21.3. Lọc dữ liệu với Filters
 
 GEE cung cấp các phương pháp lọc `ImageCollection` để lấy đúng dữ liệu cần thiết. Ba phương thức cốt lõi:
 
@@ -132,7 +130,7 @@ GEE cung cấp các phương pháp lọc `ImageCollection` để lấy đúng d�
 
 Các phương thức này có thể **chain** (nối tiếp nhau) và được thực thi lazy trên server GEE. Ví dụ dưới đây sử dụng bộ dữ liệu Sentinel-2 và sẽ thực hành các phép lọc trong GEE. Bạn có thể đọc thêm về ảnh Sentinel-2 trên [website](https://developers.google.com/earth-engine/datasets/catalog/sentinel-2).
 
-### 20.3.1. Lọc theo vị trí 
+### 21.3.1. Lọc theo vị trí 
 
 Trong ví dụ này, chúng ta sử dụng dữ liệu Sentinel-2 để minh họa cách lọc dữ liệu theo vị trí. Có nghĩa là bất cứ bức ảnh nào có chứa toàn bộ hoặc một phần của khu vực AOI sẽ được lấy ra sau khi áp dụng `filterBounds(aoi)`. Các bộ dữ liệu khác cũng có thể được thực hiện tương tự.
 
@@ -145,7 +143,7 @@ sen2col = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED').filterBounds(aoi)
 print(sen2col.size().getInfo()) # hiển thị số lượng ảnh Sentinel-2 SR có trong AOI Hà Nội
 ```
 
-### 20.3.2. Lọc theo ngày tháng
+### 21.3.2. Lọc theo ngày tháng
 
 Để lọc ảnh theo thời gian, chúng ta sử dụng cú pháp `.filterDate(start, end)` nhằm chọn các ảnh nằm trong khoảng thời gian mong muốn. Thời gian được định dạng theo chuẩn `YYYY-MM-DD`. Trong ví dụ dưới đây, chúng ta muốn tìm tất cả các bức ảnh Sentinel-2 trong năm 2026 trên phạm vi toàn cầu.
 
@@ -157,7 +155,7 @@ sen2_2026 = sen2col.filterDate('2026-01-01', '2026-12-31')
 print(f"Số lượng ảnh Sentinel-2 SR trong năm 2026: {sen2_2026.size().getInfo()}")
 ```
 
-### 20.3.3. Lọc theo thuộc tính
+### 21.3.3. Lọc theo thuộc tính
 
 Ngoài ra, chúng ta có thể lọc ảnh theo thuộc tính (meta data). Cú pháp pháp cơ bản để lọc ảnh theo thuộc tính thường dùng là `.filter(ee.Filter.xxx())`. Các filter phổ biến: `lt` (less than), `gt`, `eq`, `lte`, `gte`, `inList`, `stringContains`. Các ví dụ bên dưới sẽ mô tả cách sử dụng lọc theo thuộc tính.
 
@@ -182,7 +180,7 @@ sen2col_cloudless = sen2col.filterMetadata('CLOUDY_PIXEL_PERCENTAGE', 'less_than
 print(f"Số lượng ảnh Sentinel-2 SR có độ che phủ mây < 5%: {sen2col_cloudless.size().getInfo()}")
 ```
 
-### 20.3.4. Kết hợp nhiều Filters
+### 21.3.4. Kết hợp nhiều Filters
 
 'Trong thực tế, khi làm việc với dữ liệu vệ tinh, chúng ta thường mong muốn lọc ảnh dựa trên nhiều tiêu chí khác nhau như thời gian, khu vực, độ che phủ mây, v.v. Việc sử dụng các phương thức `filter` khác nhau giúp chúng ta dễ dàng truy cập và lọc dữ liệu theo các thuộc tính mong muốn. Thông thường chúng ta sẽ lọc theo thứ tự sau thời gian (`date`) → khu vực nghiên cứu (`bounds`) → thông tin thuộc tính (`metadata`) để Google Earth Engine tối ưu hiệu suất truy vấn. 
 
@@ -201,11 +199,11 @@ sen2col = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
 print(f"Số lượng ảnh Sentinel-2 SR trong năm 2026 khu vực Hà Nội có độ che phủ mây < 5% và shadow < 5%: {sen2col.size().getInfo()}")
 ```
 
-## 20.4. Các bộ dữ liệu phổ biến trong GEE
+## 21.4. Các bộ dữ liệu phổ biến trong GEE
 
 GEE Data Catalog chứa hàng nghìn datasets. Dưới đây là các bộ dữ liệu thường dùng nhất trong nghiên cứu và ứng dụng địa không gian.
 
-### 20.4.1. Dữ liệu Landsat
+### 21.4.1. Dữ liệu Landsat
 
 Landsat là chương trình vệ tinh quan sát Trái Đất lâu đời do NASA và USGS phối hợp vận hành, cung cấp ảnh quang học độ phân giải trung bình (30 m) với chuỗi dữ liệu liên tục từ năm 1972 đến nay. Trong Google Earth Engine, dữ liệu Landsat được sử dụng rộng rãi để nghiên cứu biến động lớp phủ đất, đô thị hóa, tài nguyên nước, nông nghiệp và môi trường theo thời gian. Bạn có thể tham khảo tất cả các bộ sưu tập Landsat tại [đây](https://developers.google.com/earth-engine/datasets/catalog/landsat).
 
@@ -239,7 +237,7 @@ Mỗi ảnh có thể có một hoặc nhiều bands. Để kiểm tra số lư�
 print(f"Các bands của ảnh Landsat 9 L2: {landsat.first().bandNames().getInfo()[:10]}") # hiển thị 10 bands đầu tiên của ảnh Landsat 9 L2
 ```
 
-### 20.4.2. Ảnh Sentinel-1 
+### 21.4.2. Ảnh Sentinel-1 
 
 Sentinel-1 là bộ dữ liệu ảnh radar khẩu độ tổng hợp (SAR) được phát triển bởi ESA và cung cấp trong Google Earth Engine (GEE) từ vệ tinh Sentinel-1. Khác với ảnh quang học, Sentinel-1 sử dụng sóng vi ba nên có khả năng thu nhận dữ liệu cả ngày lẫn đêm và xuyên qua mây, giúp quan sát bề mặt Trái Đất liên tục trong mọi điều kiện thời tiết.
 
@@ -273,7 +271,7 @@ Tương tự như vậy, ta có thể kiểm tra các bands trong ảnh Sentinel
 print(f"Các bands trong ảnh Sentinel-1 GRD: {sen1col.first().bandNames().getInfo()}") # hiển thị tên các band dữ liệu trong ảnh Sentinel-1 GRD
 ```
 
-### 20.4.3. Ảnh MODIS 
+### 21.4.3. Ảnh MODIS 
 
 MODIS (Moderate Resolution Imaging Spectroradiometer) là cảm biến quang học trên các vệ tinh Terra và Aqua, cung cấp dữ liệu quan sát Trái Đất với tần suất cao và phạm vi phủ toàn cầu. Trong Google Earth Engine, MODIS được sử dụng rộng rãi để theo dõi thảm thực vật, nhiệt độ bề mặt, lớp phủ đất và các biến động môi trường thông qua các chuỗi dữ liệu dài hạn có độ phân giải từ 250 m đến 1 km.
 

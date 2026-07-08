@@ -1,16 +1,14 @@
-# Bài 34: Ứng dụng học sâu và dữ liệu Sentinel-2 cho phát hiện trang trại điện mặt trời
+# Bài 35: Ứng dụng học sâu và dữ liệu Sentinel-2 cho phát hiện trang trại điện mặt trời
 
 Năng lượng mặt trời đang ngày càng đóng vai trò quan trọng trong chuyển đổi năng lượng sạch toàn cầu. Việc theo dõi và lập bản đồ các trang trại điện mặt trời là cần thiết cho quy hoạch năng lượng, đánh giá tiềm năng năng lượng tái tạo và giám sát phát triển bền vững. Tuy nhiên, việc xác định và phân loại thủ công các trang trại điện mặt trời từ ảnh vệ tinh là công việc tốn kém thời gian và nguồn lực.
 
 Trong bài học này, chúng ta sẽ áp dụng kỹ thuật học sâu (deep learning) với kiến trúc `UNet`, một trong những mô hình được sử dụng phổ biến cho bài toán phân đoạn ảnh (image segmentation), kết hợp với dữ liệu ảnh vệ tinh Sentinel-2 để tự động phát hiện và vẽ ranh giới các trang trại điện mặt trời. Phương pháp này không chỉ tiết kiệm thời gian mà còn có khả năng xử lý diện tích lớn, mở ra tiềm năng ứng dụng trong giám sát và quản lý năng lượng tái tạo quy mô quốc gia.
 
-> **Lưu ý**
->
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ikx8wnQpOg6GAeQwjHMIdN5p9qs3GmcV) mà không cần cài đặt thự viện hay Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ikx8wnQpOg6GAeQwjHMIdN5p9qs3GmcV) mà không cần cài đặt thự viện hay Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 >
 > Dữ liệu thực hành có thể tải tại [đây](https://drive.google.com/drive/folders/119C2B1pBKwvDx5OASvQRvGR1lOljgJNd?usp=sharing)
 
-## 34.1. Mục tiêu bài học
+## 35.1. Mục tiêu bài học
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - Hiểu kiến trúc `UNet` và ứng dụng của nó trong bài toán phân đoạn ảnh vệ tinh
@@ -36,7 +34,7 @@ from sklearn.model_selection import train_test_split
 import xarray as xr
 ```
 
-## 34.2. Chuẩn bị dữ liệu huấn luyện
+## 35.2. Chuẩn bị dữ liệu huấn luyện
 
 Dữ liệu huấn luyện cho mô hình học sâu đóng vai trò quyết định đến chất lượng của mô hình. Trong bài toán phân đoạn ảnh, chúng ta cần hai loại dữ liệu:
 
@@ -55,7 +53,7 @@ Quy trình chuẩn bị dữ liệu bao gồm các bước sau:
 
 Từ những kiến thức từ các bài trước, bạn có thể thực hiện được các bước chuẩn bị dữ liệu cho huấn luyện một mô hình học sâu theo các bước bên trên. Trong trường hợp bạn không thể thực hiện được các bước bên trên, bạn có thể tham khảo và tải dữ liệu huấn luyện đã chuẩn bị tại [đây](https://drive.google.com/drive/folders/1lTQ-2_k92ZiZbb1KuxGPLuBZqcMYqJfm?usp=sharing).
 
-## 34.3. Xây dựng hàm đọc dữ liệu
+## 35.3. Xây dựng hàm đọc dữ liệu
 
 Trước khi huấn luyện mô hình, chúng ta cần xây dựng một lớp Dataset tùy chỉnh để đọc và xử lý dữ liệu. `CustomDataset` kế thừa từ `torch.utils.data.Dataset` và thực hiện các nhiệm vụ:
 
@@ -114,7 +112,7 @@ class CustomDataset(Dataset):
         return img
 ```
 
-## 34.4. Xây dựng mô hình UNet
+## 35.4. Xây dựng mô hình UNet
 
 **UNet** là kiến trúc mạng neural tích chập (CNN) được phát triển bởi [Olaf Ronneberger và cộng sự](https://arxiv.org/abs/1505.04597?utm_source=chatgpt.com) - thiết kế đặc biệt cho bài toán phân đoạn ảnh, đặc biệt hiệu quả khi dữ liệu huấn luyện hạn chế. Kiến trúc UNet có hình chữ U đặc trưng với các thành phần chính sau:
 
@@ -125,7 +123,7 @@ class CustomDataset(Dataset):
 
 Cấu trúc này cho phép mô hình vừa học được ngữ cảnh tổng thể (qua encoder), vừa giữ lại chi tiết không gian chính xác (qua skip connections), điều quan trọng cho phân đoạn ảnh chính xác.  
 
-### 34.4.1. Cấu trúc và các lớp Encoder
+### 35.4.1. Cấu trúc và các lớp Encoder
 
 **Encoder** có nhiệm vụ giảm dần kích thước không gian của ảnh đầu vào đồng thời tăng số lượng kênh (channels), cho phép mô hình học các đặc trưng từ thấp đến cao:
 
@@ -184,7 +182,7 @@ class EncoderBlock(nn.Module):
         return skip, down
 ```
 
-### 34.4.2. Lớp Bottleneck
+### 35.4.2. Lớp Bottleneck
 
 **Bottleneck** là lớp nằm ở điểm sâu nhất của mạng UNet, nơi mà kích thước không gian đạt giá trị nhỏ nhất nhưng số kênh đạt giá trị lớn nhất. Lớp này đóng vai trò là cầu nối giữa encoder và decoder, chứa thông tin đặc trưng trừu tượng cấp cao nhất về nội dung của ảnh. Trong cài đặt của chúng ta, bottleneck đơn giản là một DoubleConv block với số kênh lớn nhất (thường là 1024).
 
@@ -201,7 +199,7 @@ class Bottleneck(nn.Module):
         return self.double_conv(x)
 ```
 
-### 34.4.3. Module cho decoder
+### 35.4.3. Module cho decoder
 
 **Decoder** có nhiệm vụ ngược lại với encoder: tăng dần kích thước không gian của ảnh về kích thước ban đầu để tạo ra mask phân đoạn:
 
@@ -236,7 +234,7 @@ class DecoderBlock(nn.Module):
         return self.double_conv(x)
 ```
 
-### 34.4.4. Ghép các khối theo cấu trúc UNet
+### 35.4.4. Ghép các khối theo cấu trúc UNet
 
 Bây giờ chúng ta sẽ lắp ráp tất cả các thành phần đã xây dựng thành một mô hình UNet hoàn chỉnh. Mô hình này bao gồm:
 
@@ -288,7 +286,7 @@ class UnetSegmentation(nn.Module):
         return self.outclass(up1)
 ```
 
-## 34.5. Huấn luyện mô hình
+## 35.5. Huấn luyện mô hình
 
 Sau khi đã xây dựng xong mô hình UNet và dataset, bước tiếp theo là huấn luyện mô hình trên dữ liệu thực tế. Quá trình huấn luyện bao gồm các bước:
 
@@ -300,7 +298,7 @@ Sau khi đã xây dựng xong mô hình UNet và dataset, bước tiếp theo l�
 
 Chúng ta sẽ chia dữ liệu thành training set (80%) và validation set (20%), sau đó huấn luyện mô hình qua nhiều epochs cho đến khi loss hội tụ.
 
-### 34.5.1. Xác định thông số 
+### 35.5.1. Xác định thông số 
 
 Trước khi bắt đầu huấn luyện, chúng ta cần thiết lập các thông số (hyperparameters) quan trọng:
 
@@ -324,7 +322,7 @@ num_epochs = 10
 batch_size = 4  # Adjust based on your GPU memory
 ```
 
-### 34.5.2. Huấn luyện một epoch
+### 35.5.2. Huấn luyện một epoch
 
 Chúng ta xây dựng hai hàm chính cho quá trình huấn luyện:
 
@@ -392,7 +390,7 @@ def validate_one_epoch(model, val_data, criterion, device):
     return epoch_loss
 ```
 
-### 34.5.3. Huấn luyện nhiều epochs
+### 35.5.3. Huấn luyện nhiều epochs
 
 Bây giờ chúng ta sẽ kết hợp tất cả các thành phần để huấn luyện mô hình qua nhiều epochs:
 
@@ -463,7 +461,7 @@ for epoch in progess_bar:
     progess_bar.set_postfix({"Train Loss": train_loss, "Val Loss": val_loss})
 ```
 
-### 34.5.4. Lưu lại mô hình đã huấn luyện
+### 35.5.4. Lưu lại mô hình đã huấn luyện
 
 Sau khi hoàn thành huấn luyện, mô hình cần được **lưu lại** để có thể sử dụng sau này mà không phải train lại từ đầu. PyTorch cung cấp hai cách lưu mô hình:
 
@@ -476,7 +474,7 @@ Sau khi hoàn thành huấn luyện, mô hình cần được **lưu lại** đ�
 torch.save(model.state_dict(), "G:\\My Drive\\python\\geocourse\\data\\unet_model.pth")
 ```
 
-## 34.6. Ứng dụng mô hình dự đoán vào dữ liệu thực tế
+## 35.6. Sử dụng mô hình đã huấn luyện để dự đoán vào dữ liệu thực tế
 
 Sau khi hoàn thành quá trình huấn luyện, mô hình UNet đã học được cách phân biệt trang trại điện mặt trời từ các đặc trưng phổ và không gian của ảnh Sentinel-2. Bước tiếp theo là đưa mô hình vào thực tế - giai đoạn này gọi là **inference** (suy luận). Không giống như huấn luyện, inference chỉ cần forward pass nên tương đối nhanh và có thể chạy trên cả CPU.
 
@@ -486,7 +484,7 @@ Quy trình inference trong bài toán này gồm bốn bước chính:
 2. **Dự đoán theo patch**: Chia ảnh lớn thành các patch 128×128, chạy mô hình trên từng patch rồi ghép lại thành mask toàn cục
 3. **Trực quan hóa và lưu kết quả**: Hiển thị mask dự đoán chồng lên ảnh RGB (bước này chỉ để kiểm tra)
 
-### 34.6.1. Tải mô hình đã huấn luyện
+### 35.6.1. Tải mô hình đã huấn luyện
 
 Khi **tải lại**, ta khởi tạo mô hình với **cùng kiến trúc và cùng số kênh đầu vào**, sau đó dùng `load_state_dict()` để nạp trọng số đã lưu. Một số lưu ý quan trọng:
 - Tham số `map_location` cho phép tải mô hình được huấn luyện trên GPU về CPU (hoặc ngược lại) một cách linh hoạt.
@@ -507,7 +505,7 @@ model = model.to(device)
 print("Model loaded successfully for inference.")
 ```
 
-### 34.6.2. Hàm tải và tiền xử lý ảnh Sentinel-2
+### 35.6.2. Hàm tải và tiền xử lý ảnh Sentinel-2
 
 Để dự đoán trên dữ liệu mới, ta xây dựng hàm `load_sen2_data()` thực hiện toàn bộ pipeline tải và tiền xử lý ảnh. Điều quan trọng nhất là **phải áp dụng cùng quy trình tiền xử lý** như khi chuẩn bị dữ liệu huấn luyện. Nếu dữ liệu inference có phân phối khác so với dữ liệu huấn luyện (gọi là **distribution shift** hay **data mismatch**), chất lượng dự đoán sẽ giảm đáng kể.
 
@@ -587,7 +585,7 @@ def load_sen2_data(bbox, start_date='2026-03-20', end_date='2026-03-28', max_clo
     return data
 ```
 
-### 34.6.3. Dự đoán mask phân đoạn theo từng patch
+### 35.6.3. Dự đoán mask phân đoạn theo từng patch
 
 Vì mô hình UNet được huấn luyện trên các patch nhỏ (128×128 pixel), ta không thể đưa ảnh toàn cảnh lớn vào mô hình trực tiếp do giới hạn bộ nhớ GPU/RAM. Thay vào đó, chiến lược **dự đoán theo patch (patch-based inference)** chia ảnh thành các patch nhỏ, xử lý từng patch riêng lẻ rồi ghép kết quả lại.
 
@@ -746,7 +744,7 @@ pred_mask = generate_predicted_mask(
 pred_mask = pred_mask.compute()
 ```
 
-### 34.6.4. Trực quan hóa và lưu kết quả
+### 35.6.4. Trực quan hóa và lưu kết quả
 
 Bước cuối cùng là trực quan hóa để kiểm tra chất lượng dự đoán và lưu kết quả ra file GeoTIFF. Ngoài ra, chúng ta có thể thực hiện thêm các tính toán thống kê từ ảnh dự đoán nếu muốn, như diện tích, phân bố, etc.
 

@@ -1,12 +1,10 @@
-# Bài 29: Xử lý dữ liệu lớn với MPC
+# Bài 30: Xử lý dữ liệu lớn với MPC
 
 Khi vùng nghiên cứu lớn (tỉnh, quốc gia) hoặc cần xử lý nhiều năm dữ liệu, RAM và thời gian xử lý tuần tự trở thành nút thắt cổ chai. Trong trường hợp như vậy, ta có thể chia nhỏ vùng nghiên cứu và dùng tính toán song song.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1DgEIlmM6WBbCyQaeya72KWQO7P6zUAKj) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1DgEIlmM6WBbCyQaeya72KWQO7P6zUAKj) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 29.1. Mục tiêu học tập
+## 30.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài này, bạn có thể:
 
@@ -30,7 +28,7 @@ import geopandas as gpd
 from shapely.geometry import box
 ```
 
-## 29.2. Đọc dữ liệu Sentinel-2
+## 30.2. Đọc dữ liệu Sentinel-2
 
 Trong phần này, chúng ta xem xét hai cách đọc dữ liệu Sentinel-2 từ Planetary Computer: đọc trực tiếp toàn bộ AOI hoặc chia nhỏ AOI thành các tile. Khi không dùng `mercantile`, toàn bộ vùng dữ liệu được tải cùng lúc, phù hợp với AOI nhỏ nhưng dễ gây tốn bộ nhớ. Khi dùng `mercantile`, AOI được chia thành các tile nhỏ và xử lý lần lượt, giúp giảm tải dữ liệu và tối ưu hiệu năng. Cách tiếp cận theo tile thường được sử dụng cho các bài toán quy mô lớn trên dữ liệu vệ tinh.
 
@@ -45,7 +43,7 @@ catalog = pystac_client.Client.open(
 )
 ```
 
-### 29.2.1. Đọc toàn bộ AOI
+### 30.2.1. Đọc toàn bộ AOI
 
 Trong ví dụ này, giả sử ta muốn tìm kiếm tất cả các bức ảnh Sentinel-2 trong khu vực Việt Nam vào năm 2023 có mây phủ dưới 10%. Ta có thể có hàng nghìn bức ảnh thoải mãn điều kiện trên như bên dưới.
 
@@ -84,7 +82,7 @@ data = stac_load(
 ) # Dữ liệu hiện tại có shape (y: 166648, x: 80699, time: 238) trong năm 2023 với ảnh dưới 10% mây. Mặc dù dữ liệu đang ở trạng thái lazy (dask array), nhưng nếu chúng ta kích hoạt tính toán `compute` nó sẽ tải toàn bộ dữ liệu vào bộ nhớ, điều này sẽ gây ra lỗi thiếu bộ nhớ (out of memory) vì kích thước dữ liệu quá lớn để xử lý trên một máy tính cá nhân.
 ```
 
-### 29.2.2. Đọc dữ liệu theo tile
+### 30.2.2. Đọc dữ liệu theo tile
 
 Giả sử bạn muốn tính toán NDVI từ ảnh Sentinel-2 cho toàn bộ Việt Nam. Với diện tích rất lớn và khối lượng dữ liệu lên tới hàng chục hoặc hàng trăm GB, việc tải và xử lý toàn bộ ảnh trong một lần thường không khả thi do giới hạn bộ nhớ và thời gian tính toán. Một giải pháp phổ biến là chia AOI thành nhiều ô nhỏ (tiles) rồi xử lý từng tile độc lập.
 
@@ -139,7 +137,7 @@ result = ndvi.resample(time="1MS").mean().compute() # Tính giá trị trung bì
 print(f"Shape của kết quả NDVI sau khi resample theo tháng: {result.shape}, dtype: {result.dtype}")
 ```
 
-### 29.2.3. Xử lý song song nhiều tiles
+### 30.2.3. Xử lý song song nhiều tiles
 
 Dask Delayed là cơ chế của Dask cho phép biến các hàm Python thông thường thành các tác vụ thực thi lười (lazy execution). Thay vì chạy ngay, các phép tính được xây dựng thành một đồ thị tác vụ (task graph) và chỉ được thực thi khi gọi `.compute()`, giúp tối ưu bộ nhớ và xử lý song song.
 

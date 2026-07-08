@@ -7,9 +7,7 @@ GDAL bao gồm 3 thành phần chính:
 - **OGR**: Xử lý dữ liệu vector (điểm, đường, vùng)
 - **OSR**: Quản lý hệ tọa độ tham chiếu (CRS) và phép chiếu bản đồ
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1Vj7XgUfvuHVRH5AVFnx-6RTF_M3BJRmk) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1Vj7XgUfvuHVRH5AVFnx-6RTF_M3BJRmk) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 14.1. Mục tiêu học tập
 
@@ -206,11 +204,6 @@ ds_orig = None
 ds_clip = None
 ```
 
-    === SO SÁNH TRƯỚC VÀ SAU CLIP ===
-    Gốc   : 100 x 100 pixels
-    Clipped: 70 x 10 pixels
-    
-
 ### 14.3.1. Đọc vector và xem thông tin layer
 
 OGR (phần vector của GDAL) cho phép đọc dữ liệu vector từ nhiều định dạng khác nhau như Shapefile, GeoJSON, GeoPackage. Khi mở một DataSource, bạn có thể truy cập các layer chứa features. Mỗi layer có thông tin về số lượng features, kiểu geometry (Point, LineString, Polygon) và cấu trúc thuộc tính (fields). Việc kiểm tra metadata của layer giúp bạn hiểu cấu trúc dữ liệu trước khi xử lý hoặc truy vấn.
@@ -243,26 +236,6 @@ for i in range(layer_defn.GetFieldCount()):
     print(f"  [{i}] {field.GetName():<25} | {field.GetFieldTypeName(field.GetType())}")
 ds = None
 ```
-
-    Driver     : GeoJSON
-    Số layer   : 1
-    Tên layer       : Vietnam_provinces
-    Số feature      : 63
-    Kiểu geometry   : Multi Polygon
-    
-    === CÁC TRƯỜNG THUỘC TÍNH (11 fields) ===
-      [0] GID_1                     | String
-      [1] GID_0                     | String
-      [2] COUNTRY                   | String
-      [3] NAME_1                    | String
-      [4] VARNAME_1                 | String
-      [5] NL_NAME_1                 | String
-      [6] TYPE_1                    | String
-      [7] ENGTYPE_1                 | String
-      [8] CC_1                      | String
-      [9] HASC_1                    | String
-      [10] ISO_1                     | String
-    
 
 ### 14.3.2. Duyệt qua các features và thuộc tính
 
@@ -302,18 +275,6 @@ for name, area in sorted(areas, key=lambda x: x[1], reverse=True)[:5]:
 
 ds = None
 ```
-
-    ID    Tên tỉnh                       Geometry Type     Diện tích xấp xỉ
-    ------------------------------------------------------------------------
-      Đã đọc 63 features
-    
-      Top 5 tỉnh lớn nhất (theo diện tích độ):
-        NghệAn                         1.4156 sq.deg
-        GiaLai                         1.2971 sq.deg
-        SơnLa                          1.2277 sq.deg
-        ĐắkLắk                         1.0846 sq.deg
-        ThanhHóa                       0.9589 sq.deg
-    
 
 ### 14.3.3. Tạo vector file mới từ đầu
 
@@ -415,18 +376,6 @@ layer.SetSpatialFilter(None)
 ds = None
 ```
 
-    Số thành phố > 1 triệu dân: 5
-      Hà Nội          | dân số: 8,246,600
-      TP.HCM          | dân số: 8,993,082
-      Hải Phòng       | dân số: 2,028,514
-      Đà Nẵng         | dân số: 1,134,310
-      Cần Thơ         | dân số: 1,282,937
-    
-    Số thành phố trong Miền Bắc (lat > 19°N): 2
-      Hà Nội          | lat=21.0285°N
-      Hải Phòng       | lat=20.8449°N
-    
-
 ### 14.3.5. Chuyển đổi định dạng vector (Format Conversion)
 
 OGR hỗ trợ chuyển đổi linh hoạt giữa hơn 50 định dạng vector khác nhau như GeoJSON, Shapefile, GeoPackage, KML, CSV, và thậm chí databases như PostGIS. `CopyDataSource()` là phương thức đơn giản nhất để copy toàn bộ DataSource sang format mới, giữ nguyên geometry, attributes và CRS. Việc chuyển đổi định dạng hữu ích khi tích hợp dữ liệu từ nhiều nguồn, tối ưu storage (GeoPackage nhỏ hơn Shapefile), hoặc tương thích với các công cụ GIS khác nhau.
@@ -463,10 +412,6 @@ gpkg_path = os.path.join(vector_path, 'cities_ogr.gpkg')
 convert_vector(output_cities, gpkg_path, 'GPKG')
 print(f"✅ GeoJSON → GeoPackage: {gpkg_path}")
 ```
-
-    ✅ GeoJSON → Shapefile: G:\My Drive\python\geocourse\data\vector\cities_ogr.shp
-    ✅ GeoJSON → GeoPackage: G:\My Drive\python\geocourse\data\vector\cities_ogr.gpkg
-    
 
 ## Tóm tắt
 

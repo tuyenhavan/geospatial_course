@@ -2,9 +2,7 @@
 
 PyProj là giao diện Python cho thư viện PROJ (được sử dụng bởi hầu hết các phần mềm GIS chuyên nghiệp) để thực hiện các phép chiếu bản đồ và biến đổi tọa độ với độ chính xác cao. Đây là công cụ không thể thiếu khi làm việc với dữ liệu không gian địa lý từ nhiều nguồn khác nhau, và là nền tảng cho các thư viện khác như GeoPandas, Rasterio, Fiona.
 
-> **Lư Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1m33ltgnS_jERV_HLCkEszrjO9kkoAPnZ) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lư Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1m33ltgnS_jERV_HLCkEszrjO9kkoAPnZ) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 12.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -39,13 +37,6 @@ print(f"Datum: {wgs84.datum.name}")
 print(f"Mã EPSG: {wgs84.to_epsg()}")
 ```
 
-    WGS84: WGS 84
-    Loại: Geographic 2D CRS
-    Ellipsoid: WGS 84
-    Datum: World Geodetic System 1984 ensemble
-    Mã EPSG: 4326
-    
-
 ### 12.2.2. Hệ tọa độ VN-2000
 
 Hệ tọa độ VN-2000 là một hệ tọa độ địa lý được sử dụng rộng rãi tại Việt Nam, dựa trên hệ thống tọa độ UTM (Universal Transverse Mercator) và sử dụng elipsoid WGS84. Hệ tọa độ này được thiết kế để cung cấp độ chính xác cao cho các ứng dụng GIS và bản đồ tại Việt Nam, giúp người dùng dễ dàng chuyển đổi giữa hệ tọa độ địa lý toàn cầu và hệ tọa độ cục bộ của Việt Nam.
@@ -58,12 +49,6 @@ print(f"\nHệ tọa độ: {vn2000.name}")
 print(f"Loại: {vn2000.type_name}")
 print(f"Ellipsoid: {vn2000.ellipsoid.name}")
 ```
-
-    
-    Hệ tọa độ: VN-2000
-    Loại: Geographic 2D CRS
-    Ellipsoid: WGS 84
-    
 
 ### 12.2.3. Hệ tọa độ UTM
 
@@ -84,16 +69,6 @@ print(f"Loại: {utm49n.type_name}")
 print(f"Đơn vị: {utm49n.axis_info[0].unit_name}")
 ```
 
-    
-    UTM 48N: WGS 84 / UTM zone 48N
-    Loại: Projected CRS
-    Đơn vị: metre
-    
-    UTM 49N: WGS 84 / UTM zone 49N
-    Loại: Projected CRS
-    Đơn vị: metre
-    
-
 ### 12.2.4. Tạo CRS từ Proj string
 
 Pyproj hỗ trợ tạo hệ tọa độ tham chiếu (CRS) từ nhiều định dạng khác nhau, bao gồm mã EPSG, chuỗi PROJ và WKT. Trong mục này, chúng ta sẽ tìm hiểu cách khởi tạo CRS từ PROJ string - một định dạng mô tả hệ tọa độ thông qua tập hợp các tham số chiếu. Phương pháp này đặc biệt hữu ích khi cần định nghĩa các hệ tọa độ tùy chỉnh hoặc làm việc với dữ liệu không có mã EPSG tương ứng.
@@ -104,10 +79,6 @@ Pyproj hỗ trợ tạo hệ tọa độ tham chiếu (CRS) từ nhiều định
 vietnam_custom = pyproj.CRS.from_proj4("+proj=utm +zone=48 +datum=WGS84 +units=m +no_defs")
 print(f"\nCRS tùy chỉnh: {vietnam_custom.name}") # Không có tên chính thức nên sẽ trả về Unknown. Bạn có thể in ra chuỗi PROJ để xác nhận.
 ```
-
-    
-    CRS tùy chỉnh: unknown
-    
 
 
 ```python
@@ -156,15 +127,6 @@ for city, (lat, lon) in cities_wgs84.items():
     cities_utm48[city] = (x, y)
     print(f"{city:10}: ({lat:7.4f}°, {lon:8.4f}°) → ({x:9.0f}m, {y:10.0f}m)")
 ```
-
-    🗺️ CHUYỂN ĐỔI WGS84 → UTM 48N:
-    Hà Nội    : (21.0285°, 105.8542°) → (   588762m,    2325539m)
-    TP.HCM    : (10.8231°, 106.6297°) → (   678162m,    1196896m)
-    Đà Nẵng   : (16.0471°, 108.2068°) → (   843173m,    1776802m)
-    Cần Thơ   : (10.0452°, 105.7469°) → (   581848m,    1110503m)
-    Hải Phòng : (20.8449°, 106.6881°) → (   675642m,    2305903m)
-    Huế       : (16.4637°, 107.5909°) → (   776636m,    1822002m)
-    
 
 ## Tóm tắt
 

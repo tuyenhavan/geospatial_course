@@ -1,14 +1,12 @@
-# Bài 33: Theo dõi nước mặt sử dụng ảnh Sentinel-1 và Sentinel-2
+# Bài 34: Theo dõi nước mặt sử dụng ảnh Sentinel-1 và Sentinel-2
 
 Nước mặt (bao gồm sông, hồ, đầm, và các vùng ngập nước khác) đóng vai trò quan trọng trong hệ sinh thái, quản lý tài nguyên nước và phát triển kinh tế - xã hội. Việc theo dõi và lập bản đồ nước mặt một cách chính xác là cần thiết cho nhiều ứng dụng như quản lý tài nguyên nước, giám sát biến đổi khí hậu, quy hoạch đô thị và nông nghiệp. Công nghệ viễn thám vệ tinh, với khả năng quan sát liên tục và bao phủ diện rộng, đã chứng minh là công cụ hiệu quả trong giám sát nước mặt.
 
 Trong bài học này, chúng ta sẽ sử dụng hai loại dữ liệu vệ tinh bổ trợ cho nhau: ảnh Sentinel-2 với khả năng quang học phát hiện nước qua chỉ số NDWI (Normalized Difference Water Index), và ảnh radar Sentinel-1 với ưu thế xuyên thấu qua mây và hoạt động cả ngày lẫn đêm. Sự kết hợp này cung cấp giải pháp toàn diện để lập bản đồ nước mặt, đặc biệt hiệu quả trong điều kiện thời tiết xấu khi mây che phủ thường xuyên.
 
-> **Lưu ý**
-> >
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl) mà không cần cài đặt. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 33.1. Mục tiêu bài học
+## 34.1. Mục tiêu bài học
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - Hiểu nguyên lý phát hiện mặt nước từ ảnh quang học và ảnh radar
@@ -29,7 +27,7 @@ ee.Authenticate()
 ee.Initialize(project='geocourse-501706')
 ```
 
-## 33.2. Xác định khu vực nghiên cứu
+## 34.2. Xác định khu vực nghiên cứu
 
 
 ```python
@@ -46,13 +44,13 @@ geometry = ee.Geometry.Rectangle(bbox)
 
 Trong bài học này, chúng ta sẽ sử dụng khu vực hồ Đá Bàn (Gia Lai) làm ví dụ minh họa. Đây là khu vực có mặt nước rõ ràng, phù hợp để thực hành các kỹ thuật phát hiện nước từ ảnh vệ tinh. Các phương pháp được trình bày có thể áp dụng cho bất kỳ khu vực nào để theo dõi nước mặt hoặc giám sát biến đổi mặt nước theo thời gian.
 
-## 33.3. Tính toán chỉ số nước từ ảnh Sentinel-2
+## 34.3. Tính toán chỉ số nước từ ảnh Sentinel-2
 
 Phương pháp đầu tiên chúng ta sẽ khám phá là sử dụng ảnh quang học Sentinel-2 với chỉ số NDWI. Đây là phương pháp phổ biến và dễ thực hiện, tận dụng sự khác biệt về phản xạ phổ giữa mặt nước và các bề mặt khác. Mặt nước có đặc tính hấp thụ mạnh ở vùng cận hồng ngoại (NIR) và phản xạ tương đối cao ở vùng xanh lá (Green), giúp phân biệt rõ ràng với thực vật và đất trống.
 
 Tuy nhiên, phương pháp này có hạn chế lớn là phụ thuộc vào điều kiện thời tiết. Khi có mây che phủ - điều thường xảy ra trong mùa mưa - ảnh quang học không thể xuyên qua để quan sát mặt đất. Đây là lý do chúng ta cần bổ sung thêm dữ liệu radar Sentinel-1 ở phần sau.
 
-### 33.3.1. Tính toán chỉ số NDWI
+### 34.3.1. Tính toán chỉ số NDWI
 
 **Chỉ số NDWI (Normalized Difference Water Index)** là chỉ số phổ biến nhất để xác định mặt nước từ ảnh vệ tinh quang học. Chỉ số này dựa trên nguyên lý mặt nước có phản xạ cao ở dải sóng xanh lá (Green) và hấp thụ mạnh ở dải cận hồng ngoại (NIR). NDWI được tính theo công thức:
 
@@ -74,7 +72,7 @@ sen2col = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED").filterBounds(geometr
 ndwi = sen2col.multiply(0.0001).normalizedDifference(['B3', 'B8']).rename('NDWI').clip(geometry)
 ```
 
-### 33.3.2. Xác định vùng nước dựa vào chỉ số NDWI
+### 34.3.2. Xác định vùng nước dựa vào chỉ số NDWI
 
 Sau khi tính toán chỉ số NDWI, bước tiếp theo là áp dụng ngưỡng (threshold) để tách vùng nước khỏi các bề mặt khác. Trong ví dụ này, chúng ta sử dụng ngưỡng NDWI > 0.1 để tạo mặt nạ nhị phân (binary mask), trong đó pixel có giá trị 1 đại diện cho nước và 0 đại diện cho không phải nước.
 
@@ -89,7 +87,7 @@ Map.addLayer(water, {'palette': ['blue']}, 'Water Mask')
 Map
 ```
 
-## 33.4. Tính toán chỉ số nước từ ảnh Sentinel-1
+## 34.4. Tính toán chỉ số nước từ ảnh Sentinel-1
 
 Trong khi ảnh quang học gặp khó khăn với mây che phủ, **ảnh radar vệ tinh (SAR - Synthetic Aperture Radar)** như Sentinel-1 có khả năng xuyên qua mây và hoạt động cả ngày lẫn đêm. Điều này làm cho SAR trở thành công cụ lý tưởng cho giám sát nước mặt liên tục, đặc biệt trong điều kiện thời tiết xấu.
 
@@ -97,7 +95,7 @@ Nguyên lý phát hiện nước từ ảnh SAR dựa trên đặc tính phản 
 
 Trong ví dụ này, các hàm trong gói `geesat` được sử dụng để thực hiện quy trình tiền xử lý dữ liệu Sentinel-1. Quy trình bao gồm hiệu chỉnh địa hình (terrain correction) và loại bỏ nhiễu đốm (speckle noise), giúp cải thiện chất lượng ảnh và tăng độ tin cậy của các kết quả phân tích.
 
-### 33.4.1. Chuẩn bị dữ liệu Sentinel-1
+### 34.4.1. Chuẩn bị dữ liệu Sentinel-1
 
 
 ```python
@@ -109,7 +107,7 @@ sen1col = geosen.prepare_sentinel1_collection(
 ).select(['VV']).median().clip(geometry)
 ```
 
-### 33.4.2. Xác định vùng nước dựa vào ngưỡng giá trị
+### 34.4.2. Xác định vùng nước dựa vào ngưỡng giá trị
 
 Tương tự như phương pháp với Sentinel-2, chúng ta áp dụng ngưỡng để tách vùng nước. Với dữ liệu Sentinel-1 VV, mặt nước thường có giá trị backscatter dưới -15 dB. Giá trị ngưỡng này có thể thay đổi tùy thuộc vào điều kiện gió (làm gợn sóng mặt nước, tăng backscatter) và loại mặt nước (nước tĩnh vs nước chảy).
 

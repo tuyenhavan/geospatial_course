@@ -1,9 +1,7 @@
 # Bài 16: Xử lý Dữ liệu Raster và Ảnh Vệ tinh với Rasterio
 Rasterio là thư viện Python chuyên nghiệp cho việc đọc, ghi và xử lý dữ liệu raster địa lý - từ ảnh vệ tinh đến mô hình độ cao số.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yliKj6v2NIV_HCiYoQXgynCSCe8NNdMv) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yliKj6v2NIV_HCiYoQXgynCSCe8NNdMv) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 16.1. Mục tiêu học tập
 
@@ -126,15 +124,6 @@ print(f'Hệ tọa độ: {crs}')
 print(f'Giới hạn không gian: {bounds}')
 ```
 
-    Shape của dữ liệu: (4, 66, 93)
-    Thuộc tính meta:
-     {'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 93, 'height': 66, 'count': 4, 'crs': CRS.from_wkt('PROJCS["WGS 84 / UTM zone 48N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",105],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32648"]]'), 'transform': Affine(10.0, 0.0, 572750.0,
-           0.0, -10.0, 2349160.0)}
-    Độ phân giải không gian: (10.0, 10.0)
-    Hệ tọa độ: EPSG:32648
-    Giới hạn không gian: BoundingBox(left=572750.0, bottom=2348500.0, right=573680.0, top=2349160.0)
-    
-
 ### 16.3.3. Lưu dữ liệu
 
 Sau khi đọc, dữ liệu đơn giản là numpy và người dùng có thể sử dụng tất cả các phương thức và chức năng của numpy để xử lý dữ liệu raster, chẳng hạn như tính toán chỉ số, lọc, phân loại. Sau khi tính toán xong, người dùng có thể lưu kết quả vào một file raster mới với các thông tin meta có sẵn hoặc cập nhật để phản ánh các thay đổi trong dữ liệu, chẳng hạn như số band mới hoặc kiểu dữ liệu khác.
@@ -175,12 +164,6 @@ transform = from_bounds(*bounds, width=width, height=height)
 print(f"Transform từ from_bounds:\n {transform}")
 ```
 
-    Transform từ from_bounds:
-     | 0.00, 0.00, 105.55|
-    | 0.00,-0.00, 21.35|
-    | 0.00, 0.00, 1.00|
-    
-
 ### 16.4.2. Tạo transform từ origin
 
 Tạo transform từ `from_origin` là một cách khác để xác định transform cho raster. Trong trường hợp này, người dùng đầu tiên tính toán kích thước pixel dựa trên bounding box và kích thước raster, sau đó sử dụng `from_origin` để tạo transform với upper left origin là tọa độ phía tây và phía bắc của bounding box. Cả hai phương pháp `from_bounds` và `from_origin` đều sẽ tạo ra cùng một transform nếu các thông số đầu vào giống nhau, nhưng cách tiếp cận có thể khác nhau tùy thuộc vào cách bạn muốn xác định vị trí và kích thước của raster.
@@ -194,12 +177,6 @@ transform = from_origin(bounds[0], bounds[3], pixel_size_x, pixel_size_y)
 print(f"Transform từ from_origin:\n {transform}")
 ```
 
-    Transform từ from_origin:
-     | 0.00, 0.00, 105.55|
-    | 0.00,-0.00, 21.35|
-    | 0.00, 0.00, 1.00|
-    
-
 ### 16.4.3. Tạo transform dùng Affine
 
 Tương tự như vậy, người dùng có thể tạo transform bằng cách sử dụng `Affine`, trong đó bạn xác định kích thước pixel và tọa độ của upper left origin. Cả ba phương pháp `from_bounds`, `from_origin` và `Affine` đều sẽ tạo ra cùng một transform nếu các thông số đầu vào giống nhau, nhưng cách tiếp cận có thể khác nhau tùy thuộc vào thông tin đầu vào có sẵn.
@@ -210,12 +187,6 @@ Tương tự như vậy, người dùng có thể tạo transform bằng cách s
 transform = Affine(pixel_size_x, 0, bounds[0], 0, -pixel_size_y, bounds[3]) 
 print(f"Transform từ Affine:\n {transform}")
 ```
-
-    Transform từ Affine:
-     | 0.00, 0.00, 105.55|
-    | 0.00,-0.00, 21.35|
-    | 0.00, 0.00, 1.00|
-    
 
 ### 16.4.4. Chuyển bounding box từ CRS này sang CRS khác từ transform_bounds
 
@@ -230,10 +201,6 @@ transformed_bounds = transform_bounds(src_crs, dst_crs, *bounds)
 print(f'bounds ban đầu {bounds}')
 print(f'Transformed bounds: {transformed_bounds}')
 ```
-
-    bounds ban đầu (105.5491712751346, 21.265278731790968, 105.64026044494432, 21.34612710736172)
-    Transformed bounds: (11749680.000000002, 2423538.498133004, 11759820.000000002, 2433198.7267883816)
-    
 
 ### 16.4.5. Chuyển đổi tọa độ pixels sang tọa độ world coordinate và ngược lại
 
@@ -251,11 +218,6 @@ for px, py in test_pixels:
     print(f"Pixel coordinates ({px}, {py}) -> World coordinates ({x_world:.6f}, {y_world:.6f})")
 ```
 
-    Pixel coordinates (0, 0) -> World coordinates (105.549171, 21.346127)
-    Pixel coordinates (169, 150) -> World coordinates (105.594716, 21.305703)
-    Pixel coordinates (337, 299) -> World coordinates (105.639991, 21.265548)
-    
-
 - **Từ tọa độ thế giới sang tọa độ pixel**
 
 Inverse transform (ký hiệu `~transform`) cho phép chuyển đổi ngược từ world coordinates sang pixel coordinates. Phép toán này cần thiết khi bạn có tọa độ địa lý (latitude, longitude) và muốn biết pixel nào trong raster chứa vị trí đó. Ứng dụng phổ biến là extract pixel values tại các điểm GPS, crop raster theo bounding box địa lý, hoặc resample data tại các vị trí cụ thể. Kết quả là floating-point coordinates có thể cần làm tròn về integers để indexing array.
@@ -270,11 +232,6 @@ for col, row in test_pixels:
     back_col, back_row = inv_transform * (world_x, world_y)
     print(f"World({world_x:.4f}°, {world_y:.4f}°) → Pixel({back_col:.0f}, {back_row:.0f})")
 ```
-
-    World(105.5492°, 21.3461°) → Pixel(0.0, 0.0)
-    World(105.5947°, 21.3057°) → Pixel(169.0, 150.0)
-    World(105.6400°, 21.2655°) → Pixel(337.0, 299.0)
-    
 
 ### 16.4.6. Thông tin về CRS
 
@@ -305,23 +262,6 @@ print(f"      • Name: {vn2000.name}")
 print(f"      • Authority: {vn2000.to_authority()}")
 ```
 
-           CRS hiện tại: EPSG:4326
-          • Authority: ('EPSG', '4326')
-          • EPSG code: 4326
-          • Is geographic: True
-          • Is projected: False
-          • Units: unknown
-    
-       UTM Zone 48N (EPSG:32648):
-          • Name: WGS 84 / UTM zone 48N
-          • Authority: ('EPSG', '32648')
-          • Is projected: True
-    
-       🇻🇳 VN-2000 (EPSG:3405):
-          • Name: VN-2000 / UTM zone 48N
-          • Authority: ('EPSG', '3405')
-    
-
 ## 16.5. Trực quan hóa Raster Data
 
 Trực quan hóa là bước quan trọng để hiểu và phân tích dữ liệu raster.
@@ -341,12 +281,6 @@ with rasterio.open(file) as src:
     ax.set_xticks([])
     ax.set_yticks([])
 ```
-
-
-    
-![png](output_34_0.png)
-    
-
 
 ### 16.5.2. Trực quan hóa dùng matplotlib
 
@@ -369,12 +303,6 @@ with rasterio.open(file) as src:
     ax.set_xticks([]) # Bỏ trục tọa độ
     ax.set_yticks([]) # Bỏ trục tọa độ
 ```
-
-
-    
-![png](output_36_0.png)
-    
-
 
 ## 16.6. Tính toán và Biến đổi Raster
 
@@ -403,12 +331,6 @@ print(f'Max values per band: {max_val}')
 print(f'Std values per band: {std_val}')
 print(f'Mean values per band: {mean_val}')
 ```
-
-    Min values per band: [-19.46381  -19.389671 -19.512661 -19.377506]
-    Max values per band: [-17.326986 -17.203575 -17.23685  -16.173775]
-    Std values per band: [0.23418623 0.21519074 0.32982633 0.3632402 ]
-    Mean values per band: [-18.88241  -18.751759 -18.557474 -17.839478]
-    
 
 ### 16.6.2. Tính toán chỉ số thực vật
 
@@ -499,9 +421,6 @@ with rasterio.open(outfile, 'w', **out_meta) as dst:
     dst.write(window_data)
 ```
 
-    Window bounds: (105.56264600439638, 21.30570291957634, 105.58959546291997, 21.332652378099926)
-    
-
 - **Đọc dữ liệu theo 256x256 window**
 
 Tiling (chia raster thành các tile nhỏ) là chiến lược phổ biến trong xử lý big data và machine learning. Kích thước 256x256 hoặc 512x512 pixels là chuẩn cho deep learning models và web mapping tiles. Bằng cách loop qua raster với tile_size cố định, bạn tạo ra các tiles có kích thước đồng nhất, mỗi tile với transform riêng phản ánh vị trí chính xác. Phương pháp này cho phép parallel processing, distributed computing và phù hợp với GPU memory constraints khi training neural networks.
@@ -533,12 +452,6 @@ with rasterio.open(file) as src:
             print(filename)
 ```
 
-    tile_0_0.tif
-    tile_0_256.tif
-    tile_256_0.tif
-    tile_256_256.tif
-    
-
 - **Sử dụng block-based để xử lý dữ liệu lớn**
 
 Block-based reading tận dụng internal structure của GeoTIFF để đọc dữ liệu theo các blocks tự nhiên mà file đã được tổ chức. `block_windows()` trả về iterator của các windows tương ứng với internal blocks, thường có kích thước tối ưu cho I/O performance. Phương pháp này hiệu quả hơn random windowed reading vì align với cách dữ liệu được lưu trữ trên disk. Block-based processing là best practice cho production systems xử lý terabytes data, minimize disk seeks và maximize throughput.
@@ -559,13 +472,6 @@ with rasterio.open(file) as src:
         block_mean = np.nanmean(block_data)
         print(f'Block {ji} mean value: {block_mean:.2f}')
 ```
-
-    Block shapes: 4
-    Block (0, 0) mean value: 0.17
-    Block (0, 1) mean value: 0.18
-    Block (1, 0) mean value: 0.17
-    Block (1, 1) mean value: 0.17
-    
 
 ## 16.8. Lưu dữ liệu và chuyển đổi hệ tọa độ
 Phần cuối này bao gồm các kỹ thuật nâng cao để xuất, biến đổi và tối ưu hóa raster data.

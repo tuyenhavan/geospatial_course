@@ -52,17 +52,17 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 
 | Bài số | Nội dung                                                    |
 | ------ | ----------------------------------------------------------- |
-| 20     | Truy cập và khám phá dữ liệu (Google Earth Engine)          |
-| 21     | Các thao tác cơ bản (Google Earth Engine)                   |
-| 22     | Loại bỏ mây (Google Earth Engine)                           |
-| 23     | Tính toán các chỉ số thực vật (Google Earth Engine)         |
-| 24     | Tổng hợp ảnh theo giai đoạn (Google Earth Engine)           |
-| 25     | Trích xuất giá trị raster theo vị trí (Google Earth Engine) |
-| 26     | Xuất dữ liệu (Google Earth Engine)                          |
-| 27     | Truy cập dữ liệu (Microsoft Planetary Computer)             |
-| 28     | Xử lý dữ liệu (Microsoft Planetary Computer)                |
-| 29     | Xử lý dữ liệu lớn (Microsoft Planetary Computer)            |
-| 30     | Truy cập và xử lý dữ liệu Copernicus (CDSE)                 |
+| 21     | Truy cập và khám phá dữ liệu (Google Earth Engine)          |
+| 22     | Các thao tác cơ bản (Google Earth Engine)                   |
+| 23     | Loại bỏ mây (Google Earth Engine)                           |
+| 24     | Tính toán các chỉ số thực vật (Google Earth Engine)         |
+| 25     | Tổng hợp ảnh theo giai đoạn (Google Earth Engine)           |
+| 26     | Trích xuất giá trị raster theo vị trí (Google Earth Engine) |
+| 27     | Xuất dữ liệu (Google Earth Engine)                          |
+| 28     | Truy cập dữ liệu (Microsoft Planetary Computer)             |
+| 29     | Xử lý dữ liệu (Microsoft Planetary Computer)                |
+| 30     | Xử lý dữ liệu lớn (Microsoft Planetary Computer)            |
+| 31     | Truy cập và xử lý dữ liệu Copernicus (CDSE)                 |
 
 ---
 
@@ -72,10 +72,10 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 
 | Bài số | Nội dung                                                                                                                     |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| 31     | Phân loại lớp phủ mặt đất (Land Cover Classification) - Random Forest & SVM trên ảnh vệ tinh                                 |
-| 32     | Phát hiện hạn hán (Drought Detection) - Phân tích chỉ số hạn hán với dữ liệu MODIS và ERA5                                   |
-| 33     | Giám sát biến động nước bề mặt (Surface water monitoring) - Kết hợp SAR và ảnh quang học                                                             |
-| 34     | Giám sát phân đoạn trang trại điện mặt trời (solarfarm segmentation) - Sử dụng ảnh Sentinel-2 và mô hình học sâu (Deep learning)                         |
+| 32     | Phân loại lớp phủ mặt đất (Land Cover Classification) - Random Forest trên ảnh vệ tinh Sentinel-2                                 |
+| 33     | Phát hiện hạn hán (Drought Detection) - Phân tích chỉ số hạn hán với dữ liệu MODIS và ERA5                                   |
+| 34     | Giám sát biến động nước bề mặt (Surface water monitoring) - Kết hợp SAR và ảnh quang học                                                             |
+| 35     | Giám sát phân đoạn trang trại điện mặt trời (solarfarm segmentation) - Sử dụng ảnh Sentinel-2 và mô hình học sâu (Deep learning)                         |
 
 
 ## Dữ liệu

@@ -1,15 +1,13 @@
-# Bài 26: Xuất dữ liệu từ GEE
+# Bài 27: Xuất dữ liệu từ GEE
 
 Google Earth Engine cho phép **export dữ liệu** ở ba dạng chính:
 - **Image → Drive/Asset**: ảnh raster dưới dạng GeoTIFF
 - **Table → Drive/Asset**: bảng dữ liệu dưới dạng CSV / GeoJSON / SHP
 - **getDownloadURL**: tải trực tiếp ảnh nhỏ về máy (không cần task)
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/15W5vdI05KGvSMtKbiBiVd1h30bDFJ5gQ) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/15W5vdI05KGvSMtKbiBiVd1h30bDFJ5gQ) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 26.1. Mục tiêu học tập
+## 27.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài này, bạn có thể:
 
@@ -21,8 +19,8 @@ Sau khi hoàn thành bài này, bạn có thể:
 ```python
 import ee
 import geemap
-
-ee.Initialize()
+ee.Authenticate()
+ee.Initialize(project='geocourse-501706')
 ```
 
 Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo bounding bên dưới và khoảng thời gian như bên dưới. Bạn có thể thay đổi vị trí và thời gian phù hợp với yêu cầu của bạn.
@@ -38,7 +36,7 @@ start_date = '2025-06-01'
 end_date = '2025-07-30'
 ```
 
-## 26.2 Tải ảnh về Google Drive
+## 27.2 Tải ảnh về Google Drive
 
 Export image là thao tác phổ biến nhất: xuất kết quả phân tích thành **file GeoTIFF** để dùng trong QGIS, ArcGIS, hoặc Python (rasterio).
 
@@ -56,7 +54,7 @@ sen2col = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
 print('Số lượng ảnh Sentinel-2:', sen2col.size().getInfo())
 ```
 
-### 26.2.1. Tải một ảnh về Google Drive
+### 27.2.1. Tải một ảnh về Google Drive
 
 Để xuất một ảnh từ GEE về Google Drive, sử dụng `ee.batch.Export.image.toDrive()`. Phương thức này tạo một task chạy trên server của GEE và lưu kết quả vào thư mục được chỉ định trên Google Drive của bạn. Các tham số quan trọng bao gồm: `image` (ảnh cần xuất - nên chuyển sang `.toFloat()` để đảm bảo tính nhất quán kiểu dữ liệu), `region` (vùng xuất - thường là AOI), `scale` (độ phân giải pixel tính bằng mét), `crs` (hệ tọa độ), và `maxPixels` (giới hạn số pixel tối đa để tránh lỗi khi xuất ảnh quá lớn). Sau khi tạo task, cần gọi `.start()` để bắt đầu quá trình export. Bạn có thể theo dõi tiến độ tại tab Tasks trong Code Editor hoặc qua GEE console.
 
@@ -77,7 +75,7 @@ task = ee.batch.Export.image.toDrive(
 # task.start() # Bỏ comment dòng này để bắt đầu quá trình xuất ảnh
 ```
 
-### 26.2.2. Tải hàng loạt ảnh về Google Drive
+### 27.2.2. Tải hàng loạt ảnh về Google Drive
 
 Để xuất toàn bộ ImageCollection (nhiều ảnh), cần sử dụng vòng lặp Python để tạo task export riêng cho từng ảnh. Phương pháp này hữu ích khi bạn muốn tải về chuỗi thời gian ảnh theo tháng, năm hoặc tất cả ảnh trong một collection đã được xử lý. Lưu ý rằng mỗi task là độc lập và chạy song song trên GEE server, do đó việc tạo nhiều tasks không làm chậm quá trình export. Tuy nhiên, cần cẩn thận với giới hạn số lượng tasks đồng thời (thường là 3000 tasks pending) và dung lượng Google Drive. Nên đặt tên file có ý nghĩa (ví dụ thêm index hoặc ngày tháng) để dễ quản lý sau khi tải về.
 
@@ -100,9 +98,9 @@ for i in range(sen2col.size().getInfo()):
     # task.start() # Bỏ comment dòng này để bắt đầu tải về từng ảnh
 ```
 
-## 26.3 Tải ảnh về GEE Asset
+## 27.3 Tải ảnh về GEE Asset
 
-### 26.3.1. Tải một ảnh về GEE Asset
+### 27.3.1. Tải một ảnh về GEE Asset
 
 GEE Asset là kho lưu trữ riêng trên GEE cho phép bạn lưu kết quả xử lý để tái sử dụng mà không cần tính toán lại. Khác với export ra Drive, ảnh lưu trong Asset có thể được load lại ngay lập tức bằng `ee.Image('users/yourname/assetname')` mà không cần tải về máy. Điều này rất hữu ích khi bạn có các bước tiền xử lý tốn thời gian (cloud masking, tổng hợp composite...) và muốn sử dụng kết quả trong nhiều phân tích khác nhau. Asset cũng giúp chia sẻ dữ liệu với đồng nghiệp bằng cách cấp quyền truy cập. Lưu ý rằng mỗi tài khoản GEE có giới hạn dung lượng Asset (thường 250GB cho tài khoản miễn phí).
 
@@ -122,7 +120,7 @@ task = ee.batch.Export.image.toAsset(
 # task.start() # Bỏ comment dòng này để bắt đầu tải về ảnh vào Asset
 ```
 
-### 26.3.2. Tải nhiều ảnh về GEE Asset
+### 27.3.2. Tải nhiều ảnh về GEE Asset
 
 Tương tự như export hàng loạt ra Drive, bạn có thể lưu toàn bộ `ImageCollection` vào GEE Asset bằng vòng lặp. Mỗi ảnh sẽ được lưu thành một Asset riêng với đường dẫn `assetId` duy nhất. Kỹ thuật này rất hữu ích khi bạn có workflow phức tạp: ví dụ tạo monthly composites từ Sentinel-2, lưu vào Asset, sau đó các phân tích tiếp theo chỉ cần load Asset mà không phải chạy lại toàn bộ pipeline. Sau khi tất cả tasks hoàn thành, bạn có thể tạo một ImageCollection mới từ danh sách Assets bằng cách load từng Asset và merge chúng lại. Nhớ quản lý dung lượng Asset thường xuyên để tránh vượt quá giới hạn.
 
@@ -143,7 +141,7 @@ for i in range(sen2col.size().getInfo()):
     # task.start() # Bỏ comment dòng này để bắt đầu tải về từng ảnh vào Asset
 ```
 
-## 26.4. Hiển thị ảnh với Ipython
+## 27.4. Hiển thị ảnh với Ipython
 
 Phương thức `.getThumbURL()` cho phép xem nhanh ảnh trực tiếp trong Jupyter notebook mà không cần export. GEE sẽ render ảnh thành PNG/JPEG nhỏ theo các tham số visualization (min, max, bands, dimensions) và trả về URL để hiển thị. Kỹ thuật này rất hữu ích để kiểm tra kết quả nhanh chóng trước khi quyết định export toàn bộ ảnh (có thể mất nhiều thời gian).
 

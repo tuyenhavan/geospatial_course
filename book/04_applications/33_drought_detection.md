@@ -1,14 +1,12 @@
-# Bài 32: Sử dụng ảnh MODIS và ERA5-land theo dõi hạn hán
+# Bài 33: Sử dụng ảnh MODIS và ERA5-land theo dõi hạn hán
 
 Hạn hán là một trong những thảm họa tự nhiên nghiêm trọng, ảnh hưởng trực tiếp đến sản xuất nông nghiệp, an ninh lương thực và đời sống người dân. Việc theo dõi và cảnh báo sớm hạn hán là điều cần thiết để có các biện pháp ứng phó kịp thời. Viễn thám vệ tinh với khả năng quan sát liên tục và bao phủ diện rộng đã trở thành công cụ hiệu quả trong giám sát hạn hán.
 
 Trong bài học này, chúng ta sẽ sử dụng dữ liệu MODIS để tính toán chỉ số tình trạng thực vật (VCI - Vegetation Condition Index) và dữ liệu ERA5-Land để tính toán chỉ số bất thường lượng mưa (Precipitation Anomaly Index). Hai chỉ số này kết hợp với nhau cung cấp cái nhìn toàn diện về tình trạng hạn hán, từ góc độ tình trạng thực vật và lượng mưa, giúp đánh giá mức độ nghiêm trọng và phạm vi ảnh hưởng của hạn hán trên khu vực nghiên cứu.
 
-> **Lưu ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x) mà không cần cài đặt. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 32.1. Mục tiêu bài học
+## 33.1. Mục tiêu bài học
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - Hiểu khái niệm và ý nghĩa của các chỉ số hạn hán trong viễn thám
@@ -18,7 +16,7 @@ Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - Tính toán chỉ số bất thường lượng mưa (Precipitation Anomaly Index)
 - Trực quan hóa các chỉ số hạn hán trên bản đồ tương tác
 
-## 32.2. Chuẩn bị dữ liệu
+## 33.2. Chuẩn bị dữ liệu
 
 Để thuận tiện, chúng ta sẽ dùng một gói python `geesat` đơn giản, cung cấp các hàm cho việc xử lý và tính toán các chỉ số hạn hán. Để sử dụng thư viện `geesat`, ta có thể cài đặt như sau `pip install git+https://github.com/tuyenhavan/geesat.git`. Nếu bạn muốn biết thêm về thư viện này, bạn có thể tham khảo thêm tại [đây](https://github.com/tuyenhavan/geesat). 
 
@@ -33,7 +31,7 @@ ee.Authenticate()
 ee.Initialize(project='geocourse-501706')
 ```
 
-## 32.3. Tính toán chỉ số hạn hán
+## 33.3. Tính toán chỉ số hạn hán
 
 Có nhiều chỉ số khác nhau để đánh giá hạn hán, mỗi chỉ số dựa trên các yếu tố khác nhau như lượng mưa, nhiệt độ, độ ẩm đất, hay tình trạng thực vật. Trong bài học này, chúng ta tập trung vào hai chỉ số chính:
 
@@ -42,7 +40,7 @@ Có nhiều chỉ số khác nhau để đánh giá hạn hán, mỗi chỉ số
 
 Việc kết hợp nhiều chỉ số giúp đánh giá toàn diện hơn về tình trạng hạn hán, vì hạn hán là hiện tượng phức tạp phụ thuộc vào nhiều yếu tố khí tượng và sinh học.
 
-### 32.3.1. Tính toán chỉ số VCI
+### 33.3.1. Tính toán chỉ số VCI
 
 **Chỉ số VCI (Vegetation Condition Index)** là một chỉ số quan trọng trong giám sát hạn hán, phản ánh tình trạng sức khỏe thực vật qua việc so sánh giá trị EVI/NDVI hiện tại với phạm vi giá trị lịch sử (min-max) tại cùng một thời điểm trong năm. VCI được tính theo công thức:
 
@@ -108,7 +106,7 @@ Map.addLayer(vci.first(), {'min': 0, 'max': 100, 'palette': ['darkred', 'red', '
 Map
 ```
 
-### 32.3.2. Tính toán chỉ số hạn dựa trên dữ liệu mưa
+### 33.3.2. Tính toán chỉ số hạn dựa trên dữ liệu mưa
 
 **Chỉ số bất thường lượng mưa (Precipitation Anomaly Index)** đánh giá mức độ chênh lệch của lượng mưa hiện tại so với giá trị trung bình lịch sử, được chuẩn hóa bởi độ lệch chuẩn. Chỉ số này giúp xác định các giai đoạn có lượng mưa bất thường thấp (hạn hán) hoặc cao (lũ lụt). Công thức tính:
 

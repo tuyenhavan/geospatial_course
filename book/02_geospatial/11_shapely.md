@@ -4,9 +4,7 @@ Chào mừng bạn đến với bài học đầu tiên về phân tích dữ li
 
 Shapely dựa trên thư viện GEOS được sử dụng rộng rãi (công cụ hình học của PostGIS) và cung cấp giao diện Python đơn giản, trực quan để làm việc với các hình dạng hình học 2D.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1skhbj_1CUFf_MKcPCwmb8tlGP4exdIpg) mà không cần cài Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1skhbj_1CUFf_MKcPCwmb8tlGP4exdIpg) mà không cần cài Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 11.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -60,14 +58,6 @@ print(f"Điểm hợp lệ: {point1.is_valid}")
 print(f"Khoảng cách từ điểm 1 đến điểm 2: {point1.distance(point2)}")
 ```
 
-    Tọa độ điểm 1: (0.0, 0.0)
-    Điểm 1 WKT: POINT (0 0)
-    Giới hạn điểm (minx, miny, maxx, maxy): (0.0, 0.0, 0.0, 0.0)
-    Điểm có trống: False
-    Điểm hợp lệ: True
-    Khoảng cách từ điểm 1 đến điểm 2: 1.4142135623730951
-    
-
 ### 11.2.2. Tạo đường và kiểm tra thuộc tính
 
 Đường (Line) được tạo ra từ một danh sách các điểm (các cặp tọa độ (x, y)) như sau.
@@ -88,14 +78,6 @@ print(f"Điểm bắt đầu: {Point(line1.coords[0])}")
 print(f"Điểm kết thúc: {Point(line1.coords[-1])}")
 ```
 
-    Tọa độ đường 1: [(0.0, 0.0), (1.0, 1.0), (2.0, 0.0), (3.0, 1.0)]
-    Độ dài đường 1: 4.243
-    Đường 1 khép kín: False
-    Đường 1 đơn giản (không tự cắt): True
-    Điểm bắt đầu: POINT (0 0)
-    Điểm kết thúc: POINT (3 1)
-    
-
 ### 11.2.3. Tạo Polygon và kiểm tra thuộc tính
 
 Polygon được tạo ra từ một danh sách các điểm (các cặp tọa độ (x, y)), trong đó điểm đầu và điểm cuối thường trùng nhau để tạo thành một vùng khép kín.
@@ -111,9 +93,6 @@ triangle = Polygon([(0, 0), (1, 0), (0.5, 1), (0, 0)])
 print(f"Diện tích tam giác: {triangle.area:.3f}")
 ```
 
-    Diện tích tam giác: 0.500
-    
-
 - **Đa giác vuông**
 
 
@@ -124,18 +103,6 @@ square = Polygon(square_coords)
 print(f"Diện tích hình vuông: {square.area:.3f}")
 square
 ```
-
-    Diện tích hình vuông: 4.000
-    
-
-
-
-
-    
-![svg](output_11_1.svg)
-    
-
-
 
 - **Đa giác có lỗ (interiors)**
 
@@ -153,21 +120,6 @@ print(f"Đường biên ngoài hình donut: {list(donut.exterior.coords)}")
 print(f"Đường biên lỗ bên trong: {[list(interior.coords) for interior in donut.interiors]}")
 donut
 ```
-
-    Diện tích hình donut: 12.000
-    Donut có 1 lỗ bên trong
-    Đường biên ngoài hình donut: [(0.0, 0.0), (4.0, 0.0), (4.0, 4.0), (0.0, 4.0), (0.0, 0.0)]
-    Đường biên lỗ bên trong: [[(1.0, 1.0), (3.0, 1.0), (3.0, 3.0), (1.0, 3.0), (1.0, 1.0)]]
-    
-
-
-
-
-    
-![svg](output_13_1.svg)
-    
-
-
 
 ### 11.2.4. Trực quan hóa điểm, đường và đa giác
 
@@ -210,12 +162,6 @@ plt.tight_layout()
 plt.show()
 ```
 
-
-    
-![png](output_15_0.png)
-    
-
-
 ## 11.3. Mối quan hệ không gian
 
 Kiểm tra mối quan hệ không gian giữa các đối tượng hình học.
@@ -245,12 +191,6 @@ print(f"Hình tròn chứa điểm bên ngoài: {circle.contains(point_outside)}
 print(f"Hình vuông nằm trong hình tròn: {square_small.within(circle)}")
 ```
 
-    Hình tròn chứa hình vuông: True
-    Hình tròn chứa điểm bên trong: True
-    Hình tròn chứa điểm bên ngoài: False
-    Hình vuông nằm trong hình tròn: True
-    
-
 
 ```python
 fig, ax = plt.subplots(figsize=(6, 6))
@@ -266,12 +206,6 @@ ax.grid(True, alpha=0.3)
 plt.show()
 ```
 
-
-    
-![png](output_20_0.png)
-    
-
-
 ### 11.3.2. Mối quan hệ giao nhau
 
 Mối quan hệ giao nhau cho phép chúng ta xác định xem hai hình học có phần nào đó chồng lên nhau hay không.
@@ -283,11 +217,6 @@ print(f"Hình tròn giao với đường qua tâm: {circle.intersects(line_throu
 print(f"Hình tròn giao với đường bên ngoài: {circle.intersects(line_outside)}")
 print(f"Hình tròn giao với hình vuông: {circle.intersects(square_small)}")
 ```
-
-    Hình tròn giao với đường qua tâm: True
-    Hình tròn giao với đường bên ngoài: False
-    Hình tròn giao với hình vuông: True
-    
 
 
 ```python
@@ -303,19 +232,6 @@ ax.fill(x, y, alpha=0.3, fc='lightcoral', ec='red', linewidth=2, label='Square S
 ax.set_title('Mối quan hệ giao nhau')
 ```
 
-
-
-
-    Text(0.5, 1.0, 'Mối quan hệ giao nhau')
-
-
-
-
-    
-![png](output_23_1.png)
-    
-
-
 ### 11.3.3. Mối quan hệ biên
 
 Quan hệ biên (touches) xác định xem hai hình học có chạm nhau tại một điểm hoặc một đoạn mà không có phần nào nằm bên trong phần còn lại hay không.
@@ -327,11 +243,6 @@ print(f"Điểm trên biên chạm hình tròn: {point_on_boundary.touches(circl
 print(f"Điểm bên trong chạm hình tròn: {point_inside.touches(circle)}")
 print(f"Đường qua tâm cắt hình tròn: {line_through.crosses(circle)}")
 ```
-
-    Điểm trên biên chạm hình tròn: True
-    Điểm bên trong chạm hình tròn: False
-    Đường qua tâm cắt hình tròn: True
-    
 
 ### 11.3.4. Mối quan hệ khoảng cách
 
@@ -345,11 +256,6 @@ print(f"Khoảng cách từ điểm trong đến hình tròn: {point_inside.dist
 print(f"Khoảng cách giữa hình tròn và hình vuông: {circle.distance(square_small):.3f}")
 ```
 
-    Khoảng cách từ điểm ngoài đến hình tròn: 1.828
-    Khoảng cách từ điểm trong đến hình tròn: 0.000
-    Khoảng cách giữa hình tròn và hình vuông: 0.000
-    
-
 ### 11.3.5. Mối quan hệ topo
 
 Mối quan hệ topo là một mô hình để mô tả các mối quan hệ không gian giữa các đối tượng hình học. Bằng cách sử dụng các phương thức như equals, disjoint, và covers, chúng ta có thể xác định chính xác cách mà các đối tượng này tương tác với nhau trong không gian.
@@ -362,11 +268,6 @@ print(f"Các hình học tách rời (không chạm): {circle.disjoint(point_out
 print(f"Hình vuông bao phủ điểm bên trong: {square_small.covers(Point(0, 0))}")
 ```
 
-    Hình tròn bằng chính nó: True
-    Các hình học tách rời (không chạm): True
-    Hình vuông bao phủ điểm bên trong: True
-    
-
 ### 11.3.6. Mối quan hệ chồng lấp
 
 Mối quan hệ chồng lấp (overlaps) cho phép chúng ta xác định xem hai đối tượng hình học có phần nào đó giao nhau nhưng không hoàn toàn chứa nhau hay không.
@@ -377,9 +278,6 @@ Mối quan hệ chồng lấp (overlaps) cho phép chúng ta xác định xem ha
 overlap_square = Polygon([(0.5, -0.5), (1.5, -0.5), (1.5, 0.5), (0.5, 0.5)])
 print(f"Hình tròn chồng lấp với hình vuông dịch chuyển: {circle.overlaps(overlap_square)}")
 ```
-
-    Hình tròn chồng lấp với hình vuông dịch chuyển: True
-    
 
 ## 11.4.Tạo buffer cho điểm, đường và polygon
 
@@ -439,11 +337,6 @@ print(f"Tâm hình gốc: ({original_polygon.centroid.x:.1f}, {original_polygon.
 print(f"Tâm sau tịnh tiến: ({translated.centroid.x:.1f}, {translated.centroid.y:.1f})")
 ```
 
-    Tịnh tiến theo x=3, y=2
-    Tâm hình gốc: (1.0, 0.5)
-    Tâm sau tịnh tiến: (4.0, 2.5)
-    
-
 
 ```python
 # Hiển thị vị trí gốc và phép tịnh tiến
@@ -457,12 +350,6 @@ ax.grid(True, alpha=0.3)
 plt.legend()
 plt.show()
 ```
-
-
-    
-![png](output_43_0.png)
-    
-
 
 ### 11.5.2. Phép xoay
 
@@ -491,12 +378,6 @@ plt.legend()
 plt.show()
 ```
 
-
-    
-![png](output_46_0.png)
-    
-
-
 ### 11.5.3. Phép scaling 
 
 Phép scaling (phép co giãn) là phép biến hình làm thay đổi kích thước của đối tượng theo một hoặc nhiều chiều, bằng cách nhân tọa độ với một hệ số tỉ lệ, trong khi giữ nguyên hình dạng và hướng (nếu tỉ lệ dương).
@@ -510,11 +391,6 @@ print(f"Diện tích gốc: {original_polygon.area}")
 print(f"Diện tích phóng to (2x, 1.5y): {scaled_up.area}")
 print(f"Diện tích thu nhỏ (0.5x, 0.5y): {scaled_down.area}")
 ```
-
-    Diện tích gốc: 2.0
-    Diện tích phóng to (2x, 1.5y): 6.0
-    Diện tích thu nhỏ (0.5x, 0.5y): 0.5
-    
 
 
 ```python
@@ -533,12 +409,6 @@ plt.legend()
 plt.show()
 ```
 
-
-    
-![png](output_49_0.png)
-    
-
-
 ### 11.5.4. Phép biến dạng (Skew/shear)
 
 Phép biến dạng (skew/shear) là phép biến hình nghiêng một đối tượng theo trục x hoặc y, trong đó các điểm được dịch chuyển theo một hướng song song với trục đã chọn. Góc biến dạng được xác định bằng độ (degrees). Phép này làm thay đổi hình dạng nhưng giữ nguyên diện tích của đối tượng, thường được sử dụng trong xử lý ảnh và hiệu chỉnh hình học.
@@ -550,10 +420,6 @@ skewed = affinity.skew(original_polygon, xs=15, ys=0)  # Nghiêng 15 độ theo 
 print(f"Biến dạng nghiêng 15° theo trục x")
 print(f"Diện tích sau biến dạng: {skewed.area:.3f}")
 ```
-
-    Biến dạng nghiêng 15° theo trục x
-    Diện tích sau biến dạng: 2.000
-    
 
 
 ```python
@@ -567,12 +433,6 @@ ax.grid(True, alpha=0.3)
 plt.legend()
 plt.show()
 ```
-
-
-    
-![png](output_52_0.png)
-    
-
 
 ## 11.6. Đa hình học và tập hợp
 
@@ -598,15 +458,6 @@ for i, point in enumerate(multipoint.geoms):
     print(f"Điểm {i+1}: ({point.x}, {point.y})")
 ```
 
-    Số điểm trong MultiPoint: 4
-    Giới hạn MultiPoint: (0.0, -1.0, 2.0, 1.0)
-    Diện tích bao lồi: 2.000
-    Điểm 1: (0.0, 0.0)
-    Điểm 2: (1.0, 1.0)
-    Điểm 3: (2.0, 0.0)
-    Điểm 4: (1.0, -1.0)
-    
-
 
 ```python
 # Trực quan hóa các đa hình học
@@ -622,12 +473,6 @@ ax.plot(hull_x, hull_y, 'r--', alpha=0.5)
 ax.set_title('MultiPoint với bao lồi')
 ax.grid(True, alpha=0.3)
 ```
-
-
-    
-![png](output_56_0.png)
-    
-
 
 ### 11.6.2. Nhiều đường (MultiLineString)
 
@@ -647,11 +492,6 @@ print(f"Tổng độ dài các đường: {total_length:.3f}")
 print(f"Độ dài từ thuộc tính: {multiline.length:.3f}")
 ```
 
-    Số đường trong MultiLineString: 3
-    Tổng độ dài các đường: 8.071
-    Độ dài từ thuộc tính: 8.071
-    
-
 
 ```python
 # Trực quan hóa các đa hình học
@@ -664,12 +504,6 @@ ax.set_title('MultiLineString')
 ax.legend()
 ax.grid(True, alpha=0.3)
 ```
-
-
-    
-![png](output_59_0.png)
-    
-
 
 ### 11.6.3. Nhiều đa giác (MULTIPOLYGON)
 
@@ -689,11 +523,6 @@ print(f"Tổng diện tích các đa giác: {total_area}")
 print(f"Diện tích từ thuộc tính: {multipolygon.area}")
 ```
 
-    Số đa giác trong MultiPolygon: 3
-    Tổng diện tích các đa giác: 6.0
-    Diện tích từ thuộc tính: 6.0
-    
-
 
 ```python
 fig, ax = plt.subplots(1, 1, figsize=(10, 6))
@@ -705,12 +534,6 @@ ax.set_title('MultiPolygon')
 ax.legend()
 ax.grid(True, alpha=0.3)
 ```
-
-
-    
-![png](output_62_0.png)
-    
-
 
 ### 11.6.4. Tập hợp geometry hỗn hợp (GEOMETRYCOLLECTION)
 
@@ -732,12 +555,6 @@ for i, geom in enumerate(geom_collection.geoms):
     print(f"Hình học {i+1}: {geom.geom_type}")
 ```
 
-    Số hình học trong GeometryCollection: 3
-    Hình học 1: Point
-    Hình học 2: LineString
-    Hình học 3: Polygon
-    
-
 
 ```python
 # Trực quan hóa các đa hình học
@@ -755,12 +572,6 @@ ax.set_title('GeometryCollection')
 ax.legend()
 ax.grid(True, alpha=0.3)
 ```
-
-
-    
-![png](output_65_0.png)
-    
-
 
 ## Tóm tắt
 

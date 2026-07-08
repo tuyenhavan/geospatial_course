@@ -2,9 +2,7 @@
 
 Trực quan hóa dữ liệu địa không gian là bước quan trọng giúp hiểu sâu và truyền đạt thông tin từ dữ liệu bản đồ, ảnh vệ tinh, và các lớp địa lý khác. Các thư viện Python như GeoPandas, Rasterio, Matplotlib, và Xarray cung cấp giải pháp mạnh mẽ để hiển thị, phân tích và so sánh dữ liệu vector, raster, chuỗi thời gian, cũng như kết hợp nhiều lớp dữ liệu trên cùng một biểu đồ.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yCTKGP-y3sXb0fZ1W3COiyChisrXJRIL) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yCTKGP-y3sXb0fZ1W3COiyChisrXJRIL) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 20.1. Mục tiêu học tập
 
@@ -51,12 +49,6 @@ ax.tick_params(axis='both', which='major', labelsize=12) # Tùy chỉnh kích th
 plt.show()
 ```
 
-
-    
-![png](output_3_0.png)
-    
-
-
 ## 20.3. Hiển thị dữ liệu raster
 
 Sau khi đã hiểu cách hiển thị dữ liệu vector, bước tiếp theo là làm việc với dữ liệu raster - dạng dữ liệu lưới (grid) như ảnh vệ tinh, dữ liệu nhiệt độ, độ cao, v.v. Trong phần này, chúng ta sẽ hiển thị một lớp dữ liệu raster đơn giản (nhiệt độ từ ERA5) sử dụng RioXarray và Matplotlib. Bạn sẽ học cách chọn băng dữ liệu, áp dụng colormap (bảng màu) phù hợp, và tùy chỉnh legend (thanh màu) để dễ dàng diễn giải giá trị dữ liệu.
@@ -89,12 +81,6 @@ ax.tick_params(axis='both', which='major', labelsize=12) # Tùy chỉnh kích th
 plt.show()
 ```
 
-
-    
-![png](output_7_0.png)
-    
-
-
 ## 20.4. Hiển thị đồng thời vector và raster trên cùng một biểu đồ
 
 Khi đã nắm vững cách hiển thị từng loại dữ liệu riêng lẻ, bước tiếp theo là kết hợp chúng lại. Phần này minh họa cách chồng lớp dữ liệu vector (ranh giới tỉnh) lên trên lớp dữ liệu raster (nhiệt độ) trong cùng một biểu đồ. Đây là kỹ thuật quan trọng trong phân tích không gian, giúp bạn hiểu được sự phân bố của dữ liệu raster trong bối cảnh địa lý cụ thể. Bạn sẽ thấy rõ nhiệt độ thay đổi như thế nào qua các tỉnh thành khác nhau của Việt Nam.
@@ -114,12 +100,6 @@ ax.set_ylabel('Latitude', fontsize=12) # Thêm nhãn cho trục y
 ax.tick_params(axis='both', which='major', labelsize=12) # Tùy chỉnh kích thước chữ trục
 plt.show()
 ```
-
-
-    
-![png](output_9_0.png)
-    
-
 
 ## 20.5. Hiển thị nhiều subplot
 
@@ -151,12 +131,6 @@ cbar = fig.colorbar(plot,
 cbar.set_label('NDVI Value', fontsize=12) # Thêm nhãn cho colorbar
 plt.show()
 ```
-
-
-    
-![png](output_11_0.png)
-    
-
 
 ## Tóm tắt
 
