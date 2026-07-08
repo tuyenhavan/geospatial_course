@@ -6,7 +6,7 @@ Trong bài  học này, chúng ta sẽ tập trung vào **xử lý dữ liệu**
 
 > **Lưu Ý**
 > 
-> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 28.1. Mục tiêu học tập
 

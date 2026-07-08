@@ -4,7 +4,7 @@ Copernicus Data Space Ecosystem (CDSE) là nền tảng cloud mới thay thế c
 
 > **Lưu Ý**
 > 
-> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1JyqIWyv2PxGfa3i3uIFU5YrhtnsY79v-?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1JyqIWyv2PxGfa3i3uIFU5YrhtnsY79v-) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 30.1. Mục tiêu học tập
 

@@ -5,7 +5,7 @@ Trong các bài toán viễn thám hiện nay, phân loại lớp phủ đất l
 
 > **Lưu ý**
 >
-> Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1VioqXc1Y0goh2aliaL-x7HLEJyKFEYln?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1VioqXc1Y0goh2aliaL-x7HLEJyKFEYln). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 >
 > Dữ liệu thực hành có thể tải tại [đây](https://drive.google.com/drive/folders/119C2B1pBKwvDx5OASvQRvGR1lOljgJNd?usp=sharing)
 

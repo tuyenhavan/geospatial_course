@@ -6,7 +6,7 @@ Trong bài học này, chúng ta sẽ sử dụng hai loại dữ liệu vệ ti
 
 > **Lưu ý**
 > >
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl?authuser=3) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 33.1. Mục tiêu bài học
 
