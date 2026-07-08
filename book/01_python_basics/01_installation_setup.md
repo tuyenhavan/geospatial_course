@@ -176,7 +176,7 @@ Môi trường ảo giúp cách ly các dự án và tránh xung đột giữa c
 # Tạo môi trường cho khóa học này. Ví dụ tạo môi trường tên `geotest`
 conda create -n geotest python=3.12 -y # Lần đầu tạo môi trường ảo sẽ hiển thị các điều khoản. Làm theo hướng dẫn hiển thị nếu có.
 ```
-Trong câu lệnh trên, `geotest` là tên môi trường. Mình có thể đặt tên khác nếu mong muốn.
+Trong câu lệnh trên, `geotest` là tên môi trường. Bạn có thể chọn đặt tên khác nếu muốn.
 
 ### 1.7.2. Kích hoạt môi trường ảo
 
@@ -193,9 +193,15 @@ Trong trường hợp muốn xóa, bạn có thể làm như sau:
 conda env remove -n geotest --all  # Bạn có thể thay geotest bằng tên môi trường bạn đã tạo.
 ```
 
+Kiểm tra xem có bao nhiêu môi trường đã tạo ra trong máy của mình. Ta có thể làm như sau:
+
+```bash
+conda env list
+```
+
 ## 1.8. Cài đặt các gói thư viện cần thiết 
 
-Đảm bảo môi trường `geotest` đã được kích hoạt trước khi cài đặt thư viện. Nếu chưa kích hoạt, ta có thể mở `Annaconda Prompt` và kích hoạt môi trường như bên dưới. Sau đó, cài đặt thư viện theo một trong những phương pháp bên dưới.
+Đảm bảo môi trường `geotest` đã được kích hoạt trước khi cài đặt thư viện. Nếu chưa kích hoạt, ta có thể tìm `Annaconda Prompt` ở thanh `Search`, sau đó mở nó lên và kích hoạt môi trường như bên dưới. Sau đó, cài đặt thư viện theo một trong những phương pháp bên dưới.
 
 ### 1.8.1. Cải đặt thư viện với `pip`
 
@@ -217,7 +223,7 @@ conda install -c conda-forge geopandas rioxarray ee planetary-computer odc-stac 
 
 ### 1.8.3. Cài đặt thư viện từ GitHub Repo
 
-Ví dụ như cài đặt gói từ pymapee repo như sau:
+Ví dụ như cài đặt gói từ geesat repo như sau:
 
 ```bash
 pip install git+https://github.com/tuyenhavan/geesat.git 
@@ -233,7 +239,7 @@ pip install -r requirements.txt # Nếu có sẵn file này.
 
 ## 1.9. Các lỗi thường gặp và cách khắc phục
 
-Cuối cùng kiểm tra xem nếu mọi thứ đã được cài đặt thành công. Sau đây là một vài lỗi phổ biến và cách khắc phục: 
+Cuối cùng chúng ta kiểm tra xem việc cài đặt và khắc phục nếu có lỗi. Sau đây là một vài lỗi phổ biến và cách khắc phục: 
 
 ### 1.9.1. Lỗi liên quan đến conda
 
@@ -245,7 +251,7 @@ Nếu như lỗi `conda: not found`, thì có thể Anaconda không có trong PA
 
 ### 1.9.2. Lỗi liên quan đến cài đặt thư viện
 
-Nếu bạn gặp lỗi khi cài đặt thư viện, bạn có thể thử cài đăntj bằng `pip` hoặc `conda`.
+Nếu bạn gặp lỗi khi cài đặt thư viện, bạn có thể thử cài đặt bằng `conda`. Theo kinh nghiệm của mình, khi cài đặt thư viện `gdal` bằng `conda` thường sẽ ít bị lỗi hơn so với `pip`.
 
 ```bash
 conda install -c conda-forge tên_gói

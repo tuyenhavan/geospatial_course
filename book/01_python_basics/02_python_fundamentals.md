@@ -4,7 +4,7 @@ Trong bài học này, chúng ta sẽ tìm hiểu các khối xây dựng cơ b�
 
 > **Lưu ý**
 > 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB) mà không cần cài đặt. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao (File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+>Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 2.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -141,6 +141,8 @@ print("Trích dẫn:", quote)
 
 Kiểu boolean là kiểu dữ liệu chỉ có hai giá trị: True (đúng) và False (sai). Kiểu này thường được sử dụng trong các phép so sánh và điều kiện để kiểm tra đúng/sai trong chương trình.
 
+> **Chú ý**: Các giá trị như 0, None, hoặc chuỗi trống, danh sách trống đều là False và các giá trị như 1, 2, etc hoặc chuỗi không trống đều là True.
+
 
 ```python
 # Boolean (True/False)
@@ -221,7 +223,7 @@ print("Giá trị số nguyên của True:", bool_number)
 
 ## 2.5. Phép toán
 
-Python có thể được sử dụng như một máy tính. Hãy khám phá các phép toán với ví dụ liên quan đến phân tích không gian địa lý:
+Python có thể được sử dụng như một máy tính. Hãy khám phá các phép toán với ví dụ liên quan đến phân tích không gian địa lý.
 
 ### 2.5.1. Phép toán cơ bản
 
