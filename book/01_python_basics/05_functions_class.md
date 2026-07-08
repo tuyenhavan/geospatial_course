@@ -2,7 +2,9 @@
 
 `Hàm` (function) và `lớp` (class) là hai khái niệm cốt lõi của lập trình Python, giúp tổ chức code một cách có cấu trúc và tái sử dụng. Trong phân tích không gian địa lý, chúng giúp xây dựng các công cụ và workflows có thể tái sử dụng. 
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1dwiHzvHLSXzoO6LzmQoqBxC_c5H6hEzv?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1dwiHzvHLSXzoO6LzmQoqBxC_c5H6hEzv?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 5.1. Mục tiêu học tập
 - Định nghĩa và sử dụng functions với parameters và return values
@@ -257,14 +259,14 @@ hanoi_info = create_location_info(
     name="Hà Nội",
     latitude=21.0285,
     longitude=105.8542,
-    population=8053663,
+    population=8860000,
     country="Việt Nam",
     type="Thủ đô"
 )
 print(hanoi_info)
 ```
 
-    {'name': 'Hà Nội', 'latitude': 21.0285, 'longitude': 105.8542, 'population': 8053663, 'country': 'Việt Nam', 'type': 'Thủ đô'}
+    {'name': 'Hà Nội', 'latitude': 21.0285, 'longitude': 105.8542, 'population': 8860000, 'country': 'Việt Nam', 'type': 'Thủ đô'}
     
 
 
@@ -274,14 +276,14 @@ hanoi_info = create_location_info(**{
     "name": "Hà Nội",
     "latitude": 21.0285,
     "longitude": 105.8542,
-    "population": 8053663,  
+    "population": 8860000,  
         "country": "Việt Nam",
         "type": "Thủ đô"
 })
 print(hanoi_info)
 ```
 
-    {'name': 'Hà Nội', 'latitude': 21.0285, 'longitude': 105.8542, 'population': 8053663, 'country': 'Việt Nam', 'type': 'Thủ đô'}
+    {'name': 'Hà Nội', 'latitude': 21.0285, 'longitude': 105.8542, 'population': 8860000, 'country': 'Việt Nam', 'type': 'Thủ đô'}
     
 
 ### 5.2.5. Hàm Lambda
@@ -310,9 +312,9 @@ print(f"Square numbers: {square_numbers_lambda}")  # Output: [1, 4, 9, 16, 25]
 
 
 ```python
-# Sử dụng lambda với built-in functions
+# Sử dụng lambda với built-in functions. Kiểm tra lại dân số hiện tại cho chính xác
 cities_data = [
-    {'name': 'Hà Nội', 'population': 8053663},
+    {'name': 'Hà Nội', 'population': 8860000},
     {'name': 'TP.HCM', 'population': 9420000},
     {'name': 'Đà Nẵng', 'population': 1134000},
     {'name': 'Hải Phòng', 'population': 2028220}
@@ -323,7 +325,7 @@ sorted_by_population = sorted(cities_data, key=lambda city: city['population'], 
 print(f"Cities sorted by population: {sorted_by_population}")
 ```
 
-    Cities sorted by population: [{'name': 'TP.HCM', 'population': 9420000}, {'name': 'Hà Nội', 'population': 8053663}, {'name': 'Hải Phòng', 'population': 2028220}, {'name': 'Đà Nẵng', 'population': 1134000}]
+    Cities sorted by population: [{'name': 'TP.HCM', 'population': 9420000}, {'name': 'Hà Nội', 'population': 8860000}, {'name': 'Hải Phòng', 'population': 2028220}, {'name': 'Đà Nẵng', 'population': 1134000}]
     
 
 

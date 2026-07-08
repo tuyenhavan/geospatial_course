@@ -2,7 +2,9 @@
 
 PyProj là giao diện Python cho thư viện PROJ (được sử dụng bởi hầu hết các phần mềm GIS chuyên nghiệp) để thực hiện các phép chiếu bản đồ và biến đổi tọa độ với độ chính xác cao. Đây là công cụ không thể thiếu khi làm việc với dữ liệu không gian địa lý từ nhiều nguồn khác nhau, và là nền tảng cho các thư viện khác như GeoPandas, Rasterio, Fiona.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1m33ltgnS_jERV_HLCkEszrjO9kkoAPnZ?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lư Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1m33ltgnS_jERV_HLCkEszrjO9kkoAPnZ?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 12.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -50,7 +52,7 @@ Hệ tọa độ VN-2000 là một hệ tọa độ địa lý được sử d�
 
 
 ```python
-# Thiết lập hệ tọa độ VN2000 (UTM Zone 48N)
+# Thiết lập hệ tọa độ VN2000
 vn2000 = pyproj.CRS.from_epsg(4756)  # EPSG:4756
 print(f"\nHệ tọa độ: {vn2000.name}")
 print(f"Loại: {vn2000.type_name}")

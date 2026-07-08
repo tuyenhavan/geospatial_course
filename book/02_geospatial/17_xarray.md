@@ -2,7 +2,9 @@
 
 XArray là thư viện Python mạnh mẽ cho việc xử lý dữ liệu mảng N-chiều có nhãn, đặc biệt thiết yếu cho phân tích không gian và khoa học khí hậu.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1rTVx0BhRIu_5-P9eU8czyaNEjzeCl7va?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1rTVx0BhRIu_5-P9eU8czyaNEjzeCl7va?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 17.1. Mục tiêu học tập
 
@@ -131,6 +133,8 @@ temp_grid.dims, temp_grid.coords
 
 - **Tạo Dataset 1 chiều `DataArray`**
 
+Cách đơn giản nhất để tạo Dataset là chuyển đổi từ một DataArray đã có bằng phương thức `.to_dataset()`. Bạn cần đặt tên cho biến (variable name) thông qua tham số `name`. Phương pháp này hữu ích khi bạn có một DataArray đơn lẻ và muốn mở rộng thành Dataset để sau này thêm các biến khác hoặc tích hợp với dữ liệu từ nguồn khác.
+
 
 ```python
 data = [10, 20, 30, 40, 50]
@@ -140,6 +144,8 @@ print(f"Các biến dữ liệu {ds.variables}")
 ```
 
 - **Tạo Dataset sử dụng `dictionary`**
+
+Dataset thường được tạo từ dictionary trong đó mỗi key là tên biến và value là DataArray tương ứng. Tất cả các DataArrays phải có cùng dimensions và coordinates để có thể kết hợp trong một Dataset. Phương pháp này rất tiện lợi khi bạn có nhiều biến khí hậu (nhiệt độ, độ ẩm, áp suất...) cùng lưới không gian-thời gian và muốn quản lý chúng trong một cấu trúc thống nhất.
 
 
 ```python
@@ -203,6 +209,8 @@ ds = xr.open_dataset(url)
 
 ### 17.4.2. Viết dữ liệu
 
+Sau khi xử lý và phân tích, bạn có thể lưu Dataset hoặc DataArray ra file bằng phương thức `.to_netcdf()`. NetCDF là định dạng chuẩn cho dữ liệu khoa học đa chiều, được sử dụng rộng rãi trong khí hậu học, hải dương học và viễn thám. File NetCDF lưu trữ cả dữ liệu và metadata (dimensions, coordinates, attributes), đảm bảo tính tái sử dụng và khả năng chia sẻ dữ liệu giữa các nhà nghiên cứu. Xarray cũng hỗ trợ xuất sang Zarr format cho big data.
+
 
 ```python
 outfile = r"yourpath\data\raster\data_netcdf.nc"
@@ -215,14 +223,16 @@ XArray cung cấp nhiều hàm tính toán cho dữ liệu đa chiều.
 
 ### 17.5.1. Các phép tổng hợp
 
+XArray cung cấp các phép toán tổng hợp (aggregation) mạnh mẽ để tính toán thống kê trên dữ liệu đa chiều. Các hàm như `mean()`, `median()`, `sum()`, `min()`, `max()`, `std()` có thể áp dụng trên toàn bộ mảng hoặc chỉ theo một/nhiều dimensions cụ thể thông qua tham số `dim`. Ví dụ, tính mean theo dimension 'time' sẽ tạo climatology (khí hậu trung bình), còn tính mean theo 'x' và 'y' sẽ tạo time series trung bình không gian. Khả năng chỉ định dimensions giúp phân tích linh hoạt theo nhiều khía cạnh khác nhau.
+
 
 ```python
 # Đọc file tif và trả về Dataset. Đây là dữ liệu về nhiệt độ
-data = xr.open_dataset(r"yourpath\data\raster\era5_temp_2020_2024_vietnam.tif")
+data = xr.open_dataset(r"G:\My Drive\python\geocourse\data\raster\Vietnam_Temperature_2020.tif")
 # Chọn dimension 'band' để lấy dữ liệu nhiệt độ
 temp = data['band_data']
 temp.attrs = ""
-# Tạo ra một danh sách hàng tháng từ 2020 
+# Tạo ra một danh sách hàng tháng cho 2020 
 time = pd.date_range(start='2020-01-01', periods=len(temp), freq='ME')
 temp['band'] = time  # Gán dimension 'band' thành 'time' với giá trị là danh sách thời gian hàng tháng
 temp = temp.rename({
@@ -232,12 +242,16 @@ temp = temp.rename({
 
 - **Tính giá trị trung bình theo `dimension` xác định**
 
+Phương thức `.mean(dim='time')` tính giá trị trung bình dọc theo dimension 'time', thu gọn dimension đó và trả về DataArray có số chiều ít hơn. Kết quả là một bản đồ climatology - giá trị nhiệt độ trung bình theo thời gian tại mỗi điểm không gian. Đây là phép toán phổ biến nhất trong phân tích khí hậu để xác định mức chuẩn (baseline) hoặc trung bình dài hạn. Bạn cũng có thể tính mean theo nhiều dimensions cùng lúc, ví dụ `dim=['time', 'x']`.
+
 
 ```python
 mean_temp = temp.mean(dim='time') # Tính giá trị trung bình của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ qua thời gian.
 ```
 
 - **Tính giá trị trung vị theo `dimension` xác định**
+
+Phương thức `.median(dim='time')` tính giá trị trung vị thay vì trung bình, giúp loại bỏ ảnh hưởng của outliers (giá trị ngoại lệ). Trung vị ít bị ảnh hưởng bởi các giá trị cực đoan như sóng nhiệt hay đợt lạnh bất thường, do đó có thể phản ánh xu hướng trung tâm đáng tin cậy hơn trong một số trường hợp. Phép toán này đặc biệt hữu ích khi dữ liệu có phân phối không đối xứng hoặc chứa nhiễu cao.
 
 
 ```python
@@ -246,12 +260,16 @@ median = temp.median(dim='time') # Tính giá trị trung vị của nhiệt đ�
 
 - **Tính tổng theo `dimension` xác định**
 
+Phương thức `.sum(dim='time')` tính tổng các giá trị dọc theo dimension 'time'. Phép toán này hữu ích khi bạn muốn tích lũy giá trị theo thời gian, ví dụ tổng lượng mưa trong năm, tổng bức xạ mặt trời, hoặc tổng carbon flux. Đối với các biến tích lũy như lượng mưa, tổng giá trị có ý nghĩa thực tế quan trọng hơn trung bình. Lưu ý rằng kết quả phụ thuộc vào đơn vị và time step của dữ liệu gốc.
+
 
 ```python
 total = temp.sum(dim='time') # Tính tổng của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là tổng của nhiệt độ qua thời gian.
 ```
 
 - **Tính giá trị min, max, std theo `dimension` xác định**
+
+Ba phương thức `.min()`, `.max()`, `.std()` tính các thống kê cực trị và độ biến động. Min/max cho biết nhiệt độ thấp nhất/cao nhất đã quan sát được, hữu ích để xác định records hoặc extreme events. Standard deviation (std) đo lường độ dao động xung quanh giá trị trung bình - std cao chỉ ra biến động lớn theo thời gian hoặc không gian. Các thống kê này thường được dùng để phát hiện xu hướng biến đổi khí hậu và đánh giá rủi ro cực đoan.
 
 
 ```python
@@ -262,6 +280,8 @@ std_temp = temp.std(dim='time') # Tính độ lệch chuẩn của nhiệt độ
 
 ### 17.5.2. Phép tính đơn giản khác
 
+Ngoài tính toán theo một dimension, bạn có thể tính mean theo nhiều dimensions cùng lúc, ví dụ `.mean(dim=('x', 'y'))` để tính trung bình không gian cho mỗi time step. Điều này tạo ra time series đại diện cho giá trị trung bình của toàn vùng nghiên cứu, rất hữu ích để theo dõi xu hướng tổng thể theo thời gian mà không quan tâm đến biến động không gian. Kỹ thuật này thường dùng trong phân tích regional climate hoặc monitoring các chỉ số tổng hợp.
+
 
 ```python
 temporal_mean = temp.mean(dim=('x', 'y')) # Tính giá trị trung bình của nhiệt độ qua tất cả các điểm không gian (x và y) cho mỗi thời điểm. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ qua không gian cho mỗi thời điểm.
@@ -271,9 +291,13 @@ temporal_mean = temp.mean(dim=('x', 'y')) # Tính giá trị trung bình của n
 
 `GroupBy` là một trong những tính năng mạnh nhất của XArray cho phân tích theo thời gian.
 
-### 17.6.1. Tính toán theo nhóm 
+### 17.6.1. Tính toán theo nhóm
+
+GroupBy là một trong những tính năng mạnh mẽ nhất của XArray, cho phép nhóm dữ liệu theo các thuộc tính thời gian (month, year, season, dayofyear...) và áp dụng các phép tính tổng hợp. `.groupby('time.month')` nhóm tất cả các time steps có cùng tháng (January, February,...) rồi tính toán trên từng nhóm. Điều này giúp trích xuất patterns theo mùa vụ, chu kỳ hàng năm hay biến động seasonal. GroupBy tương tự như trong pandas nhưng được tối ưu cho dữ liệu đa chiều và xử lý coordinates tự động.
 
 - **Tính trung bình theo tháng**
+
+`.groupby('time.month').mean()` tính climatology hàng tháng - nhiệt độ trung bình cho mỗi tháng trong lịch (January = tháng 1, February = tháng 2,...) dựa trên toàn bộ dữ liệu lịch sử. Kết quả là 12 giá trị đại diện cho chu kỳ mùa vụ điển hình. Đây là công cụ cơ bản để hiểu climate normal và so sánh anomalies. Ví dụ, bạn có thể thấy tháng 7-8 luôn nóng nhất, tháng 12-1 lạnh nhất ở miền Bắc Việt Nam.
 
 
 ```python
@@ -283,6 +307,8 @@ month_mean = temp.groupby('time.month').mean() # Tính giá trị trung bình c�
 
 - **Tính trung bình theo năm**
 
+`.groupby('time.year').mean()` tính giá trị trung bình cho mỗi năm trong dataset, tạo ra annual time series. Phép toán này loại bỏ biến động seasonal và giúp nhận diện xu hướng dài hạn như global warming hay climate variability. So sánh annual means giữa các năm cho thấy năm nào nóng/lạnh bất thường hoặc có climate extremes. Đây là bước đầu tiên trong phân tích xu hướng và trend detection.
+
 
 ```python
 yearly_mean = temp.groupby('time.year').mean() # Tính giá trị trung bình của nhiệt độ theo từng năm trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ cho mỗi năm.
@@ -290,12 +316,16 @@ yearly_mean = temp.groupby('time.year').mean() # Tính giá trị trung bình c�
 
 - **Tính trung bình theo mùa**
 
+`.groupby('time.season').mean()` nhóm dữ liệu theo 4 mùa meteorological chuẩn: DJF (Dec-Jan-Feb = Winter), MAM (Mar-Apr-May = Spring), JJA (Jun-Jul-Aug = Summer), SON (Sep-Oct-Nov = Autumn). Kết quả là 4 giá trị đại diện cho nhiệt độ trung bình mùa. Phân tích seasonal rất quan trọng để hiểu climate patterns, ảnh hưởng monsoon, và planning cho nông nghiệp. Lưu ý rằng definition của mùa có thể khác nhau giữa Northern và Southern Hemisphere.
+
 
 ```python
 seasonal_mean = temp.groupby('time.season').mean() # Tính giá trị trung bình của nhiệt độ theo từng mùa trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ cho mỗi mùa (Spring, Summer, Autumn, Winter).
 ```
 
 - **Tính trung bình theo giai đoạn**
+
+Bạn có thể tự định nghĩa giai đoạn custom bằng cách lọc dữ liệu trước khi groupby. Ví dụ, chọn các tháng mùa hè (4-8) với `.isin(summer_months)`, sau đó group theo năm để tính summer mean cho mỗi năm. Kỹ thuật này cho phép phân tích các periods đặc biệt như: mùa mưa (May-Oct), mùa khô (Nov-Apr), hoặc growing season của cây trồng. Sự linh hoạt này rất quan trọng cho regional climate analysis phù hợp với đặc thù địa phương.
 
 
 ```python
@@ -321,7 +351,7 @@ rolling_mean = temp.rolling(time=3, center=True).mean() # Tính rolling mean v�
 
 ### 17.6.3. Tính theo resampling
 
-`resample` trong Xarray dùng để tái lấy mẫu theo thời gian, tức là gom dữ liệu theo một tần suất mới ví dụ như ngày, tháng, năm.
+Resample là kỹ thuật tái lấy mẫu (resampling) dữ liệu theo tần suất thời gian mới. `.resample(time='1Y').mean()` gom tất cả monthly data trong mỗi năm và tính trung bình, tạo annual time series. Khác với groupby('time.year'), resample giữ nguyên datetime index và có thể handle các time frequencies phức tạp (quarters, weeks, custom periods). Resample hỗ trợ cả upsampling (tăng tần suất với interpolation) và downsampling (giảm tần suất với aggregation), là công cụ chuẩn cho time series analysis và data harmonization.
 
 
 ```python

@@ -2,7 +2,9 @@
 
 **Microsoft Planetary Computer (MPC)** là nền tảng lưu trữ dữ liệu địa không gian quy mô lớn của Microsoft, cung cấp hàng petabytes dữ liệu vệ tinh miễn phí thông qua giao thức **STAC** (SpatioTemporal Asset Catalog).
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1YslcGkhMOSraKeamuw722b0H5MN6Krix?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1YslcGkhMOSraKeamuw722b0H5MN6Krix?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 27.1. Mục tiêu học tập
 
@@ -232,6 +234,8 @@ print(f"Phần trăm che phủ mây của item đầu tiên: {properties.get('eo
     
 
 ### 27.5.2. Đọc dữ liệu Sentinel-2
+
+Sử dụng hàm đã viết sẵn bên trên để load ảnh Sentinel-2 theo giới hạn không gian và thời gian và độ bao phủ mây.
 
 
 ```python

@@ -4,7 +4,9 @@ Chào mừng bạn đến với bài học đầu tiên về phân tích dữ li
 
 Shapely dựa trên thư viện GEOS được sử dụng rộng rãi (công cụ hình học của PostGIS) và cung cấp giao diện Python đơn giản, trực quan để làm việc với các hình dạng hình học 2D.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1skhbj_1CUFf_MKcPCwmb8tlGP4exdIpg?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1skhbj_1CUFf_MKcPCwmb8tlGP4exdIpg?authuser=3) mà không cần cài Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 11.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -168,6 +170,8 @@ donut
 
 
 ### 11.2.4. Trực quan hóa điểm, đường và đa giác
+
+Việc trực quan hóa các đối tượng hình học giúp bạn hiểu rõ hơn về cấu trúc và vị trí của chúng trong không gian. Matplotlib cung cấp các công cụ đơn giản để vẽ điểm (scatter), đường (plot) và đa giác (fill). Khi vẽ nhiều loại hình học trên cùng một figure, bạn có thể dễ dàng so sánh và phân tích chúng. Sử dụng `subplots()` để tạo nhiều biểu đồ con cho từng loại hình học.
 
 
 ```python
@@ -383,6 +387,8 @@ Buffer là thao tác tạo vùng đệm xung quanh các đối tượng không g
 
 ### 11.4.1. Tạo buffer cho điểm
 
+Buffer cho điểm tạo ra một hình tròn (hoặc đa giác gần tròn) xung quanh điểm với bán kính bằng khoảng cách buffer được chỉ định. Điều này rất hữu ích trong phân tích không gian để xác định vùng ảnh hưởng hoặc vùng phục vụ xung quanh một điểm quan tâm như trạm xe buýt, bệnh viện, hoặc trạm đo môi trường.
+
 
 ```python
 # 1. PHÉP TOÁN ĐỆM
@@ -391,6 +397,8 @@ point_buffer = Point(0, 0).buffer(1)
 
 ### 11.4.2. Tạo buffer cho đường
 
+Buffer cho đường tạo ra một vùng đệm song song với đường, mở rộng ra cả hai bên theo khoảng cách buffer được chỉ định. Phép toán này thường được sử dụng để tạo vùng ảnh hưởng của đường giao thông, sông suối, hoặc đường ống dẫn. Kết quả là một đa giác bao quanh đường gốc với độ rộng bằng hai lần giá trị buffer.
+
 
 ```python
 line = LineString([(0.5, 0.5), (2.5, 2.5)])        # Đường chéo
@@ -398,6 +406,8 @@ line_buffer = line.buffer(0.2)
 ```
 
 ### 11.4.3. Tạo buffer cho polygon
+
+Buffer cho polygon có thể tạo vùng đệm mở rộng ra ngoài (buffer dương) hoặc co lại bên trong (buffer âm) ranh giới của đa giác. Buffer dương thường dùng để tạo vùng đệm bảo vệ xung quanh các khu vực như rừng, hồ, hoặc khu bảo tồn. Buffer âm có thể dùng để tạo vùng lõi bên trong một khu vực hoặc để xử lý dữ liệu có sai số.
 
 
 ```python
@@ -530,6 +540,8 @@ plt.show()
 
 
 ### 11.5.4. Phép biến dạng (Skew/shear)
+
+Phép biến dạng (skew/shear) là phép biến hình nghiêng một đối tượng theo trục x hoặc y, trong đó các điểm được dịch chuyển theo một hướng song song với trục đã chọn. Góc biến dạng được xác định bằng độ (degrees). Phép này làm thay đổi hình dạng nhưng giữ nguyên diện tích của đối tượng, thường được sử dụng trong xử lý ảnh và hiệu chỉnh hình học.
 
 
 ```python

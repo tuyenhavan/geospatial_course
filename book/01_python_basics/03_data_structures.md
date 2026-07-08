@@ -2,7 +2,9 @@
 
 Trong bài học này, bạn sẽ học về các cấu trúc dữ liệu tích hợp sẵn của Python, bao gồm danh sách (lists), bộ giá trị (tuples), từ điển (dictionaries), và tập hợp (sets). Chúng rất quan trọng để tổ chức và thao tác dữ liệu không gian địa lý. 
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LOh-mvecOfpXbrWwOM7dRP1epV9zUl34?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LOh-mvecOfpXbrWwOM7dRP1epV9zUl34?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 3.1. Mục tiêu học tập
 - Hiểu và sử dụng lists, tuples, dictionaries, và sets
@@ -204,7 +206,7 @@ Từ điển lưu trữ dữ liệu theo kiểu cặp giá trị (key:value). C�
 # Tạo từ điển với dấu ngoặc nhọn
 city_data = {
     'name': 'Hà Nội',
-    'population': 8435700,  # Dân số 2023
+    'population': 8860000,  # Dân số 2025
     'coordinates': (21.0285, 105.8542),  # Tọa độ trung tâm (Hồ Hoàn Kiếm)
     'is_coastal': False,
     'districts': ['Hoàn Kiếm', 'Đống Đa', 'Hai Bà Trưng', 'Ba Đình', 'Cầu Giấy'] # Ví dụ 5 quận trung tâm
@@ -212,7 +214,7 @@ city_data = {
 print('Dữ liệu thành phố Hà Nội:', city_data)
 ```
 
-    Dữ liệu thành phố Hà Nội: {'name': 'Hà Nội', 'population': 8435700, 'coordinates': (21.0285, 105.8542), 'is_coastal': False, 'districts': ['Hoàn Kiếm', 'Đống Đa', 'Hai Bà Trưng', 'Ba Đình', 'Cầu Giấy']}
+    Dữ liệu thành phố Hà Nội: {'name': 'Hà Nội', 'population': 8860000, 'coordinates': (21.0285, 105.8542), 'is_coastal': False, 'districts': ['Hoàn Kiếm', 'Đống Đa', 'Hai Bà Trưng', 'Ba Đình', 'Cầu Giấy']}
     
 
 - **Tạo từ điển với từ khóa `dict`**
@@ -222,11 +224,11 @@ Từ điển có thể được tạo ra bằng cách sử dụng từ khóa dic
 
 ```python
 # Tạo từ điển với dict 
-city_data = dict(name='Hà Nội', population=8435700, coordinates=(21.0285, 105.8542), is_coastal=False)
+city_data = dict(name='Hà Nội', population=8860000, coordinates=(21.0285, 105.8542), is_coastal=False)
 print('Dữ liệu thành phố Hà Nội:', city_data)
 ```
 
-    Dữ liệu thành phố Hà Nội: {'name': 'Hà Nội', 'population': 8435700, 'coordinates': (21.0285, 105.8542), 'is_coastal': False}
+    Dữ liệu thành phố Hà Nội: {'name': 'Hà Nội', 'population': 8860000, 'coordinates': (21.0285, 105.8542), 'is_coastal': False}
     
 
 - **Tạo từ điển lồng nhau**
@@ -240,15 +242,15 @@ city = {
     'coordinates': (21.0285, 105.8542),
     'districts': ['Hoàn Kiếm', 'Đống Đa', 'Hai Bà Trưng', 'Ba Đình', 'Cầu Giấy'],
     'stats': {
-        'population': 8435700,
-        'area_km2': 3323.0,
+        'population': 8860000,
+        'area_km2': 3359.59,
         'is_coastal': False
     }
 }
 print('Dữ liệu thành phố Hà Nội:', city)
 ```
 
-    Dữ liệu thành phố Hà Nội: {'name': 'Hà Nội', 'coordinates': (21.0285, 105.8542), 'districts': ['Hoàn Kiếm', 'Đống Đa', 'Hai Bà Trưng', 'Ba Đình', 'Cầu Giấy'], 'stats': {'population': 8435700, 'area_km2': 3323.0, 'is_coastal': False}}
+    Dữ liệu thành phố Hà Nội: {'name': 'Hà Nội', 'coordinates': (21.0285, 105.8542), 'districts': ['Hoàn Kiếm', 'Đống Đa', 'Hai Bà Trưng', 'Ba Đình', 'Cầu Giấy'], 'stats': {'population': 8860000, 'area_km2': 3359.59, 'is_coastal': False}}
     
 
 ### 3.4.2. Truy cập, cập nhật, và xóa giá trị
@@ -333,7 +335,7 @@ Ta muốn thêm cặp khóa:giá trị bằng cách tạo ra khóa mới và th�
 # Tạo từ điển
 city_data = {
     'name': 'Hà Nội',
-    'population': 8435700,
+    'population': 8860000,
     'is_coastal': False
 }
 # Thêm khóa mới tên sông
@@ -341,7 +343,7 @@ city_data['river'] = 'Tô Lịch'  # Tên sông chảy qua thành phố Hà Nộ
 print('Dữ liệu sau khi thêm khóa mới:', city_data)
 ```
 
-    Dữ liệu sau khi thêm khóa mới: {'name': 'Hà Nội', 'population': 8435700, 'is_coastal': False, 'river': 'Tô Lịch'}
+    Dữ liệu sau khi thêm khóa mới: {'name': 'Hà Nội', 'population': 8860000, 'is_coastal': False, 'river': 'Tô Lịch'}
     
 
 - **Liệt kê `keys` và giá trị hoặc cả hai**
@@ -353,7 +355,7 @@ print('Dữ liệu sau khi thêm khóa mới:', city_data)
 # Tạo ra từ điển
 city_data = {
     'name': 'Hà Nội',
-    'population': 8435700,
+    'population': 8860000,
     'is_coastal': False
 }
 # Liệt kê tất cả khóa
@@ -365,8 +367,8 @@ print('Cặp khóa-giá trị trong từ điển:', list(city_data.items())) # C
 ```
 
     Khóa trong từ điển: ['name', 'population', 'is_coastal']
-    Giá trị trong từ điển: ['Hà Nội', 8435700, False]
-    Cặp khóa-giá trị trong từ điển: [('name', 'Hà Nội'), ('population', 8435700), ('is_coastal', False)]
+    Giá trị trong từ điển: ['Hà Nội', 8860000, False]
+    Cặp khóa-giá trị trong từ điển: [('name', 'Hà Nội'), ('population', 8860000), ('is_coastal', False)]
     
 
 - **Xóa từ điển**
@@ -378,7 +380,7 @@ Ta có thể xóa một khóa và giá trị cụ thể hoặc toàn bộ từ �
 # Tạo ra từ điển
 city_data = {
     'name': 'Hà Nội',
-    'population': 8435700,
+    'population': 8860000,
     'is_coastal': False
 }
 # Xóa khóa name
@@ -390,7 +392,7 @@ city_data.clear()
 del city_data
 ```
 
-    Dữ liệu sau khi xóa khóa name: {'population': 8435700, 'is_coastal': False}
+    Dữ liệu sau khi xóa khóa name: {'population': 8860000, 'is_coastal': False}
     
 
 ## 3.5. Tập hợp 
@@ -409,7 +411,7 @@ visited_cities = {'Hà Nội', 'Đà Nẵng', 'Cần Thơ', 'Hà Nội'}
 print('Thành phố đã thăm:', visited_cities) # Tập hợp tự động loại bỏ phần tử trùng lặp
 ```
 
-    Thành phố đã thăm: {'Hà Nội', 'Đà Nẵng', 'Cần Thơ'}
+    Thành phố đã thăm: {'Hà Nội', 'Cần Thơ', 'Đà Nẵng'}
     
 
 - **Tạo `set` bằng từ khóa `set` với `list`**
@@ -423,7 +425,7 @@ cities = set(['Hà Nội', 'TP.HCM', 'Đà Nẵng', 'Cần Thơ', 'Hải Phòng'
 print(f"Danh sách thành phố {cities}")
 ```
 
-    Danh sách thành phố {'TP.HCM', 'Cần Thơ', 'Đà Nẵng', 'Hà Nội', 'Hải Phòng'}
+    Danh sách thành phố {'Đà Nẵng', 'Cần Thơ', 'Hải Phòng', 'TP.HCM', 'Hà Nội'}
     
 
 ### 3.5.2. Các phép toán tập hợp
@@ -461,7 +463,7 @@ union = cities | visited_cities
 print('Các thành phố trong danh sách hoặc đã được thăm:', union)
 ```
 
-    Các thành phố trong danh sách hoặc đã được thăm: {'Hà Nội', 'Hải Phòng', 'Nam Định', 'Vĩnh Phúc'}
+    Các thành phố trong danh sách hoặc đã được thăm: {'Nam Định', 'Vĩnh Phúc', 'Hà Nội', 'Hải Phòng'}
     
 
 - **Hiệu của hai tập hợp (`difference`)**
@@ -500,7 +502,7 @@ new_cities.add('Huế')
 print(f"Tập hợp new_cities: {new_cities}")
 ```
 
-    Tập hợp: {'Hà Nội', 'Vĩnh Phúc', 'Phú Thọ'}
+    Tập hợp: {'Hà Nội', 'Phú Thọ', 'Vĩnh Phúc'}
     Tập hợp new_cities: {'Huế'}
     
 

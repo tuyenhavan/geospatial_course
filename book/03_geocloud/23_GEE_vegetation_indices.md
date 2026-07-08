@@ -2,7 +2,9 @@
 
 Chỉ số thực vật (vegetation indices) được tính từ tổ hợp các bands phổ - đặc biệt là `NIR` và `Red` - phản ánh trạng thái sức khoẻ và mật độ thực vật. Bài này trình bày cách tính các chỉ số phổ biến nhất trên ba nguồn dữ liệu chính trong GEE như Sentinel-2, Landsat, MODIS.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/155KvAL7reLN-rBWaWCP6SntYu2-c-0D2?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/155KvAL7reLN-rBWaWCP6SntYu2-c-0D2?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 23.1. Mục tiêu học tập
 
@@ -696,6 +698,8 @@ print(f"Số lượng ảnh trong bộ sưu tập MODIS sau khi mask mây: {modi
 
 ### 23.5.2. Sử dụng chỉ số NDVI và EVI từ ảnh MODIS
 
+Khác với Sentinel-2 và Landsat, ảnh MODIS đã cung cấp sẵn các chỉ số thực vật như NDVI và EVI trong dataset MOD13A2 hoặc các sản phẩm tương tự. Điều này giúp tiết kiệm thời gian tính toán, tuy nhiên bạn vẫn cần phải áp dụng scale factor để chuyển giá trị từ dạng integer về số thực. Sau khi scale, giá trị NDVI và EVI sẽ nằm trong khoảng từ -1 đến 1, phù hợp cho các phép phân tích thực vật.
+
 
 ```python
 modis_indices = modis.select(["NDVI", "EVI"])
@@ -736,6 +740,8 @@ print(f"Số lượng ảnh trong bộ sưu tập MODIS sau khi tính chỉ số
     
 
 ### 23.5.3. Sử dụng chỉ số NDVI và EVI từ ảnh VIIRS
+
+VIIRS (Visible Infrared Imaging Radiometer Suite) là hệ thống cảm biến thế hệ mới thay thế MODIS, được tích hợp trên vệ tinh Suomi-NPP và NOAA-20. Sản phẩm VNP13A1 cung cấp NDVI và EVI có sẵn với độ phân giải 500m và chu kỳ 16 ngày, tương tự MODIS nhưng với độ chính xác cải tiến. Dữ liệu VIIRS đã được scale sẵn về khoảng 0-1, do đó không cần áp dụng scale factor như MODIS. Việc sử dụng mask cloud với band VI_Quality vẫn cần thiết để đảm bảo chất lượng dữ liệu trước khi phân tích.
 
 
 ```python

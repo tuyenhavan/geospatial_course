@@ -2,7 +2,9 @@
 
 Bài này tập trung vào các thao tác **cơ bản** trực tiếp trên đối tượng ảnh `ee.Image` - những bước nền tảng cần nắm vững trước khi đi vào phân tích nâng cao. 
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1tfvQiPCMDclw6rGSU_fhUj6l0EXL-s9L?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1tfvQiPCMDclw6rGSU_fhUj6l0EXL-s9L?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 21.1. Mục tiêu bài học
 
@@ -40,6 +42,8 @@ Trong Google Earth Engine, chúng ta thường làm việc với từng ảnh ri
 Trong ví dụ dưới đây, ta mong muốn tìm kiếm tất cả các bức ảnh Sentinel-2 cho khu vực AOI (Hà Nội) trong khoảng thoài gian 2026 và có độ mây phủ dưới 20%. 
 
 ### 21.2.1. Đọc và lọc ảnh
+
+Để làm việc với ảnh vệ tinh trong GEE, bước đầu tiên là load `ImageCollection` và áp dụng các bộ lọc để chọn ra những ảnh phù hợp nhất. Ba bộ lọc quan trọng nhất là: `.filterDate()` để giới hạn khoảng thời gian, `.filterBounds()` để chỉ lấy ảnh bao phủ khu vực nghiên cứu (AOI), và `.filter()` kết hợp với các điều kiện khác như độ mây phủ. Sau khi lọc, nên sắp xếp (`.sort()`) theo tiêu chí chất lượng và lấy ảnh tốt nhất bằng `.first()`. Cách tiếp cận này đảm bảo bạn chỉ xử lý những ảnh có chất lượng cao và phù hợp với nhu cầu phân tích.
 
 
 ```python
@@ -183,6 +187,8 @@ nir_red_ratio = nir.divide(red).rename('NIR_Red_Ratio')
 
 ### 21.5.3. Phép nhân
 
+Phép nhân (`.multiply()`) được sử dụng để scale giá trị pixel hoặc tạo ra các chỉ số mới. Bạn có thể nhân một band với một hằng số (như khi áp dụng scale factor) hoặc nhân hai bands với nhau để tạo ra band tích. Phép nhân có thể được chuỗi (chain) nhiều lần để thực hiện các phép toán phức tạp hơn. Ví dụ, nhân Red với Green rồi nhân tiếp với 2 sẽ tạo ra một band mới có giá trị gấp đôi tích của Red và Green. Phép toán này hoàn toàn thực hiện trên server-side và áp dụng cho từng pixel một cách song song.
+
 
 ```python
 # Nhân band Red với band Green, sau đó nhân tiếp với 2
@@ -197,9 +203,9 @@ multiply = red.multiply(green).multiply(2)
 subtract = red.subtract(green).rename('Red_minus_Green')
 ```
 
-### 21.5.5. Phép so sánh
+### 21.5.4. Phép trừ
 
-Phép toán so sánh sẽ trả về một ảnh nhị phân (binary image) với giá trị 1 ở những pixel thoải mãn điều kiện và 0 ở những pixel không thoả mãn điều kiện. Chúng rất hữu ích trong nhiều trường hợp khác nhau, chúng ta sẽ tìm hiểu một vài ví dụ dưới đây.
+Phép trừ (`.subtract()`) cho phép tính hiệu giữa hai bands hoặc giữa một band với một hằng số. Phép toán này rất quan trọng trong viễn thám, đặc biệt khi tính các chỉ số normalized như NDVI, NDWI, hoặc khi phát hiện thay đổi (change detection) bằng cách trừ ảnh thời điểm sau cho thời điểm trước. Kết quả có thể chứa cả giá trị âm và dương tùy thuộc vào band nào lớn hơn tại mỗi pixel. Việc đặt tên rõ ràng cho band kết quả (như 'Red_minus_Green') giúp dễ dàng theo dõi và debug trong các bước xử lý phức tạp.
 
 - **So sánh lớn hơn**
 

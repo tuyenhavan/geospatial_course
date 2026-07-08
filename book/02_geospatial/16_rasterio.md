@@ -1,7 +1,9 @@
 # Bài 16: Xử lý Dữ liệu Raster và Ảnh Vệ tinh với Rasterio
 Rasterio là thư viện Python chuyên nghiệp cho việc đọc, ghi và xử lý dữ liệu raster địa lý - từ ảnh vệ tinh đến mô hình độ cao số.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yliKj6v2NIV_HCiYoQXgynCSCe8NNdMv?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yliKj6v2NIV_HCiYoQXgynCSCe8NNdMv?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 16.1. Mục tiêu học tập
 
@@ -30,9 +32,6 @@ import numpy as np
 from pyproj import CRS
 import matplotlib.pyplot as plt
 ```
-
-    �️ Rasterio version: 1.5.0
-    
 
 ## 16.2. Tạo và lưu dữ liệu
 Hiểu cách tạo dữ liệu và lưu dữ liệu dưới dạng GeoTIFF cơ bản. Trong phần này, chúng ta sẽ tìm hiểu
@@ -89,7 +88,7 @@ Sau khi đã định nghĩa các thông số meta cho file raster, bạn có th�
 
 ```python
 # Ghi dữ liệu raster vào file GeoTIFF
-outfile = r'G:\My Drive\python\geocourse\data\raster\random_raster.tif'
+outfile = r'J:\My Drive\geocourse_data\outputs\random_raster.tif'
 with rasterio.open(outfile, 'w', **meta) as dst:
     dst.write(data, 1)  
 ```
@@ -105,7 +104,7 @@ Hiểu cách mở file raster và kiểm tra các thuộc tính cơ bản là n�
 
 ```python
 # Đọc dữ liệu ảnh Landsat RBG + NIR (30m resolution)
-with rasterio.open(r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif') as src:
+with rasterio.open(r'J:\My Drive\geocourse_data\outputs\sen2data.tif') as src:
     img = src.read() # Dữ liệu ở định dạng numpy array. Ta có thể xử lý tương tự như các mảng numpy khác.
     meta = src.meta # dictionary chứa các thông tin thuộc tính như kiểu dữ liệu, chiều cao, rộng và số band,etc.
 ```
@@ -127,13 +126,13 @@ print(f'Hệ tọa độ: {crs}')
 print(f'Giới hạn không gian: {bounds}')
 ```
 
-    Shape của dữ liệu: (4, 300, 338)
+    Shape của dữ liệu: (4, 66, 93)
     Thuộc tính meta:
-     {'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 338, 'height': 300, 'count': 4, 'crs': CRS.from_wkt('GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]'), 'transform': Affine(0.00026949458523585647, 0.0, 105.5491712751346,
-           0.0, -0.00026949458523585647, 21.34612710736172)}
-    Độ phân giải không gian: (0.00026949458523585647, 0.00026949458523585647)
-    Hệ tọa độ: EPSG:4326
-    Giới hạn không gian: BoundingBox(left=105.5491712751346, bottom=21.265278731790964, right=105.64026044494432, top=21.34612710736172)
+     {'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 93, 'height': 66, 'count': 4, 'crs': CRS.from_wkt('PROJCS["WGS 84 / UTM zone 48N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",105],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32648"]]'), 'transform': Affine(10.0, 0.0, 572750.0,
+           0.0, -10.0, 2349160.0)}
+    Độ phân giải không gian: (10.0, 10.0)
+    Hệ tọa độ: EPSG:32648
+    Giới hạn không gian: BoundingBox(left=572750.0, bottom=2348500.0, right=573680.0, top=2349160.0)
     
 
 ### 16.3.3. Lưu dữ liệu
@@ -146,7 +145,7 @@ Sau khi đọc, dữ liệu đơn giản là numpy và người dùng có thể 
 ndvi = (img[3] - img[2]) / (img[3] + img[2] + 1e-10) # Thêm một số nhỏ vào mẫu số để tránh chia cho 0
 # Thêm ndvi band vào với img và lưu file
 img = np.concatenate([img, ndvi[np.newaxis, ...]], axis=0)
-outfile = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn_ndvi.tif'
+outfile = r'J:\My Drive\geocourse_data\raster\sen2data_rgbn_ndvi.tif'
 # Cập nhật meta vì có thêm band mới là ndvi
 meta.update({
     'count': len(img)
@@ -240,6 +239,8 @@ print(f'Transformed bounds: {transformed_bounds}')
 
 - **Từ tọa độ pixel sang tọa độ thế giới**
 
+Transform cho phép chuyển đổi từ pixel coordinates (row, col) sang world coordinates (x, y) trong hệ tọa độ địa lý. Phép nhân transform với tuple (col, row) trả về tọa độ real-world tương ứng. Điều này quan trọng khi bạn cần xác định vị trí địa lý chính xác của một pixel, ví dụ để extract giá trị tại một điểm cụ thể trên bản đồ hoặc overlay raster với vector data. Lưu ý rằng pixel (0,0) tương ứng với góc trên-trái (upper-left) của raster.
+
 
 ```python
 # Chuyển coordinate transformation từ pixel sang coordinate thế giới
@@ -256,6 +257,8 @@ for px, py in test_pixels:
     
 
 - **Từ tọa độ thế giới sang tọa độ pixel**
+
+Inverse transform (ký hiệu `~transform`) cho phép chuyển đổi ngược từ world coordinates sang pixel coordinates. Phép toán này cần thiết khi bạn có tọa độ địa lý (latitude, longitude) và muốn biết pixel nào trong raster chứa vị trí đó. Ứng dụng phổ biến là extract pixel values tại các điểm GPS, crop raster theo bounding box địa lý, hoặc resample data tại các vị trí cụ thể. Kết quả là floating-point coordinates có thể cần làm tròn về integers để indexing array.
 
 
 ```python
@@ -274,6 +277,8 @@ for col, row in test_pixels:
     
 
 ### 16.4.6. Thông tin về CRS
+
+Hiểu rõ về Coordinate Reference System (CRS) là rất quan trọng khi làm việc với dữ liệu địa lý. Rasterio tích hợp với pyproj để cung cấp thông tin chi tiết về CRS như EPSG code, authority, đơn vị đo (degrees, meters), và loại hệ tọa độ (geographic hay projected). Việc kiểm tra CRS giúp bạn đảm bảo dữ liệu được định vị chính xác và chọn hệ tọa độ phù hợp cho từng loại phân tích (WGS84 cho global data, UTM cho local measurements, VN-2000 cho Việt Nam).
 
 
 ```python
@@ -323,11 +328,13 @@ Trực quan hóa là bước quan trọng để hiểu và phân tích dữ li�
 
 ### 16.5.1. Trực quan hóa dùng hàm `show` từ rasterio
 
+Rasterio cung cấp hàm `show()` chuyên dụng để hiển thị raster data một cách nhanh chóng và tiện lợi. Hàm này tự động xử lý việc chuyển đổi dữ liệu từ band sang RGB, áp dụng color stretching và điều chỉnh contrast. Tham số `adjust='linear'` giúp normalize dữ liệu để hiển thị tốt hơn. Phương pháp này đặc biệt hữu ích khi bạn cần visualize nhanh dữ liệu raster mà không cần xử lý phức tạp.
+
 
 ```python
 from rasterio.plot import show
 # Đọc dữ liệu ảnh landsat and hiển thị sử dụng show từ rasterio plot
-file = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh landsat đã được tạo ở bước trước
+file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh landsat đã được tạo ở bước trước
 with rasterio.open(file) as src:
     fig, ax = plt.subplots(1,1, figsize=(10,10))
     show(src.read([3, 2, 1]), transform=src.transform, adjust='linear', ax=ax)
@@ -342,6 +349,8 @@ with rasterio.open(file) as src:
 
 
 ### 16.5.2. Trực quan hóa dùng matplotlib
+
+Matplotlib cung cấp khả năng tùy chỉnh cao hơn khi visualize raster data. Bạn có thể normalize từng band riêng biệt bằng cách clip outliers (loại bỏ giá trị ngoại lệ) và scale về khoảng [0,1] để hiển thị tốt hơn. Việc stack các band thành RGB array và transpose đúng thứ tự (height, width, channels) giúp `imshow()` hiển thị đúng màu sắc. Phương pháp này cho phép bạn kiểm soát hoàn toàn cách dữ liệu được hiển thị, từ colormap đến extent và annotations.
 
 
 ```python
@@ -378,7 +387,7 @@ Do dữ liệu raster bản chất là một numpy array,chúng ta có thể th�
 
 ```python
 # Đọc dữ liệu ảnh landsat
-file = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif'
+file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif'
 with rasterio.open(file) as src:
     data = src.read()  # Dữ liệu ở định dạng numpy array. Ta có thể xử lý tương tự như các mảng numpy khác.
     out_meta = src.meta
@@ -394,6 +403,12 @@ print(f'Max values per band: {max_val}')
 print(f'Std values per band: {std_val}')
 print(f'Mean values per band: {mean_val}')
 ```
+
+    Min values per band: [-19.46381  -19.389671 -19.512661 -19.377506]
+    Max values per band: [-17.326986 -17.203575 -17.23685  -16.173775]
+    Std values per band: [0.23418623 0.21519074 0.32982633 0.3632402 ]
+    Mean values per band: [-18.88241  -18.751759 -18.557474 -17.839478]
+    
 
 ### 16.6.2. Tính toán chỉ số thực vật
 
@@ -416,7 +431,7 @@ ndwi = (data[1] - data[3]) / (data[1] + data[3])
 # Ta có thể lưu dữ liệu ra file  sử dụng out_meta (cập nhật lại số band) như các phần bên trên.
 # Ví dụ stack các chỉ số thực vật vào với nhau
 indices = np.stack([ndvi, savi, ndwi], axis=0)
-outfile = r'G:\My Drive\python\geocourse\data\raster\landsat_indices.tif'
+outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_indices.tif'
 out_meta.update({
     'count': indices.shape[0] # Cập nhật số band mới
 })
@@ -444,7 +459,7 @@ def ndvi_reclass(a):
 # Vectorize the function to apply it on numpy array
 ndvi_classes = np.vectorize(ndvi_reclass)(ndvi)
 # Lưu kết quả phân loại ra file
-outfile = r'G:\My Drive\python\geocourse\data\raster\ndvi_classes.tif'
+outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_ndvi_classes.tif'
 out_meta.update({
     'count': 1  # Chỉ có 1 band cho kết quả phân loại
 })
@@ -458,11 +473,11 @@ Làm việc hiệu quả với large raster datasets đòi hỏi kỹ thuật t�
 
 - **Đọc dữ liệu theo kích thước mong muốn**
 
-Rasterio cho phép người dùng đọc dữ liệu raster theo một window có kích thước mong muốn, giúp tiết kiệm bộ nhớ và tăng tốc độ xử lý khi chỉ cần làm việc với một phần nhỏ của raster. Sau khi đọc dữ liệu theo window, người dùng có thể thực hiện các phép tính và phân tích trên phần dữ liệu này, chẳng hạn như tính toán chỉ số, lọc, phân loại. Nếu cần thiết, kết quả có thể được lưu lại vào một file raster mới với các thông tin meta được cập nhật để phản ánh các thay đổi trong dữ liệu.
+Windowed reading là kỹ thuật quan trọng để xử lý raster lớn mà không cần load toàn bộ vào memory. Bằng cách chỉ định `Window(col_off, row_off, width, height)`, bạn chỉ đọc một phần nhỏ của raster, giúp tiết kiệm RAM và tăng tốc xử lý. Sau khi đọc window, bạn cần cập nhật transform và dimensions trong metadata để phản ánh đúng vị trí và kích thước của window. Kỹ thuật này đặc biệt hữu ích khi extract regions of interest hoặc process raster theo tiles.
 
 
 ```python
-file = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif'
+file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif'
 with rasterio.open(file) as src:
     # Đọc window nhỏ
     window_size = 100
@@ -479,7 +494,7 @@ with rasterio.open(file) as src:
     # Từ window có thể tính toán bounding box
     window_bounds = rasterio.windows.bounds(window, src.transform)
 # Từ out_meta và window_data ta có thể lưu window ra file mới nếu cần thiết
-outfile = r'G:\My Drive\python\geocourse\data\raster\landsat_window.tif'
+outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_window.tif'
 with rasterio.open(outfile, 'w', **out_meta) as dst:
     dst.write(window_data)
 ```
@@ -489,11 +504,11 @@ with rasterio.open(outfile, 'w', **out_meta) as dst:
 
 - **Đọc dữ liệu theo 256x256 window**
 
-Việc chia nhỏ raster thành các tile nhỏ hơn có thể hữu ích cho việc xử lý dữ liệu lớn hoặc để phục vụ cho các phân tích khác nhau như huấn luyện các mô hình học sâu. Trong ví dụ này, chúng ta tạo ra các tile có kích thước 256x256 pixel từ một raster lớn hơn, và cập nhật meta data cho mỗi tile để đảm bảo rằng chúng vẫn giữ được thông tin về vị trí và hệ tọa độ. 
+Tiling (chia raster thành các tile nhỏ) là chiến lược phổ biến trong xử lý big data và machine learning. Kích thước 256x256 hoặc 512x512 pixels là chuẩn cho deep learning models và web mapping tiles. Bằng cách loop qua raster với tile_size cố định, bạn tạo ra các tiles có kích thước đồng nhất, mỗi tile với transform riêng phản ánh vị trí chính xác. Phương pháp này cho phép parallel processing, distributed computing và phù hợp với GPU memory constraints khi training neural networks.
 
 
 ```python
-tile_size = 256
+tile_size = 256 # Kích thước tile (256x256 pixels)
 with rasterio.open(file) as src:
     # Đọc dữ liệu raster
     data = src.read()
@@ -526,12 +541,12 @@ with rasterio.open(file) as src:
 
 - **Sử dụng block-based để xử lý dữ liệu lớn**
 
-Trong ví dụ này, chúng ta sử dụng `block-based` để đọc dữ liệu raster theo từng block nhỏ, giúp tiết kiệm bộ nhớ và tăng tốc độ xử lý khi làm việc với các raster lớn. Việc duyệt qua từng block cho phép chúng ta thực hiện các phép tính và phân tích trên phần dữ liệu nhỏ hơn, tránh việc phải tải toàn bộ raster vào bộ nhớ cùng một lúc.
+Block-based reading tận dụng internal structure của GeoTIFF để đọc dữ liệu theo các blocks tự nhiên mà file đã được tổ chức. `block_windows()` trả về iterator của các windows tương ứng với internal blocks, thường có kích thước tối ưu cho I/O performance. Phương pháp này hiệu quả hơn random windowed reading vì align với cách dữ liệu được lưu trữ trên disk. Block-based processing là best practice cho production systems xử lý terabytes data, minimize disk seeks và maximize throughput.
 
 
 ```python
 # Sử dụng block-based reading để xử lý raster lớn. Ví dụ này minh họa và raster không quá lớn.
-file = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif'
+file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif'
 with rasterio.open(file) as src:
     # Lấy kích thước block
     block_shapes = src.block_shapes
@@ -563,9 +578,9 @@ Dữ liệu raster có thể rất lớn, việc sử dụng các tùy chọn n�
 ```python
 # Lưu dữ liệu ra file với các compression options để giảm dung lượng file
 # Một vài options phổ biến: 'lzw', 'deflate', 'jpeg'
-outfile = r'G:\My Drive\python\geocourse\data\raster\landsat_copressed.tif'
+outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_copressed.tif'
 # Ví dụ đọc và lưu lại với nén LZW cho 1 band 
-file = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif'
+file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif'
 with rasterio.open(file) as src:
     data = src.read(1)  # Đọc band 1
     out_meta = src.meta.copy()
@@ -585,8 +600,8 @@ Bạn có thể sử dụng hàm `reproject` của rasterio để chuyển đổ
 # Reproject raster từ WGS84 sang UTM Zone 48N
 src_crs = CRS.from_epsg(4326)  # WGS84
 dst_crs = CRS.from_epsg(32648)  # UTM Zone 48N
-file = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif'
-outfile = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn_utm48n.tif'
+file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh Sentinel-2 đã được tạo ở bước trước. Đảm bảo file nãy dữ liệu đang ở hệ tọa độ WGS84 (EPSG:4326). Nếu không, bạn cần thay đổi đường dẫn đến file ảnh khác có hệ tọa độ WGS84.
+outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_utm48n.tif'
 with rasterio.open(file) as src:
     transform, width, height = calculate_default_transform(
         src.crs, dst_crs, src.width, src.height, *src.bounds)
@@ -618,9 +633,10 @@ Clip dữ liệu raster là việc sử dụng một đa giác (polygon) để c
 ```python
 poly = gpd.read_file(r"G:\My Drive\python\geocourse\data\vector\subset_polygon.geojson")
 # Clip raster sử dụng poly 
-file = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn.tif'
-outfile = r'G:\My Drive\python\geocourse\data\raster\landsat_rgbn_clipped.tif'
+file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif'
+outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_clipped.tif'
 with rasterio.open(file) as src:
+    poly = poly.to_crs(src.crs)  # Chuyển poly sang hệ tọa độ của raster nếu cần
     out_img, out_transform = mask(src, poly.geometry.to_list(), crop=True)
     out_meta = src.meta.copy()
     out_meta.update({

@@ -2,7 +2,9 @@
 
 Khi vùng nghiên cứu lớn (tỉnh, quốc gia) hoặc cần xử lý nhiều năm dữ liệu, RAM và thời gian xử lý tuần tự trở thành nút thắt cổ chai. Trong trường hợp như vậy, ta có thể chia nhỏ vùng nghiên cứu và dùng tính toán song song.
 
-Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1DgEIlmM6WBbCyQaeya72KWQO7P6zUAKj?authuser=3). Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**
+> 
+> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1DgEIlmM6WBbCyQaeya72KWQO7P6zUAKj?authuser=3) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
 
 ## 29.1. Mục tiêu học tập
 
