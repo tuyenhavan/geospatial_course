@@ -1,12 +1,10 @@
-# Bài 21: Thao tác cơ bản trên ảnh trong GEE
+# Bài 22: Thao tác cơ bản trên ảnh trong GEE
 
 Bài này tập trung vào các thao tác **cơ bản** trực tiếp trên đối tượng ảnh `ee.Image` - những bước nền tảng cần nắm vững trước khi đi vào phân tích nâng cao. 
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1tfvQiPCMDclw6rGSU_fhUj6l0EXL-s9L) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1tfvQiPCMDclw6rGSU_fhUj6l0EXL-s9L) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 21.1. Mục tiêu bài học
+## 22.1. Mục tiêu bài học
 
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
 
@@ -24,7 +22,7 @@ Sau khi hoàn thành bài học này, bạn sẽ có thể:
 import ee
 import geemap
 ee.Authenticate() # xác thực tài khoản Google Earth Engine
-ee.Initialize(project='ee-tuyenrss') # khởi tạo thư viện Earth Engine
+ee.Initialize(project='geocourse-501706') # khởi tạo thư viện Earth Engine
 ```
 
 Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu là bounding box khu vực Hà Nội. Bạn có thể thay đổi bằng khu vực khác, nhưng kết quả trả về có thể khác vì mỗi nơi sẽ có mây phủ khác nhau vào các thời gian khác nhau.
@@ -35,13 +33,13 @@ Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu là boundin
 aoi = ee.Geometry.BBox(105.7, 20.9, 106.0, 21.2)
 ```
 
-## 21.2. Đọc và lọc ảnh 
+## 22.2. Đọc và lọc ảnh 
 
 Trong Google Earth Engine, chúng ta thường làm việc với từng ảnh riêng lẻ bên trong `ImageCollection`. Vì vậy, bước đầu tiên là áp dụng các bộ lọc theo vị trí, thời gian và thuộc tính để chọn ra những ảnh phù hợp với mục đích phân tích.
 
 Trong ví dụ dưới đây, ta mong muốn tìm kiếm tất cả các bức ảnh Sentinel-2 cho khu vực AOI (Hà Nội) trong khoảng thoài gian 2026 và có độ mây phủ dưới 20%. 
 
-### 21.2.1. Đọc và lọc ảnh
+### 22.2.1. Đọc và lọc ảnh
 
 Để làm việc với ảnh vệ tinh trong GEE, bước đầu tiên là load `ImageCollection` và áp dụng các bộ lọc để chọn ra những ảnh phù hợp nhất. Ba bộ lọc quan trọng nhất là: `.filterDate()` để giới hạn khoảng thời gian, `.filterBounds()` để chỉ lấy ảnh bao phủ khu vực nghiên cứu (AOI), và `.filter()` kết hợp với các điều kiện khác như độ mây phủ. Sau khi lọc, nên sắp xếp (`.sort()`) theo tiêu chí chất lượng và lấy ảnh tốt nhất bằng `.first()`. Cách tiếp cận này đảm bảo bạn chỉ xử lý những ảnh có chất lượng cao và phù hợp với nhu cầu phân tích.
 
@@ -63,7 +61,7 @@ cloudless = ee.Image(sen2col.first())
 print(f"Ngày chụp ảnh ít mây nhất: {cloudless.date().format('YYYY-MM-dd').getInfo()}")
 ```
 
-### 21.2.2. Hiển thị ảnh
+### 22.2.2. Hiển thị ảnh
 
 Trong ví dụ này, ta sử dụng gói python geemap để hiển thị ảnh Sentinel-2 ít mây nhất trên bản đồ. Để hiển thị ảnh trên bản đồ, ta cần xác định các tham số hiển thị (vis_params) như băng sóng nào sẽ được sử dụng để hiển thị (trong trường hợp này là B4, B3, B2 tương ứng với RGB), giá trị tối thiểu và tối đa để hiển thị, và gamma để điều chỉnh độ sáng của ảnh. Sau đó, ta tạo một đối tượng Map và thêm lớp ảnh vào bản đồ với các tham số hiển thị đã định nghĩa. Cuối cùng, ta trung tâm hóa bản đồ vào khu vực Hà Nội với mức zoom phù hợp để có thể quan sát rõ ràng.
 
@@ -81,11 +79,11 @@ Map.centerObject(aoi, 10)
 Map
 ```
 
-## 21.3. Thêm bands, chọn, và đổi tên bands
+## 22.3. Thêm bands, chọn, và đổi tên bands
 
 Trong GEE, `.select()` được dùng để chọn các band cần thiết, còn `.rename()` giúp đặt lại tên band dễ hiểu hơn. Trong trường hợp thêm band, ta dùng `.addBand()`.
 
-### 21.3.1. Chọn và đổi tên
+### 22.3.1. Chọn và đổi tên
 
 Khi làm việc với ảnh vệ tinh, chúng ta thường chỉ quan tâm đến một số band nhất định. Ví dụ, để tính toán chỉ số NDVI, chúng ta chỉ cần band Red và NIR. Do đó, việc chọn bands cụ thể và đặt tên thân thiện sẽ giúp chúng ta dễ dàng thao tác và hiểu rõ hơn về dữ liệu mà chúng ta đang sử dụng.
 
@@ -102,7 +100,7 @@ img_selected_band = cloudless.select(S2_BANDS).rename(NEW_NAMES)
 print(f"\nSau select + rename: {img_selected_band.bandNames().getInfo()}")
 ```
 
-### 21.3.2. Thêm bands vào ảnh
+### 22.3.2. Thêm bands vào ảnh
 
 Nhiều khi một chúng ta tạo ra một band mới như NDVI, chúng ta có thể thêm chúng vào ảnh và đặt tên là NDVI như ví dụ bên dưới.
 
@@ -114,9 +112,9 @@ img_selected_band = img_selected_band.addBands(ndvi)
 print(f"\nSau khi thêm band NDVI: {img_selected_band.bandNames().getInfo()}")
 ```
 
-# 21.4. Clip ảnh theo vùng nghiên cứu
+# 22.4. Clip ảnh theo vùng nghiên cứu
 
-### 21.4.1. Clip ảnh theo vùng nghiên cứu
+### 22.4.1. Clip ảnh theo vùng nghiên cứu
 
 Đa số chúng ta sẽ làm việc với một vùng nghiên cứu cụ thể thay vì toàn bộ thế giới. Do đó, việc cắt (clip) ảnh về vùng nghiên cứu sẽ giúp giảm kích thước dữ liệu và tăng tốc độ xử lý. Trong ví dụ này, chúng ta đã cắt ảnh Sentinel-2 về khu vực Hà Nội để tập trung vào phân tích trong khu vực này. Để cắt ảnh theo vùng nghiên cứu, chúng ta sử dụng `.clip(geometry)` và hiển thị chúng. 
 
@@ -131,7 +129,7 @@ Map.centerObject(aoi, 10)
 Map
 ```
 
-### 21.4.2. Chuyển đổi giá trị Pixel
+### 22.4.2. Chuyển đổi giá trị Pixel
 Trong Google Earth Engine (GEE), giá trị pixel thường được lưu dưới dạng số nguyên (integer) để tối ưu dung lượng lưu trữ và hiệu năng xử lý. Để chuyển từ dữ liệu số nguyên, ta thường phải nhân với một hệ số nào đó. Bảng dưới đây là ví dụ cho ba bộ sưu tập và hệ số (scaling factor) thường được tìm thấy trong thông tin bands của dữ liệu (ví dụ [Sentinel-2](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED)).
 
 | Collection | Scale | Offset | Range thực |
@@ -147,7 +145,7 @@ sen2band = cloudless.select(['B2', 'B3', 'B4', 'B8', 'B11', 'B12'])
 sen2scale = sen2band.multiply(0.0001)
 ```
 
-## 21.5. Toán học cơ bản trên ảnh
+## 22.5. Toán học cơ bản trên ảnh
 
 GEE hỗ trợ phép tính **pixel-wise** trực tiếp trên `ee.Image`. Có hai cách thường được sử dụng:
 - **Methods**: `.add()`, `.subtract()`, `.multiply()`, `.divide()`, `.abs()`, `.sqrt()`, `.log()`, `.gt()`, `.lt()`, `.where()`
@@ -165,7 +163,7 @@ nir   = sen2scale.select('B8')
 swir1 = sen2scale.select('B11')
 ```
 
-### 21.5.1. Phép cộng
+### 22.5.1. Phép cộng
 
 Trong GEE, các tính toán phải được thực hiện trên server-side, nghĩa là chúng ta không thể lấy giá trị pixel về máy tính để tính toán như bình thường. Thay vào đó, chúng ta phải sử dụng các phương thức của GEE để thực hiện các phép toán trên đối tượng ảnh. Trong ví dụ này, chúng ta tính toán độ sáng (Brightness) bằng cách lấy trung bình của ba bands nhìn thấy (Blue, Green, Red) và sử dụng phương thức add và divide để thực hiện phép tính trên server-side.
 
@@ -175,7 +173,7 @@ Trong GEE, các tính toán phải được thực hiện trên server-side, ngh
 brightness = blue.add(green).add(red).divide(3).rename('Brightness')
 ```
 
-### 21.5.2. Phép chia
+### 22.5.2. Phép chia
 
 Tương tự vậy, chúng ta có thể thực hiện các phép toán học khác nhau trên các bands để tạo ra các chỉ số mới. Ví dụ, chúng ta tính band ratio giữa NIR và Red.
 
@@ -185,7 +183,7 @@ Tương tự vậy, chúng ta có thể thực hiện các phép toán học kh�
 nir_red_ratio = nir.divide(red).rename('NIR_Red_Ratio') 
 ```
 
-### 21.5.3. Phép nhân
+### 22.5.3. Phép nhân
 
 Phép nhân (`.multiply()`) được sử dụng để scale giá trị pixel hoặc tạo ra các chỉ số mới. Bạn có thể nhân một band với một hằng số (như khi áp dụng scale factor) hoặc nhân hai bands với nhau để tạo ra band tích. Phép nhân có thể được chuỗi (chain) nhiều lần để thực hiện các phép toán phức tạp hơn. Ví dụ, nhân Red với Green rồi nhân tiếp với 2 sẽ tạo ra một band mới có giá trị gấp đôi tích của Red và Green. Phép toán này hoàn toàn thực hiện trên server-side và áp dụng cho từng pixel một cách song song.
 
@@ -195,7 +193,7 @@ Phép nhân (`.multiply()`) được sử dụng để scale giá trị pixel ho
 multiply = red.multiply(green).multiply(2)
 ```
 
-### 21.5.4. Phép trừ
+### 22.5.4. Phép trừ
 
 
 ```python
@@ -203,7 +201,7 @@ multiply = red.multiply(green).multiply(2)
 subtract = red.subtract(green).rename('Red_minus_Green')
 ```
 
-### 21.5.4. Phép trừ
+### 22.5.4. Phép trừ
 
 Phép trừ (`.subtract()`) cho phép tính hiệu giữa hai bands hoặc giữa một band với một hằng số. Phép toán này rất quan trọng trong viễn thám, đặc biệt khi tính các chỉ số normalized như NDVI, NDWI, hoặc khi phát hiện thay đổi (change detection) bằng cách trừ ảnh thời điểm sau cho thời điểm trước. Kết quả có thể chứa cả giá trị âm và dương tùy thuộc vào band nào lớn hơn tại mỗi pixel. Việc đặt tên rõ ràng cho band kết quả (như 'Red_minus_Green') giúp dễ dàng theo dõi và debug trong các bước xử lý phức tạp.
 
@@ -245,7 +243,7 @@ Giả sử chúng ta muốn tạo ra một mask nơi mà tất cả khu vực kh
 non_water_mask = modis_landcover.lte(16).rename('non_water_mask')  # LC_Type1 <= 16 → không phải nước
 ```
 
-### 21.5.6. Sử dụng `expression`
+### 22.5.6. Sử dụng `expression`
 
 Trong một số trường hợp, bạn có thể cần sử dụng biểu thức tùy chỉnh để tính toán các chỉ số phức tạp hơn. GEE cung cấp phương thức expression cho phép bạn viết công thức toán học dưới dạng chuỗi, sử dụng tên band đã chọn. Ví dụ, chúng ta đã tính chỉ số nước MNDWI bằng cách sử dụng biểu thức với các band Green và SWIR1
 
@@ -259,13 +257,13 @@ mndwi = cloudless.expression(
 print(f"Band MNDWI: {mndwi.bandNames().getInfo()}")
 ```
 
-## 21.6. Reproject, Resample và xem Thumbnail ảnh nhanh
+## 22.6. Reproject, Resample và xem Thumbnail ảnh nhanh
 
 - **`.reproject(crs, scale)`**: Chuyển đổi CRS và/hoặc scale (độ phân giải pixel)
   
 - **`.resample(method)`**: Thay đổi thuật toán nội suy khi reproject - `'bilinear'` cho dữ liệu liên tục, `'near'` cho categorical (classification maps)
 
-### 21.6.1. Reproject ảnh và resample
+### 22.6.1. Reproject ảnh và resample
 
 Dữ liệu vệ tinh thường có độ phân giải khác nhau giữa các bands, vì vậy khi làm việc với nhiều bands mà có độ phân giải khác nhau, bạn cần chú ý đến việc resample hoặc reproject để đảm bảo các bands có cùng độ phân giải và hệ tọa độ trước khi thực hiện các phép toán giữa chúng.
 
@@ -287,7 +285,7 @@ resampled_b11 = cloudless.select('B11').resample('bilinear').reproject(
 print(f"Độ phân giải của band B11 sau khi resample: {resampled_b11.projection().nominalScale().getInfo()} mét")
 ```
 
-### 21.6.2. Xem Thumbnail ảnh nhanh
+### 22.6.2. Xem Thumbnail ảnh nhanh
 
 `.getThumbURL()` trả về URL ảnh thu nhỏ — hữu ích để kiểm tra nhanh kết quả mà không cần render bản đồ đầy đủ.
 

@@ -1,12 +1,10 @@
-# Bài 27: Truy cập dữ liệu từ Microsoft Planetary Computer (MPC)
+# Bài 28: Truy cập dữ liệu từ Microsoft Planetary Computer (MPC)
 
 **Microsoft Planetary Computer (MPC)** là nền tảng lưu trữ dữ liệu địa không gian quy mô lớn của Microsoft, cung cấp hàng petabytes dữ liệu vệ tinh miễn phí thông qua giao thức **STAC** (SpatioTemporal Asset Catalog).
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1YslcGkhMOSraKeamuw722b0H5MN6Krix) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1YslcGkhMOSraKeamuw722b0H5MN6Krix) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 27.1. Mục tiêu học tập
+## 28.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài này, bạn có thể:
 
@@ -17,9 +15,9 @@ Sau khi hoàn thành bài này, bạn có thể:
 - **Load dữ liệu** Sentinel-2 dưới dạng `xarray.Dataset` bằng `odc.stac`
 - Truy cập dữ liệu **Landsat** và **Copernicus DEM** từ MPC
 
-## 27.2 Giới thiệu MPC và STAC
+## 28.2 Giới thiệu MPC và STAC
 
-### 27.2.1. Microsoft Planetary Computer (MPC)
+### 28.2.1. Microsoft Planetary Computer (MPC)
 
 MPC là nền tảng dữ liệu địa không gian của Microsoft, cung cấp:
 - `Petabytes` dữ liệu vệ tinh (Sentinel-2, Landsat, MODIS, DEM, Sentinel-1,...)
@@ -27,7 +25,7 @@ MPC là nền tảng dữ liệu địa không gian của Microsoft, cung cấp:
 - Miễn phí truy cập đọc - không cần tài khoản (chỉ cần sign URL)
 - Tích hợp với `Azure Blob Storage` - data gần compute, không phí bandwidth
 
-### 27.2.2. STAC - SpatioTemporal Asset Catalog
+### 28.2.2. STAC - SpatioTemporal Asset Catalog
 
 STAC là tiêu chuẩn mở để mô tả và tìm kiếm dữ liệu địa không gian theo không gian + thời gian:
 
@@ -45,7 +43,7 @@ Catalog
 | **Item** | `S2B_MSIL2A_20230715T...` | 1 cảnh ngày 15/7/2023, bbox, cloud% |
 | **Asset** | `B04.tif`, `B08.tif`, `SCL.tif` | File GeoTIFF thực tế của từng band |
 
-### 27.2.3. So sánh MPC với GEE
+### 28.2.3. So sánh MPC với GEE
 
 | Đặc điểm | MPC | GEE |
 |----------|----------------------------------|------------------------|
@@ -74,7 +72,7 @@ Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo boundi
 bbox = [9.84375   , 47.5172007 , 10.1953125 , 47.75409798]
 ```
 
-## 27.3 Kết nối MPC Catalog và khám phá dữ liệu
+## 28.3 Kết nối MPC Catalog và khám phá dữ liệu
 
 Kết nối tới STAC API của MPC, sau đó liệt kê các bộ dữ liệu phổ biến. Tham số `modifier=planetary_computer.sign_inplace` giúp tự động ký URL khi truy cập asset. Để biết có những bộ dữ liệu nào trong MPC, ta có thể liệt kê chúng ra như ví dụ bên dưới.
 
@@ -94,21 +92,6 @@ print("Các bộ sưu tập có sẵn trên MPC:")
 collections[:5]  # hiển thị 5 bộ sưu tập đầu tiên
 ```
 
-    Tổng số bộ sưu tập trên MPC: 134
-    Các bộ sưu tập có sẵn trên MPC:
-    
-
-
-
-
-    ['daymet-annual-pr',
-     'daymet-daily-hi',
-     '3dep-seamless',
-     '3dep-lidar-dsm',
-     'fia']
-
-
-
 
 ```python
 # Kiểm tra xem có bộ sưu tập Sentinel nào không
@@ -118,22 +101,7 @@ print("Các bộ sưu tập Sentinel trên MPC:")
 sentinel_collections[:5]  # hiển thị 5 bộ sưu tập Sentinel đầu tiên
 ```
 
-    Số bộ sưu tập liên quan đến Sentinel: 16
-    Các bộ sưu tập Sentinel trên MPC:
-    
-
-
-
-
-    ['sentinel-1-rtc',
-     'sentinel-2-l2a',
-     'sentinel-1-grd',
-     'sentinel-5p-l2-netcdf',
-     'sentinel-3-olci-wfr-l2-netcdf']
-
-
-
-## 27.4 Tìm kiếm dữ liệu theo bộ sưu tập
+## 28.4 Tìm kiếm dữ liệu theo bộ sưu tập
 
 Trong phần này, chúng ta sẽ chuẩn bị một số hàm cho phép tìm kiếm ảnh trong một bộ sưu tập theo các điều kiện sau:
 
@@ -209,9 +177,9 @@ def load_data(bbox,
     return data
 ```
 
-## 27.5. Tìm kiếm và đọc dữ liệu Sentinel-2
+## 28.5. Tìm kiếm và đọc dữ liệu Sentinel-2
 
-### 27.5.1. Tìm hiểu về thông tin thuộc tính của dữ liệu Sentinel-2
+### 28.5.1. Tìm hiểu về thông tin thuộc tính của dữ liệu Sentinel-2
 
 Để lọc ảnh theo thông tin thuộc tính, chúng ta cần phải biết có thông tin thuộc tính nào trong bộ sưu tập. Để khám phá thông tin thuộc tính, ta có thể lấy một item từ bộ sưu tập và xem các thuộc tính của nó. Ví dụ, chúng ta có thể lấy item đầu tiên và in ra các thuộc tính của nó để xem có thông tin nào hữu ích để lọc ảnh không.
 
@@ -229,11 +197,7 @@ properties = items[0].properties # Ta  có thể dùng thông tin này để l�
 print(f"Phần trăm che phủ mây của item đầu tiên: {properties.get('eo:cloud_cover', 'Không có thông tin')} %")
 ```
 
-    Số lượng item tìm được: 3
-    Phần trăm che phủ mây của item đầu tiên: 8.31416 %
-    
-
-### 27.5.2. Đọc dữ liệu Sentinel-2
+### 28.5.2. Đọc dữ liệu Sentinel-2
 
 Sử dụng hàm đã viết sẵn bên trên để load ảnh Sentinel-2 theo giới hạn không gian và thời gian và độ bao phủ mây.
 
@@ -243,10 +207,7 @@ sen2col = load_data(bbox, collection_id="sentinel-2-l2a", start_date='2020-06-01
 print(f"Số lượng ảnh Sentinel-2 tìm thấy cho khu vực nghiên cứu: {len(sen2col.time)}")
 ```
 
-    Số lượng ảnh Sentinel-2 tìm thấy cho khu vực nghiên cứu: 3
-    
-
-### 27.5.3. Loại bỏ mây ảnh Sentinel-2
+### 28.5.3. Loại bỏ mây ảnh Sentinel-2
 
 Để loại bỏ mây trong Sentinel-2, chúng ta sử dụng Scene Classification Layer (SCL) để xác định các pixel bị che phủ bởi mây và bóng mây. Các giá trị SCL tương ứng với mây và bóng mây là 2, 3, 7, 8, và 9. Chúng ta tạo một mặt nạ đám mây bằng cách gán giá trị `NaN` cho các pixel bị che phủ và giữ nguyên giá trị cho các pixel không bị che phủ. Sau đó, chúng ta nhân dữ liệu gốc với mặt nạ này để loại bỏ ảnh hưởng của mây trong phân tích tiếp theo.
 
@@ -287,10 +248,7 @@ sen2mask = generate_sen2cloud_mask(sen2col, cloud_band="SCL")
 print(f"Các bands trong dữ liệu sau khi áp dụng cloud mask: {list(sen2mask.data_vars)}")
 ```
 
-    Các bands trong dữ liệu sau khi áp dụng cloud mask: ['AOT', 'B01', 'B02', 'B03', 'B04', 'B05', 'B06', 'B07', 'B08', 'B09', 'B11', 'B12', 'B8A', 'WVP', 'visual']
-    
-
-## 27.6 Tìm kiếm và đọc dữ liệu Copernicus DEM 30m
+## 28.6 Tìm kiếm và đọc dữ liệu Copernicus DEM 30m
 
 Bộ dữ liệu `cop-dem-glo-30` cung cấp Digital Elevation Model (DEM) toàn cầu 30m. Chúng ta có thể truy cập vào đọc dữ liệu này như bên dưới.
 
@@ -307,9 +265,6 @@ search = catalog.search(
 items = search.item_collection()
 print(f"Số lượng ảnh DEM tìm thấy cho khu vực nghiên cứu: {len(items)}")
 ```
-
-    Số lượng ảnh DEM tìm thấy cho khu vực nghiên cứu: 2
-    
 
 
 ```python

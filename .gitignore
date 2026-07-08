@@ -8,6 +8,6 @@ __pycache__/
 /ppts
 /notebooks/notebook2markdown.ipynb
 
-# /data
 .vscode/
 /notebooks/
+/data/

@@ -2,9 +2,7 @@
 
 GeoPandas là thư viện mạnh mẽ nhất cho phân tích dữ liệu địa không gian trong Python, kết hợp sức mạnh của pandas và Shapely để mang đến trải nghiệm xử lý dữ liệu GIS hoàn hảo.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1QJjw-5dmbrj6kO3Dm_XMYilZJpnjk22t) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1QJjw-5dmbrj6kO3Dm_XMYilZJpnjk22t) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 15.1. Mục tiêu học tập
 
@@ -44,13 +42,6 @@ geo_series = gpd.GeoSeries([
 print(f"Kiểu dữ liệu GeoSeries:\n{geo_series}\n")
 ```
 
-    Kiểu dữ liệu GeoSeries:
-    0    POINT (105.85 21.02)
-    1    POINT (106.63 10.77)
-    dtype: geometry
-    
-    
-
 ### 15.2.2. Tạo GeoDataFrame từ dictionary
 
 Tạo GeoDataFrame từ DataFrame và cột geometry giúp chúng ta dễ dàng làm việc với dữ liệu địa lý trong Python. Bằng cách sử dụng geopandas, chúng ta có thể tận dụng các tính năng mạnh mẽ của thư viện này để phân tích và trực quan hóa dữ liệu không gian một cách hiệu quả.
@@ -81,60 +72,6 @@ gdf = gpd.GeoDataFrame(
 gdf.head(2)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>city</th>
-      <th>province</th>
-      <th>region</th>
-      <th>population</th>
-      <th>is_port_city</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Hà Nội</td>
-      <td>Hà Nội</td>
-      <td>Miền Bắc</td>
-      <td>8246600</td>
-      <td>False</td>
-      <td>POINT (105.8542 21.0285)</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>TP.HCM</td>
-      <td>TP.HCM</td>
-      <td>Miền Nam</td>
-      <td>8993082</td>
-      <td>True</td>
-      <td>POINT (106.6297 10.8231)</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 ### 15.2.3. Tạo GeoDataFrame từ list
 
 Ngoài việc tạo GeoDataFrame từ dictionary, bạn có thể tạo trực tiếp từ list các đối tượng geometry. Phương pháp này đặc biệt hữu ích khi bạn đã có sẵn các đối tượng Shapely geometry (như Polygon, LineString) và muốn chuyển chúng thành GeoDataFrame để phân tích. Bạn chỉ cần truyền list geometry vào tham số `geometry` và chỉ định CRS. Sau đó có thể thêm các cột thuộc tính khác bằng cách gán trực tiếp như pandas DataFrame.
@@ -164,48 +101,6 @@ polygon["landcover"] = ["Urban", "Urban", "Rural", "Rural", "Urban", "Urban", "R
 polygon.head(2)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>geometry</th>
-      <th>landcover</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>POLYGON ((105 20, 106 20, 106 21, 105 21, 105 ...</td>
-      <td>Urban</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>POLYGON ((106 10, 107 10, 107 11, 106 11, 106 ...</td>
-      <td>Urban</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 ## 15.3. Đọc và Lưu Dữ liệu Địa không gian
 
 GeoPandas có thể đọc và ghi hơn **20 định dạng** địa không gian khác nhau. Đây là kỹ năng thiết yếu cho công việc thực tế. Trong phần này, chúng ta sẽ khám phá đọc và ghi các loại dữ liệu chính trong GIS.
@@ -231,43 +126,6 @@ districts['area_km2'] = districts.geometry.area/1e6  # Chuyển từ m2 sang km2
 districts.head(2)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>geometry</th>
-      <th>area_km2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>POLYGON ((561151.12 2356095.551, 561139.961 23...</td>
-      <td>8.33682</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 - **Đọc dữ liệu từ `url`**
 
 GeoPandas cho phép đọc dữ liệu trực tiếp từ URL mà không cần tải về máy trước. Điều này rất tiện lợi khi làm việc với các data repositories công khai như GADM (Global Administrative Areas), Natural Earth, hoặc các API GIS. Dữ liệu được stream và parse trực tiếp vào GeoDataFrame. Phương pháp này giúp tiết kiệm không gian lưu trữ và đảm bảo bạn luôn làm việc với phiên bản dữ liệu mới nhất từ nguồn.
@@ -278,78 +136,6 @@ GeoPandas cho phép đọc dữ liệu trực tiếp từ URL mà không cần t
 vietnam_data = gpd.read_file('https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_VNM_1.json')
 vietnam_data.head(2)
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>GID_1</th>
-      <th>GID_0</th>
-      <th>COUNTRY</th>
-      <th>NAME_1</th>
-      <th>VARNAME_1</th>
-      <th>NL_NAME_1</th>
-      <th>TYPE_1</th>
-      <th>ENGTYPE_1</th>
-      <th>CC_1</th>
-      <th>HASC_1</th>
-      <th>ISO_1</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>VNM.1_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>AnGiang</td>
-      <td>AnGiang</td>
-      <td>NA</td>
-      <td>Tỉnh</td>
-      <td>Province</td>
-      <td>NA</td>
-      <td>VN.AG</td>
-      <td>VN-44</td>
-      <td>MULTIPOLYGON (((105.5486 10.4295, 105.5495 10....</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>VNM.7_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>BàRịa-VũngTàu</td>
-      <td>BaRia-VungTau</td>
-      <td>NA</td>
-      <td>Tỉnh</td>
-      <td>Province</td>
-      <td>NA</td>
-      <td>VN.BV</td>
-      <td>NA</td>
-      <td>MULTIPOLYGON (((107.0901 10.324, 107.0889 10.3...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 ### 15.3.2. Viết dữ liệu
 
@@ -410,48 +196,6 @@ province = province.rename(columns={'VARNAME_1': 'province'})
 province.head(2)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>province</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>AnGiang</td>
-      <td>MULTIPOLYGON (((105.5486 10.4295, 105.5495 10....</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>BaRia-VungTau</td>
-      <td>MULTIPOLYGON (((107.0901 10.324, 107.0889 10.3...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 ### 15.4.1. Tạo buffer
 
 Trước khi tạo buffer, chúng ta nên chuyển dữ liệu qua hệ tọa độ UTM cho độ chính xác cao hơn.
@@ -469,41 +213,6 @@ vinhphuc_buffer_gdf = gpd.GeoDataFrame(geometry=vinhphuc_buffer, crs='EPSG:32648
 vinhphuc_buffer_gdf.head(2)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>61</th>
-      <td>POLYGON ((534128.869 2379245.172, 534157.041 2...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 ### 15.4.2. Sử dụng phép join giữa hai `GeoDataFrame`
 
 Spatial join là phép toán kết hợp hai GeoDataFrames dựa trên mối quan hệ không gian giữa các geometries, không phải dựa vào key chung như database join thông thường. `gpd.sjoin()` (spatial join) cho phép bạn tìm các features từ GeoDataFrame này mà có quan hệ không gian với features từ GeoDataFrame kia. Các predicates phổ biến: `intersects` (giao nhau), `within` (nằm trong), `contains` (chứa), `touches` (chạm). Ví dụ, tìm tất cả các huyện nằm trong một tỉnh bằng cách join districts với province sử dụng predicate `intersects`.
@@ -518,90 +227,6 @@ vinhphuc = vinhphuc.to_crs(districts.crs)
 vinhphuc_districts = gpd.sjoin(vinhphuc, districts, how='inner', predicate='intersects') # ngoài intersects còn có within, contains, touches, crosses, covers, covered_by.
 vinhphuc_districts.head(2)
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>province</th>
-      <th>geometry</th>
-      <th>index_right</th>
-      <th>GID_2</th>
-      <th>GID_0</th>
-      <th>COUNTRY</th>
-      <th>GID_1</th>
-      <th>NAME_1</th>
-      <th>NL_NAME_1</th>
-      <th>NAME_2</th>
-      <th>VARNAME_2</th>
-      <th>NL_NAME_2</th>
-      <th>TYPE_2</th>
-      <th>ENGTYPE_2</th>
-      <th>CC_2</th>
-      <th>HASC_2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>61</th>
-      <td>VinhPhuc</td>
-      <td>MULTIPOLYGON (((105.5713 21.1615, 105.5336 21....</td>
-      <td>250</td>
-      <td>VNM.27.23_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>VNM.27_1</td>
-      <td>HàNội</td>
-      <td>NA</td>
-      <td>SócSơn</td>
-      <td>SocSon</td>
-      <td>NA</td>
-      <td>Huyện</td>
-      <td>District</td>
-      <td>NA</td>
-      <td>VN.NB.HL</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>VinhPhuc</td>
-      <td>MULTIPOLYGON (((105.5713 21.1615, 105.5336 21....</td>
-      <td>615</td>
-      <td>VNM.56.4_1</td>
-      <td>VNM</td>
-      <td>Vietnam</td>
-      <td>VNM.56_1</td>
-      <td>TháiNguyên</td>
-      <td>NA</td>
-      <td>PhổYên</td>
-      <td>PhoYen</td>
-      <td>NA</td>
-      <td>Thịxã</td>
-      <td>Town</td>
-      <td>NA</td>
-      <td>VN.TV.TI</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 ## Tóm tắt
 

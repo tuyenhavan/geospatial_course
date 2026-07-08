@@ -1,12 +1,10 @@
-# Bài 22: Loại bỏ mây trên ảnh (GEE)
+# Bài 23: Loại bỏ mây trên ảnh (GEE)
 
 Loại bỏ mây là bước tiền xử lý quan trọng trong mọi phân tích viễn thám. Trong bài này ta học cách đọc và áp dụng **QA bits**, thông tin chất lượng pixel được cung cấp sẵn bởi mỗi sản phẩm vệ tinh.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1iqyx8fUymOAuYfyZcQ1q2NbL_j_-aMUg) mà không cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1iqyx8fUymOAuYfyZcQ1q2NbL_j_-aMUg) mà không cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 22.1. Mục tiêu học tập
+## 23.1. Mục tiêu học tập
 
 Sau bài này bạn có thể:
 
@@ -21,7 +19,7 @@ import ee
 import geemap
 
 ee.Authenticate()  # Chỉ cần chạy lần đầu để xác thực tài khoản GEE
-ee.Initialize() # Khởi tạo GEE sau khi đã xác thực
+ee.Initialize(project='geocourse-501706') # Khởi tạo GEE sau khi đã xác thực
 ```
 
 Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo bounding bên dưới và khoảng thời gian từ tháng 6 đến tháng 9 năm 2025. Bạn có thể thay đổi vị trí và thời gian phù hợp với yêu cầu của bạn.
@@ -37,7 +35,7 @@ start_date = '2025-06-01'
 end_date = '2025-09-30'
 ```
 
-## 22.2. Loại bỏ mây với dữ liệu Sentinel-2
+## 23.2. Loại bỏ mây với dữ liệu Sentinel-2
 
 Mỗi một bức ảnh vệ tinh chụp vào thời gian khác nhau, và chứa mây phủ hoặc chất lượng khác nhau. Do vậy, ý tưởng là chúng ta sẽ truy cập vào mỗi ảnh, lấy ra thông tin về chất lượng pixel của ảnh đó, và đưa chúng về dạng nhị phân 0 và 1 (1: không mây và 0: có mây) và sau đó sẽ xóa bỏ phần có mây nơi mà giá trị pixel là 0. Để thực hiện được ý tưởng này, thông thường ta sẽ viết 1 hàm để loại bỏ mây cho 1 bức ảnh, sau đó sẽ `map` hàm đó cho tất cả các bức ảnh trong bộ sưu tập.
 
@@ -94,32 +92,6 @@ def mask_sen2cloud_scl(image):
 ```
 
 
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
-
 ```python
 # Áp dụng phương pháp QA60 để lọc mây cho Sentinel-2 SR
 sen2col_qa60 = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
@@ -139,37 +111,7 @@ sen2col_scl = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
 print('Số lượng ảnh sau khi lọc SCL:', sen2col_scl.size().getInfo())
 ```
 
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
-    Số lượng ảnh sau khi lọc QA60: 8
-    Số lượng ảnh sau khi lọc SCL: 8
-    
-
-## 22.3. Loại bỏ mây với dữ liệu Landsat 8/9
+## 23.3. Loại bỏ mây với dữ liệu Landsat 8/9
 
 Việc loại bỏ mây trong dữ liệu Landsat 8/9 Collection 2 Level-2 được thực hiện bằng cách sử dụng các bit chất lượng trong băng `QA_PIXEL` để nhận diện và loại bỏ các pixel bị ảnh hưởng bởi mây, mây giãn nở (dilated cloud) và bóng mây. Đồng thời, băng `QA_RADSAT` được sử dụng để loại bỏ các pixel bị bão hòa tín hiệu. Sau khi áp dụng mặt nạ chất lượng bằng hàm `updateMask()`, các băng phản xạ bề mặt được hiệu chỉnh theo hệ số scale chính thức trước khi đưa vào phân tích.
 
@@ -220,36 +162,7 @@ landsat_cloudmasked = landsat_col.map(mask_landsat_clouds)
 print('Số lượng ảnh Landsat sau khi lọc:', landsat_cloudmasked.size().getInfo())
 ```
 
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
-    Số lượng ảnh Landsat sau khi lọc: 11
-    
-
-## 22.4. Loại bỏ mây với dữ liệu MODIS
+## 23.4. Loại bỏ mây với dữ liệu MODIS
 
 Việc loại bỏ mây trong dữ liệu MODIS được thực hiện bằng cách trích xuất các bit chất lượng từ băng QA để tạo mặt nạ nhị phân (binary mask). Các pixel bị ảnh hưởng bởi mây hoặc không đạt chất lượng được đánh dấu trong mặt nạ và loại bỏ thông qua hàm updateMask(). Kết quả là chỉ các pixel có chất lượng tốt được giữ lại cho các bước phân tích tiếp theo.
 
@@ -284,66 +197,11 @@ def mask_cloud(col, from_bit, to_bit, QA_band, threshold=1):
 ```
 
 
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
-
 ```python
 modis = ee.ImageCollection("MODIS/061/MOD13A2").filterBounds(roi).filterDate(start_date, end_date)
 modis_masked = mask_cloud(modis, from_bit=0, to_bit=1, QA_band='state_1km', threshold=0)
 print('Số lượng ảnh MODIS sau khi lọc:', modis_masked.size().getInfo())
 ```
-
-
-
-<style>
-    .geemap-dark {
-        --jp-widgets-color: white;
-        --jp-widgets-label-color: white;
-        --jp-ui-font-color1: white;
-        --jp-layout-color2: #454545;
-        background-color: #383838;
-    }
-
-    .geemap-dark .jupyter-button {
-        --jp-layout-color3: #383838;
-    }
-
-    .geemap-colab {
-        background-color: var(--colab-primary-surface-color, white);
-    }
-
-    .geemap-colab .jupyter-button {
-        --jp-layout-color3: var(--colab-primary-surface-color, white);
-    }
-</style>
-
-
-
-    Số lượng ảnh MODIS sau khi lọc: 7
-    
 
 ## Tóm tắt
 

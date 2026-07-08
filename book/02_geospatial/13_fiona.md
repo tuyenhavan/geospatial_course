@@ -2,9 +2,7 @@
 
 Fiona cung cấp giao diện Python đơn giản, đáng tin cậy và hiệu quả để làm việc với các tệp dữ liệu không gian địa lý. Được xây dựng trên nền tảng OGR (một phần của GDAL), Fiona tập trung hoàn toàn vào việc xử lý dữ liệu vector và là thư viện I/O nền tảng cho GeoPandas.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10AskmkiK2lrTNQCCDXs1uDk39Llytn21) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10AskmkiK2lrTNQCCDXs1uDk39Llytn21) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 13.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -159,14 +157,6 @@ with fiona.open(geojson_file, 'r') as src:
             break
 ```
 
-    name: str
-    type: str
-    population: int32
-    area_km2: float
-    region: str
-    density: float
-    
-
 ## 13.3. Lọc thông tin và chuyển đổi format
 
 Đọc hiệu quả tập con dữ liệu dựa trên tiêu chí không gian và thuộc tính.
@@ -188,11 +178,6 @@ with fiona.open(geojson_file, 'r') as src:
 
 print(f"→ Tìm thấy {len(large_cities)} thành phố lớn")
 ```
-
-    🏙️ Hà Nội: 8,435,700 người
-    🏙️ TP. Hồ Chí Minh: 9,077,158 người
-    → Tìm thấy 2 thành phố lớn
-    
 
 ### 13.3.2. Đổi từ `geojson` sang `shapefile`
 

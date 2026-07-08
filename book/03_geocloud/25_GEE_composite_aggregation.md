@@ -1,12 +1,10 @@
-# Bài 24: Tổng hợp ảnh theo giai đoạn (GEE)
+# Bài 25: Tổng hợp ảnh theo giai đoạn (GEE)
 
 Tổng hợp ảnh là kỹ thuật kết hợp nhiều ảnh thành một ảnh đại diện cho một giai đoạn (tháng, mùa, năm). Kĩ thuật này giúp giảm ảnh hưởng của mây và cung cấp dữ liệu đầu vào ổn định hơn cho các phân tích không gian.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ZrYGW8CUmUvAlBx5gwMvbS6L_b2qEo86) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ZrYGW8CUmUvAlBx5gwMvbS6L_b2qEo86) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-## 24.1. Mục tiêu học tập
+## 25.1. Mục tiêu học tập
 
 Sau bài này bạn có thể:
 
@@ -21,7 +19,7 @@ import ee
 import geemap
 
 ee.Authenticate()
-ee.Initialize()
+ee.Initialize(project='geocourse-501706')
 ```
 
 
@@ -89,8 +87,8 @@ end_date = '2025-09-30'
 
 
 
-## 24.2. Phương pháp tổng hợp ảnh theo thời gian
-### 24.2.1. Các phương pháp tổng hợp ảnh phổ biến
+## 25.2. Phương pháp tổng hợp ảnh theo thời gian
+### 25.2.1. Các phương pháp tổng hợp ảnh phổ biến
 Tổng hợp dữ liệu ảnh theo thời gian là phương pháp chia chuỗi ảnh thành các giai đoạn xác định (tháng, mùa hoặc một khoảng thời gian nghiên cứu cụ thể) và thu thập tất cả ảnh trong từng giai đoạn đó. Sau khi loại bỏ mây, các ảnh trong cùng một giai đoạn được tổng hợp thành một ảnh đại diện thông qua các phép thống kê như trung bình (mean), trung vị (median), giá trị lớn nhất (max) hoặc nhỏ nhất (min). Phương pháp này giúp giảm nhiễu, hạn chế ảnh hưởng của dữ liệu thiếu và phản ánh đặc trưng bề mặt ổn định hơn theo thời gian. Dưới đây là các phương pháp thống kê phổ biến cho tổng hợp ảnh theo thời gian có sẵn tỏng GEE. 
 | Phương pháp | Hàm trong GEE | Ưu điểm | Nhược điểm / Lưu ý |
 |-------------|-----------|---------|-------------------|
@@ -103,7 +101,7 @@ Tổng hợp dữ liệu ảnh theo thời gian là phương pháp chia chuỗi 
 ```
 
 
-### 24.2.2. Ý tưởng thực hiện tổng hợp ảnh trong GEE
+### 25.2.2. Ý tưởng thực hiện tổng hợp ảnh trong GEE
 
 Trong Google Earth Engine, việc tổng hợp ảnh theo giai đoạn thời gian được thực hiện bằng cách xác định thời gian bắt đầu và kết thúc của bộ dữ liệu, sau đó tạo một danh sách các mốc thời gian bắt đầu theo bước nhảy phù hợp với giai đoạn mong muốn (ví dụ: 1 tháng, 1 năm hoặc 1 mùa). Mỗi mốc thời gian được sử dụng để xác định khoảng thời gian tổng hợp tương ứng, từ đó trích xuất và tổng hợp các ảnh trong khoảng đó bằng các phép thống kê như trung bình (mean), trung vị (median), giá trị lớn nhất (max) hoặc nhỏ nhất (min). Cuối cùng, các ảnh đại diện của từng giai đoạn được gộp thành một `ImageCollection` để phục vụ phân tích chuỗi thời gian.
 
@@ -197,7 +195,7 @@ def yearly_datetime_list(first_date, latest_date):
 
 
 
-## 24.3. Tổng hợp ảnh Sentinel-2 theo thời gian
+## 25.3. Tổng hợp ảnh Sentinel-2 theo thời gian
 
 Trong mục này, chúng ta sẽ học cách tổng hợp ảnh Sentinel-2 theo các thời gian, giai đoạn khác nhau. Để tiết kiệm thời gian, chúng ta sẽ không loại bỏ mây. Nếu bạn muốn loại bỏ mây, bạn có thể xem lại Bài 22, và sau đó tổng hợp ảnh bình thường như nhưng phương pháp bên dưới. Các bạn có thể mổ rộng code sau cho các bộ dữ liệu khác như Landsat hoặc MODIS.
 
@@ -235,7 +233,7 @@ sen2col = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
 
 
 
-### 24.3.1. Tổng hợp ảnh Sentinel-2 theo tháng
+### 25.3.1. Tổng hợp ảnh Sentinel-2 theo tháng
 
 Trong ví dụ này, chúng ta đã tạo ra một bộ sưu tập ảnh tổng hợp hàng tháng bằng cách lấy giá trị trung bình của các ảnh trong mỗi tháng. Bạn có thể thay đổi phương pháp tổng hợp (ví dụ: median, min, max) hoặc khoảng thời gian (ví dụ: hàng năm) tùy theo nhu cầu phân tích của bạn.
 
@@ -297,7 +295,7 @@ print('Số lượng ảnh sau khi tổng hợp theo tháng:', sen2col_monthly_c
     Số lượng ảnh sau khi tổng hợp theo tháng: 27
     
 
-### 24.3.2. Tổng hợp ảnh Sentinel-2 theo mùa
+### 25.3.2. Tổng hợp ảnh Sentinel-2 theo mùa
 
 Trong ví dụ này, chúng ta tạo ra một bộ sưu tập ảnh tổng hợp theo mùa (mùa hè) bằng cách tính giá trị trung bình mỗi năm theo mùa.
 
@@ -358,7 +356,7 @@ print('Số lượng ảnh sau khi tổng hợp theo mùa hè:', sen2col_summer_
     Số lượng ảnh sau khi tổng hợp theo mùa hè: 3
     
 
-### 24.3.3. Tổng hợp ảnh Sentinel-2 theo năm
+### 25.3.3. Tổng hợp ảnh Sentinel-2 theo năm
 
 Trong ví dụ này, chúng ta tính toán giá trị trung bình của các ảnh trong mỗi năm để tạo ra một bộ sưu tập ảnh tổng hợp hàng năm. Bạn có thể thay đổi phương pháp tổng hợp (ví dụ: median, min, max) hoặc khoảng thời gian (ví dụ: hàng tháng) tùy theo nhu cầu phân tích của bạn.
 
@@ -421,12 +419,12 @@ print('Số lượng ảnh sau khi tổng hợp theo năm:', sen2col_yearly_comp
     Số lượng ảnh sau khi tổng hợp theo năm: 3
     
 
-## 24.4. Tổng hợp ảnh theo thời gian với dữ liệu Landsat
+## 25.4. Tổng hợp ảnh theo thời gian với dữ liệu Landsat
 
 Trong phần này, chúng ta sẽ tổng hợp ảnh theo thời gian sử dụng `.qualityMosaic()` để tạo ra ảnh đại diện có chất lượng cho từng giai đoạn. Phương pháp này hoạt động bằng cách lựa chọn, tại mỗi pixel, giá trị từ ảnh có giá trị cao nhất của một band được chỉ định (ví dụ: NDVI, EVI hoặc một chỉ số chất lượng khác). Sau khi xác định ảnh có giá trị cao nhất tại từng vị trí, tất cả các bands còn lại của pixel đó sẽ được lấy từ cùng một ảnh, giúp tạo ra ảnh tổng hợp giữ được tính nhất quán phổ và hạn chế ảnh hưởng của mây, nhiễu hoặc dữ liệu chất lượng thấp.
 
 
-### 24.4.1. Tính chỉ số NDVI Landsat
+### 25.4.1. Tính chỉ số NDVI Landsat
 
 Tính NDVI cho ảnh Landsat theo AOI và khoảng thời gian đã chọn.
 
@@ -486,7 +484,7 @@ print(f"Thông tin bands của ảnh Landsat 8 sau khi tính NDVI: {ls8col_ndvi.
     Thông tin bands của ảnh Landsat 8 sau khi tính NDVI: ['SR_B1', 'SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6', 'SR_B7', 'SR_QA_AEROSOL', 'ST_B10', 'ST_ATRAN', 'ST_CDIST', 'ST_DRAD', 'ST_EMIS', 'ST_EMSD', 'ST_QA', 'ST_TRAD', 'ST_URAD', 'QA_PIXEL', 'QA_RADSAT', 'NDVI']
     
 
-### 24.4.2. Tổng hợp ảnh Landsat sử dụng `qualityMosaic`
+### 25.4.2. Tổng hợp ảnh Landsat sử dụng `qualityMosaic`
 
 Tổng hợp ảnh theo năm bằng `qualityMosaic` là một phương pháp để tạo ra composite hàng năm bằng cách chọn pixel có giá trị NDVI (hoặc một chỉ số khác) cao nhất trong mỗi năm hoặc giai đoạn. Điều này giúp đảm bảo rằng composite của bạn sẽ đại diện tốt hơn cho điều kiện thực tế của cây trồng hoặc bề mặt đất trong suốt cả năm, đặc biệt là khi có nhiều ảnh bị che phủ bởi mây hoặc có chất lượng kém.
 
@@ -547,11 +545,11 @@ print('Số lượng ảnh sau khi tổng hợp theo năm bằng qualityMosaic:'
     Số lượng ảnh sau khi tổng hợp theo năm bằng qualityMosaic: 3
     
 
-## 24.5. Tổng hợp ảnh ERA-5 Land theo thời gian
+## 25.5. Tổng hợp ảnh ERA-5 Land theo thời gian
 
 ERA5 là tập dữ liệu **tái phân tích khí hậu** (reanalysis) của ECMWF - không phải quan trắc trực tiếp mà là kết hợp mô hình khí hậu + quan trắc thực địa. Có rất phiên bản sản phẩm khác nhau của ERA-5, bạn có tham khảo tại [ECMWF](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview) và [GEE](https://developers.google.com/earth-engine/datasets/tags/era5-land).
 
-### 24.5.1. Tổng hợp ảnh ERA5-Land theo năm
+### 25.5.1. Tổng hợp ảnh ERA5-Land theo năm
 
 ERA5-Land cung cấp dữ liệu khí hậu theo giờ với độ phân giải không gian 9km từ năm 1950 đến hiện tại, bao gồm nhiều biến khí hậu như nhiệt độ không khí (temperature_2m), độ ẩm, lượng mưa, và bốc tán. Khi tổng hợp theo năm, chúng ta thường lấy giá trị trung bình (mean) để tính nhiệt độ trung bình năm hoặc tổng (sum) để tính tổng lượng mưa năm. Vì ERA5-Land có tần suất cập nhật cao (hàng giờ), mỗi năm sẽ có ~8760 ảnh (24 giờ × 365 ngày), do đó việc tổng hợp giúp giảm đáng kể khối lượng dữ liệu và tạo ra các chỉ số khí hậu đại diện cho cả năm phục vụ phân tích xu hướng dài hạn.
 
@@ -627,7 +625,7 @@ print(f"Số lượng ảnh theo năm {era5land_yearly_composite.size().getInfo(
     Số lượng ảnh theo năm 3
     
 
-### 24.5.2. Tổng hợp ảnh ERA5-Land theo tháng
+### 25.5.2. Tổng hợp ảnh ERA5-Land theo tháng
 
 Tổng hợp ERA5-Land theo tháng hữu ích để phân tích biến động khí hậu theo mùa và xác định chu kỳ hàng năm. Có hai cách thực hiện: (1) sử dụng `.map()` với server-side processing - nhanh và khuyên dùng cho dataset lớn, hoặc (2) sử dụng vòng lặp (loop) client-side, trực quan hơn nhưng chậm hơn do phải giao tiếp nhiều lần với server. Trong ví dụ này, chúng ta sử dụng cách 2 để minh họa rõ ràng cách lặp qua từng tháng, tính composite và thêm thuộc tính 'valid' để đếm số lượng ảnh gốc trong mỗi composite. Việc lọc ra những composite có ít nhất 1 ảnh gốc (`valid > 0`) đảm bảo không có composite null trong kết quả cuối cùng.
 

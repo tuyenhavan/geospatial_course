@@ -2,9 +2,7 @@
 
 Trong bài học này, bạn sẽ học cách đọc và ghi files trong Python, bao gồm làm việc với file `CSV`, một định dạng phổ biến cho dữ liệu không gian địa lý.
 
-> **Lưu ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/13N1oR1Jk5YldCrEJ6iq58auX6u2dvXzY) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/13N1oR1Jk5YldCrEJ6iq58auX6u2dvXzY) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 6.1. Mục tiêu học tập
 - Mở, đọc và ghi text files
@@ -100,20 +98,6 @@ with open(outfile, 'r') as csvfile:
 
 Bạn cũng có thể đọc CSV files dưới dạng dictionaries để dễ dàng truy cập các cột theo tên.
 
-
-```python
-file = r'J:\My Drive\geocourse_data\outputs\city_data.csv'
-with open(file, 'r') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        print(f"{row['City']} có dân số {row['Population']} và tọa độ ({row['Latitude']}, {row['Longitude']})")
-```
-
-    Hà Nội có dân số 8860000 và tọa độ (21.0285, 105.8542)
-    TP.HCM có dân số 9420000 và tọa độ (10.8231, 106.6297)
-    Đà Nẵng có dân số 1134000 và tọa độ (16.0544, 108.2022)
-    
-
 ## Tóm tắt
 
 Bạn đã hoàn thành Bài 5 và học được những kỹ năng quan trọng cho việc làm việc với dữ liệu trong Python.
@@ -134,3 +118,17 @@ Bạn đã hoàn thành Bài 5 và học được những kỹ năng quan trọn
 - Quản lý và tổ chức dữ liệu không gian địa lý
 - Xử lý dữ liệu thô từ các nguồn khác nhau
 - Chuẩn bị dữ liệu cho các thư viện geospatial như GeoPandas
+
+
+```python
+file = r'J:\My Drive\geocourse_data\outputs\city_data.csv'
+with open(file, 'r') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        print(f"{row['City']} có dân số {row['Population']} và tọa độ ({row['Latitude']}, {row['Longitude']})")
+```
+
+    Hà Nội có dân số 8860000 và tọa độ (21.0285, 105.8542)
+    TP.HCM có dân số 9420000 và tọa độ (10.8231, 106.6297)
+    Đà Nẵng có dân số 1134000 và tọa độ (16.0544, 108.2022)
+    

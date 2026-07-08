@@ -1,14 +1,10 @@
-# Bài 28: Tính toán chỉ số thực vật với MPC
+# Bài 29: Tính toán chỉ số thực vật với MPC
 
 Trong bài  học này, chúng ta sẽ tập trung vào **xử lý dữ liệu** đã load từ MPC: tính toán các chỉ số thực vật, tổng hợp ảnh theo giai đoạn. 
 
-> **Yêu cầu:** `pip install pystac-client planetary-computer odc-stac geopandas`
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
-
-## 28.1. Mục tiêu học tập
+## 29.1. Mục tiêu học tập
 
 Sau khi hoàn thành bài này, bạn có thể:
 
@@ -98,7 +94,7 @@ def load_data(bbox,
     return data
 ```
 
-## 28.2. Tìm kiếm và đọc dữ liệu Sentinel-2
+## 29.2. Tìm kiếm và đọc dữ liệu Sentinel-2
 
 Sentinel-2 là hệ thống vệ tinh quan sát Trái Đất phát triển và quản lý bởi ESA cung cấp ảnh đa phổ độ phân giải cao, phục vụ theo dõi môi trường, nông nghiệp và biến động bề mặt đất trên phạm vi toàn cầu. Thông tin chi tiết về số lượng kênh màu, độ phân giải, và các phiên bản khác nhau tại [link](https://developers.google.com/earth-engine/datasets/catalog/sentinel-2). Bên dưới ta xác định khu vực nghiên cứu theo `bbox` như bên dưới.
 
@@ -114,14 +110,11 @@ sen2data = load_data(
 print(f"Số lượng ảnh Sentinel-2 tìm thấy cho khu vực nghiên cứu: {len(sen2data.time)}")
 ```
 
-    Số lượng ảnh Sentinel-2 tìm thấy cho khu vực nghiên cứu: 3
-    
-
-## 28.3. Tính toán chỉ số thực vật từ ảnh Sentinel-2
+## 29.3. Tính toán chỉ số thực vật từ ảnh Sentinel-2
 
 Sentinel-2 cung cấp các dải phổ NIR và red-edge có độ phân giải cao, rất phù hợp để tính toán các chỉ số thực vật như NDVI, EVI, SAVI và theo dõi sức khỏe cây trồng theo thời gian. Trong phần này, chúng ta sẽ tính các chỉ số: NDVI, EVI, SAVI.
 
-### 28.3.1. Chỉ số NDVI
+### 29.3.1. Chỉ số NDVI
 
 NDVI là chỉ số thực vật được tính từ phản xạ của dải đỏ (Red, B04) và cận hồng ngoại (NIR, B08), dùng để đánh giá mức độ xanh, sức khỏe và mật độ thảm thực vật. Giá trị NDVI dao động từ -1 đến 1, trong đó giá trị càng cao cho thấy thực vật càng phát triển khỏe mạnh và có hoạt động quang hợp mạnh. NDVI được ứng dụng rộng rãi trong giám sát cây trồng, rừng và biến động thảm thực vật.
 
@@ -134,16 +127,7 @@ first_ndvi = ndvi.isel(time=0)
 print(f'Giá trị NDVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: {first_ndvi.mean().compute().item():.4f}')
 ```
 
-    Giá trị NDVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: 0.6590
-    
-
-    c:\Users\tuyen\miniconda3\envs\geomap\Lib\site-packages\dask\_task_spec.py:759: RuntimeWarning: divide by zero encountered in divide
-      return self.func(*new_argspec)
-    c:\Users\tuyen\miniconda3\envs\geomap\Lib\site-packages\numpy\_core\fromnumeric.py:86: RuntimeWarning: invalid value encountered in reduce
-      return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
-    
-
-### 28.3.2. Tính toán chỉ số EVI
+### 29.3.2. Tính toán chỉ số EVI
 
 EVI là chỉ số thực vật được phát triển nhằm cải thiện khả năng theo dõi thảm thực vật trong các khu vực có mật độ cây xanh cao. EVI sử dụng thêm dải xanh lam (Blue) để giảm ảnh hưởng của khí quyển và hạn chế hiện tượng bão hòa tín hiệu thường gặp ở NDVI. Nhờ đó, EVI phản ánh chính xác hơn tình trạng sinh trưởng, sức khỏe và biến động của thảm thực vật, đặc biệt trong các khu rừng hoặc vùng có sinh khối lớn.
 
@@ -154,10 +138,7 @@ first_evi = evi.isel(time=0)
 print(f'Giá trị EVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: {first_evi.mean().compute().item():.4f}')
 ```
 
-    Giá trị EVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: nan
-    
-
-### 28.3.3. Tính toán chỉ số SAVI
+### 29.3.3. Tính toán chỉ số SAVI
 
 SAVI là chỉ số thực vật được thiết kế để giảm ảnh hưởng của nền đất trong quá trình đánh giá thảm thực vật. SAVI đặc biệt hiệu quả ở những khu vực có mật độ thực vật thưa hoặc đất trống chiếm tỷ lệ lớn, giúp phản ánh chính xác hơn tình trạng sinh trưởng và độ che phủ của cây xanh so với NDVI.
 
@@ -167,14 +148,11 @@ savi = (sen2data['B08']-sen2data['B04'])*(1+0.5)/(sen2data['B08']+sen2data['B04'
 print(f"Giá trị SAVI trung bình cho vùng nghiên cứu cho ngày đầu tiên: {savi.isel(time=0).mean().compute().item():04f}")
 ```
 
-    Giá trị SAVI trung bình cho vùng nghiên cứu cho ngày đầu tiên: 0.988296
-    
-
-## 28.4. Tổng hợp ảnh theo giai đoạn
+## 29.4. Tổng hợp ảnh theo giai đoạn
 
 Sau khi đọc dữ liệu, chúng ta có thể sử dụng kĩ năng từ xarray để tính toán chỉ số thực vật hoặc tổng hợp ảnh theo giai đoạn thời gian, ví dụ như tạo composite theo mùa hoặc theo năm. Dưới đây là một số ví dụ về cách thực hiện điều này.
 
-### 28.4.1. Tổng hợp spectral bands theo tháng
+### 29.4.1. Tổng hợp spectral bands theo tháng
 
 Tổng hợp spectral bands theo tháng giúp giảm nhiễu từ mây và tạo ra dữ liệu đại diện cho từng tháng, phù hợp cho phân tích chuỗi thời gian. Sử dụng phương thức `.resample(time="1MS")` của xarray để nhóm dữ liệu theo tháng (MS = Month Start), sau đó áp dụng `.median()` hoặc `.mean()` để tính giá trị đại diện. Median thường được ưu tiên hơn vì ít bị ảnh hưởng bởi outliers (mây sót, nhiễu). Kỹ thuật này rất hữu ích khi làm việc với dữ liệu Sentinel-2 có chu kỳ quay lại 5 ngày, giúp tạo ra monthly composites sạch hơn để phân tích xu hướng thực vật theo mùa.
 
@@ -189,10 +167,6 @@ print(f"Số lượng ảnh khu vực nghiên cứu {len(sen2col.time)}")
 print(f"Các bands trong sen2col {list(sen2col.data_vars)}.")
 ```
 
-    Số lượng ảnh khu vực nghiên cứu 9
-    Các bands trong sen2col ['AOT', 'B01', 'B02', 'B03', 'B04', 'B05', 'B06', 'B07', 'B08', 'B09', 'B11', 'B12', 'B8A', 'SCL', 'WVP', 'visual'].
-    
-
 
 ```python
 # Chọn bands cụ thể 
@@ -202,10 +176,7 @@ print(f"Các bands trong sen2col {list(sen2col.data_vars)}")
 monthly_median = sen2col.resample(time="1MS").median(dim="time")
 ```
 
-    Các bands trong sen2col ['B04', 'B08']
-    
-
-### 28.4.2. Tính NDVI và tổng hợp theo tháng
+### 29.4.2. Tính NDVI và tổng hợp theo tháng
 
 Kết hợp tính toán chỉ số thực vật và tổng hợp theo thời gian là workflow phổ biến trong phân tích viễn thám. Trong ví dụ này, sau khi tính NDVI từ bands B08 và B04, chúng ta tổng hợp giá trị NDVI theo tháng bằng median. Cách tiếp cận này giúp tạo ra chuỗi thời gian NDVI hàng tháng sạch, loại bỏ ảnh hưởng của mây và nhiễu, rất phù hợp để phân tích chu kỳ sinh trưởng cây trồng, theo dõi biến động thảm thực vật theo mùa, hoặc phát hiện xu hướng dài hạn. Kết quả là một DataArray chứa giá trị NDVI đại diện cho mỗi tháng trong khoảng thời gian nghiên cứu.
 
@@ -223,9 +194,6 @@ ndvi = (sen2col['B08']-sen2col['B04'])/(sen2col['B08']+sen2col['B04'])
 monthly_ndvi = ndvi.resample(time="1MS").median(dim="time")
 print(f"Số tháng NDVI {len(monthly_ndvi.time)}")
 ```
-
-    Số tháng NDVI 5
-    
 
 ## Tóm tắt
 

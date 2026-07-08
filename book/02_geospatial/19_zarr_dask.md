@@ -5,9 +5,7 @@ Zarr và Dask tạo thành bộ công cụ mạnh mẽ cho xử lý **big data �
 - **Zarr**: Định dạng lưu trữ mảng nhiều chiều (array) được tối ưu cho cloud, hỗ trợ chunking và compression mạnh mẽ
 - **Dask**: Framework tính toán song song (parallel computing) với lazy evaluation, có thể scale từ laptop đến HPC cluster
 
-> **Lưu Ý**
-> 
-> Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1k_d-Tn5yPkQKqftoxkoizT53c12Gu3D0) mà không cần cài đặt Python. Để tránh làm thay đổi nội dung gốc và thuận tiện cho việc lưu kết quả, hãy tạo một bản sao ( File → Save a copy in Drive ) trước khi chạy và chỉnh sửa mã nguồn trong notebook.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1k_d-Tn5yPkQKqftoxkoizT53c12Gu3D0) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
 
 ## 19.1. Mục tiêu học tập
 
@@ -45,10 +43,6 @@ dask_array = da.from_array(np_array, chunks=(1000, 1000)) # Hiện tại dữ li
 print(f"Đã tạo Dask array với shape: {dask_array.shape} và chunk size: {dask_array.chunksize}")
 print(f"Đây là một Dask array với dtype: {dask_array.dtype} và có {dask_array.npartitions} partitions (chunks).")
 ```
-
-    Đã tạo Dask array với shape: (10000, 10000) và chunk size: (1000, 1000)
-    Đây là một Dask array với dtype: float64 và có 100 partitions (chunks).
-    
 
 ### 29.2.2. Tính toán trên dask
 
