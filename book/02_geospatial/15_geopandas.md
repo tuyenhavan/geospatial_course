@@ -2,7 +2,7 @@
 
 GeoPandas là thư viện mạnh mẽ nhất cho phân tích dữ liệu địa không gian trong Python, kết hợp sức mạnh của pandas và Shapely để mang đến trải nghiệm xử lý dữ liệu GIS hoàn hảo.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1QJjw-5dmbrj6kO3Dm_XMYilZJpnjk22t) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1QJjw-5dmbrj6kO3Dm_XMYilZJpnjk22t) mà không cần cài đặt Python.
 
 ## 15.1. Mục tiêu học tập
 
@@ -53,7 +53,6 @@ vietnam_cities_data = {
     'city': ['Hà Nội', 'TP.HCM', 'Hải Phòng', 'Đà Nẵng', 'Cần Thơ', 'Biên Hòa', 'Huế', 'Nha Trang', 'Buôn Ma Thuột', 'Quy Nhon'],
     'province': ['Hà Nội', 'TP.HCM', 'Hải Phòng', 'Đà Nẵng', 'Cần Thơ', 'Đồng Nai', 'Thừa Thiên Huế', 'Khánh Hòa', 'Đắk Lắk', 'Bình Định'],
     'region': ['Miền Bắc', 'Miền Nam', 'Miền Bắc', 'Miền Trung', 'Miền Nam', 'Miền Nam', 'Miền Trung', 'Miền Trung', 'Miền Trung', 'Miền Trung'],
-    'population': [8246600, 8993082, 2028514, 1134310, 1282937, 1104800, 455230, 423000, 340000, 284000],
     'longitude': [105.8542, 106.6297, 106.6881, 108.2022, 105.7469, 106.8439, 107.5905, 109.1967, 108.0373, 109.2189],
     'latitude': [21.0285, 10.8231, 20.8449, 16.0544, 10.0452, 10.9460, 16.4637, 12.2585, 12.6667, 13.7830],
     'is_port_city': [False, True, True, True, True, False, False, True, False, True],
@@ -118,7 +117,7 @@ Khi làm việc với dữ liệu local, bạn cung cấp đường dẫn tuyệ
 
 ```python
 # Đọc dữ liệu từ local machine
-districts = gpd.read_file(r'G:\My Drive\python\geocourse\data\vector\subset_polygon.geojson')
+districts = gpd.read_file(r"J:\My Drive\geocourse_data\vector\vinhphuc_districts.geojson")
 # Chuyển crs từ 4326 sang 32648 (UTM 48N)
 districts = districts.to_crs(epsg=32648)
 # Thêm cột diện tích 
@@ -133,8 +132,8 @@ GeoPandas cho phép đọc dữ liệu trực tiếp từ URL mà không cần t
 
 ```python
 # Đọc dữ liệu từ url 
-vietnam_data = gpd.read_file('https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_VNM_1.json')
-vietnam_data.head(2)
+vinhphuc_districts = gpd.read_file('https://raw.githubusercontent.com/tuyenhavan/geodata/refs/heads/main/vector/vinhphuc_districts.geojson')
+vinhphuc_districts.head(2)
 ```
 
 ### 15.3.2. Viết dữ liệu
@@ -148,7 +147,7 @@ GeoJSON là định dạng text-based, dễ đọc và được sử dụng rộ
 
 ```python
 # Lưu dữ liệu ra file GeoJSON
-vietnam_data.to_file(os.path.join(outpath, 'vietnam_provinces.geojson'), driver='GeoJSON')
+vinhphuc_districts.to_file(os.path.join(outpath, 'vinhphuc_districts.geojson'), driver='GeoJSON')
 ```
 
 - **Lưu dữ liệu ra `shapefile`**
@@ -158,7 +157,7 @@ Shapefile là định dạng vector cổ điển và phổ biến nhất trong G
 
 ```python
 # Lưu dữ liệu ra file Shapefile
-vietnam_data.to_file(os.path.join(outpath, 'Vietnam_provincess.shp'), driver='ESRI Shapefile')
+vinhphuc_districts.to_file(os.path.join(outpath, 'vinhphuc_districts.shp'), driver='ESRI Shapefile')
 ```
 
 - **Lưu dữ liệu ra `Parquet` file**
@@ -168,7 +167,7 @@ Parquet là định dạng columnar storage hiệu quả cao, được thiết k
 
 ```python
 # Lưu dữ liệu ra file Parquet
-vietnam_data.to_file(os.path.join(outpath, 'Vietnam_provinces.parquet'), driver='Parquet')
+# vinhphuc_districts.to_file(os.path.join(outpath, 'vinhphuc_districts.parquet'), driver='Parquet')
 ```
 
 - **Lưu dữ liệu ra `GeoPackage`**
@@ -178,7 +177,7 @@ GeoPackage (GPKG) là định dạng container dạng SQLite database, được 
 
 ```python
 # Lưu dữ liệu ra file GeoPackage
-vietnam_data.to_file(os.path.join(outpath, 'Vietnam_provinces.gpkg'), driver='GPKG')
+vinhphuc_districts.to_file(os.path.join(outpath, 'vinhphuc_districts.gpkg'), driver='GPKG')
 ```
 
 ## 15.4. Thao tác và Phân tích Không gian
@@ -188,12 +187,9 @@ Geopandas cho phép người dùng có thể dễ dàng thao tác với dữ li�
 
 ```python
 # Đọc dữ liệu từ url 
-province = gpd.read_file('https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_VNM_1.json')
-# Select two columns 
-province = province[['VARNAME_1', 'geometry']]
-# Rename the column
-province = province.rename(columns={'VARNAME_1': 'province'})
-province.head(2)
+districts = gpd.read_file('https://raw.githubusercontent.com/tuyenhavan/geodata/refs/heads/main/vector/vinhphuc_districts.geojson')
+
+districts.head(2)
 ```
 
 ### 15.4.1. Tạo buffer
@@ -203,14 +199,12 @@ Trước khi tạo buffer, chúng ta nên chuyển dữ liệu qua hệ tọa đ
 
 ```python
 # Chuyển hệ tọa độ từ WGS84 (EPSG:4326) sang UTM 48N (EPSG:32648)
-province_utm = province.to_crs(epsg=32648)
-# Chọn tỉnh vĩnh phúc
-vinhphuc = province_utm[province_utm['province'] == 'VinhPhuc']
+districts = districts.to_crs(epsg=32648)
 # Tạo 1km buffer quanh tỉnh vĩnh phúc
-vinhphuc_buffer = vinhphuc.buffer(1000)  # Buffer 1000 mét (1 km)
+districts_buffer = districts.buffer(1000)  # Buffer 1000 mét (1 km)
 # Chuyển từ GeoSeries sang GeoDataFrame để dễ dàng xử lý
-vinhphuc_buffer_gdf = gpd.GeoDataFrame(geometry=vinhphuc_buffer, crs='EPSG:32648')
-vinhphuc_buffer_gdf.head(2)
+districts_buffer = gpd.GeoDataFrame(geometry=districts_buffer, crs='EPSG:32648')
+districts_buffer.head(2)
 ```
 
 ### 15.4.2. Sử dụng phép join giữa hai `GeoDataFrame`
@@ -219,10 +213,8 @@ Spatial join là phép toán kết hợp hai GeoDataFrames dựa trên mối qua
 
 
 ```python
-# Đọc dữ liệu districts từ url
-districts = gpd.read_file('https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_VNM_2.json')
 # Đảm bảo dữ liệu vinhphuc có cùng hệ tọa độ với districts trước khi join
-vinhphuc = vinhphuc.to_crs(districts.crs)
+vinhphuc = gpd.read_file('https://raw.githubusercontent.com/tuyenhavan/geodata/refs/heads/main/vector/vinhphuc_province.geojson').to_crs(districts.crs)
 # Join dữ liệu tỉnh vĩnh phúc với dữ liệu districts để lấy ra các huyện thuộc tỉnh vĩnh phúc
 vinhphuc_districts = gpd.sjoin(vinhphuc, districts, how='inner', predicate='intersects') # ngoài intersects còn có within, contains, touches, crosses, covers, covered_by.
 vinhphuc_districts.head(2)

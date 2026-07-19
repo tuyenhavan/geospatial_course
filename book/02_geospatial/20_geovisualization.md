@@ -2,7 +2,7 @@
 
 Trực quan hóa dữ liệu địa không gian là bước quan trọng giúp hiểu sâu và truyền đạt thông tin từ dữ liệu bản đồ, ảnh vệ tinh, và các lớp địa lý khác. Các thư viện Python như GeoPandas, Rasterio, Matplotlib, và Xarray cung cấp giải pháp mạnh mẽ để hiển thị, phân tích và so sánh dữ liệu vector, raster, chuỗi thời gian, cũng như kết hợp nhiều lớp dữ liệu trên cùng một biểu đồ.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yCTKGP-y3sXb0fZ1W3COiyChisrXJRIL) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yCTKGP-y3sXb0fZ1W3COiyChisrXJRIL) mà không cần cài đặt Python.
 
 ## 20.1. Mục tiêu học tập
 
@@ -18,6 +18,8 @@ Sau khi hoàn thành bài học này, bạn sẽ có thể:
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+import numpy as np
+import rioxarray as rxr
 ```
 
 ## 20.2. Hiển thị dữ liệu vector
@@ -51,19 +53,12 @@ plt.show()
 
 ## 20.3. Hiển thị dữ liệu raster
 
-Sau khi đã hiểu cách hiển thị dữ liệu vector, bước tiếp theo là làm việc với dữ liệu raster - dạng dữ liệu lưới (grid) như ảnh vệ tinh, dữ liệu nhiệt độ, độ cao, v.v. Trong phần này, chúng ta sẽ hiển thị một lớp dữ liệu raster đơn giản (nhiệt độ từ ERA5) sử dụng RioXarray và Matplotlib. Bạn sẽ học cách chọn băng dữ liệu, áp dụng colormap (bảng màu) phù hợp, và tùy chỉnh legend (thanh màu) để dễ dàng diễn giải giá trị dữ liệu.
-
-
-```python
-import rioxarray as rxr
-```
+Sau khi đã hiểu cách hiển thị dữ liệu vector, bước tiếp theo là làm việc với dữ liệu raster - dạng dữ liệu lưới (grid) như ảnh vệ tinh, dữ liệu nhiệt độ, độ cao, v.v. Trong phần này, chúng ta sẽ hiển thị một lớp dữ liệu raster đơn giản (nhiệt độ từ Terraclimate) sử dụng RioXarray và Matplotlib. Bạn sẽ học cách chọn băng dữ liệu, áp dụng colormap (bảng màu) phù hợp, và tùy chỉnh legend (thanh màu) để dễ dàng diễn giải giá trị dữ liệu.
 
 
 ```python
 # Đọc dữ liệu raster từ URL và hiển thị thông tin cơ bản
-raw_url = "https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/era5_temp_2020_2024_vietnam.tif"
-temp = rxr.open_rasterio(f"/vsicurl/{raw_url}")
-temp.attrs = {}
+temperature = rxr.open_rasterio('https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/vinhphuc_temperature_2020.tif')
 ```
 
 
@@ -71,33 +66,43 @@ temp.attrs = {}
 # Tạo figure và axes
 fig, ax = plt.subplots(figsize=(10, 10))
 # Hiển thị raster với colormap tùy chỉnh
-first = temp[0]  # Chọn băng đầu tiên để hiển thị
-first.plot(ax=ax, cmap='viridis')  # Sử dụng colormap 'viridis' để hiển thị raster
+first = temperature[0]  # Chọn băng đầu tiên để hiển thị
+first.plot(ax=ax, cmap='Spectral_r', add_colorbar=False, vmin=16, vmax=19)  # Sử dụng colormap 'viridis' để hiển thị raster
 # Thêm tiêu đề và nhãn trục
-ax.set_title('MODIS NDVI (2015-2024)', fontsize=14)
+ax.set_title('', fontsize=14)
 ax.set_xlabel('Longitude', fontsize=12) # Thêm nhãn cho trục x
 ax.set_ylabel('Latitude', fontsize=12) # Thêm nhãn cho trục y
 ax.tick_params(axis='both', which='major', labelsize=12) # Tùy chỉnh kích thước chữ trục
+cbar = plt.colorbar(ax.collections[0], ax=ax, orientation='vertical', fraction=0.036, pad=0.04)
+cbar.set_label('Temperature (°C)', fontsize=12)  # Thêm nhãn cho colorbar
+cbar.set_ticks(np.arange(16, 20, 1))  # Đặt ticks cho colorbar
+cbar.ax.tick_params(labelsize=12)  # Tùy chỉnh kích thước chữ cho ticks của colorbar
 plt.show()
 ```
 
 ## 20.4. Hiển thị đồng thời vector và raster trên cùng một biểu đồ
 
-Khi đã nắm vững cách hiển thị từng loại dữ liệu riêng lẻ, bước tiếp theo là kết hợp chúng lại. Phần này minh họa cách chồng lớp dữ liệu vector (ranh giới tỉnh) lên trên lớp dữ liệu raster (nhiệt độ) trong cùng một biểu đồ. Đây là kỹ thuật quan trọng trong phân tích không gian, giúp bạn hiểu được sự phân bố của dữ liệu raster trong bối cảnh địa lý cụ thể. Bạn sẽ thấy rõ nhiệt độ thay đổi như thế nào qua các tỉnh thành khác nhau của Việt Nam.
+Khi đã nắm vững cách hiển thị từng loại dữ liệu riêng lẻ, bước tiếp theo là kết hợp chúng lại. Phần này minh họa cách chồng lớp dữ liệu vector (ranh giới tỉnh) lên trên lớp dữ liệu raster (nhiệt độ) trong cùng một biểu đồ. Đây là kỹ thuật quan trọng trong phân tích không gian, giúp bạn hiểu được sự phân bố của dữ liệu raster trong bối cảnh địa lý cụ thể. 
 
 
 ```python
 # Tạo figure và axes
 fig, ax = plt.subplots(figsize=(10, 10))
+# Doc dữ liệu vector từ URL và tạo bản đồ
+vector = gpd.read_file('https://raw.githubusercontent.com/tuyenhavan/geodata/refs/heads/main/vector/vinhphuc_districts.geojson')
 # Hiển thị raster với colormap tùy chỉnh
-first.plot(ax=ax, cmap='viridis')  # Sử dụng colormap 'viridis' để hiển thị raster
+plot = first.plot(ax=ax, cmap='Spectral_r', add_colorbar=False, vmin=16, vmax=19)  # Sử dụng colormap 'viridis' để hiển thị raster
 # Vẽ đường viền của các tỉnh lên trên raster
-gdf.boundary.plot(ax=ax, edgecolor='black', linewidth=0.5)
+vector.boundary.plot(ax=ax, edgecolor='black', linewidth=0.5)
 # Thêm tiêu đề và nhãn trục
-ax.set_title('MODIS NDVI (2015-2024) with Vietnam Provinces', fontsize=14)
+ax.set_title('Temperature', fontsize=14)
 ax.set_xlabel('Longitude', fontsize=12) # Thêm nhãn cho trục x
 ax.set_ylabel('Latitude', fontsize=12) # Thêm nhãn cho trục y
 ax.tick_params(axis='both', which='major', labelsize=12) # Tùy chỉnh kích thước chữ trục
+cbar = plt.colorbar(plot, ax=ax, orientation='vertical', fraction=0.036, pad=0.04, label='Temperature (°C)')  # Thêm colorbar với nhãn
+# colorbar ticks
+cbar.set_ticks(np.arange(16, 20, 1))  # Đặt ticks cho colorbar
+cbar.ax.tick_params(labelsize=12)  # Tùy chỉnh kích
 plt.show()
 ```
 
@@ -108,27 +113,28 @@ plt.show()
 
 ```python
 # Tạo figure và axes
-fig, axes = plt.subplots(1, 5, figsize=(20, 10), sharex =True, sharey=True)
-# Lấy 4 băng đầu tiên và hiển thị chúng
-for i in range(5):
-    band = temp[i]
-    plot = band.plot(ax=axes[i], cmap='viridis', add_colorbar=False)  # Hiển thị băng mà không thêm colorbar
-    axes[i].set_title('')
-    axes[i].set_xlabel('Longitude', fontsize=10)
-    axes[i].set_ylabel('Latitude', fontsize=10)
-    axes[i].tick_params(axis='both', which='major', labelsize=8)
-    # Vẽ đường viền của các tỉnh lên trên raster
-    gdf.boundary.plot(ax=axes[i], edgecolor='black', linewidth=0.5)
-    if i>0:
-        axes[i].set_ylabel('') # Ẩn nhãn trục y cho các subplot bên phải
-    axes[i].tick_params(axis='both', which='major', labelsize=10) # Tùy chỉnh kích thước chữ trục x
-    # Các bạn có thể thêm điều chỉnh khác như lưới, nhãn trục, v.v. tùy ý
+fig, axes = plt.subplots(3, 4, figsize=(12, 8), sharex =True, sharey=True)
+fig.subplots_adjust(wspace=-0.5)  # Điều chỉnh khoảng cách giữa các subplot
+month_list = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+for i, ax in enumerate(axes.flatten()):
+    band = temperature[i]
+    plot = band.plot(ax=ax, cmap='Spectral_r', add_colorbar=False, vmin=16, vmax=30)  # Hiển thị băng mà không thêm colorbar
+    ax.set_title(f'Band {i+1}', fontsize=10)
+    ax.set_xlabel('Longitude', fontsize=10)
+    ax.set_ylabel('Latitude', fontsize=10)
+    ax.tick_params(axis='both', which='major', labelsize=8)
+    vector.boundary.plot(ax=ax, edgecolor='black', linewidth=0.5)  # Vẽ đường viền của các tỉnh lên trên raster
+    if i<=7:
+        ax.set_xlabel('')  # Xóa nhãn trục x cho các subplot ở hàng dưới cùng
+    if i not in [0,4,8]:
+        ax.set_ylabel('')  # Xóa nhãn trục y cho các subplot không ở cột đầu tiên
+    ax.set_title(f'{month_list[i]}', fontsize=10)  # Thêm tiêu đề tháng cho mỗi subplot
 # Tạo colorbar chung cho tất cả các subplot
 cbar = fig.colorbar(plot, 
                     ax=axes, orientation='horizontal', # Đặt colorbar nằm ngang dưới các subplot
                     pad=0.1, extend='both', shrink=0.6) # shrink để điều chỉnh kích thước colorbar
 
-cbar.set_label('NDVI Value', fontsize=12) # Thêm nhãn cho colorbar
+cbar.set_label('Temperature (C)', fontsize=12) # Thêm nhãn cho colorbar
 plt.show()
 ```
 

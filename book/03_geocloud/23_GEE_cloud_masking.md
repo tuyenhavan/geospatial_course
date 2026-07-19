@@ -2,7 +2,7 @@
 
 Loại bỏ mây là bước tiền xử lý quan trọng trong mọi phân tích viễn thám. Trong bài này ta học cách đọc và áp dụng **QA bits**, thông tin chất lượng pixel được cung cấp sẵn bởi mỗi sản phẩm vệ tinh.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1iqyx8fUymOAuYfyZcQ1q2NbL_j_-aMUg) mà không cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1iqyx8fUymOAuYfyZcQ1q2NbL_j_-aMUg) mà không cài đặt Python.
 
 ## 23.1. Mục tiêu học tập
 
@@ -26,7 +26,7 @@ Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo boundi
 
 
 ```python
-# Bounding box cho vùng nghiên cứu ở Đức
+# Bounding box cho vùng nghiên cứu ở Đức. Bạn có thể thay đổi các giá trị này để phù hợp với khu vực bạn quan tâm.
 bbox = [9.84375   , 47.5172007 , 10.1953125 , 47.75409798]
 # Tạo một đối tượng hình chữ nhật từ bounding box
 roi = ee.Geometry.Rectangle(bbox)
@@ -205,7 +205,7 @@ print('Số lượng ảnh MODIS sau khi lọc:', modis_masked.size().getInfo())
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 22 và nắm vững kỹ thuật loại bỏ mây (cloud masking) - bước tiền xử lý bắt buộc trong mọi phân tích viễn thám quang học trên Google Earth Engine.
+Bạn đã hoàn thành Bài 23 và nắm vững kỹ thuật loại bỏ mây (cloud masking) - bước tiền xử lý bắt buộc trong mọi phân tích viễn thám quang học trên Google Earth Engine.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Lọc mây sử dụng các bộ dữ liệu khác nhau với `QA` band khác nhau.

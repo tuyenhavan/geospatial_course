@@ -2,7 +2,7 @@
 
 RioXArray là thư viện kết hợp sức mạnh của XArray và Rasterio, mang geospatial superpowers đến cho multi-dimensional arrays.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10Slrsif0Y3zfI87ulUHP_gd8jV4QYVnR) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10Slrsif0Y3zfI87ulUHP_gd8jV4QYVnR) mà không cần cài đặt Python.
 
 ## 18.1. Mục tiêu học tập
 
@@ -22,11 +22,11 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 import rioxarray as rxr
-import rasterio
 from rasterio.crs import CRS
 from rasterio.transform import from_bounds
 import matplotlib.pyplot as plt
 import os
+import geopandas as gpd
 ```
 
 ## 18.2. Tạo DataArrays đơn giản với thông tin địa lý
@@ -189,14 +189,13 @@ RioXArray hỗ trợ đa dạng định dạng raster như `GeoTIFF`, `NetCDF`, 
 
 ### 18.4.1. Đọc dữ liệu từ `url`
 
-RioXArray cho phép đọc dữ liệu raster trực tiếp từ URL mà không cần tải về máy tính, giúp tiết kiệm không gian lưu trữ và tăng tốc độ xử lý. Sử dụng tiền tố `/vsicurl/` trước URL để đọc dữ liệu từ các nguồn trực tuyến như GitHub, Google Drive, hoặc các máy chủ lưu trữ file khác. Điều này đặc biệt hữu ích khi làm việc với dữ liệu lớn hoặc khi bạn muốn thử nghiệm nhanh mà không cần tải toàn bộ dữ liệu về máy.
+RioXArray cho phép đọc dữ liệu raster trực tiếp từ URL mà không cần tải về máy tính, giúp tiết kiệm không gian lưu trữ và tăng tốc độ xử lý. Điều này đặc biệt hữu ích khi làm việc với dữ liệu lớn hoặc khi bạn muốn thử nghiệm nhanh mà không cần tải toàn bộ dữ liệu về máy.
 
 
 ```python
 # Đọc dữ liệu raster từ URL và hiển thị thông tin cơ bản
-raw_url = "https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/Vietnam_Temperature_2020.tif"
-temp = rxr.open_rasterio(f"/vsicurl/{raw_url}")
-temp.attrs = {} # Xóa metadata để tránh lỗi khi hiển thị
+raw_url = "https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/vinhphuc_temperature_2020.tif"
+temp = rxr.open_rasterio(raw_url, masked=True)
 ```
 
 ### 18.4.2. Lưu dữ liệu trên máy
@@ -206,7 +205,7 @@ Sau khi xử lý dữ liệu raster, bạn có thể lưu kết quả về máy 
 
 ```python
 # lưu dữ liệu 
-temp.rio.to_raster("output_temperature.tif") 
+temp.rio.to_raster(r"J:\My Drive\geocourse_data\outputs\temperature_2020.tif") 
 ```
 
 ## 18.4. Hệ tọa độ (CRS)
@@ -221,7 +220,7 @@ Có nhiều phương pháp để xác định kích thước pixel và xây dự
 
 
 ```python
-# Tạo dữ liệu raster ngẫu nhiên 100x100 pixel
+# Tạo dữ liệu raster ngẫu nhiên 100x100 pixel cho khu vực theo tọa độ lon, lat
 lon = np.linspace(105.8, 106.4, 100)
 lat = np.linspace(21.0, 21.6, 100)
 data = np.random.rand(100, 100) * 30 + 10  # Dữ liệu nhiệt độ ngẫu nhiên từ 10 đến 40 độ
@@ -281,27 +280,26 @@ print(f"Reprojected CRS: {temperature_4326.rio.crs}")
 
 ### 18.4.3. Chuyển đổi CRS và khớp lưới pixel sử dụng `reproject_match`
 
-`Reproject_match` là một phương pháp trong rioxarray cho phép bạn tái dự án một Dataset hoặc DataArray sao cho nó khớp với hệ tọa độ và phép biến đổi của một đối tượng tham chiếu khác. Điều này rất hữu ích khi bạn có nhiều nguồn dữ liệu với các hệ tọa độ khác nhau và muốn đảm bảo rằng chúng được căn chỉnh chính xác trên bản đồ như kích thước pixels hay trasnform.
+`Reproject_match` là một phương pháp trong rioxarray cho phép bạn tái dự án một Dataset hoặc DataArray sao cho nó khớp với hệ tọa độ và phép biến đổi của một đối tượng tham chiếu khác. Điều này rất hữu ích khi bạn có nhiều nguồn dữ liệu với các hệ tọa độ khác nhau và muốn đảm bảo rằng chúng được căn chỉnh chính xác trên bản đồ như kích thước pixels hay tranform. 
+
+Trong ví dụ này, ta sẽ sử dụng `reproject_match` để khớp dữ liệu 10m với dữ liệu 30m như bên dưới.
 
 
 ```python
-# Dữ liệu raster nhiệt độ hàng năm của Việt Nam từ 2020-2024
-raw_url = "https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/Vietnam_Temperature_2020.tif"
-temp = rxr.open_rasterio(f"/vsicurl/{raw_url}")
-temp.attrs = {} # Xóa metadata để tránh lỗi khi hiển thị
-# Dữ liệu raster Landsat RGBN khu vực Vĩnh Yên, Vĩnh Phúc
-sen2data = rxr.open_rasterio(f"/vsicurl/https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/sen2data.tif")
+# Dữ liệu Sentinel-2 10m 
+raster_10m = rxr.open_rasterio('https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/sen2data.tif')
+# Dữ liệu 30m 
+raster_30m = rxr.open_rasterio('https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/sen2data_30m.tif')
+
+print(f"Raster 10m shape: {raster_10m.shape}, raster 30m: {raster_30m.shape}")
 ```
 
 
 ```python
-# Ví dụ ta cắt dữ liệu raster nhiệt độ theo khu vực Vĩnh Yên, Vĩnh Phúc
-bbox = sen2data.rio.bounds()
-temp_clip = temp.rio.clip_box(*bbox)[0] # Chỉ lấy band đầu tiên nếu có nhiều band
-temp_reproject_match = temp_clip.rio.reproject_match(sen2data) # Reproject và resample để khớp với raster Landsat.
-# In shape trước và sau khi cắt và reprojection
-print(f"Clipped shape: {temp_clip.shape} và Landsat shape: {sen2data.shape}")
-print(f"Reprojected and resampled shape: {temp_reproject_match.shape}")
+# Khớp dữ liệu 10m với dữ liệu 30m bằng cách reprojection và resampling. Đảm bảo crs của hai raster khớp nhau trước khi reprojection. Nếu không, bạn cần reproject một trong hai raster sang crs của raster còn lại trước khi reprojection.
+reproject_data = raster_10m.rio.reproject_match(raster_30m) # Reproject và resample để khớp với raster 30m.
+# Shape của raster sau khi reprojection và resampling
+print(f"Reprojected and resampled shape: {reproject_data.shape}")
 ```
 
 ## 18.5. Clip raster theo vùng
@@ -314,18 +312,19 @@ Clip là kĩ thuật cắt một raster theo một hình học vector (như đa 
 
 
 ```python
-# Đọc dữ liệu bản đồ Việt Nam
-import geopandas as gpd
-vector_path = "https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/vector/subset_polygon.geojson"
-roi = gpd.read_file(vector_path)
-# Đọc dữ liệu nhiệt độ raster từ URL
-raw_url = "https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/Vietnam_Temperature_2020.tif"
-temp = rxr.open_rasterio(f"/vsicurl/{raw_url}")
-temp.attrs = {} # Xóa metadata để tránh lỗi khi hiển thị
-# Clip raster theo ranh giới Vĩnh Phúc
-temp_roi = temp.rio.clip(roi.geometry, roi.crs)
-print(f"Shape sau khi clip theo Vĩnh Phúc: {temp_roi.shape}")
+# Đọc dữ liệu cấp huyện Vĩnh Phúc từ file vector
+districts = gpd.read_file('https://raw.githubusercontent.com/tuyenhavan/geodata/refs/heads/main/vector/vinhphuc_districts.geojson')
+# Đọc dữ liệu MODIS EVI Vĩnh Phúc từ file raster
+evi = rxr.open_rasterio('https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/modis_monthly_evi_vinhphuc_2020_2025.tif')
+# Chọn một huyện nào đó, ví dụ huyện Vĩnh Yên
+vinh_yen = districts[districts['districts'] == 'Vinh Yen']
+# Cắt dữ liệu raster EVI theo khu vực  Vĩnh Yên
+evi_clip = evi.rio.clip(vinh_yen.geometry, vinh_yen.crs, drop=True)
+print(f"Original EVI shape: {evi.shape}, Clipped EVI shape: {evi_clip.shape}")
 ```
+
+    Original EVI shape: (72, 48, 53), Clipped EVI shape: (72, 8, 10)
+    
 
 ### 18.5.2. Cắt raster theo vùng với `rio.clip_box`
 
@@ -333,10 +332,13 @@ Clip theo bounding box sẽ giữ lại tất cả các pixel nằm trong hộp 
 
 
 ```python
-bbox = roi.total_bounds
-temp_roi_bbox = temp.rio.clip_box(*bbox)
-print(f"Shape sau khi clip theo bounding box của Vĩnh Phúc: {temp_roi_bbox.shape}")
+bbox = vinh_yen.total_bounds
+evi_bbox = evi.rio.clip_box(*bbox)
+print(f"Shape sau khi clip theo bounding box của Vĩnh Phúc: {evi_bbox.shape}")
 ```
+
+    Shape sau khi clip theo bounding box của Vĩnh Phúc: (72, 10, 11)
+    
 
 ## 18.6. Resampling và Interpolation
 
@@ -346,27 +348,30 @@ RioXArray cung cấp các phương pháp khác nhau cho việc resampling và n�
 
 Tổng hợp dữ liệu theo giai đoạn thời gian có thể giúp chúng ta hiểu rõ hơn về xu hướng và biến động của các yếu tố môi trường như nhiệt độ, lượng mưa, và chỉ số thực vật (NDVI) trong một khu vực cụ thể. Bằng cách sử dụng rioxarray để xử lý dữ liệu raster và xarray để quản lý dữ liệu đa chiều, chúng ta có thể dễ dàng thực hiện các phép tính tổng hợp như trung bình, tổng, hoặc đếm số lần vượt ngưỡng trong các khoảng thời gian khác nhau, từ đó cung cấp thông tin quan trọng cho việc phân tích không gian và dự báo môi trường.
 
-
-```python
-from datetime import datetime
-
-# Đọc dữ liệu NDVI từ 2020 đến 2024. Dữ liệu 16 ngày một lần, nên có nhiều band tương ứng với các thời điểm khác nhau.
-modis = rxr.open_rasterio(f"/vsicurl/https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/MODIS_NDVI_2020_2024.tif")
-# Datetime của dữ liệu được chứa trong metadata của raster, bạn có thể trích xuất và đưa chúng thành python datetime objects.
-time = [datetime.strptime(":".join(i.split("_")[1:]), '%d:%m:%Y') for i in modis.attrs['long_name']]
-modis.attrs = {} # Xóa metadata để tránh lỗi khi hiển thị
-modis['band'] = time
-# đổi tên dimension band thành time để dễ hiểu hơn
-modis = modis.rename({"band": "time"})
-print(f"MODIS NDVI shape: {modis.shape}")
-```
+- **Gán chiều thời gian cho dữ liệu**
 
 
 ```python
-# Resampling dữ liệu NDVI 16 ngày theo tháng bằng phương pháp mean
-modis_monthly = modis.resample(time="1ME").mean()
-print(f"Shape sau khi resample theo tháng: {modis_monthly.shape}")
+# Đọc dữ liệu EVI từ 2020 đến 2025 tỉnh Vĩnh Phúc. Dữ liệu theo tháng.
+evi = rxr.open_rasterio('https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/modis_monthly_evi_vinhphuc_2020_2025.tif')
+time = pd.date_range("2020-01-01", periods=evi.shape[0], freq="ME")
+# Gán thời gian vào dimension band của raster EVI
+evi['band'] = time
+# Đổi tên dimension band thành time để dễ hiểu hơn
+evi = evi.rename({"band": "time"})
 ```
+
+- **Tổng hợp dữ liệu EVI theo năm**
+
+
+```python
+# Resampling dữ liệu EVI hàng tháng theo năm bằng phương pháp mean
+evi_monthly = evi.resample(time="1YE").mean()
+print(f"Shape sau khi resample theo tháng: {evi_monthly.shape}")
+```
+
+    Shape sau khi resample theo tháng: (6, 48, 53)
+    
 
 ### 18.6.2. Nội suy dữ liệu trống (missing values)
 
@@ -374,24 +379,13 @@ Nội suy dữ liệu trống (missing values) là kĩ thuật trong xử lý d�
 
 
 ```python
-from datetime import datetime
-
-# Đọc dữ liệu NDVI từ 2020 đến 2024. Dữ liệu 16 ngày một lần, nên có nhiều band tương ứng với các thời điểm khác nhau.
-modis = rxr.open_rasterio(f"/vsicurl/https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/MODIS_NDVI_2020_2024.tif")
-# Datetime của dữ liệu được chứa trong metadata của raster, bạn có thể trích xuất và đưa chúng thành python datetime objects.
-time = [datetime.strptime(":".join(i.split("_")[1:]), '%d:%m:%Y') for i in modis.attrs['long_name']]
-modis.attrs = {} # Xóa metadata để tránh lỗi khi hiển thị
-modis['band'] = time
-# đổi tên dimension band thành time để dễ hiểu hơn
-modis = modis.rename({"band": "time"})
-```
-
-
-```python
 # Filled missing values (nếu có) bằng phương pháp linear interpolation
-modis = modis.interpolate_na(dim="time", method="linear")
-print(f"Shape sau khi filled missing values: {modis.shape}")
+evi_filled = evi.interpolate_na(dim="time", method="linear")
+print(f"Shape sau khi filled missing values: {evi.shape}")
 ```
+
+    Shape sau khi filled missing values: (72, 48, 53)
+    
 
 ## 18.7. Tính toán các chỉ số thực vật
 RioXArray cung cấp các công cụ làm việc với multi-band rasters như ảnh viễn thám.
@@ -403,12 +397,14 @@ Chỉ số thực vật NDVI (Normalized Difference Vegetation Index) là một 
 
 ```python
 # Dữ liệu raster Landsat RGBN khu vực Vĩnh Yên, Vĩnh Phúc
-sen2data = rxr.open_rasterio(f"/vsicurl/https://raw.githubusercontent.com/tuyenhavan/geospatial_course/main/data/raster/sen2data.tif")
-print(f"Sentinel-2 shape: {sen2data.shape} và CRS: {sen2data.rio.crs}")
+sen2data = rxr.open_rasterio('https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/sen2data.tif')
 # Tính NDVI. Trong ví dụ này, red band là band 3 và NIR band là band 4 (theo thứ tự trong file raster)
 ndvi = (sen2data[3] - sen2data[2]) / (sen2data[3] + sen2data[2])
 print(f"NDVI shape: {ndvi.shape}")
 ```
+
+    NDVI shape: (500, 500)
+    
 
 ### 18.7.2. Tính chỉ số nước
 
@@ -426,6 +422,10 @@ dataset = xr.concat(
 )
 print(f"Dataset shape sau khi thêm NDVI và NDWI: {dataset.shape}")
 ```
+
+    NDWI shape: (500, 500)
+    Dataset shape sau khi thêm NDVI và NDWI: (6, 500, 500)
+    
 
 ## Tóm tắt
 

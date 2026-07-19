@@ -1,7 +1,9 @@
 # Bài 16: Xử lý Dữ liệu Raster và Ảnh Vệ tinh với Rasterio
 Rasterio là thư viện Python chuyên nghiệp cho việc đọc, ghi và xử lý dữ liệu raster địa lý - từ ảnh vệ tinh đến mô hình độ cao số.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yliKj6v2NIV_HCiYoQXgynCSCe8NNdMv) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1yliKj6v2NIV_HCiYoQXgynCSCe8NNdMv) mà không cần cài đặt Python. 
+>
+> Dữ liệu bài học này có thể tải tại [đây](https://drive.google.com/drive/folders/17Nnmw5TSm3zxacZsHBiZNb5rUdrIiygH?usp=drive_link)
 
 ## 16.1. Mục tiêu học tập
 
@@ -102,7 +104,7 @@ Hiểu cách mở file raster và kiểm tra các thuộc tính cơ bản là n�
 
 ```python
 # Đọc dữ liệu ảnh Landsat RBG + NIR (30m resolution)
-with rasterio.open(r'J:\My Drive\geocourse_data\outputs\sen2data.tif') as src:
+with rasterio.open(r'J:\My Drive\geocourse_data\outputs\sen2median_2025.tif') as src:
     img = src.read() # Dữ liệu ở định dạng numpy array. Ta có thể xử lý tương tự như các mảng numpy khác.
     meta = src.meta # dictionary chứa các thông tin thuộc tính như kiểu dữ liệu, chiều cao, rộng và số band,etc.
 ```
@@ -274,7 +276,7 @@ Rasterio cung cấp hàm `show()` chuyên dụng để hiển thị raster data 
 ```python
 from rasterio.plot import show
 # Đọc dữ liệu ảnh landsat and hiển thị sử dụng show từ rasterio plot
-file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh landsat đã được tạo ở bước trước
+file = r'G:\My Drive\python\geocourse\data\raster\sen2median_2025.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh landsat đã được tạo ở bước trước
 with rasterio.open(file) as src:
     fig, ax = plt.subplots(1,1, figsize=(10,10))
     show(src.read([3, 2, 1]), transform=src.transform, adjust='linear', ax=ax)

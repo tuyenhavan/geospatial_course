@@ -2,7 +2,7 @@
 
 Trong bài học này, chúng ta sẽ học cách trích xuất giá trị raster theo theo vị trí điểm hoặc polygons sử dụng GEE Python API.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1aXJYL8YYIPwG7tUus-xwzdt8xDyh9bS7) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1aXJYL8YYIPwG7tUus-xwzdt8xDyh9bS7) mà không cần cài đặt Python. 
 
 ## 26.1. Mục tiêu học tập
 
@@ -131,7 +131,7 @@ df.head() # Bạn có thể lọc bỏ những cột không cần thiết nếu 
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 25 và nắm vững kỹ thuật **trích xuất giá trị ảnh theo vị trí** - kỹ năng cốt lõi để kết nối dữ liệu viễn thám với dữ liệu thực địa trên Google Earth Engine.
+Bạn đã hoàn thành Bài 26 và nắm vững kỹ thuật **trích xuất giá trị ảnh theo vị trí** - kỹ năng cốt lõi để kết nối dữ liệu viễn thám với dữ liệu thực địa trên Google Earth Engine.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Trích xuất giá trị pixel tại **dữ liệu điểm** với một ảnh đơn lẻ bằng `sampleRegions()`

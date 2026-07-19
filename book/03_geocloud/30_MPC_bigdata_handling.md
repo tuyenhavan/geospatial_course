@@ -2,7 +2,7 @@
 
 Khi vùng nghiên cứu lớn (tỉnh, quốc gia) hoặc cần xử lý nhiều năm dữ liệu, RAM và thời gian xử lý tuần tự trở thành nút thắt cổ chai. Trong trường hợp như vậy, ta có thể chia nhỏ vùng nghiên cứu và dùng tính toán song song.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1DgEIlmM6WBbCyQaeya72KWQO7P6zUAKj) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1DgEIlmM6WBbCyQaeya72KWQO7P6zUAKj) mà không cần cài đặt Python.
 
 ## 30.1. Mục tiêu học tập
 
@@ -194,7 +194,7 @@ results = dask.compute(*tasks) # Kích hoạt tính toán cho tất cả các t�
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 29 và nắm vững cách **xử lý dữ liệu vệ tinh quy mô lớn từ Microsoft Planetary Computer bằng Dask và kỹ thuật chia tile**.
+Bạn đã hoàn thành Bài 30 và nắm vững cách **xử lý dữ liệu vệ tinh quy mô lớn từ Microsoft Planetary Computer bằng Dask và kỹ thuật chia tile**.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Phân biệt hai cách đọc dữ liệu Sentinel-2: **đọc toàn bộ AOI** (phù hợp vùng nhỏ) và **đọc theo tile** (phù hợp vùng lớn, tiết kiệm bộ nhớ)

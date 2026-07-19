@@ -5,7 +5,7 @@ Zarr và Dask tạo thành bộ công cụ mạnh mẽ cho xử lý **big data �
 - **Zarr**: Định dạng lưu trữ mảng nhiều chiều (array) được tối ưu cho cloud, hỗ trợ chunking và compression mạnh mẽ
 - **Dask**: Framework tính toán song song (parallel computing) với lazy evaluation, có thể scale từ laptop đến HPC cluster
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1k_d-Tn5yPkQKqftoxkoizT53c12Gu3D0) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1k_d-Tn5yPkQKqftoxkoizT53c12Gu3D0) mà không cần cài đặt Python. 
 
 ## 19.1. Mục tiêu học tập
 
@@ -108,7 +108,7 @@ Mảng `Zarr` có ba thuộc tính cơ bản: `shape`, `dtype`, và `thuộc tí
 
 ```python
 # đường dẫn đến thư mục lưu file zarr
-outpath = r"G:\My Drive\python\geocourse\data\outputs"
+outpath = r"J:\My Drive\geocourse_data\outputs"
 ```
 
 - **Tạo zarr array với `zarr.zeros()`**
@@ -260,7 +260,7 @@ Có nhiều cách đọc dữ liệu từ `Zarr Group`, trong phần này chúng
 
 
 ```python
-group = zarr.open_group(r"G:\My Drive\python\geocourse\data\outputs\sentinel2.zarr", mode="r")
+group = zarr.open_group(r"J:\My Drive\geocourse_data\outputs\sentinel2.zarr", mode="r")
 
 print(group.tree())
 ```
@@ -281,7 +281,7 @@ Cách an toàn và hiệu quả nhất để đọc array từ Zarr Group là s�
 
 
 ```python
-b2 = da.from_zarr(r"G:\My Drive\python\geocourse\data\outputs\sentinel2.zarr/B02") # Đọc dữ liệu của band B02 dưới dạng Dask array. Điều này cho phép bạn xử lý dữ liệu lớn một cách hiệu quả hơn bằng cách sử dụng tính năng lazy evaluation của Dask, tránh việc tải toàn bộ dữ liệu vào bộ nhớ cùng một lúc.
+b2 = da.from_zarr(r"J:\My Drive\geocourse_data\outputs\sentinel2.zarr\B02") # Đọc dữ liệu của band B02 dưới dạng Dask array. Điều này cho phép bạn xử lý dữ liệu lớn một cách hiệu quả hơn bằng cách sử dụng tính năng lazy evaluation của Dask, tránh việc tải toàn bộ dữ liệu vào bộ nhớ cùng một lúc.
 print(f"Đã đọc band B02 dưới dạng Dask array với shape: {b2.shape}, dtype: {b2.dtype}, chunks: {b2.chunks}.")
 ```
 

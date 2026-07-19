@@ -2,7 +2,7 @@
 
 Tổng hợp ảnh là kỹ thuật kết hợp nhiều ảnh thành một ảnh đại diện cho một giai đoạn (tháng, mùa, năm). Kĩ thuật này giúp giảm ảnh hưởng của mây và cung cấp dữ liệu đầu vào ổn định hơn cho các phân tích không gian.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ZrYGW8CUmUvAlBx5gwMvbS6L_b2qEo86) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ZrYGW8CUmUvAlBx5gwMvbS6L_b2qEo86) mà không cần cài đặt Python.
 
 ## 25.1. Mục tiêu học tập
 
@@ -681,7 +681,7 @@ print(f"Số lượng ảnh theo tháng (loop): {era5land_monthly_composite_loop
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 24 và nắm vững kỹ thuật **tổng hợp ảnh theo giai đoạn thời gian (temporal compositing)** - bước quan trọng giúp giảm nhiễu, hạn chế ảnh hưởng của mây và tạo ra dữ liệu đầu vào ổn định cho các phân tích không gian trên Google Earth Engine.
+Bạn đã hoàn thành Bài 25 và nắm vững kỹ thuật **tổng hợp ảnh theo giai đoạn thời gian (temporal compositing)** - bước quan trọng giúp giảm nhiễu, hạn chế ảnh hưởng của mây và tạo ra dữ liệu đầu vào ổn định cho các phân tích không gian trên Google Earth Engine.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Phân biệt các phương pháp tổng hợp: **median**, **mean**, **mosaic**, **percentile**, **qualityMosaic** và trường hợp sử dụng phù hợp

@@ -4,7 +4,7 @@ Nước mặt (bao gồm sông, hồ, đầm, và các vùng ngập nước khá
 
 Trong bài học này, chúng ta sẽ sử dụng hai loại dữ liệu vệ tinh bổ trợ cho nhau: ảnh Sentinel-2 với khả năng quang học phát hiện nước qua chỉ số NDWI (Normalized Difference Water Index), và ảnh radar Sentinel-1 với ưu thế xuyên thấu qua mây và hoạt động cả ngày lẫn đêm. Sự kết hợp này cung cấp giải pháp toàn diện để lập bản đồ nước mặt, đặc biệt hiệu quả trong điều kiện thời tiết xấu khi mây che phủ thường xuyên.
 
-> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl) mà không cần cài đặt. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/16UsUWaeWzraRVBDj1WhaxRYZ6GmfL4Pl) mà không cần cài đặt.
 
 ## 34.1. Mục tiêu bài học
 
@@ -127,7 +127,7 @@ Map
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 33 và học được cách sử dụng hai công nghệ vệ tinh bổ trợ, Sentinel-2 quang học và Sentinel-1 radar, để phát hiện và theo dõi nước mặt. Đây là kỹ năng thiết yếu trong ứng dụng viễn thám phục vụ quản lý tài nguyên nước, giám sát biến đổi khí hậu, quy hoạch và phát triển bền vững.
+Bạn đã hoàn thành Bài 34 và học được cách sử dụng hai công nghệ vệ tinh bổ trợ, Sentinel-2 quang học và Sentinel-1 radar, để phát hiện và theo dõi nước mặt. Đây là kỹ năng thiết yếu trong ứng dụng viễn thám phục vụ quản lý tài nguyên nước, giám sát biến đổi khí hậu, quy hoạch và phát triển bền vững.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ **Chỉ số NDWI (Normalized Difference Water Index)**: Tính toán và áp dụng chỉ số phổ từ ảnh Sentinel-2 để phân tách mặt nước dựa trên phản xạ phổ

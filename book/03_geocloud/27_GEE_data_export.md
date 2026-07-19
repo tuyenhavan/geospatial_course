@@ -5,7 +5,7 @@ Google Earth Engine cho phép **export dữ liệu** ở ba dạng chính:
 - **Table → Drive/Asset**: bảng dữ liệu dưới dạng CSV / GeoJSON / SHP
 - **getDownloadURL**: tải trực tiếp ảnh nhỏ về máy (không cần task)
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/15W5vdI05KGvSMtKbiBiVd1h30bDFJ5gQ) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/15W5vdI05KGvSMtKbiBiVd1h30bDFJ5gQ) mà không cần cài đặt Python.
 
 ## 27.1. Mục tiêu học tập
 
@@ -27,7 +27,7 @@ Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo boundi
 
 
 ```python
-# Bounding box cho vùng nghiên cứu ở Đức
+# Bounding box cho vùng nghiên cứu ở Đức. Bạn có thể thay đổi các giá trị này để phù hợp với khu vực bạn quan tâm.
 bbox = [9.84375, 47.5172007 , 10.1953125 , 47.75409798]
 # Tạo một đối tượng hình chữ nhật từ bounding box
 roi = ee.Geometry.Rectangle(bbox)
@@ -159,7 +159,7 @@ display(IPImage(url=url_thumb, width=500))
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 26 và nắm vững kỹ thuật **xuất dữ liệu từ Google Earth Engine** — bước quan trọng để đưa kết quả phân tích từ đám mây về môi trường làm việc cục bộ hoặc lưu trữ lại trên GEE.
+Bạn đã hoàn thành Bài 27 và nắm vững kỹ thuật **xuất dữ liệu từ Google Earth Engine**, bước quan trọng để đưa kết quả phân tích từ đám mây về môi trường làm việc cục bộ hoặc lưu trữ lại trên GEE.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Export ảnh về **Google Drive** dưới dạng GeoTIFF bằng `ee.batch.Export.image.toDrive()`

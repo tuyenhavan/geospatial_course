@@ -2,7 +2,7 @@
 
 Trực quan hóa là chìa khóa để hiểu và truyền đạt dữ liệu. Trong bài học này, bạn sẽ sử dụng Matplotlib để tạo các biểu đồ cơ bản cho dữ liệu bảng và không gian địa lý.  
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1MHoY3BFW510ru85cFieU0z3Sbhq9M5Oq) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1MHoY3BFW510ru85cFieU0z3Sbhq9M5Oq) mà không cần cài đặt Python. 
 
 ## 9.1. Mục tiêu học tập
 - Tạo biểu đồ đường, cột, heatmap, và phân tán

@@ -2,7 +2,7 @@
 
 Bài này tập trung vào các thao tác **cơ bản** trực tiếp trên đối tượng ảnh `ee.Image` - những bước nền tảng cần nắm vững trước khi đi vào phân tích nâng cao. 
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1tfvQiPCMDclw6rGSU_fhUj6l0EXL-s9L) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1tfvQiPCMDclw6rGSU_fhUj6l0EXL-s9L) mà không cần cài đặt Python.
 
 ## 22.1. Mục tiêu bài học
 
@@ -195,15 +195,17 @@ multiply = red.multiply(green).multiply(2)
 
 ### 22.5.4. Phép trừ
 
+Phép trừ (`.subtract()`) cho phép tính hiệu giữa hai bands hoặc giữa một band với một hằng số. Phép toán này rất quan trọng trong viễn thám, đặc biệt khi tính các chỉ số normalized như NDVI, NDWI, hoặc khi phát hiện thay đổi (change detection) bằng cách trừ ảnh thời điểm sau cho thời điểm trước. Kết quả có thể chứa cả giá trị âm và dương tùy thuộc vào band nào lớn hơn tại mỗi pixel. Việc đặt tên rõ ràng cho band kết quả (như 'Red_minus_Green') giúp dễ dàng theo dõi và debug trong các bước xử lý phức tạp.
+
 
 ```python
 # Trừ band Green từ band Red, kết quả đổi tên thành Red_minus_Green
 subtract = red.subtract(green).rename('Red_minus_Green')
 ```
 
-### 22.5.4. Phép trừ
+### 22.5.5. Phép so sánh
 
-Phép trừ (`.subtract()`) cho phép tính hiệu giữa hai bands hoặc giữa một band với một hằng số. Phép toán này rất quan trọng trong viễn thám, đặc biệt khi tính các chỉ số normalized như NDVI, NDWI, hoặc khi phát hiện thay đổi (change detection) bằng cách trừ ảnh thời điểm sau cho thời điểm trước. Kết quả có thể chứa cả giá trị âm và dương tùy thuộc vào band nào lớn hơn tại mỗi pixel. Việc đặt tên rõ ràng cho band kết quả (như 'Red_minus_Green') giúp dễ dàng theo dõi và debug trong các bước xử lý phức tạp.
+
 
 - **So sánh lớn hơn**
 
