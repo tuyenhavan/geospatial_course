@@ -4,7 +4,7 @@ Chào mừng bạn đến với bài học đầu tiên về phân tích dữ li
 
 Shapely dựa trên thư viện GEOS được sử dụng rộng rãi (công cụ hình học của PostGIS) và cung cấp giao diện Python đơn giản, trực quan để làm việc với các hình dạng hình học 2D.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1skhbj_1CUFf_MKcPCwmb8tlGP4exdIpg) mà không cần cài Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1skhbj_1CUFf_MKcPCwmb8tlGP4exdIpg) mà không cần cài Python. 
 
 ## 11.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -14,7 +14,6 @@ Sau khi hoàn thành bài học này, bạn sẽ có thể:
 - Kiểm tra mối quan hệ không gian (contains, intersects, touches)
 - Áp dụng các phép biến đổi hình học (rotate, scale, translate)
 - Làm việc với các đối tượng đa hình học phức tạp
-- Tối ưu hóa hiệu suất cho dữ liệu không gian lớn
 
 
 ```python

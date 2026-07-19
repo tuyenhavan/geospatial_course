@@ -2,7 +2,7 @@
 
 XArray là thư viện Python mạnh mẽ cho việc xử lý dữ liệu mảng N-chiều có nhãn, đặc biệt thiết yếu cho phân tích không gian và khoa học khí hậu.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1rTVx0BhRIu_5-P9eU8czyaNEjzeCl7va) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1rTVx0BhRIu_5-P9eU8czyaNEjzeCl7va) mà không cần cài đặt Python. 
 
 ## 17.1. Mục tiêu học tập
 
@@ -202,7 +202,8 @@ Xarray hỗ trợ nhiều định dạng phổ biến như NetCDF, GRIB, HDF5, Z
 
 ```python
 url = 'http://dapds00.nci.org.au/thredds/dodsC/rr3/CMIP5/output1/CSIRO-BOM/ACCESS1-3/historical/mon/atmos/Amon/r1i1p1/latest/tas/tas_Amon_ACCESS1-3_historical_r1i1p1_185001-200512.nc'
-ds = xr.open_dataset(url)
+
+ds = xr.open_dataset(url, engine="netcdf4")
 ```
 
 ### 17.4.2. Viết dữ liệu
@@ -221,39 +222,38 @@ XArray cung cấp nhiều hàm tính toán cho dữ liệu đa chiều.
 
 ### 17.5.1. Các phép tổng hợp
 
-XArray cung cấp các phép toán tổng hợp (aggregation) mạnh mẽ để tính toán thống kê trên dữ liệu đa chiều. Các hàm như `mean()`, `median()`, `sum()`, `min()`, `max()`, `std()` có thể áp dụng trên toàn bộ mảng hoặc chỉ theo một/nhiều dimensions cụ thể thông qua tham số `dim`. Ví dụ, tính mean theo dimension 'time' sẽ tạo climatology (khí hậu trung bình), còn tính mean theo 'x' và 'y' sẽ tạo time series trung bình không gian. Khả năng chỉ định dimensions giúp phân tích linh hoạt theo nhiều khía cạnh khác nhau.
+XArray cung cấp các phép toán tổng hợp (aggregation) mạnh mẽ để tính toán thống kê trên dữ liệu đa chiều. Các hàm như `mean()`, `median()`, `sum()`, `min()`, `max()`, `std()` có thể áp dụng trên toàn bộ mảng hoặc chỉ theo một/nhiều dimensions cụ thể thông qua tham số `dim`. Ví dụ, tính mean theo dimension 'time' sẽ tạo EVI trung bình, còn tính mean theo 'x' và 'y' sẽ tạo time series trung bình không gian. Khả năng chỉ định dimensions giúp phân tích linh hoạt theo nhiều khía cạnh khác nhau.
 
 
 ```python
-# Đọc file tif và trả về Dataset. Đây là dữ liệu về nhiệt độ
-data = xr.open_dataset(r"G:\My Drive\python\geocourse\data\raster\Vietnam_Temperature_2020.tif")
-# Chọn dimension 'band' để lấy dữ liệu nhiệt độ
-temp = data['band_data']
-temp.attrs = ""
-# Tạo ra một danh sách hàng tháng cho 2020 
-time = pd.date_range(start='2020-01-01', periods=len(temp), freq='ME')
-temp['band'] = time  # Gán dimension 'band' thành 'time' với giá trị là danh sách thời gian hàng tháng
-temp = temp.rename({
+# Đọc file tif và trả về Dataset. Đây là dữ liệu về EVI (Enhanced Vegetation Index) hàng tháng từ năm 2020 đến 2025 cho tỉnh Vĩnh Phúc, Việt Nam. Dữ liệu này có thể được sử dụng để phân tích sự thay đổi của thảm thực vật theo thời gian.
+data = xr.open_dataset(r"J:\My Drive\geocourse_data\raster\modis_monthly_evi_vinhphuc_2020_2025.tif")
+# Chọn dimension 'band' cho EVI
+evi = data['band_data'] # dataarray
+# # Tạo ra một danh sách hàng tháng cho 2020 
+time = pd.date_range(start='2020-01-01', periods=len(evi), freq='MS') # Tạo danh sách thời gian hàng tháng từ 2020-01-31 đến 2024-12-31
+evi['band'] = time  # Gán dimension 'band' thành 'time' với giá trị là danh sách thời gian hàng tháng
+evi = evi.rename({
     'band': 'time'
-}) # Đổi tên dimension 'band' thành 'time' để dễ hiểu hơn. Bây giờ ta có một DataArray với dimension 'time' và dữ liệu nhiệt độ tương ứng cho mỗi tháng từ 2020 đến 2024.
+}) # Đổi tên dimension 'band' thành 'time' để dễ hiểu hơn.
 ```
 
 - **Tính giá trị trung bình theo `dimension` xác định**
 
-Phương thức `.mean(dim='time')` tính giá trị trung bình dọc theo dimension 'time', thu gọn dimension đó và trả về DataArray có số chiều ít hơn. Kết quả là một bản đồ climatology - giá trị nhiệt độ trung bình theo thời gian tại mỗi điểm không gian. Đây là phép toán phổ biến nhất trong phân tích khí hậu để xác định mức chuẩn (baseline) hoặc trung bình dài hạn. Bạn cũng có thể tính mean theo nhiều dimensions cùng lúc, ví dụ `dim=['time', 'x']`.
+Phương thức `.mean(dim='time')` tính giá trị trung bình dọc theo dimension 'time', thu gọn dimension đó và trả về DataArray có số chiều ít hơn. Kết quả là một bản đồ EVI - giá trị EVI trung bình theo thời gian tại mỗi điểm không gian. Đây là phép toán phổ biến nhất trong phân tích khí hậu hoặc thực vật để xác định mức chuẩn (baseline) hoặc trung bình dài hạn. Bạn cũng có thể tính mean theo nhiều dimensions cùng lúc, ví dụ `dim=['time', 'x']`.
 
 
 ```python
-mean_temp = temp.mean(dim='time') # Tính giá trị trung bình của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ qua thời gian.
+mean_evi = evi.mean(dim='time') # Tính giá trị trung bình EVI qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ qua thời gian.
 ```
 
 - **Tính giá trị trung vị theo `dimension` xác định**
 
-Phương thức `.median(dim='time')` tính giá trị trung vị thay vì trung bình, giúp loại bỏ ảnh hưởng của outliers (giá trị ngoại lệ). Trung vị ít bị ảnh hưởng bởi các giá trị cực đoan như sóng nhiệt hay đợt lạnh bất thường, do đó có thể phản ánh xu hướng trung tâm đáng tin cậy hơn trong một số trường hợp. Phép toán này đặc biệt hữu ích khi dữ liệu có phân phối không đối xứng hoặc chứa nhiễu cao.
+Phương thức `.median(dim='time')` tính giá trị trung vị thay vì trung bình, giúp loại bỏ ảnh hưởng của outliers (giá trị ngoại lệ). Trung vị ít bị ảnh hưởng bởi các giá trị cực đoan như ảnh hưởng bởi mây hoặc thời tiết, do đó có thể phản ánh xu hướng trung tâm đáng tin cậy hơn trong một số trường hợp. Phép toán này đặc biệt hữu ích khi dữ liệu có phân phối không đối xứng hoặc chứa nhiễu cao.
 
 
 ```python
-median = temp.median(dim='time') # Tính giá trị trung vị của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là trung vị của nhiệt độ qua thời gian.
+median = evi.median(dim='time') # Tính giá trị trung vị của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là trung vị của nhiệt độ qua thời gian.
 ```
 
 - **Tính tổng theo `dimension` xác định**
@@ -262,19 +262,23 @@ Phương thức `.sum(dim='time')` tính tổng các giá trị dọc theo dimen
 
 
 ```python
-total = temp.sum(dim='time') # Tính tổng của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là tổng của nhiệt độ qua thời gian.
+total = evi.sum(dim='time') # Tính tổng EVI qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là tổng của EVI qua thời gian.
 ```
 
 - **Tính giá trị min, max, std theo `dimension` xác định**
 
-Ba phương thức `.min()`, `.max()`, `.std()` tính các thống kê cực trị và độ biến động. Min/max cho biết nhiệt độ thấp nhất/cao nhất đã quan sát được, hữu ích để xác định records hoặc extreme events. Standard deviation (std) đo lường độ dao động xung quanh giá trị trung bình - std cao chỉ ra biến động lớn theo thời gian hoặc không gian. Các thống kê này thường được dùng để phát hiện xu hướng biến đổi khí hậu và đánh giá rủi ro cực đoan.
+Ba phương thức `.min()`, `.max()`, `.std()` tính các thống kê cực trị và độ biến động. Min/max cho biết EVI thấp nhất/cao nhất đã quan sát được, hữu ích để xác định records hoặc extreme events. Standard deviation (std) đo lường độ dao động xung quanh giá trị trung bình - std cao chỉ ra biến động lớn theo thời gian hoặc không gian.
 
 
 ```python
-min_temp = temp.min(dim='time') # Tính giá trị nhỏ nhất của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là nhiệt độ thấp nhất qua thời gian.
-max_temp = temp.max(dim='time') # Tính giá trị lớn nhất của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là nhiệt độ cao nhất qua thời gian.
-std_temp = temp.std(dim='time') # Tính độ lệch chuẩn của nhiệt độ qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là độ lệch chuẩn của nhiệt độ qua thời gian.
+min_evi = evi.min(dim='time') # Tính giá trị nhỏ nhất EVI qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là nhiệt độ thấp nhất qua thời gian.
+max_evi = evi.max(dim='time') # Tính giá trị lớn nhất EVI qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là nhiệt độ cao nhất qua thời gian.
+std_evi = evi.std(dim='time') # Tính độ lệch chuẩn EVI qua tất cả các tháng. Kết quả sẽ là một DataArray mới với giá trị là độ lệch chuẩn của nhiệt độ qua thời gian.
 ```
+
+    c:\Users\tuyen\miniconda3\envs\geocourse\Lib\site-packages\numpy\lib\_nanfunctions_impl.py:1997: RuntimeWarning: Degrees of freedom <= 0 for slice.
+      var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+    
 
 ### 17.5.2. Phép tính đơn giản khác
 
@@ -282,7 +286,7 @@ Ngoài tính toán theo một dimension, bạn có thể tính mean theo nhiều
 
 
 ```python
-temporal_mean = temp.mean(dim=('x', 'y')) # Tính giá trị trung bình của nhiệt độ qua tất cả các điểm không gian (x và y) cho mỗi thời điểm. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ qua không gian cho mỗi thời điểm.
+temporal_mean = evi.mean(dim=('x', 'y')) # Tính giá trị trung bình EVI qua tất cả các điểm không gian (x và y) cho mỗi thời điểm. 
 ```
 
 ## 17.6. Tính toán dựa theo nhóm
@@ -291,46 +295,45 @@ temporal_mean = temp.mean(dim=('x', 'y')) # Tính giá trị trung bình của n
 
 ### 17.6.1. Tính toán theo nhóm
 
-GroupBy là một trong những tính năng mạnh mẽ nhất của XArray, cho phép nhóm dữ liệu theo các thuộc tính thời gian (month, year, season, dayofyear...) và áp dụng các phép tính tổng hợp. `.groupby('time.month')` nhóm tất cả các time steps có cùng tháng (January, February,...) rồi tính toán trên từng nhóm. Điều này giúp trích xuất patterns theo mùa vụ, chu kỳ hàng năm hay biến động seasonal. GroupBy tương tự như trong pandas nhưng được tối ưu cho dữ liệu đa chiều và xử lý coordinates tự động.
+GroupBy là một trong những tính năng mạnh mẽ nhất của XArray, cho phép nhóm dữ liệu theo các thuộc tính thời gian (month, year, season, dayofyear...) và áp dụng các phép tính tổng hợp. `.groupby('time.month')` nhóm tất cả các time steps có cùng tháng (January, February,...) rồi tính toán trên từng nhóm. Điều này giúp trích xuất xu hướng theo mùa vụ, chu kỳ hàng năm hay biến động theo mùa. GroupBy tương tự như trong pandas nhưng được tối ưu cho dữ liệu đa chiều và xử lý coordinates tự động.
 
 - **Tính trung bình theo tháng**
 
-`.groupby('time.month').mean()` tính climatology hàng tháng - nhiệt độ trung bình cho mỗi tháng trong lịch (January = tháng 1, February = tháng 2,...) dựa trên toàn bộ dữ liệu lịch sử. Kết quả là 12 giá trị đại diện cho chu kỳ mùa vụ điển hình. Đây là công cụ cơ bản để hiểu climate normal và so sánh anomalies. Ví dụ, bạn có thể thấy tháng 7-8 luôn nóng nhất, tháng 12-1 lạnh nhất ở miền Bắc Việt Nam.
+Hàm `.groupby('time.month').mean()` tính giá trị hàng tháng - nhiệt độ hoặc EVI trung bình cho mỗi tháng trong lịch (January = tháng 1, February = tháng 2,...) dựa trên toàn bộ dữ liệu lịch sử. Kết quả là 12 giá trị đại diện cho chu kỳ mùa vụ điển hình. 
 
 
 ```python
-month_mean = temp.groupby('time.month').mean() # Tính giá trị trung bình của nhiệt độ theo từng tháng trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ cho mỗi tháng (từ 1 đến 12).
-# Tương tự như vậy, ta có thể tính min, max, std theo từng tháng bằng cách thay mean() bằng min(), max(), std() trong câu lệnh trên.
+month_mean = evi.groupby('time.month').mean() # Tính giá trị trung bình EVI theo từng tháng trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của EVI cho mỗi tháng (từ 1 đến 12).
 ```
 
 - **Tính trung bình theo năm**
 
-`.groupby('time.year').mean()` tính giá trị trung bình cho mỗi năm trong dataset, tạo ra annual time series. Phép toán này loại bỏ biến động seasonal và giúp nhận diện xu hướng dài hạn như global warming hay climate variability. So sánh annual means giữa các năm cho thấy năm nào nóng/lạnh bất thường hoặc có climate extremes. Đây là bước đầu tiên trong phân tích xu hướng và trend detection.
+Hàm `.groupby('time.year').mean()` tính giá trị trung bình cho mỗi nămnăm. Phép toán này loại bỏ biến động theo mùa và giúp nhận diện xu hướng dài hạn như global warming hay climate variability. So sánh giá trị trung bình giữa các năm cho thấy năm nào nóng/lạnh bất thường. Đây là bước đầu tiên trong phân tích xu hướng.
 
 
 ```python
-yearly_mean = temp.groupby('time.year').mean() # Tính giá trị trung bình của nhiệt độ theo từng năm trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ cho mỗi năm.
+yearly_mean = evi.groupby('time.year').mean() # Tính giá trị trung bình EVI theo từng năm trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của EVI cho mỗi năm.
 ```
 
 - **Tính trung bình theo mùa**
 
-`.groupby('time.season').mean()` nhóm dữ liệu theo 4 mùa meteorological chuẩn: DJF (Dec-Jan-Feb = Winter), MAM (Mar-Apr-May = Spring), JJA (Jun-Jul-Aug = Summer), SON (Sep-Oct-Nov = Autumn). Kết quả là 4 giá trị đại diện cho nhiệt độ trung bình mùa. Phân tích seasonal rất quan trọng để hiểu climate patterns, ảnh hưởng monsoon, và planning cho nông nghiệp. Lưu ý rằng definition của mùa có thể khác nhau giữa Northern và Southern Hemisphere.
+Hàm `.groupby('time.season').mean()` nhóm dữ liệu theo 4 mùa: DJF (Dec-Jan-Feb = Winter), MAM (Mar-Apr-May = Spring), JJA (Jun-Jul-Aug = Summer), SON (Sep-Oct-Nov = Autumn). Kết quả là 4 giá trị đại diện cho nhiệt độ trung bình mùa. Phân tích theo mùa rất quan trọng để hiểu xu hướng, ảnh hưởng thời tiết, và quy hoặch cho nông nghiệp. Lưu ý rằng định nghĩa mùa có thể khác nhau giữa Bắc và Nam bán cầu.
 
 
 ```python
-seasonal_mean = temp.groupby('time.season').mean() # Tính giá trị trung bình của nhiệt độ theo từng mùa trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ cho mỗi mùa (Spring, Summer, Autumn, Winter).
+seasonal_mean = evi.groupby('time.season').mean() # Tính giá trị trung bình EVI theo từng mùa trong giai đoạn quan sát. Kết quả sẽ là một DataArray mới với giá trị là trung bình của EVI cho mỗi mùa (Spring, Summer, Autumn, Winter).
 ```
 
 - **Tính trung bình theo giai đoạn**
 
-Bạn có thể tự định nghĩa giai đoạn custom bằng cách lọc dữ liệu trước khi groupby. Ví dụ, chọn các tháng mùa hè (4-8) với `.isin(summer_months)`, sau đó group theo năm để tính summer mean cho mỗi năm. Kỹ thuật này cho phép phân tích các periods đặc biệt như: mùa mưa (May-Oct), mùa khô (Nov-Apr), hoặc growing season của cây trồng. Sự linh hoạt này rất quan trọng cho regional climate analysis phù hợp với đặc thù địa phương.
+Trong nhiều trường hợp, nghiên cứu có thể cần tính giá trị trung bình theo một giai đoạn cụ thể nào đó. Trong trường hợp này, bạn có thể tự định nghĩa giai đoạn bằng cách lọc dữ liệu trước khi groupby. Ví dụ, chọn các tháng mùa hè (4-8) với `.isin(summer_months)`, sau đó group theo năm để tính summer mean cho mỗi năm. Kỹ thuật này cho phép phân tích các giai đoạn đặc biệt như: mùa mưa (May-Oct), mùa khô (Nov-Apr), hoặc growing season của cây trồng. Sự linh hoạt này rất quan trọng cho phân tích vùng với đặc thù địa phương.
 
 
 ```python
 # Calculate mean cho tháng 4,5,6,7,8 mỗi năm 
 summer_months = [4, 5, 6, 7, 8]
 # Lọc dữ liệu cho các tháng sau 
-summer_data = temp.sel(time=temp['time.month'].isin(summer_months))
+summer_data = evi.sel(time=evi['time.month'].isin(summer_months))
 # Tính giá trị trung bình cho các tháng mùa hè theo năm 
 summer_mean = summer_data.groupby('time.year').mean()
 
@@ -338,23 +341,23 @@ summer_mean = summer_data.groupby('time.year').mean()
 
 ### 17.6.2. Tính theo rolling 
 
-`rolling` trong Xarray dùng để tính toán trên cửa sổ trượt (moving window) dọc theo một chiều (thường là time). Ví dụ như bạn muốn tính trung bình nhiệt độ theo thời gian với một cửa sổ 3 tháng, giúp làm mượt dữ liệu theo thời gian. Tuy nhiên, lưu ý rằng các giá trị ở đầu và cuối của chuỗi thời gian sẽ có giá trị NaN do không đủ dữ liệu để tính toán trong cửa sổ 3 tháng.
+Hàm `rolling` trong Xarray dùng để tính toán trên cửa sổ trượt (moving window) dọc theo một chiều (thường là thời gian). Ví dụ như bạn muốn tính trung bình EVI theo thời gian với một cửa sổ 3 tháng, giúp làm mượt dữ liệu theo thời gian. Tuy nhiên, lưu ý rằng các giá trị ở đầu và cuối của chuỗi thời gian sẽ có giá trị NaN do không đủ dữ liệu để tính toán trong cửa sổ 3 tháng.
 
 
 ```python
-# Tính rolling mean với cửa sổ 3 tháng để làm mượt dữ liệu nhiệt độ theo thời gian
-rolling_mean = temp.rolling(time=3, center=True).mean() # Tính rolling mean với cửa sổ 3 tháng. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ trong cửa sổ 3 tháng, giúp làm mượt dữ liệu theo thời gian. Tuy nhiên, tháng đầu và tháng cuối sẽ có giá trị NaN do không đủ dữ liệu để tính trung bình trong cửa sổ 3 tháng.
+# Tính rolling mean với cửa sổ 3 tháng để làm mượt dữ liệu EVI theo thời gian
+rolling_mean = evi.rolling(time=3, center=True).mean() # Tính rolling mean với cửa sổ 3 tháng. 
 # Tương tự vậy, bạn có thể tính rolling min, max, std bằng cách thay mean() bằng min(), max(), std() trong câu lệnh trên và theo time step khác nhau (ví dụ: time=6 cho rolling 6 tháng, time=12 cho rolling 1 năm, v.v.).
 ```
 
 ### 17.6.3. Tính theo resampling
 
-Resample là kỹ thuật tái lấy mẫu (resampling) dữ liệu theo tần suất thời gian mới. `.resample(time='1Y').mean()` gom tất cả monthly data trong mỗi năm và tính trung bình, tạo annual time series. Khác với groupby('time.year'), resample giữ nguyên datetime index và có thể handle các time frequencies phức tạp (quarters, weeks, custom periods). Resample hỗ trợ cả upsampling (tăng tần suất với interpolation) và downsampling (giảm tần suất với aggregation), là công cụ chuẩn cho time series analysis và data harmonization.
+Resample là kỹ thuật tái lấy mẫu (resampling) dữ liệu theo tần suất thời gian mới. `.resample(time='1Y').mean()` gom tất cả monthly data trong mỗi năm và tính trung bình, tạo annual time series. Khác với groupby('time.year'), resample giữ nguyên datetime index và có thể handle các time frequencies phức tạp (quarters, weeks, custom periods). Resample hỗ trợ cả upsampling (tăng tần suất với interpolation) và downsampling (giảm tần suất với aggregation), là công cụ chuẩn cho phân tích dữ liệu theo thời gian.
 
 
 ```python
 # Tính giá trị trung bình nhiệt độ sử dụng resample để tính theo năm
-yearly_mean_resample = temp.resample(time='1Y').mean() # Tính giá trị trung bình của nhiệt độ theo năm sử dụng resample. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ cho mỗi năm, được tính bằng cách lấy trung bình của tất cả các tháng trong mỗi năm.
+yearly_mean_resample = evi.resample(time='1YE').mean() # Tính giá trị trung bình EVI theo năm sử dụng resample. Kết quả sẽ là một DataArray mới với giá trị là trung bình của nhiệt độ cho mỗi năm, được tính bằng cách lấy trung bình của tất cả các tháng trong mỗi năm.
 ```
 
 ## 17.7. Tính toán nâng cao
@@ -363,11 +366,11 @@ XArray cung cấp các công cụ mạnh mẽ để áp dụng các hàm tùy ch
 
 ### 17.7.1. Tính toán sử dụng hàm `apply_ufunc`
 
-`apply_ufunc()` trong xarray được dùng để áp dụng các hàm NumPy hoặc hàm tùy chỉnh lên dữ liệu của `DataArray/Dataset` theo cách tương thích với dimensions và coordinates của xarray. Mục tiêu chính là giúp vector hóa phép tính, tự động broadcast dữ liệu theo chiều và hỗ trợ xử lý song song với `Dask` khi làm việc với dữ liệu lớn.
+Hàm `apply_ufunc()` trong xarray được dùng để áp dụng các hàm NumPy hoặc hàm tùy chỉnh lên dữ liệu của `DataArray/Dataset` theo cách tương thích với dimensions và coordinates của xarray. Mục tiêu chính là giúp vector hóa phép tính, tự động broadcast dữ liệu theo chiều và hỗ trợ xử lý song song với `Dask` khi làm việc với dữ liệu lớn.
 
-- **Tính sự bất thường nhiệt độ (anomaly)**
+- **Tính sự bất thường EVI (anomaly)**
 
-Giả sử ta muốn đánh giá liệu nhiệt độ tại một thời điểm có cao hay thấp hơn mức bình thường hay không. Một cách tiếp cận phổ biến là tính sự bất thường nhiệt độ (temperature anomaly), được xác định bằng độ chênh lệch giữa nhiệt độ quan sát và nhiệt độ trung bình của giai đoạn tham chiếu. Giá trị dương biểu thị nhiệt độ cao hơn trung bình, trong khi giá trị âm cho thấy nhiệt độ thấp hơn trung bình.
+Giả sử ta muốn đánh giá liệu EVI tại một thời điểm có cao hay thấp hơn mức bình thường hay không. Một cách tiếp cận phổ biến là tính sự bất thường (EVI anomaly), được xác định bằng độ chênh lệch giữa EVI độ quan sát và EVI trung bình của giai đoạn tham chiếu. Giá trị dương biểu thị EVI cao hơn trung bình, trong khi giá trị âm cho thấy EVI thấp hơn trung bình.
 
 
 ```python
@@ -376,7 +379,7 @@ def calculate_annomaly(x):
 # Tính anomaly bằng cách trừ đi giá trị trung bình của toàn bộ dữ liệu
 anomaly = xr.apply_ufunc(
     calculate_annomaly,
-    temp,
+    evi,
     input_core_dims=[['time']],  # Chỉ định dimension 'time' là dimension cốt lõi để áp dụng hàm
     output_core_dims=[['time']],  # Kết quả cũng sẽ có dimension 'time'
     vectorize=True  # Cho phép áp dụng hàm cho từng phần tử trong DataArray

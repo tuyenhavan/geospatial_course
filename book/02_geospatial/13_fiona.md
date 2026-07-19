@@ -2,7 +2,7 @@
 
 Fiona cung cấp giao diện Python đơn giản, đáng tin cậy và hiệu quả để làm việc với các tệp dữ liệu không gian địa lý. Được xây dựng trên nền tảng OGR (một phần của GDAL), Fiona tập trung hoàn toàn vào việc xử lý dữ liệu vector và là thư viện I/O nền tảng cho GeoPandas.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10AskmkiK2lrTNQCCDXs1uDk39Llytn21) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/10AskmkiK2lrTNQCCDXs1uDk39Llytn21) mà không cần cài đặt Python.
 
 ## 13.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:
@@ -33,7 +33,7 @@ Trước khi ghi dữ liệu vào file, chúng ta cần chuẩn bị dữ liệu
 
 
 ```python
-# Tạo dữ liệu mẫu về các tỉnh/thành phố Việt Nam. Dữ liệu này mang tính minh họa và nên kiểm tra lại trước khi sử dụng cho mục đích chính thức.
+# Tạo dữ liệu mẫu về các tỉnh/thành phố Việt Nam năm 2024. Dữ liệu này mang tính minh họa và nên kiểm tra lại trước khi sử dụng cho mục đích chính thức.
 vietnam_cities_data = [
     {
         'name': 'Hà Nội',
@@ -46,7 +46,7 @@ vietnam_cities_data = [
     {
         'name': 'TP. Hồ Chí Minh', 
         'type': 'Thành phố trực thuộc TW',
-        'population': 9077158,
+        'population': 9577158,
         'area_km2': 2061.45,
         'region': 'Miền Nam', 
         'coordinates': (10.8231, 106.6297),
@@ -157,6 +157,14 @@ with fiona.open(geojson_file, 'r') as src:
             break
 ```
 
+    name: str
+    type: str
+    population: int32
+    area_km2: float
+    region: str
+    density: float
+    
+
 ## 13.3. Lọc thông tin và chuyển đổi format
 
 Đọc hiệu quả tập con dữ liệu dựa trên tiêu chí không gian và thuộc tính.
@@ -178,6 +186,11 @@ with fiona.open(geojson_file, 'r') as src:
 
 print(f"→ Tìm thấy {len(large_cities)} thành phố lớn")
 ```
+
+    🏙️ Hà Nội: 8,860,000 người
+    🏙️ TP. Hồ Chí Minh: 9,577,158 người
+    → Tìm thấy 2 thành phố lớn
+    
 
 ### 13.3.2. Đổi từ `geojson` sang `shapefile`
 

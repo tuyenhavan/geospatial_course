@@ -2,7 +2,7 @@
 
 Google Earth Engine (GEE) là một trong những nền tảng điện toán đám mây mạnh mẽ nhất thế giới dành cho phân tích dữ liệu địa không gian, cung cấp quyền truy cập vào hàng nghìn bộ dữ liệu vệ tinh, khí hậu và địa lý, miễn phí cho nghiên cứu và giáo dục theo một cách thống nhất. Trước khi học bày này, bạn cần phải đăng kí tài khoản GEE nếu chưa có. Bạn có thể tham khảo hướng dẫn đăng kí theo video [link](https://www.youtube.com/watch?v=O9iyjs4w-8I) này.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LEBpB_hGojZUNfwdUc1ATZnpr86JwVJ4) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1LEBpB_hGojZUNfwdUc1ATZnpr86JwVJ4) mà không cần cài đặt Python.
 
 ## 21.1. Mục tiêu học tập
 

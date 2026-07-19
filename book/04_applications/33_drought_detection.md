@@ -4,7 +4,7 @@ Hạn hán là một trong những thảm họa tự nhiên nghiêm trọng, ả
 
 Trong bài học này, chúng ta sẽ sử dụng dữ liệu MODIS để tính toán chỉ số tình trạng thực vật (VCI - Vegetation Condition Index) và dữ liệu ERA5-Land để tính toán chỉ số bất thường lượng mưa (Precipitation Anomaly Index). Hai chỉ số này kết hợp với nhau cung cấp cái nhìn toàn diện về tình trạng hạn hán, từ góc độ tình trạng thực vật và lượng mưa, giúp đánh giá mức độ nghiêm trọng và phạm vi ảnh hưởng của hạn hán trên khu vực nghiên cứu.
 
-> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x) mà không cần cài đặt. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1COpwmlu8fIU1z2LObsOllYW5JKd3kn_x) mà không cần cài đặt. 
 
 ## 33.1. Mục tiêu bài học
 
@@ -28,7 +28,7 @@ import ee
 import geemap 
 import geopandas as gpd
 ee.Authenticate()
-ee.Initialize(project='geocourse-501706')
+ee.Initialize(project='geocourse-501706') # Thay đổi dự án của bạn ở đây
 ```
 
 ## 33.3. Tính toán chỉ số hạn hán
@@ -56,7 +56,7 @@ VCI dao động từ 0 đến 100, với giá trị thấp (< 35) chỉ ra đi�
 
 - **Đọc và chuẩn bị dữ liệu**
 
-Bước đầu tiên trong tính toán VCI là chuẩn bị dữ liệu MODIS EVI chất lượng cao. Chúng ta kết hợp dữ liệu từ cả hai vệ tinh Terra (MOD13A2) và Aqua (MYD13A2) để tăng tần suất quan sát và giảm khoảng trống do mây. Sau đó áp dụng cloud masking dựa trên band DetailedQA để loại bỏ các pixel bị ảnh hưởng bởi mây, bóng mây và tuyết. Dữ liệu được scale về khoảng 0-1 (nhân với 0.0001) theo tài liệu của NASA. Cuối cùng, tổng hợp ảnh theo tháng bằng median để tạo ra chuỗi thời gian EVI hàng tháng ổn định, loại bỏ nhiễu và cung cấp đầu vào tin cậy cho tính toán VCI.
+Bước đầu tiên trong tính toán VCI là chuẩn bị dữ liệu MODIS EVI. Chúng ta kết hợp dữ liệu từ cả hai vệ tinh Terra (MOD13A2) và Aqua (MYD13A2) để tăng tần suất quan sát và giảm khoảng trống do mây. Sau đó áp dụng cloud masking dựa trên band DetailedQA để loại bỏ các pixel bị ảnh hưởng bởi mây, bóng mây và tuyết. Dữ liệu được scale về khoảng 0-1 (nhân với 0.0001) theo tài liệu của NASA. Cuối cùng, tổng hợp ảnh theo tháng bằng median để tạo ra chuỗi thời gian EVI hàng tháng ổn định, loại bỏ nhiễu và cung cấp đầu vào tin cậy cho tính toán VCI.
 
 
 ```python
@@ -147,7 +147,7 @@ Map
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 32 và học được cách sử dụng dữ liệu viễn thám MODIS và ERA5-Land để theo dõi và đánh giá tình trạng hạn hán - kỹ năng quan trọng trong ứng dụng viễn thám phục vụ nông nghiệp, quản lý tài nguyên nước và cảnh báo thiên tai.
+Bạn đã hoàn thành Bài 33 và học được cách sử dụng dữ liệu viễn thám MODIS và ERA5-Land để theo dõi và đánh giá tình trạng hạn hán - kỹ năng quan trọng trong ứng dụng viễn thám phục vụ nông nghiệp, quản lý tài nguyên nước và cảnh báo thiên tai.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ **Chỉ số VCI (Vegetation Condition Index)**: Tính toán và hiểu ý nghĩa của chỉ số tình trạng thực vật dựa trên dữ liệu MODIS EVI, phản ánh sức khỏe cây trồng và mức độ hạn hán sinh học

@@ -3,7 +3,7 @@
 Trong các bài toán viễn thám hiện nay, phân loại lớp phủ đất là một trong những hướng nghiên cứu quan trọng, cho phép xác định các loại bề mặt lớp phủ khác nhau như đất rừng, đất nông nghiệp, đất đô thị hay mặt nước từ dữ liệu ảnh vệ tinh. Với sự phát triển của máy học, thay vì xây dựng các ngưỡng thủ công, ta có thể huấn luyện mô hình dựa trên dữ liệu phổ để tự động học mối quan hệ giữa đặc trưng ảnh và các lớp đất.
 
 
-> **Lưu ý**: Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1VioqXc1Y0goh2aliaL-x7HLEJyKFEYln). Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Nếu bạn chưa muốn cài đặt Python trên máy tính, bạn cũng có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1VioqXc1Y0goh2aliaL-x7HLEJyKFEYln).
 >
 > Dữ liệu thực hành có thể tải tại [đây](https://drive.google.com/drive/folders/119C2B1pBKwvDx5OASvQRvGR1lOljgJNd?usp=sharing)
 
@@ -16,13 +16,15 @@ Trong các bài toán viễn thám hiện nay, phân loại lớp phủ đất l
 
 ## 32.2. Chuẩn bị dữ liệu
 
-Trong ví dụ này, ta sử dụng GEE để tải dữ liệu ảnh vệ tinh Sentinel-2 trong giai đoạn 2025-06-01 đến 2025-09-30 cho AOI (khu vực nghiên cứu), lựa chọn các kênh phổ quan trọng gồm B2, B3, B4, B5, B6, B7 và B8 để đại diện cho thông tin màu sắc và cấu trúc thực vật. Để giảm nhiễu do mây (giới hạn 5% mây) và biến động ngắn hạn, giá trị median theo thời gian được sử dụng nhằm tạo ra một ảnh đại diện ổn định cho toàn bộ giai đoạn nghiên cứu.
+Trong ví dụ này, ta sử dụng GEE để tải dữ liệu ảnh vệ tinh Sentinel-2 trong giai đoạn 2025-06-01 đến 2025-09-30 cho AOI (khu vực nghiên cứu), lựa chọn các kênh phổ quan trọng gồm B2, B3, B4, B5, B6, B7 và B8 để đại diện cho thông tin màu sắc và cấu trúc thực vật. Để giảm nhiễu do mây (giới hạn 5% mây) và sau đó tính giá trị median để tạo ra một ảnh đại diện ổn định cho toàn bộ giai đoạn nghiên cứu.
 
-Từ tập hợp đặc trưng phổ này, ta xây dựng bộ dữ liệu huấn luyện để mô hình học máy nhận biết các loại lớp phủ đất với 5 loại đất chính (1: Nước, 2: Rừng, 3: Nông nghiệp, 4: Đô thị/đường, 5: Cây bụi). Sau khi huấn luyện, mô hình được áp dụng để dự đoán bản đồ phân loại cho toàn bộ vùng nghiên cứu, từ đó hỗ trợ phân tích hiện trạng và biến động sử dụng đất trong khu vực.
+Từ tập hợp đặc trưng phổ này, ta xây dựng bộ dữ liệu huấn luyện để mô hình học máy nhận biết các loại lớp phủ đất với 5 loại đất chính (1: Nước, 2: Rừng, 3: Nông nghiệp, 4: Đô thị/đường, 5: Cây bụi). Sau khi huấn luyện, mô hình được áp dụng để dự đoán bản đồ phân loại cho toàn bộ vùng nghiên cứu, từ đó hỗ trợ phân tích hiện trạng sử dụng đất trong khu vực.
 
 ### 32.2.1. Xác định vùng nghiên cứu và ảnh Sentinel-2
 
-Trong ví dụ này, ta xác định vùng nghiên cứu là một vùng nhỏ ở phía Nam nước Đức như bên dưới, nhưng phương pháp và quy trình thực hiện hoàn toàn có thể mở rộng và áp dụng cho bất kỳ khu vực nghiên cứu nào khác.
+Trong ví dụ này, ta chọn vùng nghiên cứu là một vùng nhỏ ở phía nam nước Đức như được xác định bởi bounding box bên dưới. 
+
+> Bạn có thể chọn khu vực nghiên cứu khác và phương pháp và quy trình thực hiện hoàn toàn tương tự.
 
 
 ```python
@@ -70,7 +72,7 @@ task = ee.batch.Export.image.toDrive(
 
 Trong bài này, chúng ta sẽ sử dụng mô hình máy học Random Forest để phân loại lớp phủ đất. Random Forest là một thuật toán học máy giám sát, hoạt động bằng cách xây dựng nhiều cây quyết định từ các mẫu dữ liệu huấn luyện khác nhau. Kết quả phân loại cuối cùng được xác định dựa trên nguyên tắc bỏ phiếu của các cây, giúp tăng độ chính xác, giảm hiện tượng quá khớp (overfitting) và cho kết quả ổn định trên các bộ dữ liệu viễn thám.
 
-Trong Python, Random Forest được tích hợp sẵn trong thư viện `scikit-learn` (sklearn), vì vậy chúng ta chỉ cần import mô hình từ thư viện và sử dụng để huấn luyện cũng như dự đoán dữ liệu.
+Trong Python, Random Forest được tích hợp sẵn trong thư viện `scikit-learn`, vì vậy chúng ta chỉ cần import mô hình từ thư viện và sử dụng để huấn luyện cũng như dự đoán dữ liệu.
 
 
 ```python
@@ -94,6 +96,8 @@ data['classes'].value_counts() # Có vẻ class số 2 nhiều hơn, mất cân 
 
 - **Chia dữ liệu thành tập train và tập test**
 
+Để đánh giá hiệu suất của mô hình, chúng ta nên chia dữ liệu thành hai phần: tập huấn luyện (train set) dùng để huấn luyện mô hình và tập kiểm tra (test set) dùng để đánh giá độ chính xác. Ở đây ta sử dụng hàm `train_test_split` từ `scikit-learn` với tỷ lệ 80% dữ liệu cho huấn luyện và 20% cho kiểm tra.
+
 
 ```python
 X = data.drop(columns=['classes']).values
@@ -104,6 +108,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 - **Huấn luyện mô hình**
 
+Sau khi đã chia dữ liệu, chúng ta khởi tạo mô hình Random Forest với `n_estimators=500` (số lượng cây quyết định trong rừng) và `random_state=42` để đảm bảo tính tái lập của kết quả. Sau đó sử dụng phương thức `fit()` để huấn luyện mô hình trên tập dữ liệu huấn luyện.
+
 
 ```python
 model = RandomForestClassifier(n_estimators=500, random_state=42)
@@ -111,6 +117,12 @@ model.fit(X_train, y_train)
 ```
 
 ### 32.3.2. Đánh giá mô hình
+
+Sau khi huấn luyện mô hình, chúng ta cần đánh giá hiệu suất của nó trên tập dữ liệu kiểm tra để xem mô hình có thể tổng quát hóa tốt trên dữ liệu mới hay không. Các chỉ số đánh giá quan trọng bao gồm:
+
+- **Accuracy (Độ chính xác)**: Tỷ lệ phần trăm mẫu được phân loại đúng trên tổng số mẫu
+- **Precision, Recall, F1-score**: Đánh giá chi tiết độ chính xác, độ bao phủ và cân bằng giữa hai chỉ số này cho từng lớp
+- **Confusion Matrix**: Ma trận nhầm lẫn giúp xem xét chi tiết các lớp nào bị nhầm lẫn với nhau, từ đó có thể cải thiện mô hình hoặc thu thập thêm dữ liệu huấn luyện cho các lớp này
 
 
 ```python
@@ -135,7 +147,7 @@ print("Confusion Matrix (Percentage):")
 print(conf_matrix_df)
 ```
 
-Nhìn chung mô hình có độ chính xác cao, đạt khoảng 98% trên tập kiểm tra. Trong số các loại đất, cây bụi có độ chính xác thấp nhấp, khoảng 61%, chủ yếu nhầm lẫn với class đô thị/đường. Chú ý rằng, đây chỉ là một ví dụ minh họa, và hiệu suất thực tế có thể khác nhau tùy thuộc vào dữ liệu huấn luyện và kiểm tra cụ thể.
+> **Nhận xét**: Nhìn chung mô hình có độ chính xác cao, đạt khoảng 98% trên tập kiểm tra. Trong số các loại đất, **cây bụi** có độ chính xác thấp nhấp, khoảng 61%, chủ yếu nhầm lẫn với **đô thị/đường**. Chú ý rằng, đây chỉ là một ví dụ minh họa, và để đánh giá khả năng tổng quát hóa của mô hình, cần kiểm định trên tập dữ liệu độc lập tại khu vực hoặc thời điểm khác nhằm đánh giá khả năng chuyển giao theo không gian và thời gian (spatial và temporal transferability) của mô hình.
 
 
 ```python
@@ -152,6 +164,8 @@ Sau khi mô hình đã được huấn luyện, chúng ta có thể sử dụng 
 Có nhiều cách để đưa dữ liệu ảnh về theo cấu trúc dữ liệu huấn luyện mô hình. Trong ví dụ này, chúng ta sử dụng 2 cách là dùng `rioxarray` và `rasterio`.
 
 - **Đọc ảnh với xarray và dự đoán**
+
+Phương pháp này sử dụng `rioxarray` để đọc toàn bộ ảnh vào bộ nhớ, sau đó chuyển đổi dữ liệu từ dạng đa chiều (bands, height, width) sang dạng phẳng (n_samples, n_features) để phù hợp với đầu vào của mô hình. Phương pháp này đơn giản nhưng yêu cầu bộ nhớ RAM lớn nếu ảnh có kích thước lớn.
 
 
 ```python

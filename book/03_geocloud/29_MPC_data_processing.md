@@ -2,7 +2,7 @@
 
 Trong bài  học này, chúng ta sẽ tập trung vào **xử lý dữ liệu** đã load từ MPC: tính toán các chỉ số thực vật, tổng hợp ảnh theo giai đoạn. 
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1R_6-vpCz3G4wobJcSFGqa1ajC8DPZHYj) mà không cần cài đặt Python.
 
 ## 29.1. Mục tiêu học tập
 
@@ -100,7 +100,7 @@ Sentinel-2 là hệ thống vệ tinh quan sát Trái Đất phát triển và q
 
 
 ```python
-# Bounding box cho vùng nghiên cứu ở Đức
+# Bounding box cho vùng nghiên cứu ở Đức. Bạn có thể thay đổi các giá trị này để phù hợp với khu vực bạn quan tâm.
 bbox = [9.84375   , 47.5172007 , 10.1953125 , 47.75409798]
 # Tìm kiếm các item trong catalog của Microsoft Planetary Computer
 sen2data = load_data(
@@ -133,6 +133,7 @@ EVI là chỉ số thực vật được phát triển nhằm cải thiện kh�
 
 
 ```python
+# Công thức tính EVI (Enhanced Vegetation Index) tham khảo từ https://www.indexdatabase.de/db/i.php
 evi = 2.5 * (sen2data["B08"] - sen2data["B04"]) / (sen2data["B08"] + 6 * sen2data["B04"] - 7.5 * sen2data["B02"] + 1)
 first_evi = evi.isel(time=0)
 print(f'Giá trị EVI trung bình cho vùng nghiên cứu vào ngày đầu tiên: {first_evi.mean().compute().item():.4f}')
@@ -144,6 +145,7 @@ SAVI là chỉ số thực vật được thiết kế để giảm ảnh hưở
 
 
 ```python
+# Tham khảo công thức tính SAVI (Soil Adjusted Vegetation Index) từ https://www.indexdatabase.de/db/i.php
 savi = (sen2data['B08']-sen2data['B04'])*(1+0.5)/(sen2data['B08']+sen2data['B04']+0.5)
 print(f"Giá trị SAVI trung bình cho vùng nghiên cứu cho ngày đầu tiên: {savi.isel(time=0).mean().compute().item():04f}")
 ```
@@ -197,7 +199,7 @@ print(f"Số tháng NDVI {len(monthly_ndvi.time)}")
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 28 và nắm vững cách **tính toán chỉ số thực vật và tổng hợp ảnh theo thời gian từ dữ liệu Sentinel-2 trên (MPC)**.
+Bạn đã hoàn thành Bài 29 và nắm vững cách **tính toán chỉ số thực vật và tổng hợp ảnh theo thời gian từ dữ liệu Sentinel-2 trên (MPC)**.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Viết hàm tái sử dụng **`search_items_by_bbox`** và **`load_data`** để tìm kiếm và tải dữ liệu từ MPC theo bbox, khoảng thời gian và mức độ che phủ mây

@@ -7,7 +7,7 @@ GDAL bao gồm 3 thành phần chính:
 - **OGR**: Xử lý dữ liệu vector (điểm, đường, vùng)
 - **OSR**: Quản lý hệ tọa độ tham chiếu (CRS) và phép chiếu bản đồ
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1Vj7XgUfvuHVRH5AVFnx-6RTF_M3BJRmk) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1Vj7XgUfvuHVRH5AVFnx-6RTF_M3BJRmk) mà không cần cài đặt Python.
 
 ## 14.1. Mục tiêu học tập
 
@@ -211,8 +211,8 @@ OGR (phần vector của GDAL) cho phép đọc dữ liệu vector từ nhiều 
 
 ```python
 # Đọc file GeoJSON tỉnh/thành Việt Nam
-vector_path = r"J:\My Drive\geocourse_data\outputs\vector"
-geojson_path = os.path.join(vector_path, 'Vietnam_provinces.geojson')
+vector_path = r"J:\My Drive\geocourse_data\vector"
+geojson_path = os.path.join(vector_path, 'vinhphuc_districts.geojson')
 ds = ogr.Open(geojson_path, 0)  # 0 = read-only, 1 = read-write
 
 if ds is None:

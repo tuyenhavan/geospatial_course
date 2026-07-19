@@ -2,7 +2,7 @@
 
 NumPy là nền tảng của tính toán số trong Python. Trong phân tích không gian địa lý, nó được sử dụng cho các phép toán mảng hiệu quả, dữ liệu raster và tính toán toán học.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1J2vFtvV5vV7kjuWnC03HQqiDdltyeBxz) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1J2vFtvV5vV7kjuWnC03HQqiDdltyeBxz) mà không cần cài đặt Python.
 
 ## 7.1. Mục tiêu học tập
 - Hiểu về NumPy arrays và ưu điểm so với lists

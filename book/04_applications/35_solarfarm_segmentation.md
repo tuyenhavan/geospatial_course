@@ -4,7 +4,7 @@ Năng lượng mặt trời đang ngày càng đóng vai trò quan trọng trong
 
 Trong bài học này, chúng ta sẽ áp dụng kỹ thuật học sâu (deep learning) với kiến trúc `UNet`, một trong những mô hình được sử dụng phổ biến cho bài toán phân đoạn ảnh (image segmentation), kết hợp với dữ liệu ảnh vệ tinh Sentinel-2 để tự động phát hiện và vẽ ranh giới các trang trại điện mặt trời. Phương pháp này không chỉ tiết kiệm thời gian mà còn có khả năng xử lý diện tích lớn, mở ra tiềm năng ứng dụng trong giám sát và quản lý năng lượng tái tạo quy mô quốc gia.
 
-> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ikx8wnQpOg6GAeQwjHMIdN5p9qs3GmcV) mà không cần cài đặt thự viện hay Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ikx8wnQpOg6GAeQwjHMIdN5p9qs3GmcV) mà không cần cài đặt thự viện hay Python. 
 >
 > Dữ liệu thực hành có thể tải tại [đây](https://drive.google.com/drive/folders/119C2B1pBKwvDx5OASvQRvGR1lOljgJNd?usp=sharing)
 
@@ -767,7 +767,7 @@ pred_mask.rio.to_raster(output_path, compress='LZW')
 
 # Tóm tắt
 
-Bạn đã hoàn thành Bài 34 và học được cách áp dụng học sâu với kiến trúc UNet để giải quyết bài toán phân đoạn ảnh vệ tinh - một kỹ năng quan trọng trong ứng dụng AI cho viễn thám và giám sát môi trường. Đây là nền tảng để bạn có thể mở rộng sang các bài toán phân đoạn phức tạp hơn như phát hiện nhiều lớp đối tượng, theo dõi biến đổi đất đai, hoặc giám sát thiên tai.
+Bạn đã hoàn thành Bài 35 và học được cách áp dụng học sâu với kiến trúc UNet để giải quyết bài toán phân đoạn ảnh vệ tinh - một kỹ năng quan trọng trong ứng dụng AI cho viễn thám và giám sát môi trường. Đây là nền tảng để bạn có thể mở rộng sang các bài toán phân đoạn phức tạp hơn như phát hiện nhiều lớp đối tượng, theo dõi biến đổi đất đai, hoặc giám sát thiên tai.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ **Kiến trúc UNet**: Hiểu rõ cấu trúc encoder-decoder với skip connections, tại sao UNet hiệu quả cho phân đoạn ảnh

@@ -2,7 +2,7 @@
 
 **Microsoft Planetary Computer (MPC)** là nền tảng lưu trữ dữ liệu địa không gian quy mô lớn của Microsoft, cung cấp hàng petabytes dữ liệu vệ tinh miễn phí thông qua giao thức **STAC** (SpatioTemporal Asset Catalog).
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1YslcGkhMOSraKeamuw722b0H5MN6Krix) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1YslcGkhMOSraKeamuw722b0H5MN6Krix) mà không cần cài đặt Python.
 
 ## 28.1. Mục tiêu học tập
 
@@ -64,11 +64,13 @@ from odc.stac import stac_load
 import xarray as xr
 ```
 
+- **Khu vực nghiên cứu**
+
 Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo bounding bên dưới. Bạn có thể thay đổi vị trí và thời gian phù hợp với yêu cầu của bạn.
 
 
 ```python
-# Bounding box cho vùng nghiên cứu ở Đức
+# Bounding box cho vùng nghiên cứu ở Đức. Bạn có thể thay đổi các giá trị này để phù hợp với khu vực bạn quan tâm.
 bbox = [9.84375   , 47.5172007 , 10.1953125 , 47.75409798]
 ```
 
@@ -286,7 +288,7 @@ dem = (
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 27 và nắm vững cách **truy cập và đọc dữ liệu địa không gian từ Microsoft Planetary Computer (MPC)** - nền tảng dữ liệu vệ tinh quy mô lớn sử dụng giao thức STAC.
+Bạn đã hoàn thành Bài 28 và nắm vững cách **truy cập và đọc dữ liệu địa không gian từ Microsoft Planetary Computer (MPC)** - nền tảng dữ liệu vệ tinh quy mô lớn sử dụng giao thức STAC.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Kiến trúc **STAC** (Catalog → Collection → Item → Asset) và cách MPC tổ chức petabytes dữ liệu vệ tinh

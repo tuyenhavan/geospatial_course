@@ -2,7 +2,7 @@
 
 Trong bài học này, chúng ta sẽ tìm hiểu các khối xây dựng cơ bản trong lập trình Python. Bài học này có [video](https://www.youtube.com/watch?v=aFI6suhmjhQ&t=6s) kèm theo. 
 
->> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+>> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1ymxXpoIDpsnhi45-g_9Rges2XAsZAlcB) mà không cần cài đặt Python.
 
 ## 2.1. Mục tiêu học tập
 Sau khi hoàn thành bài học này, bạn sẽ có thể:

@@ -2,7 +2,7 @@
 
 Chỉ số thực vật (vegetation indices) được tính từ tổ hợp các bands phổ - đặc biệt là `NIR` và `Red` - phản ánh trạng thái sức khoẻ và mật độ thực vật. Bài này trình bày cách tính các chỉ số phổ biến nhất trên ba nguồn dữ liệu chính trong GEE như Sentinel-2, Landsat, MODIS.
 
-> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/155KvAL7reLN-rBWaWCP6SntYu2-c-0D2) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/155KvAL7reLN-rBWaWCP6SntYu2-c-0D2) mà không cần cài đặt Python.
 
 ## 24.1. Mục tiêu học tập
 
@@ -26,7 +26,7 @@ Trong bài học này, chúng ta sẽ chọn khu vực nghiên cứu theo boundi
 
 
 ```python
-# Bounding box cho vùng nghiên cứu ở Đức
+# Bounding box cho vùng nghiên cứu ở Đức. Bạn có thể thay đổi các giá trị này để phù hợp với khu vực bạn quan tâm.
 bbox = [9.84375   , 47.5172007 , 10.1953125 , 47.75409798]
 # Tạo một đối tượng hình chữ nhật từ bounding box
 roi = ee.Geometry.Rectangle(bbox)
@@ -376,7 +376,7 @@ viirs_indices = viirs.select(["NDVI", "EVI"])
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 23 và nắm vững cách **tính toán các chỉ số thực vật** từ nhiều nguồn dữ liệu vệ tinh trên Google Earth Engine.
+Bạn đã hoàn thành Bài 24 và nắm vững cách **tính toán các chỉ số thực vật** từ nhiều nguồn dữ liệu vệ tinh trên Google Earth Engine.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ Ý nghĩa và công thức của các chỉ số phổ biến: NDVI, EVI, SAVI, NDWI

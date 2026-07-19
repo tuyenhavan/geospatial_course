@@ -2,7 +2,7 @@
 
 Pandas là thư viện chính cho việc thao tác và phân tích dữ liệu trong Python. Nó rất quan trọng để làm việc với dữ liệu dạng bảng.
 
-> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1C4_tMHXoBSEvCWVO7d-XLGg4W6DQWfQt) mà không cần cài đặt Python. Trong trường hợp bạn muốn tạo bản sao của notebook này, bạn có thể làm như sau: `File → Save a copy in Drive`.
+> **Lưu Ý**: Bạn có thể chạy trực tiếp notebook này bằng **Google Colab** thông qua [liên kết này](https://colab.research.google.com/drive/1C4_tMHXoBSEvCWVO7d-XLGg4W6DQWfQt) mà không cần cài đặt Python. 
 
 ## 8.1. Mục tiêu học tập
 - Tạo và sử dụng DataFrames
