@@ -62,7 +62,7 @@ Truy cập và xử lý dữ liệu địa không gian quy mô lớn trên các 
 | 28     | Truy cập dữ liệu (Microsoft Planetary Computer)             |
 | 29     | Xử lý dữ liệu (Microsoft Planetary Computer)                |
 | 30     | Xử lý dữ liệu lớn (Microsoft Planetary Computer)            |
-| 31     | Truy cập và xử lý dữ liệu Copernicus (CDSE)                 |
+| 31     | Truy cập dữ liệu Copernicus (CDSE)                 |
 
 ---
 
@@ -107,6 +107,6 @@ Nội dung, mã nguồn và dữ liệu trong dự án này chỉ nhằm mục �
 
 ## Kết nối
 
-Trong quá trình học, nếu bạn có bất kỳ câu hỏi nào, hãy tham gia và trao đổi trên nhóm Facebook chính thức của khóa học: [Open Learning Geolab](https://www.facebook.com/groups/4141192679432266). Đây là nơi bạn có thể đặt câu hỏi, thảo luận và đóng góp giúp cải thiện khóa học.
+Trong quá trình học, nếu bạn có bất kỳ câu hỏi nào hoặc góp ý, hãy tham gia và trao đổi trên nhóm Facebook chính thức của khóa học: [Open Learning Geolab](https://www.facebook.com/groups/4141192679432266). Đây là nơi bạn có thể đặt câu hỏi, thảo luận và đóng góp giúp cải thiện khóa học.
 
 

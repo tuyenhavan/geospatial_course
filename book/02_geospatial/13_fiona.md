@@ -157,14 +157,6 @@ with fiona.open(geojson_file, 'r') as src:
             break
 ```
 
-    name: str
-    type: str
-    population: int32
-    area_km2: float
-    region: str
-    density: float
-    
-
 ## 13.3. Lọc thông tin và chuyển đổi format
 
 Đọc hiệu quả tập con dữ liệu dựa trên tiêu chí không gian và thuộc tính.
@@ -186,11 +178,6 @@ with fiona.open(geojson_file, 'r') as src:
 
 print(f"→ Tìm thấy {len(large_cities)} thành phố lớn")
 ```
-
-    🏙️ Hà Nội: 8,860,000 người
-    🏙️ TP. Hồ Chí Minh: 9,577,158 người
-    → Tìm thấy 2 thành phố lớn
-    
 
 ### 13.3.2. Đổi từ `geojson` sang `shapefile`
 

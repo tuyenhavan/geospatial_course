@@ -125,7 +125,7 @@ temperature = xr.Dataset(
     coords={"point": range(4), "lon": ("point", lon), "lat": ("point", lat)}
 )
 # Thêm crs và transform cho Dataset
-temperature.rio.set_crs("EPSG:4326", inplace=True)
+temperature.rio.write_crs("EPSG:4326", inplace=True)
 # create transform
 transform = from_bounds(min(lon), min(lat), max(lon), max(lat), len(lon), len(lat))
 temperature.rio.write_transform(transform, inplace=True)
@@ -177,7 +177,7 @@ climate = xr.Dataset(
     coords={"time": time, "lon": lon, "lat": lat}
 )
 # Thêm crs và transform cho Dataset
-climate.rio.set_crs("EPSG:4326", inplace=True)
+climate.rio.write_crs("EPSG:4326", inplace=True)
 # create transform
 transform = from_bounds(min(lon), min(lat), max(lon), max(lat), len(lon), len(lat))
 climate.rio.write_transform(transform, inplace=True)
@@ -189,7 +189,7 @@ RioXArray hỗ trợ đa dạng định dạng raster như `GeoTIFF`, `NetCDF`, 
 
 ### 18.4.1. Đọc dữ liệu từ `url`
 
-RioXArray cho phép đọc dữ liệu raster trực tiếp từ URL mà không cần tải về máy tính, giúp tiết kiệm không gian lưu trữ và tăng tốc độ xử lý. Điều này đặc biệt hữu ích khi làm việc với dữ liệu lớn hoặc khi bạn muốn thử nghiệm nhanh mà không cần tải toàn bộ dữ liệu về máy.
+RioXArray cho phép đọc dữ liệu raster trực tiếp từ URL mà không cần tải về máy tính, giúp tiết kiệm không gian lưu trữ và tăng tốc độ xử lý. Điều này đặc biệt hữu ích khi làm việc với dữ liệu lớn hoặc khi bạn muốn thử nghiệm nhanh mà không cần tải toàn bộ dữ liệu về máy. Trong vị dụ này, chúng ta đọc dữ liệu nhiệt độ được lưu trên Github như bên dưới.
 
 
 ```python
@@ -216,7 +216,7 @@ Có nhiều phương pháp để xác định kích thước pixel và xây dự
 
 - **Sử dụng `from_bounds`**
 
-`from_bounds()` được sử dụng khi biết tọa độ biên của raster (west, south, east, north) và kích thước ảnh (width, height). Hàm sẽ tự động tính kích thước pixel và tạo affine transform phù hợp cho raster.
+Hàm `from_bounds()` được sử dụng khi biết tọa độ biên của raster (west, south, east, north) và kích thước ảnh (width, height). Hàm sẽ tự động tính kích thước pixel và tạo affine transform phù hợp cho raster.
 
 
 ```python
@@ -238,7 +238,7 @@ temperature.rio.write_transform(transform, inplace=True)
 
 - **Sử dụng from_origin**
 
-`from_origin()` được sử dụng khi biết tọa độ góc trên bên trái của raster (west, north) và kích thước pixel (xsize, ysize). Hàm sẽ tạo affine transform dựa trên vị trí gốc và độ phân giải của ảnh.
+Hàm `from_origin()` được sử dụng khi biết tọa độ góc trên bên trái của raster (west, north) và kích thước pixel (xsize, ysize). Hàm sẽ tạo affine transform dựa trên vị trí gốc và độ phân giải của ảnh.
 
 
 ```python
@@ -268,7 +268,7 @@ temperature.rio.write_transform(transform, inplace=True)
 
 ### 18.4.2. Chuyển đổi hệ tọa độ sử dụng `reproject`
 
-Reproject là quá trình chuyển đổi dữ liệu địa lý từ một hệ tọa độ này sang một hệ tọa độ khác. Điều này rất quan trọng trong GIS và phân tích không gian, vì dữ liệu có thể được thu thập hoặc lưu trữ ở các hệ tọa độ khác nhau. Việc reproject đảm bảo rằng dữ liệu của bạn được định vị thống nhất trên cùng một hệ tọa độ.
+Hàm `reproject` là quá trình chuyển đổi dữ liệu địa lý từ một hệ tọa độ này sang một hệ tọa độ khác. Điều này rất quan trọng trong GIS và phân tích không gian, vì dữ liệu có thể được thu thập hoặc lưu trữ ở các hệ tọa độ khác nhau. Việc reproject đảm bảo rằng dữ liệu của bạn được định vị thống nhất trên cùng một hệ tọa độ.
 
 
 ```python
@@ -280,7 +280,7 @@ print(f"Reprojected CRS: {temperature_4326.rio.crs}")
 
 ### 18.4.3. Chuyển đổi CRS và khớp lưới pixel sử dụng `reproject_match`
 
-`Reproject_match` là một phương pháp trong rioxarray cho phép bạn tái dự án một Dataset hoặc DataArray sao cho nó khớp với hệ tọa độ và phép biến đổi của một đối tượng tham chiếu khác. Điều này rất hữu ích khi bạn có nhiều nguồn dữ liệu với các hệ tọa độ khác nhau và muốn đảm bảo rằng chúng được căn chỉnh chính xác trên bản đồ như kích thước pixels hay tranform. 
+Hàm `reproject_match` là một phương pháp trong rioxarray cho phép bạn tái dự án một Dataset hoặc DataArray sao cho nó khớp với hệ tọa độ và phép biến đổi của một đối tượng tham chiếu khác. Điều này rất hữu ích khi bạn có nhiều nguồn dữ liệu với các hệ tọa độ khác nhau và muốn đảm bảo rằng chúng được căn chỉnh chính xác trên bản đồ như kích thước pixels hay tranform. 
 
 Trong ví dụ này, ta sẽ sử dụng `reproject_match` để khớp dữ liệu 10m với dữ liệu 30m như bên dưới.
 

@@ -24,7 +24,7 @@ import rioxarray as rxr
 
 ## 20.2. Hiển thị dữ liệu vector
 
-Bước đầu tiên trong trực quan hóa dữ liệu địa không gian là học cách hiển thị một lớp dữ liệu vector đơn giản. Trong phần này, chúng ta sẽ vẽ bản đồ ranh giới tỉnh thành của Việt Nam bằng GeoPandas và Matplotlib. Đây là nền tảng cơ bản nhất - chỉ một lớp dữ liệu vector với các tùy chỉnh màu sắc, đường viền, lưới tọa độ và nhãn trục. Dữ liệu vector được lấy từ GADM (Database of Global Administrative Areas) - nguồn dữ liệu ranh giới hành chính miễn phí và có chất lượng cao.
+Bước đầu tiên trong trực quan hóa dữ liệu địa không gian là học cách hiển thị một lớp dữ liệu vector đơn giản. Trong phần này, chúng ta sẽ vẽ bản đồ ranh giới của Singapore bằng GeoPandas và Matplotlib. Đây là nền tảng cơ bản nhất - chỉ một lớp dữ liệu vector với các tùy chỉnh màu sắc, đường viền, lưới tọa độ và nhãn trục. Dữ liệu vector được lấy từ GADM (Database of Global Administrative Areas) - nguồn dữ liệu ranh giới hành chính miễn phí và có chất lượng cao.
 
 
 ```python
@@ -57,7 +57,7 @@ Sau khi đã hiểu cách hiển thị dữ liệu vector, bước tiếp theo l
 
 
 ```python
-# Đọc dữ liệu raster từ URL và hiển thị thông tin cơ bản
+# Đọc dữ liệu nhiệt độ khu vực Vĩnh Phúc đã chuẩn bị trên github theo đường link bên dưới
 temperature = rxr.open_rasterio('https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/vinhphuc_temperature_2020.tif')
 ```
 
@@ -88,7 +88,7 @@ Khi đã nắm vững cách hiển thị từng loại dữ liệu riêng lẻ, 
 ```python
 # Tạo figure và axes
 fig, ax = plt.subplots(figsize=(10, 10))
-# Doc dữ liệu vector từ URL và tạo bản đồ
+# Đọc danh giới cấp huyện
 vector = gpd.read_file('https://raw.githubusercontent.com/tuyenhavan/geodata/refs/heads/main/vector/vinhphuc_districts.geojson')
 # Hiển thị raster với colormap tùy chỉnh
 plot = first.plot(ax=ax, cmap='Spectral_r', add_colorbar=False, vmin=16, vmax=19)  # Sử dụng colormap 'viridis' để hiển thị raster

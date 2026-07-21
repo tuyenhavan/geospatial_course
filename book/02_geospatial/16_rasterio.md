@@ -276,7 +276,7 @@ Rasterio cung cấp hàm `show()` chuyên dụng để hiển thị raster data 
 ```python
 from rasterio.plot import show
 # Đọc dữ liệu ảnh landsat and hiển thị sử dụng show từ rasterio plot
-file = r'G:\My Drive\python\geocourse\data\raster\sen2median_2025.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh landsat đã được tạo ở bước trước
+file = r'G:\My Drive\python\geocourse\data\raster\sen2median_2025.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh Sentinel-2
 with rasterio.open(file) as src:
     fig, ax = plt.subplots(1,1, figsize=(10,10))
     show(src.read([3, 2, 1]), transform=src.transform, adjust='linear', ax=ax)
@@ -508,8 +508,8 @@ Bạn có thể sử dụng hàm `reproject` của rasterio để chuyển đổ
 # Reproject raster từ WGS84 sang UTM Zone 48N
 src_crs = CRS.from_epsg(4326)  # WGS84
 dst_crs = CRS.from_epsg(32648)  # UTM Zone 48N
-file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh Sentinel-2 đã được tạo ở bước trước. Đảm bảo file nãy dữ liệu đang ở hệ tọa độ WGS84 (EPSG:4326). Nếu không, bạn cần thay đổi đường dẫn đến file ảnh khác có hệ tọa độ WGS84.
-outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_utm48n.tif'
+file = 'https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/vinhphuc_precipitation_2020.tif' # bạn cần thay đổi đường dẫn này thành đường dẫn đến file ảnh cua ban. Đảm bảo file nãy dữ liệu đang ở hệ tọa độ WGS84 (EPSG:4326)
+outfile = r"J:\My Drive\geocourse_data\outputs\vinhphuc_precipitation_2020_utm48.tif"
 with rasterio.open(file) as src:
     transform, width, height = calculate_default_transform(
         src.crs, dst_crs, src.width, src.height, *src.bounds)
@@ -530,7 +530,7 @@ with rasterio.open(file) as src:
                 src_crs=src.crs,
                 dst_transform=transform,
                 dst_crs=dst_crs,
-                resampling=Resampling.nearest)         
+                resampling=Resampling.nearest)
 ```
 
 ### 16.8.3. Clip raster theo vector
@@ -539,10 +539,10 @@ Clip dữ liệu raster là việc sử dụng một đa giác (polygon) để c
 
 
 ```python
-poly = gpd.read_file(r"G:\My Drive\python\geocourse\data\vector\subset_polygon.geojson")
-# Clip raster sử dụng poly 
-file = r'G:\My Drive\python\geocourse\data\raster\sen2data.tif'
-outfile = r'G:\My Drive\python\geocourse\data\raster\sen2data_clipped.tif'
+poly = gpd.read_file('https://raw.githubusercontent.com/tuyenhavan/geodata/refs/heads/main/vector/tile_0.geojson')
+# Clip raster sử dụng poly
+file = 'https://raw.githubusercontent.com/tuyenhavan/geodata/main/raster/sen2data.tif'
+outfile = r"J:\My Drive\geocourse_data\outputs\sen2data_clipped.tif"
 with rasterio.open(file) as src:
     poly = poly.to_crs(src.crs)  # Chuyển poly sang hệ tọa độ của raster nếu cần
     out_img, out_transform = mask(src, poly.geometry.to_list(), crop=True)
