@@ -222,7 +222,7 @@ vinhphuc_districts.head(2)
 
 ## Tóm tắt
 
-Bạn đã hoàn thành Bài 5 và học được GeoPandas - thư viện "con dao Thụy Sĩ" cho geospatial data analysis trong Python.
+Bạn đã hoàn thành Bài 15 và học được GeoPandas - thư viện "con dao Thụy Sĩ" cho geospatial data analysis trong Python.
 
 ### Các khái niệm chính đã nắm vững:
 - ✅ **GeoDataFrames**: Pandas DataFrames với geometry column cho spatial data

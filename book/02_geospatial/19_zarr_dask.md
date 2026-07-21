@@ -31,7 +31,7 @@ Dask là thư viện Python giúp xử lý dữ liệu lớn bằng cách chia n
 
 ### 29.2.1. Tạo dask array
 
-Để bắt đầu làm việc với Dask, bạn cần chuyển đổi dữ liệu từ NumPy array sang Dask array bằng hàm `da.from_array()`. Điều quan trọng nhất khi tạo Dask array là chọn kích thước chunk phù hợp - quá lớn sẽ tốn bộ nhớ, quá nhỏ sẽ làm tăng overhead tính toán. Thông thường, mỗi chunk nên có kích thước từ 100MB đến 1GB. Dask array hoạt động theo cơ chế lazy evaluation, nghĩa là không có tính toán nào được thực hiện cho đến khi bạn gọi `.compute()`.
+Để bắt đầu làm việc với Dask, chúng ra sẽ tạo dữ liệu ngẫu nhiên sử dụng `numpy` và chuyển đổi chúng sang Dask array bằng hàm `da.from_array()`. Điều quan trọng nhất khi tạo Dask array là chọn kích thước chunk phù hợp - quá lớn sẽ tốn bộ nhớ, quá nhỏ sẽ làm tăng overhead tính toán. Thông thường, mỗi chunk nên có kích thước từ 100MB đến 1GB. Dask array hoạt động theo cơ chế lazy evaluation, nghĩa là không có tính toán nào được thực hiện cho đến khi bạn gọi `.compute()`.
 
 
 ```python
