@@ -1,4 +1,4 @@
-# Phân tích Dữ liệu Địa không gian với Python
+# Dữ liệu Địa không gian với Python
 
 Chuỗi bài hướng dẫn toàn diện về lập trình Python ứng dụng trong phân tích dữ liệu địa không gian, viễn thám và các nền tảng địa không gian đám mây.
 
