@@ -4,7 +4,7 @@ Mục tiêu của đóng gói Python là biến mã nguồn thành một sản p
 
 ## 10.1. Mục tiêu học tập
 - Hiểu cách tổ chức và cấu trúc một dự án Python
-- Quản lý thư viện và môi trường làm việc (pip, venv)
+- Quản lý thư viện và môi trường làm việc
 - Đóng gói dự án thành thư viện hoặc ứng dụng có thể cài đặt
 - Phân phối và chia sẻ package Python cho người khác
 - Sử dụng poetry cho việc tạo và quản lý gói python.
@@ -15,12 +15,12 @@ Chúng ta có thể tạo dự án (package) mới với nhiều công cụ khá
 
 ### 10.2.1. Tạo môi trường ảo 
 
-Trước khi tạo dự án Python, chúng ta nên tạo ra một môi trường ảo cho dự án.
+Trước khi tạo dự án Python, chúng ta nên tạo ra một môi trường ảo cho dự án như bên dưới. Trong bài này, chúng ta sẽ đặt tên là `geomath`, giống với tên gói Python mà chúng ta muốn tạo. 
 
 ```bash
 conda create -n geomath python=3.12 -y
 ```
-Sau khi tạo ra môi trường ảo `geomath`, chúng ta kích hoạt nó.
+Sau khi tạo ra môi trường ảo `geomath`, chúng ta kích hoạt nó và cài đặt các thư viện nếu cần thiết.
 
 ```bash
 conda activate geomath
